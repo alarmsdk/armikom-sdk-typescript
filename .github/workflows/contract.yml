@@ -1,0 +1,110 @@
+# W-10 acceptance criterion. Two independent halves, both of which must hold:
+#
+#   drift  — regenerating produces byte-identical output. Catches a hand-edit of
+#            generated/, or an unpinned toolchain moving under us.
+#   pin    — the spec committed here is still byte-identical to the frozen
+#            artifact at tag api-v1.0 on Armikom.Api. Catches the SDK drifting
+#            off the frozen contract.
+#
+# Neither catches the other's failure, which is why both exist.
+
+name: contract
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  schedule:
+    - cron: '17 4 * * 1'   # weekly: the pin can rot without anyone touching this repo
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Must match Makefile OPENAPI_GENERATOR_VERSION and openapitools.json.
+  OPENAPI_GENERATOR_VERSION: '7.24.0'
+  FROZEN_TAG: api-v1.0
+  FROZEN_PATH: openapi/armikom-api.v1.frozen.json
+
+jobs:
+  drift:
+    name: generated/ is current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - run: npm ci
+
+      # Half 1a — the committed spec still matches its own recorded hash.
+      - name: Verify pinned spec hash
+        run: make verify-spec
+
+      # Half 1b — regenerate and fail on ANY diff under generated/.
+      - name: Regenerate and diff
+        run: make check-drift
+
+      - name: Build (tsc --strict, dual ESM/CJS)
+        run: make build
+
+      - name: Contract checks
+        run: make test
+
+  pin:
+    name: pinned spec matches api-v1.0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: sdk
+
+      # Armikom.Api is closed (D1); this needs a read-only token. It is
+      # deliberately NOT `continue-on-error`: a missing secret fails the job on
+      # push/schedule rather than quietly passing. Forked PRs cannot hold the
+      # secret, so the step is skipped there and the drift job carries the PR.
+      - name: Guard — secret must be present on push and schedule
+        if: github.event_name != 'pull_request'
+        env:
+          TOKEN: ${{ secrets.ARMIKOM_API_RO_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::ARMIKOM_API_RO_TOKEN is not set — the pin against ${FROZEN_TAG} cannot be verified"
+            exit 1
+          fi
+
+      - name: Check out Armikom.Api at ${{ env.FROZEN_TAG }}
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: actions/checkout@v4
+        with:
+          repository: alarmsdk/Armikom.Api
+          ref: ${{ env.FROZEN_TAG }}
+          token: ${{ secrets.ARMIKOM_API_RO_TOKEN }}
+          path: api
+          sparse-checkout: openapi
+          sparse-checkout-cone-mode: false
+
+      - name: Compare pinned spec against the frozen artifact
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          set -euo pipefail
+          frozen=$(sha256sum "api/${FROZEN_PATH}" | awk '{print $1}')
+          pinned=$(sha256sum sdk/openapi/armikom-api.v1.json | awk '{print $1}')
+          recorded=$(tr -d '[:space:]' < sdk/openapi/armikom-api.v1.json.sha256)
+          echo "frozen   (${FROZEN_TAG}): $frozen"
+          echo "pinned   (this repo):     $pinned"
+          echo "recorded (.sha256):       $recorded"
+          if [ "$frozen" != "$pinned" ] || [ "$frozen" != "$recorded" ]; then
+            echo "::error::the SDK has drifted off the frozen contract ${FROZEN_TAG}"
+            exit 1
+          fi
+          echo "pin OK"

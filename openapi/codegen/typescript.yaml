@@ -1,0 +1,23 @@
+# TypeScript-specific generator settings. Merged over common.yaml.
+# Source: docs/frontend/02-sdk-codegen-and-packaging.md §3, TypeScript row.
+
+generatorName: typescript-fetch
+outputDir: generated
+
+additionalProperties:
+  supportsES6: true
+  typescriptThreePlus: true
+  nullSafeAdditionalProps: true
+  withoutRuntimeChecks: false     # runtime *FromJSON / *ToJSON are what make §01 R-4 testable
+
+  # Not in file 02 §3's list; required to compile. useSingleRequestParameter
+  # emits one `<OperationId>Request` interface per operation, and the frozen
+  # contract already has schemas named `CreateHolidayRequest` and
+  # `UpdateHolidayRequest` (operationIds CreateHoliday / UpdateHoliday under the
+  # ReferenceData tag). Without the prefix, generated/index.ts re-exports both
+  # and tsc fails with TS2308. Prefixing the parameter interfaces with the API
+  # class name (HolidaysApi… etc.) is the generator's documented remedy; the
+  # alternative would be renaming schemas, which the freeze forbids.
+  prefixParameterInterfaces: true
+  # npmName is deliberately unset: the generated layer must not emit its own
+  # package.json / tsconfig.json. Packaging lives at the repo root.

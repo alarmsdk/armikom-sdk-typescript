@@ -1,0 +1,25 @@
+# Shared generator settings for every Armikom SDK language.
+# Source: docs/frontend/02-sdk-codegen-and-packaging.md §3 (Armikom.Api).
+#
+# This file is merged with the per-language file (e.g. typescript.yaml) by
+# `make generate`; openapi-generator accepts only one -c, so the merge is done
+# by scripts/merge-codegen-config.mjs (deterministic deep merge, language wins).
+
+inputSpec: openapi/armikom-api.v1.json
+
+# NEVER set this to true. If the frozen document fails validation that is a
+# finding about the contract, not a flag to flip. Eleven path collisions
+# survived for weeks behind this flag.
+skipValidateSpec: false
+
+enablePostProcessFile: true
+
+globalProperties:
+  apis: ""
+  models: ""
+  supportingFiles: ""
+
+additionalProperties:
+  useSingleRequestParameter: true          # 309 ops, some with 8 query params — positional args age badly
+  legacyDiscriminatorBehavior: false
+  disallowAdditionalPropertiesIfNotPresent: false   # §01 V-2 forward compatibility

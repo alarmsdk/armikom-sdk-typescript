@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "rootDir": ".",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    // noImplicitOverride is deliberately OFF. It is not part of `strict`, and
+    // openapi-generator@7.24.0 emits `constructor(public cause: Error, ...)` in
+    // generated/runtime.ts, which collides with ES2022 `Error.cause` (TS4115).
+    // Generated code is never hand-edited, so the flag goes instead of the code.
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["generated/**/*.ts", "src/**/*.ts", "checks/**/*.ts"]
+}
