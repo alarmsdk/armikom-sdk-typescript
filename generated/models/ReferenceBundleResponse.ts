@@ -48,6 +48,13 @@ import {
     MonitoringCenterItemToJSON,
     MonitoringCenterItemToJSONTyped,
 } from './MonitoringCenterItem';
+import type { TechnicalPersonItem } from './TechnicalPersonItem';
+import {
+    TechnicalPersonItemFromJSON,
+    TechnicalPersonItemFromJSONTyped,
+    TechnicalPersonItemToJSON,
+    TechnicalPersonItemToJSONTyped,
+} from './TechnicalPersonItem';
 
 /**
  * 
@@ -133,6 +140,12 @@ export interface ReferenceBundleResponse {
      * @memberof ReferenceBundleResponse
      */
     receivers?: Array<ReceiverItem> | null;
+    /**
+     * 
+     * @type {Array<TechnicalPersonItem>}
+     * @memberof ReferenceBundleResponse
+     */
+    technicalPeople?: Array<TechnicalPersonItem> | null;
 }
 
 /**
@@ -165,6 +178,7 @@ export function ReferenceBundleResponseFromJSONTyped(json: any, ignoreDiscrimina
         'monitoringCenters': json['monitoringCenters'] === undefined ? undefined : json['monitoringCenters'] === null ? null : ((json['monitoringCenters'] as Array<any>).map(MonitoringCenterItemFromJSON)),
         'activeCategories': json['activeCategories'] === undefined ? undefined : json['activeCategories'] === null ? null : ((json['activeCategories'] as Array<any>).map(ActiveCategoryItemFromJSON)),
         'receivers': json['receivers'] === undefined ? undefined : json['receivers'] === null ? null : ((json['receivers'] as Array<any>).map(ReceiverItemFromJSON)),
+        'technicalPeople': json['technicalPeople'] === undefined ? undefined : json['technicalPeople'] === null ? null : ((json['technicalPeople'] as Array<any>).map(TechnicalPersonItemFromJSON)),
     };
 }
 
@@ -192,6 +206,7 @@ export function ReferenceBundleResponseToJSONTyped(value?: ReferenceBundleRespon
         'monitoringCenters': value['monitoringCenters'] == null ? undefined : ((value['monitoringCenters'] as Array<any>).map(MonitoringCenterItemToJSON)),
         'activeCategories': value['activeCategories'] == null ? undefined : ((value['activeCategories'] as Array<any>).map(ActiveCategoryItemToJSON)),
         'receivers': value['receivers'] == null ? undefined : ((value['receivers'] as Array<any>).map(ReceiverItemToJSON)),
+        'technicalPeople': value['technicalPeople'] == null ? undefined : ((value['technicalPeople'] as Array<any>).map(TechnicalPersonItemToJSON)),
     };
 }
 
