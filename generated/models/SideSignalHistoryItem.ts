@@ -61,6 +61,18 @@ export interface SideSignalHistoryItem {
      * @memberof SideSignalHistoryItem
      */
     signalDescription?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideSignalHistoryItem
+     */
+    backColor?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideSignalHistoryItem
+     */
+    frontColor?: string | null;
 }
 
 /**
@@ -87,6 +99,8 @@ export function SideSignalHistoryItemFromJSONTyped(json: any, ignoreDiscriminato
         'receiverName': json['receiverName'] === undefined ? undefined : json['receiverName'] === null ? null : json['receiverName'],
         'action': json['action'] === undefined ? undefined : json['action'] === null ? null : json['action'],
         'signalDescription': json['signalDescription'] === undefined ? undefined : json['signalDescription'] === null ? null : json['signalDescription'],
+        'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
+        'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
     };
 }
 
@@ -108,6 +122,8 @@ export function SideSignalHistoryItemToJSONTyped(value?: SideSignalHistoryItem |
         'receiverName': value['receiverName'],
         'action': value['action'],
         'signalDescription': value['signalDescription'],
+        'backColor': value['backColor'],
+        'frontColor': value['frontColor'],
     };
 }
 

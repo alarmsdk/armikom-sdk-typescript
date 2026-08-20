@@ -69368,6 +69368,14 @@
           "signalDescription": {
             "type": "string",
             "nullable": true
+          },
+          "backColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "frontColor": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
