@@ -24,8 +24,9 @@
     "README.md"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "generate": "make generate",
-    "build": "make build",
+    "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && node scripts/finalise-dist.mjs",
     "test": "make test",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
