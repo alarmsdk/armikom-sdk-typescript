@@ -209,6 +209,7 @@ export * from './SideServiceListEnvelope';
 export * from './SideServiceResponse';
 export * from './SideServiceTransitionResponse';
 export * from './SideSignalHistoryItem';
+export * from './SideSignalHistoryItemPagedResult';
 export * from './SideSignalTypeItem';
 export * from './SideSmsConfigItem';
 export * from './SideStatusResponse';

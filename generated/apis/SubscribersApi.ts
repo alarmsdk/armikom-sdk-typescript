@@ -104,6 +104,11 @@ import {
     SideSignalHistoryItemToJSON,
 } from '../models/SideSignalHistoryItem';
 import {
+    type SideSignalHistoryItemPagedResult,
+    SideSignalHistoryItemPagedResultFromJSON,
+    SideSignalHistoryItemPagedResultToJSON,
+} from '../models/SideSignalHistoryItemPagedResult';
+import {
     type SideSignalTypeItem,
     SideSignalTypeItemFromJSON,
     SideSignalTypeItemToJSON,
@@ -243,6 +248,8 @@ export interface SubscribersApiGetSideSignalTypesRequest {
 
 export interface SubscribersApiGetSideSignalsRequest {
     id: string;
+    page?: number;
+    pageSize?: number;
     xCorrelationId?: string;
 }
 
@@ -1319,6 +1326,14 @@ export class SubscribersApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -1349,18 +1364,19 @@ export class SubscribersApi extends runtime.BaseAPI {
      * Returns the most recent 128 signal events for the specified subscriber, ordered by signal date descending.
      * Get signal history for a subscriber
      */
-    async getSideSignalsRaw(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SideSignalHistoryItem>>> {
+    async getSideSignalsRaw(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideSignalHistoryItemPagedResult>> {
         const requestOptions = await this.getSideSignalsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SideSignalHistoryItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SideSignalHistoryItemPagedResultFromJSON(jsonValue));
     }
 
     /**
-     * Returns the most recent 128 signal events for the specified subscriber, ordered by signal date descending.
+     * Returns signal events for the specified subscriber, ordered by signal date descending.
+     * Supports pagination via page/pageSize query parameters.
      * Get signal history for a subscriber
      */
-    async getSideSignals(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SideSignalHistoryItem>> {
+    async getSideSignals(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideSignalHistoryItemPagedResult> {
         const response = await this.getSideSignalsRaw(requestParameters, initOverrides);
         return await response.value();
     }
