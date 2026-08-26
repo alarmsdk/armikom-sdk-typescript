@@ -28,6 +28,7 @@ Name | Type
 `actionText` | string
 `frontColor` | string
 `backColor` | string
+`resolvedTimeZone` | string
 `signalEvent` | [SignalEventDetailResponse](SignalEventDetailResponse.md)
 
 ## Example
@@ -59,6 +60,7 @@ const example = {
   "actionText": null,
   "frontColor": null,
   "backColor": null,
+  "resolvedTimeZone": null,
   "signalEvent": null,
 } satisfies AlarmEventDetailResponse
 

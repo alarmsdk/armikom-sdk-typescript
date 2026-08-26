@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**globalSearch**](SearchApi.md#globalsearch) | **GET** /v1/search | Global search across subscribers, customers, and signal events |
+| [**globalSearch**](SearchApi.md#globalsearch) | **GET** /v1/search | Global search across subscribers and customers |
 
 
 
@@ -12,9 +12,9 @@ All URIs are relative to *http://localhost*
 
 > SearchResponse globalSearch(q, xCorrelationId)
 
-Global search across subscribers, customers, and signal events
+Global search across subscribers and customers
 
-Searches across three entity types (Side, Customer, SignalEvent) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer → SignalEvent. Query must be at least 2 characters. Signal events are limited to the last 90 days.
+Searches across two entity types (Side, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer. Query must be at least 2 characters.
 
 ### Example
 

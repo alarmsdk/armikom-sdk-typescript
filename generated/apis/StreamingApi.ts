@@ -65,7 +65,7 @@ export class StreamingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, and side-lock-changed events. Filtered per connection by the caller\'s monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.
+     * Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, side-lock-changed events, and copilot-conversation frames (the live call transcript for the caller\'s own extension). Filtered per connection by the caller\'s monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.
      * Server-Sent Events stream for alarm, signal, PBX, and lock changes
      */
     async getStreamRaw(requestParameters: StreamingApiGetStreamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -76,7 +76,7 @@ export class StreamingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, and side-lock-changed events. Filtered per connection by the caller\'s monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.
+     * Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, side-lock-changed events, and copilot-conversation frames (the live call transcript for the caller\'s own extension). Filtered per connection by the caller\'s monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.
      * Server-Sent Events stream for alarm, signal, PBX, and lock changes
      */
     async getStream(requestParameters: StreamingApiGetStreamRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {

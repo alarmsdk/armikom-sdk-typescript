@@ -99,11 +99,6 @@ import {
     SideNoteItemToJSON,
 } from '../models/SideNoteItem';
 import {
-    type SideSignalHistoryItem,
-    SideSignalHistoryItemFromJSON,
-    SideSignalHistoryItemToJSON,
-} from '../models/SideSignalHistoryItem';
-import {
     type SideSignalHistoryItemPagedResult,
     SideSignalHistoryItemPagedResultFromJSON,
     SideSignalHistoryItemPagedResultToJSON,
@@ -1361,7 +1356,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the most recent 128 signal events for the specified subscriber, ordered by signal date descending.
+     * Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via `page`/`pageSize` query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.
      * Get signal history for a subscriber
      */
     async getSideSignalsRaw(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideSignalHistoryItemPagedResult>> {
@@ -1372,8 +1367,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns signal events for the specified subscriber, ordered by signal date descending.
-     * Supports pagination via page/pageSize query parameters.
+     * Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via `page`/`pageSize` query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.
      * Get signal history for a subscriber
      */
     async getSideSignals(requestParameters: SubscribersApiGetSideSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideSignalHistoryItemPagedResult> {

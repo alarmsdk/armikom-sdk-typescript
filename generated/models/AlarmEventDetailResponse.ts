@@ -160,6 +160,13 @@ export interface AlarmEventDetailResponse {
      */
     backColor?: string | null;
     /**
+     * Effective timezone after resolving the Side → Customer → MonitoringCenter chain.
+     * Null when no timezone is configured anywhere in the chain (display as UTC).
+     * @type {string}
+     * @memberof AlarmEventDetailResponse
+     */
+    resolvedTimeZone?: string | null;
+    /**
      * 
      * @type {SignalEventDetailResponse}
      * @memberof AlarmEventDetailResponse
@@ -206,6 +213,7 @@ export function AlarmEventDetailResponseFromJSONTyped(json: any, ignoreDiscrimin
         'actionText': json['actionText'] === undefined ? undefined : json['actionText'] === null ? null : json['actionText'],
         'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
         'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
+        'resolvedTimeZone': json['resolvedTimeZone'] === undefined ? undefined : json['resolvedTimeZone'] === null ? null : json['resolvedTimeZone'],
         'signalEvent': json['signalEvent'] == null ? undefined : SignalEventDetailResponseFromJSON(json['signalEvent']),
     };
 }
@@ -243,6 +251,7 @@ export function AlarmEventDetailResponseToJSONTyped(value?: AlarmEventDetailResp
         'actionText': value['actionText'],
         'frontColor': value['frontColor'],
         'backColor': value['backColor'],
+        'resolvedTimeZone': value['resolvedTimeZone'],
         'signalEvent': SignalEventDetailResponseToJSON(value['signalEvent']),
     };
 }

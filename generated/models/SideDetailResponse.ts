@@ -164,6 +164,13 @@ export interface SideDetailResponse {
      */
     timeZone?: string | null;
     /**
+     * Effective timezone after resolving the fallback chain:
+     * Side.TimeZone → Customer.TimeZone → MonitoringCenter.TimeZone → null.
+     * @type {string}
+     * @memberof SideDetailResponse
+     */
+    resolvedTimeZone?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof SideDetailResponse
@@ -404,6 +411,7 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'latitude': json['latitude'] === undefined ? undefined : json['latitude'] === null ? null : json['latitude'],
         'longitude': json['longitude'] === undefined ? undefined : json['longitude'] === null ? null : json['longitude'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
+        'resolvedTimeZone': json['resolvedTimeZone'] === undefined ? undefined : json['resolvedTimeZone'] === null ? null : json['resolvedTimeZone'],
         'armType': json['armType'] === undefined ? undefined : json['armType'] === null ? null : json['armType'],
         'timeoutDuration': json['timeoutDuration'] === undefined ? undefined : json['timeoutDuration'] === null ? null : json['timeoutDuration'],
         'gprsTimeoutMinutes': json['gprsTimeoutMinutes'] === undefined ? undefined : json['gprsTimeoutMinutes'] === null ? null : json['gprsTimeoutMinutes'],
@@ -475,6 +483,7 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'latitude': value['latitude'],
         'longitude': value['longitude'],
         'timeZone': value['timeZone'],
+        'resolvedTimeZone': value['resolvedTimeZone'],
         'armType': value['armType'],
         'timeoutDuration': value['timeoutDuration'],
         'gprsTimeoutMinutes': value['gprsTimeoutMinutes'],

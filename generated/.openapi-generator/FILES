@@ -7,6 +7,7 @@ apis/CallHistoryApi.ts
 apis/ClosingDelayApi.ts
 apis/ClosingDelaysApi.ts
 apis/ConfigurationApi.ts
+apis/CopilotApi.ts
 apis/CustomersApi.ts
 apis/DealersApi.ts
 apis/EventRawsApi.ts
@@ -105,6 +106,14 @@ docs/ClosingDelaysApi.md
 docs/CompleteAlarmRequest.md
 docs/CompleteAlarmResponse.md
 docs/ConfigurationApi.md
+docs/CopilotApi.md
+docs/CopilotConversationEventDto.md
+docs/CopilotConversationIngestRequest.md
+docs/CopilotConversationIngestResponse.md
+docs/CopilotProposedOperationDto.md
+docs/CopilotSegmentDto.md
+docs/CopilotSuggestedActionDto.md
+docs/CopilotSummaryDto.md
 docs/CopySignalTypesRequest.md
 docs/CopySignalTypesResponse.md
 docs/CountryDetail.md
@@ -284,6 +293,7 @@ docs/SideServiceListEnvelope.md
 docs/SideServiceResponse.md
 docs/SideServiceTransitionResponse.md
 docs/SideSignalHistoryItem.md
+docs/SideSignalHistoryItemPagedResult.md
 docs/SideSignalTypeItem.md
 docs/SideSmsConfigItem.md
 docs/SideStatusResponse.md
@@ -446,6 +456,13 @@ models/ClosingDelayRequest.ts
 models/ClosingDelayResponse.ts
 models/CompleteAlarmRequest.ts
 models/CompleteAlarmResponse.ts
+models/CopilotConversationEventDto.ts
+models/CopilotConversationIngestRequest.ts
+models/CopilotConversationIngestResponse.ts
+models/CopilotProposedOperationDto.ts
+models/CopilotSegmentDto.ts
+models/CopilotSuggestedActionDto.ts
+models/CopilotSummaryDto.ts
 models/CopySignalTypesRequest.ts
 models/CopySignalTypesResponse.ts
 models/CountryDetail.ts
@@ -608,6 +625,7 @@ models/SideServiceListEnvelope.ts
 models/SideServiceResponse.ts
 models/SideServiceTransitionResponse.ts
 models/SideSignalHistoryItem.ts
+models/SideSignalHistoryItemPagedResult.ts
 models/SideSignalTypeItem.ts
 models/SideSmsConfigItem.ts
 models/SideStatusResponse.ts

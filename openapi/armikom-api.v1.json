@@ -3718,7 +3718,7 @@
         ]
       }
     },
-    "/v1/signal-events/{id}/closing-delay": {
+    "/v1/sides/{sideId}/closing-delay": {
       "post": {
         "tags": [
           "Closing Delay"
@@ -3728,7 +3728,7 @@
         "operationId": "SetClosingDelay",
         "parameters": [
           {
-            "name": "id",
+            "name": "sideId",
             "in": "path",
             "required": true,
             "schema": {
@@ -4206,6 +4206,242 @@
           },
           "403": {
             "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/copilot/conversation-events": {
+      "post": {
+        "tags": [
+          "Copilot"
+        ],
+        "summary": "Relay live call transcript events to the operator's console",
+        "description": "Internal endpoint for CopilotX. Each event names the operator's PBX extension, and the resulting `copilot-conversation` SSE frame reaches only the console whose `ext` claim matches — cross-center admins included, since a call has two parties and neither is a supervisor. Nothing is stored: CopilotX owns the transcript, the API only fans it out. Acceptance (202) means published to the connected consoles, not read by anyone. Events that cannot be routed or rendered are dropped individually and reported in `rejections`; only an empty or oversized batch fails the request. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.",
+        "operationId": "IngestCopilotConversationEvents",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CopilotConversationIngestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopilotConversationIngestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
             "headers": {
               "X-Correlation-Id": {
                 "description": "The correlation identifier for this request (echoed or generated).",
@@ -32216,8 +32452,8 @@
         "tags": [
           "Search"
         ],
-        "summary": "Global search across subscribers, customers, and signal events",
-        "description": "Searches across three entity types (Side, Customer, SignalEvent) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer → SignalEvent. Query must be at least 2 characters. Signal events are limited to the last 90 days.",
+        "summary": "Global search across subscribers and customers",
+        "description": "Searches across two entity types (Side, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer. Query must be at least 2 characters.",
         "operationId": "GlobalSearch",
         "parameters": [
           {
@@ -37426,7 +37662,6 @@
           {
             "name": "sideNo",
             "in": "query",
-            "description": "Filter by exact subscriber number.",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -37435,7 +37670,6 @@
           {
             "name": "sideName",
             "in": "query",
-            "description": "Filter by subscriber name (case-insensitive LIKE).",
             "schema": {
               "type": "string"
             }
@@ -37443,7 +37677,6 @@
           {
             "name": "receiverName",
             "in": "query",
-            "description": "Filter by receiver name (case-insensitive LIKE).",
             "schema": {
               "type": "string"
             }
@@ -37451,7 +37684,6 @@
           {
             "name": "monitoringCenterName",
             "in": "query",
-            "description": "Filter by monitoring center name (case-insensitive LIKE).",
             "schema": {
               "type": "string"
             }
@@ -37459,7 +37691,6 @@
           {
             "name": "action",
             "in": "query",
-            "description": "Filter by action text (case-insensitive LIKE).",
             "schema": {
               "type": "string"
             }
@@ -38840,7 +39071,7 @@
           "Streaming"
         ],
         "summary": "Server-Sent Events stream for alarm, signal, PBX, and lock changes",
-        "description": "Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, and side-lock-changed events. Filtered per connection by the caller's monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.",
+        "description": "Opens a long-lived SSE connection that pushes alarm-list-updated nudges, signal-events batches, pbx-ringing notifications, side-lock-changed events, and copilot-conversation frames (the live call transcript for the caller's own extension). Filtered per connection by the caller's monitoring center and dealer scope. Every frame carries an id: field for Last-Event-ID resumption (D59). Mobile principals receive 403 — mobile clients use Firebase RTDB (D5). A keep-alive comment is sent every 25 seconds.",
         "operationId": "GetStream",
         "parameters": [
           {
@@ -55669,7 +55900,7 @@
           "Subscribers"
         ],
         "summary": "Get signal history for a subscriber",
-        "description": "Returns the most recent 128 signal events for the specified subscriber, ordered by signal date descending.",
+        "description": "Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via `page`/`pageSize` query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.",
         "operationId": "GetSideSignals",
         "parameters": [
           {
@@ -55679,6 +55910,22 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -55705,10 +55952,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SideSignalHistoryItem"
-                  }
+                  "$ref": "#/components/schemas/SideSignalHistoryItemPagedResult"
                 }
               }
             }
@@ -63523,6 +63767,11 @@
             "type": "string",
             "nullable": true
           },
+          "resolvedTimeZone": {
+            "type": "string",
+            "description": "Effective timezone after resolving the Side → Customer → MonitoringCenter chain.\r\nNull when no timezone is configured anywhere in the chain (display as UTC).",
+            "nullable": true
+          },
           "signalEvent": {
             "$ref": "#/components/schemas/SignalEventDetailResponse"
           }
@@ -64507,6 +64756,244 @@
             "items": {
               "type": "string"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CopilotConversationEventDto": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "`call-started`, `call-status`, `segment`, `suggested-action` or\r\n            `summary`. An unknown kind rejects the event, not the batch.",
+            "nullable": true
+          },
+          "callId": {
+            "type": "string",
+            "description": "CopilotX's call id — the console threads the conversation on it.",
+            "format": "uuid"
+          },
+          "operatorExtension": {
+            "type": "string",
+            "description": "The operator's PBX extension. This is the delivery address: the frame reaches the one\r\nconsole whose `ext` claim matches, and no other.",
+            "nullable": true
+          },
+          "signalEventId": {
+            "type": "string",
+            "description": "The signal event this call relates to. Set when the call was initiated via click-to-dial\r\nfrom an alarm workspace. Allows the console to link the call to a specific alarm.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "customerNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "callerIsOperator": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "`active`, `degraded` or `completed`.",
+            "nullable": true
+          },
+          "segment": {
+            "$ref": "#/components/schemas/CopilotSegmentDto"
+          },
+          "action": {
+            "$ref": "#/components/schemas/CopilotSuggestedActionDto"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/CopilotSummaryDto"
+          }
+        },
+        "additionalProperties": false,
+        "description": "One event. Armikom.Api.Contracts.Copilot.CopilotConversationEventDto.Kind selects which of the three optional payloads is populated;\r\nthe other two are absent."
+      },
+      "CopilotConversationIngestRequest": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CopilotConversationEventDto"
+            },
+            "description": "Oldest first. The relay preserves this order inside each frame it publishes.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A batch of live-call events posted by CopilotX. Batched rather than one request per\r\nutterance because interim speech results arrive several times a second per channel and\r\nthe API's global rate limit is a per-principal budget, not a per-endpoint one."
+      },
+      "CopilotConversationIngestResponse": {
+        "type": "object",
+        "properties": {
+          "accepted": {
+            "type": "boolean"
+          },
+          "acceptedCount": {
+            "type": "integer",
+            "description": "Events published on the stream.",
+            "format": "int32"
+          },
+          "rejectedCount": {
+            "type": "integer",
+            "description": "Events dropped because they could not be routed or rendered.",
+            "format": "int32"
+          },
+          "rejections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Up to ten reasons, in batch order. Null when nothing was rejected.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "What the relay accepted. 202 means published, not read by an operator."
+      },
+      "CopilotProposedOperationDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "e.g. `set-closing-delay`, `delay-signal`, `send-sms`.",
+            "nullable": true
+          },
+          "scope": {
+            "type": "string",
+            "description": "The scope the operation needs. Advisory; the endpoint behind it still enforces its own.",
+            "nullable": true
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "description": "Pre-fill values for the dialog, always strings.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The console operation being proposed. The name is not validated against a vocabulary\r\nhere — the console runs the ones it knows and renders the rest as text, so a new\r\noperation ships without an API release and an older console cannot be told to run\r\nsomething it does not understand."
+      },
+      "CopilotSegmentDto": {
+        "type": "object",
+        "properties": {
+          "speaker": {
+            "type": "string",
+            "description": "`operator` or `customer`.",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "startOffsetMs": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "endOffsetMs": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isFinal": {
+            "type": "boolean",
+            "description": "False while the recogniser is still revising this line."
+          },
+          "sequenceKey": {
+            "type": "integer",
+            "description": "Shared by every interim of one utterance and by the final that closes it.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CopilotSuggestedActionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable across re-raises of the same finding, so the console can drop repeats.",
+            "nullable": true
+          },
+          "kind": {
+            "type": "string",
+            "description": "`info`, `prompt` or `operation`. Unknown values degrade to a text card.",
+            "nullable": true
+          },
+          "actionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "confidence": {
+            "type": "number",
+            "format": "double"
+          },
+          "source": {
+            "type": "string",
+            "description": "`keyword` or `gemini`.",
+            "nullable": true
+          },
+          "phase": {
+            "type": "string",
+            "description": "`during-call` or `after-call`.",
+            "nullable": true
+          },
+          "operation": {
+            "$ref": "#/components/schemas/CopilotProposedOperationDto"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Something for the operator to know, to write, or to do. A proposal is never a command:\r\nan Armikom.Api.Contracts.Copilot.CopilotSuggestedActionDto.Operation only tells the console which dialog to open pre-filled."
+      },
+      "CopilotSummaryDto": {
+        "type": "object",
+        "properties": {
+          "overview": {
+            "type": "string",
+            "nullable": true
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "outcome": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -67921,6 +68408,13 @@
               "$ref": "#/components/schemas/ReceiverItem"
             },
             "nullable": true
+          },
+          "technicalPeople": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechnicalPersonItem"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -68601,6 +69095,11 @@
           },
           "timeZone": {
             "type": "string",
+            "nullable": true
+          },
+          "resolvedTimeZone": {
+            "type": "string",
+            "description": "Effective timezone after resolving the fallback chain:\r\nSide.TimeZone → Customer.TimeZone → MonitoringCenter.TimeZone → null.",
             "nullable": true
           },
           "armType": {
@@ -69417,6 +69916,45 @@
           "frontColor": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SideSignalHistoryItemPagedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SideSignalHistoryItem"
+            },
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cursor": {
+            "type": "string",
+            "nullable": true
+          },
+          "hasMore": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "deprecated": true
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "deprecated": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "deprecated": true
           }
         },
         "additionalProperties": false

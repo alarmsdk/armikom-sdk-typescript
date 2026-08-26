@@ -581,7 +581,7 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
@@ -623,6 +623,16 @@ async function example() {
     offset: 56,
     // string (optional)
     sort: sort_example,
+    // number (optional)
+    sideNo: 56,
+    // string (optional)
+    sideName: sideName_example,
+    // string (optional)
+    receiverName: receiverName_example,
+    // string (optional)
+    monitoringCenterName: monitoringCenterName_example,
+    // string (optional)
+    action: action_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalEventsRequest;
@@ -653,6 +663,11 @@ example().catch(console.error);
 | **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sideNo** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **sideName** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **receiverName** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterName** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **action** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

@@ -65,8 +65,8 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across three entity types (Side, Customer, SignalEvent) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer → SignalEvent. Query must be at least 2 characters. Signal events are limited to the last 90 days.
-     * Global search across subscribers, customers, and signal events
+     * Searches across two entity types (Side, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer. Query must be at least 2 characters.
+     * Global search across subscribers and customers
      */
     async globalSearchRaw(requestParameters: SearchApiGlobalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchResponse>> {
         const requestOptions = await this.globalSearchRequestOpts(requestParameters);
@@ -76,8 +76,8 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across three entity types (Side, Customer, SignalEvent) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer → SignalEvent. Query must be at least 2 characters. Signal events are limited to the last 90 days.
-     * Global search across subscribers, customers, and signal events
+     * Searches across two entity types (Side, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer. Query must be at least 2 characters.
+     * Global search across subscribers and customers
      */
     async globalSearch(requestParameters: SearchApiGlobalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchResponse> {
         const response = await this.globalSearchRaw(requestParameters, initOverrides);

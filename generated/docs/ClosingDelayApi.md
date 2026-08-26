@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getClosingDelayOptions**](ClosingDelayApi.md#getclosingdelayoptions) | **GET** /v1/sides/{sideId}/closing-delay-options | Get available closing delay modes for a subscriber |
-| [**setClosingDelay**](ClosingDelayApi.md#setclosingdelay) | **POST** /v1/signal-events/{id}/closing-delay | Postpone a subscriber\&#39;s expected closing time |
+| [**setClosingDelay**](ClosingDelayApi.md#setclosingdelay) | **POST** /v1/sides/{sideId}/closing-delay | Postpone a subscriber\&#39;s expected closing time |
 
 
 
@@ -88,7 +88,7 @@ example().catch(console.error);
 
 ## setClosingDelay
 
-> ClosingDelayResponse setClosingDelay(id, closingDelayRequest, xCorrelationId, idempotencyKey)
+> ClosingDelayResponse setClosingDelay(sideId, closingDelayRequest, xCorrelationId, idempotencyKey)
 
 Postpone a subscriber\&#39;s expected closing time
 
@@ -113,7 +113,7 @@ async function example() {
 
   const body = {
     // string
-    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // ClosingDelayRequest
     closingDelayRequest: ...,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
@@ -139,7 +139,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | `string` |  | [Defaults to `undefined`] |
+| **sideId** | `string` |  | [Defaults to `undefined`] |
 | **closingDelayRequest** | [ClosingDelayRequest](ClosingDelayRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 | **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |

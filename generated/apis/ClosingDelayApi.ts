@@ -40,7 +40,7 @@ export interface ClosingDelayApiGetClosingDelayOptionsRequest {
 }
 
 export interface ClosingDelayApiSetClosingDelayRequest {
-    id: string;
+    sideId: string;
     closingDelayRequest: ClosingDelayRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
@@ -114,10 +114,10 @@ export class ClosingDelayApi extends runtime.BaseAPI {
      * Creates request options for setClosingDelay without sending the request
      */
     async setClosingDelayRequestOpts(requestParameters: ClosingDelayApiSetClosingDelayRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['id'] == null) {
+        if (requestParameters['sideId'] == null) {
             throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling setClosingDelay().'
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling setClosingDelay().'
             );
         }
 
@@ -151,8 +151,8 @@ export class ClosingDelayApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/v1/signal-events/{id}/closing-delay`;
-        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+        let urlPath = `/v1/sides/{sideId}/closing-delay`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
 
         return {
             path: urlPath,

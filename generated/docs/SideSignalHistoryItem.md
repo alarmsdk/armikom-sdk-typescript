@@ -13,6 +13,8 @@ Name | Type
 `receiverName` | string
 `action` | string
 `signalDescription` | string
+`backColor` | string
+`frontColor` | string
 
 ## Example
 
@@ -28,6 +30,8 @@ const example = {
   "receiverName": null,
   "action": null,
   "signalDescription": null,
+  "backColor": null,
+  "frontColor": null,
 } satisfies SideSignalHistoryItem
 
 console.log(example)

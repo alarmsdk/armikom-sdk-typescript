@@ -41,13 +41,6 @@ import {
     ActiveCategoryItemToJSON,
     ActiveCategoryItemToJSONTyped,
 } from './ActiveCategoryItem';
-import type { MonitoringCenterItem } from './MonitoringCenterItem';
-import {
-    MonitoringCenterItemFromJSON,
-    MonitoringCenterItemFromJSONTyped,
-    MonitoringCenterItemToJSON,
-    MonitoringCenterItemToJSONTyped,
-} from './MonitoringCenterItem';
 import type { TechnicalPersonItem } from './TechnicalPersonItem';
 import {
     TechnicalPersonItemFromJSON,
@@ -55,6 +48,13 @@ import {
     TechnicalPersonItemToJSON,
     TechnicalPersonItemToJSONTyped,
 } from './TechnicalPersonItem';
+import type { MonitoringCenterItem } from './MonitoringCenterItem';
+import {
+    MonitoringCenterItemFromJSON,
+    MonitoringCenterItemFromJSONTyped,
+    MonitoringCenterItemToJSON,
+    MonitoringCenterItemToJSONTyped,
+} from './MonitoringCenterItem';
 
 /**
  * 

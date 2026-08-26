@@ -30,6 +30,7 @@ Name | Type
 `latitude` | string
 `longitude` | string
 `timeZone` | string
+`resolvedTimeZone` | string
 `armType` | string
 `timeoutDuration` | number
 `gprsTimeoutMinutes` | number
@@ -95,6 +96,7 @@ const example = {
   "latitude": null,
   "longitude": null,
   "timeZone": null,
+  "resolvedTimeZone": null,
   "armType": null,
   "timeoutDuration": null,
   "gprsTimeoutMinutes": null,

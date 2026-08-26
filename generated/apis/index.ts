@@ -8,6 +8,7 @@ export * from './CallHistoryApi';
 export * from './ClosingDelayApi';
 export * from './ClosingDelaysApi';
 export * from './ConfigurationApi';
+export * from './CopilotApi';
 export * from './CustomersApi';
 export * from './DealersApi';
 export * from './EventRawsApi';

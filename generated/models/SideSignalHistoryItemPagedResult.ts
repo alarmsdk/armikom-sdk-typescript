@@ -121,3 +121,4 @@ export function SideSignalHistoryItemPagedResultToJSONTyped(value?: SideSignalHi
         'pageSize': value['pageSize'],
     };
 }
+

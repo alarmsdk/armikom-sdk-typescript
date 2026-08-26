@@ -19,6 +19,7 @@ Name | Type
 `monitoringCenters` | [Array&lt;MonitoringCenterItem&gt;](MonitoringCenterItem.md)
 `activeCategories` | [Array&lt;ActiveCategoryItem&gt;](ActiveCategoryItem.md)
 `receivers` | [Array&lt;ReceiverItem&gt;](ReceiverItem.md)
+`technicalPeople` | [Array&lt;TechnicalPersonItem&gt;](TechnicalPersonItem.md)
 
 ## Example
 
@@ -40,6 +41,7 @@ const example = {
   "monitoringCenters": null,
   "activeCategories": null,
   "receivers": null,
+  "technicalPeople": null,
 } satisfies ReferenceBundleResponse
 
 console.log(example)

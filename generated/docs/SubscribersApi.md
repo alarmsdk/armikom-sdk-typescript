@@ -1297,11 +1297,11 @@ example().catch(console.error);
 
 ## getSideSignals
 
-> Array&lt;SideSignalHistoryItem&gt; getSideSignals(id, xCorrelationId)
+> SideSignalHistoryItemPagedResult getSideSignals(id, page, pageSize, xCorrelationId)
 
 Get signal history for a subscriber
 
-Returns the most recent 128 signal events for the specified subscriber, ordered by signal date descending.
+Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via &#x60;page&#x60;/&#x60;pageSize&#x60; query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.
 
 ### Example
 
@@ -1323,6 +1323,10 @@ async function example() {
   const body = {
     // string
     id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // number (optional)
+    page: 56,
+    // number (optional)
+    pageSize: 56,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSideSignalsRequest;
@@ -1345,11 +1349,13 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
+| **page** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**Array&lt;SideSignalHistoryItem&gt;**](SideSignalHistoryItem.md)
+[**SideSignalHistoryItemPagedResult**](SideSignalHistoryItemPagedResult.md)
 
 ### Authorization
 
