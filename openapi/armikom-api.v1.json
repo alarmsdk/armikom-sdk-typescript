@@ -37696,6 +37696,48 @@
             }
           },
           {
+            "name": "sideId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "receiverId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "alarmCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "X-Correlation-Id",
             "in": "header",
             "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
@@ -70462,6 +70504,14 @@
           "sideId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true
+          },
+          "dealerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "alarmCategoryName": {
+            "type": "string",
             "nullable": true
           }
         },

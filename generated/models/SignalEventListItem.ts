@@ -91,6 +91,18 @@ export interface SignalEventListItem {
      * @memberof SignalEventListItem
      */
     sideId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventListItem
+     */
+    dealerName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventListItem
+     */
+    alarmCategoryName?: string | null;
 }
 
 /**
@@ -122,6 +134,8 @@ export function SignalEventListItemFromJSONTyped(json: any, ignoreDiscriminator:
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'action': json['action'] === undefined ? undefined : json['action'] === null ? null : json['action'],
         'sideId': json['sideId'] === undefined ? undefined : json['sideId'] === null ? null : json['sideId'],
+        'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
+        'alarmCategoryName': json['alarmCategoryName'] === undefined ? undefined : json['alarmCategoryName'] === null ? null : json['alarmCategoryName'],
     };
 }
 
@@ -148,6 +162,8 @@ export function SignalEventListItemToJSONTyped(value?: SignalEventListItem | nul
         'monitoringCenterName': value['monitoringCenterName'],
         'action': value['action'],
         'sideId': value['sideId'],
+        'dealerName': value['dealerName'],
+        'alarmCategoryName': value['alarmCategoryName'],
     };
 }
 

@@ -139,6 +139,9 @@ export interface SignalEventsApiGetSignalEventsRequest {
     sideId?: string;
     receiverId?: string;
     monitoringCenterId?: string;
+    eventCode?: string;
+    dealerId?: string;
+    alarmCategoryId?: string;
     xCorrelationId?: string;
 }
 
@@ -681,6 +684,18 @@ export class SignalEventsApi extends runtime.BaseAPI {
 
         if (requestParameters['monitoringCenterId'] != null) {
             queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        if (requestParameters['eventCode'] != null) {
+            queryParameters['eventCode'] = requestParameters['eventCode'];
+        }
+
+        if (requestParameters['dealerId'] != null) {
+            queryParameters['dealerId'] = requestParameters['dealerId'];
+        }
+
+        if (requestParameters['alarmCategoryId'] != null) {
+            queryParameters['alarmCategoryId'] = requestParameters['alarmCategoryId'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

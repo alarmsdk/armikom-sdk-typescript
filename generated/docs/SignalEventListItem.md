@@ -18,6 +18,8 @@ Name | Type
 `monitoringCenterName` | string
 `action` | string
 `sideId` | string
+`dealerName` | string
+`alarmCategoryName` | string
 
 ## Example
 
@@ -38,6 +40,8 @@ const example = {
   "monitoringCenterName": null,
   "action": null,
   "sideId": null,
+  "dealerName": null,
+  "alarmCategoryName": null,
 } satisfies SignalEventListItem
 
 console.log(example)

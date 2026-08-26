@@ -581,7 +581,7 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
@@ -633,6 +633,18 @@ async function example() {
     monitoringCenterName: monitoringCenterName_example,
     // string (optional)
     action: action_example,
+    // string (optional)
+    sideId: sideId_example,
+    // string (optional)
+    receiverId: receiverId_example,
+    // string (optional)
+    monitoringCenterId: monitoringCenterId_example,
+    // string (optional)
+    eventCode: eventCode_example,
+    // string (optional)
+    dealerId: dealerId_example,
+    // string (optional)
+    alarmCategoryId: alarmCategoryId_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalEventsRequest;
@@ -668,6 +680,12 @@ example().catch(console.error);
 | **receiverName** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterName** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **action** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sideId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **receiverId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **eventCode** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **dealerId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
