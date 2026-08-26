@@ -131,6 +131,11 @@ export interface SignalEventsApiGetSignalEventsRequest {
     pageSize?: number;
     offset?: number;
     sort?: string;
+    sideNo?: number;
+    sideName?: string;
+    receiverName?: string;
+    monitoringCenterName?: string;
+    action?: string;
     xCorrelationId?: string;
 }
 
@@ -641,6 +646,26 @@ export class SignalEventsApi extends runtime.BaseAPI {
 
         if (requestParameters['sort'] != null) {
             queryParameters['sort'] = requestParameters['sort'];
+        }
+
+        if (requestParameters['sideNo'] != null) {
+            queryParameters['sideNo'] = requestParameters['sideNo'];
+        }
+
+        if (requestParameters['sideName'] != null) {
+            queryParameters['sideName'] = requestParameters['sideName'];
+        }
+
+        if (requestParameters['receiverName'] != null) {
+            queryParameters['receiverName'] = requestParameters['receiverName'];
+        }
+
+        if (requestParameters['monitoringCenterName'] != null) {
+            queryParameters['monitoringCenterName'] = requestParameters['monitoringCenterName'];
+        }
+
+        if (requestParameters['action'] != null) {
+            queryParameters['action'] = requestParameters['action'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

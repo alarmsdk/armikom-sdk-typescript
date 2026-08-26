@@ -37424,6 +37424,47 @@
             }
           },
           {
+            "name": "sideNo",
+            "in": "query",
+            "description": "Filter by exact subscriber number.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sideName",
+            "in": "query",
+            "description": "Filter by subscriber name (case-insensitive LIKE).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "receiverName",
+            "in": "query",
+            "description": "Filter by receiver name (case-insensitive LIKE).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterName",
+            "in": "query",
+            "description": "Filter by monitoring center name (case-insensitive LIKE).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filter by action text (case-insensitive LIKE).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "X-Correlation-Id",
             "in": "header",
             "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
