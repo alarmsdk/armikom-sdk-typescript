@@ -10,7 +10,6 @@ Name | Type
 `sideId` | string
 `signalEventId` | string
 `contactName` | string
-`monitoringCenterId` | string
 
 ## Example
 
@@ -23,7 +22,6 @@ const example = {
   "sideId": null,
   "signalEventId": null,
   "contactName": null,
-  "monitoringCenterId": null,
 } satisfies DialRequest
 
 console.log(example)

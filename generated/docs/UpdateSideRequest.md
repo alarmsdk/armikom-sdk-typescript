@@ -24,6 +24,8 @@ Name | Type
 `timeoutDurationMinutes` | number
 `gprsTimeoutMinutes` | number
 `gprs` | boolean
+`gprsModule` | number
+`ebsModulePort` | number
 `customerId` | string
 `dealerId` | string
 `installerId` | string
@@ -64,6 +66,8 @@ const example = {
   "timeoutDurationMinutes": null,
   "gprsTimeoutMinutes": null,
   "gprs": null,
+  "gprsModule": null,
+  "ebsModulePort": null,
   "customerId": null,
   "dealerId": null,
   "installerId": null,

@@ -37,6 +37,12 @@ export interface LookupItem {
      * @memberof LookupItem
      */
     parentId?: string | null;
+    /**
+     * Present on MC-scoped collections (account-types, account-items, signal-explanations). Null for global items.
+     * @type {string}
+     * @memberof LookupItem
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -59,6 +65,7 @@ export function LookupItemFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'parentId': json['parentId'] === undefined ? undefined : json['parentId'] === null ? null : json['parentId'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -76,6 +83,7 @@ export function LookupItemToJSONTyped(value?: LookupItem | null, ignoreDiscrimin
         'id': value['id'],
         'name': value['name'],
         'parentId': value['parentId'],
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 

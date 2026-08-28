@@ -129,6 +129,18 @@ export interface UpdateSideRequest {
     gprs?: boolean | null;
     /**
      * 
+     * @type {number}
+     * @memberof UpdateSideRequest
+     */
+    gprsModule?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateSideRequest
+     */
+    ebsModulePort?: number | null;
+    /**
+     * 
      * @type {string}
      * @memberof UpdateSideRequest
      */
@@ -248,6 +260,8 @@ export function UpdateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'timeoutDurationMinutes': json['timeoutDurationMinutes'] === undefined ? undefined : json['timeoutDurationMinutes'] === null ? null : json['timeoutDurationMinutes'],
         'gprsTimeoutMinutes': json['gprsTimeoutMinutes'] === undefined ? undefined : json['gprsTimeoutMinutes'] === null ? null : json['gprsTimeoutMinutes'],
         'gprs': json['gprs'] === undefined ? undefined : json['gprs'] === null ? null : json['gprs'],
+        'gprsModule': json['gprsModule'] === undefined ? undefined : json['gprsModule'] === null ? null : json['gprsModule'],
+        'ebsModulePort': json['ebsModulePort'] === undefined ? undefined : json['ebsModulePort'] === null ? null : json['ebsModulePort'],
         'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
         'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
         'installerId': json['installerId'] === undefined ? undefined : json['installerId'] === null ? null : json['installerId'],
@@ -294,6 +308,8 @@ export function UpdateSideRequestToJSONTyped(value?: UpdateSideRequest | null, i
         'timeoutDurationMinutes': value['timeoutDurationMinutes'],
         'gprsTimeoutMinutes': value['gprsTimeoutMinutes'],
         'gprs': value['gprs'],
+        'gprsModule': value['gprsModule'],
+        'ebsModulePort': value['ebsModulePort'],
         'customerId': value['customerId'],
         'dealerId': value['dealerId'],
         'installerId': value['installerId'],

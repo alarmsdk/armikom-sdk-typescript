@@ -16,6 +16,7 @@ Name | Type
 `cityId` | string
 `regionId` | string
 `recordDateTime` | Date
+`monitoringCenterId` | string
 
 ## Example
 
@@ -34,6 +35,7 @@ const example = {
   "cityId": null,
   "regionId": null,
   "recordDateTime": null,
+  "monitoringCenterId": null,
 } satisfies DealerListItem
 
 console.log(example)

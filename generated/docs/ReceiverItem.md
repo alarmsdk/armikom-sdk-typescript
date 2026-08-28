@@ -10,6 +10,7 @@ Name | Type
 `name` | string
 `receiverNo` | string
 `active` | boolean
+`monitoringCenterId` | string
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "name": null,
   "receiverNo": null,
   "active": null,
+  "monitoringCenterId": null,
 } satisfies ReceiverItem
 
 console.log(example)

@@ -141,6 +141,18 @@ export interface CreateSideRequest {
     gprs?: boolean | null;
     /**
      * 
+     * @type {number}
+     * @memberof CreateSideRequest
+     */
+    gprsModule?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSideRequest
+     */
+    ebsModulePort?: number | null;
+    /**
+     * 
      * @type {string}
      * @memberof CreateSideRequest
      */
@@ -274,6 +286,8 @@ export function CreateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'timeoutDurationMinutes': json['timeoutDurationMinutes'] === undefined ? undefined : json['timeoutDurationMinutes'] === null ? null : json['timeoutDurationMinutes'],
         'gprsTimeoutMinutes': json['gprsTimeoutMinutes'] === undefined ? undefined : json['gprsTimeoutMinutes'] === null ? null : json['gprsTimeoutMinutes'],
         'gprs': json['gprs'] === undefined ? undefined : json['gprs'] === null ? null : json['gprs'],
+        'gprsModule': json['gprsModule'] === undefined ? undefined : json['gprsModule'] === null ? null : json['gprsModule'],
+        'ebsModulePort': json['ebsModulePort'] === undefined ? undefined : json['ebsModulePort'] === null ? null : json['ebsModulePort'],
         'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
         'customerName': json['customerName'] === undefined ? undefined : json['customerName'] === null ? null : json['customerName'],
         'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
@@ -324,6 +338,8 @@ export function CreateSideRequestToJSONTyped(value?: CreateSideRequest | null, i
         'timeoutDurationMinutes': value['timeoutDurationMinutes'],
         'gprsTimeoutMinutes': value['gprsTimeoutMinutes'],
         'gprs': value['gprs'],
+        'gprsModule': value['gprsModule'],
+        'ebsModulePort': value['ebsModulePort'],
         'customerId': value['customerId'],
         'customerName': value['customerName'],
         'dealerId': value['dealerId'],

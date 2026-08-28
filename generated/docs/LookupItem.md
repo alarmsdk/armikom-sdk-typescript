@@ -9,6 +9,7 @@ Name | Type
 `id` | string
 `name` | string
 `parentId` | string
+`monitoringCenterId` | string
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "id": null,
   "name": null,
   "parentId": null,
+  "monitoringCenterId": null,
 } satisfies LookupItem
 
 console.log(example)

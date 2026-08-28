@@ -79,6 +79,12 @@ export interface DealerListItem {
      * @memberof DealerListItem
      */
     recordDateTime?: Date | null;
+    /**
+     * The monitoring center this dealer belongs to.
+     * @type {string}
+     * @memberof DealerListItem
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -108,6 +114,7 @@ export function DealerListItemFromJSONTyped(json: any, ignoreDiscriminator: bool
         'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -132,6 +139,7 @@ export function DealerListItemToJSONTyped(value?: DealerListItem | null, ignoreD
         'cityId': value['cityId'],
         'regionId': value['regionId'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 

@@ -43,6 +43,12 @@ export interface ReceiverItem {
      * @memberof ReceiverItem
      */
     active?: boolean | null;
+    /**
+     * The monitoring center this receiver belongs to.
+     * @type {string}
+     * @memberof ReceiverItem
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -66,6 +72,7 @@ export function ReceiverItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'receiverNo': json['receiverNo'] === undefined ? undefined : json['receiverNo'] === null ? null : json['receiverNo'],
         'active': json['active'] === undefined ? undefined : json['active'] === null ? null : json['active'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -84,6 +91,7 @@ export function ReceiverItemToJSONTyped(value?: ReceiverItem | null, ignoreDiscr
         'name': value['name'],
         'receiverNo': value['receiverNo'],
         'active': value['active'],
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 

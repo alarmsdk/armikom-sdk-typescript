@@ -34,6 +34,8 @@ Name | Type
 `armType` | string
 `timeoutDuration` | number
 `gprsTimeoutMinutes` | number
+`gprsModule` | number
+`ebsModulePort` | number
 `customerId` | string
 `customerName` | string
 `dealerId` | string
@@ -100,6 +102,8 @@ const example = {
   "armType": null,
   "timeoutDuration": null,
   "gprsTimeoutMinutes": null,
+  "gprsModule": null,
+  "ebsModulePort": null,
   "customerId": null,
   "customerName": null,
   "dealerId": null,
