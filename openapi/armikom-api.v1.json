@@ -66879,6 +66879,12 @@
           "contactName": {
             "type": "string",
             "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "description": "Optional monitoring center for PBX routing. When omitted, resolved from sideId/signalEventId/caller scope."
           }
         },
         "additionalProperties": false

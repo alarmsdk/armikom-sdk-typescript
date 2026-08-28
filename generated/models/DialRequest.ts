@@ -43,6 +43,12 @@ export interface DialRequest {
      * @memberof DialRequest
      */
     contactName?: string | null;
+    /**
+     * Optional monitoring center for PBX routing. When omitted, resolved from sideId/signalEventId/caller scope.
+     * @type {string}
+     * @memberof DialRequest
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -66,6 +72,7 @@ export function DialRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'sideId': json['sideId'] === undefined ? undefined : json['sideId'] === null ? null : json['sideId'],
         'signalEventId': json['signalEventId'] === undefined ? undefined : json['signalEventId'] === null ? null : json['signalEventId'],
         'contactName': json['contactName'] === undefined ? undefined : json['contactName'] === null ? null : json['contactName'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -84,6 +91,7 @@ export function DialRequestToJSONTyped(value?: DialRequest | null, ignoreDiscrim
         'sideId': value['sideId'],
         'signalEventId': value['signalEventId'],
         'contactName': value['contactName'],
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 
