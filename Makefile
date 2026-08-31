@@ -1,8 +1,10 @@
 # armikom-sdk-typescript — generate · build · test · drift gate
 #
-# Contract: api-v1.0 on Armikom.Api (196 paths · 309 operations · 297 schemas,
-# info.version v1). The pinned spec is openapi/armikom-api.v1.json and its
-# sha256 is recorded in openapi/armikom-api.v1.json.sha256.
+# Contract: Armikom.Api master with the admin surface (229 paths · 391 operations
+# · 351 schemas, info.version v1). Additive over the api-v1.0 freeze — oasdiff
+# reports no breaking change against openapi/armikom-api.v1.frozen.json in the
+# API repo. The pinned spec is openapi/armikom-api.v1.json and its sha256 is
+# recorded in openapi/armikom-api.v1.json.sha256.
 
 SHELL := /bin/bash
 .SHELLFLAGS := -eu -o pipefail -c

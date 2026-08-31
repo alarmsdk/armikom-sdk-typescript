@@ -45,6 +45,7 @@ export interface ReceiverItem {
     active?: boolean | null;
     /**
      * The monitoring center this receiver belongs to.
+     * Enables cross-MC admin clients to filter receivers by entity context.
      * @type {string}
      * @memberof ReceiverItem
      */

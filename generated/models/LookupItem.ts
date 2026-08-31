@@ -38,7 +38,8 @@ export interface LookupItem {
      */
     parentId?: string | null;
     /**
-     * Present on MC-scoped collections (account-types, account-items, signal-explanations). Null for global items.
+     * Present on MC-scoped collections (account-types, account-items, signal-explanations).
+     * Null for global/cross-MC items. Enables cross-MC admin clients to filter by entity context.
      * @type {string}
      * @memberof LookupItem
      */

@@ -41,7 +41,7 @@ test('D69: listSignalRelations deserialises a bare array', async () => {
   assert.equal(result.length, 1);
 });
 
-test('D69: all 27 bare-array reference lists are typed as arrays in generated/', () => {
+test('D69: all 29 bare-array reference lists are typed as arrays in generated/', () => {
   // Guard against a partial regression: the count itself is part of the decision.
   const root = repoRoot();
   const spec = JSON.parse(
@@ -56,7 +56,7 @@ test('D69: all 27 bare-array reference lists are typed as arrays in generated/',
     const schema = get.responses?.['200']?.content?.['application/json']?.schema;
     if (schema?.type === 'array') bare.push(get.operationId as string);
   }
-  assert.equal(bare.length, 27, `expected 27 bare-array reference lists (D69), got ${bare.length}`);
+  assert.equal(bare.length, 29, `expected 29 bare-array reference lists (D69), got ${bare.length}`);
 
   const src = readFileSync(join(root, 'generated/apis/ReferenceDataApi.ts'), 'utf8');
   const missing = bare.filter((opId) => {

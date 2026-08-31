@@ -34,6 +34,11 @@ import {
     ActiveCategoryItemToJSON,
 } from '../models/ActiveCategoryItem';
 import {
+    type AdminWriteResponse,
+    AdminWriteResponseFromJSON,
+    AdminWriteResponseToJSON,
+} from '../models/AdminWriteResponse';
+import {
     type AlarmCategoryDetail,
     AlarmCategoryDetailFromJSON,
     AlarmCategoryDetailToJSON,
@@ -144,6 +149,26 @@ import {
     CreateSignalExplanationRequestToJSON,
 } from '../models/CreateSignalExplanationRequest';
 import {
+    type CreateSignalRelationRequest,
+    CreateSignalRelationRequestFromJSON,
+    CreateSignalRelationRequestToJSON,
+} from '../models/CreateSignalRelationRequest';
+import {
+    type CreateSignalRequest,
+    CreateSignalRequestFromJSON,
+    CreateSignalRequestToJSON,
+} from '../models/CreateSignalRequest';
+import {
+    type CreateSignalTypeRequest,
+    CreateSignalTypeRequestFromJSON,
+    CreateSignalTypeRequestToJSON,
+} from '../models/CreateSignalTypeRequest';
+import {
+    type CreateTechnicalPersonRequest,
+    CreateTechnicalPersonRequestFromJSON,
+    CreateTechnicalPersonRequestToJSON,
+} from '../models/CreateTechnicalPersonRequest';
+import {
     type DealerAccountTypeDetail,
     DealerAccountTypeDetailFromJSON,
     DealerAccountTypeDetailToJSON,
@@ -163,6 +188,11 @@ import {
     LookupItemFromJSON,
     LookupItemToJSON,
 } from '../models/LookupItem';
+import {
+    type MobileOperatorDetail,
+    MobileOperatorDetailFromJSON,
+    MobileOperatorDetailToJSON,
+} from '../models/MobileOperatorDetail';
 import {
     type ModelDetail,
     ModelDetailFromJSON,
@@ -194,6 +224,11 @@ import {
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
 import {
+    type ProductDetail,
+    ProductDetailFromJSON,
+    ProductDetailToJSON,
+} from '../models/ProductDetail';
+import {
     type ProtocolDetail,
     ProtocolDetailFromJSON,
     ProtocolDetailToJSON,
@@ -214,20 +249,50 @@ import {
     ReferenceWriteResponseToJSON,
 } from '../models/ReferenceWriteResponse';
 import {
+    type SaveMobileOperatorRequest,
+    SaveMobileOperatorRequestFromJSON,
+    SaveMobileOperatorRequestToJSON,
+} from '../models/SaveMobileOperatorRequest';
+import {
+    type SaveProductRequest,
+    SaveProductRequestFromJSON,
+    SaveProductRequestToJSON,
+} from '../models/SaveProductRequest';
+import {
+    type SignalDetail,
+    SignalDetailFromJSON,
+    SignalDetailToJSON,
+} from '../models/SignalDetail';
+import {
     type SignalExplanationDetail,
     SignalExplanationDetailFromJSON,
     SignalExplanationDetailToJSON,
 } from '../models/SignalExplanationDetail';
+import {
+    type SignalRelationDetail,
+    SignalRelationDetailFromJSON,
+    SignalRelationDetailToJSON,
+} from '../models/SignalRelationDetail';
 import {
     type SignalRelationItem,
     SignalRelationItemFromJSON,
     SignalRelationItemToJSON,
 } from '../models/SignalRelationItem';
 import {
+    type SignalTypeDetail,
+    SignalTypeDetailFromJSON,
+    SignalTypeDetailToJSON,
+} from '../models/SignalTypeDetail';
+import {
     type SignalTypeItem,
     SignalTypeItemFromJSON,
     SignalTypeItemToJSON,
 } from '../models/SignalTypeItem';
+import {
+    type TechnicalPersonDetail,
+    TechnicalPersonDetailFromJSON,
+    TechnicalPersonDetailToJSON,
+} from '../models/TechnicalPersonDetail';
 import {
     type TechnicalPersonItem,
     TechnicalPersonItemFromJSON,
@@ -323,6 +388,26 @@ import {
     UpdateSignalExplanationRequestFromJSON,
     UpdateSignalExplanationRequestToJSON,
 } from '../models/UpdateSignalExplanationRequest';
+import {
+    type UpdateSignalRelationRequest,
+    UpdateSignalRelationRequestFromJSON,
+    UpdateSignalRelationRequestToJSON,
+} from '../models/UpdateSignalRelationRequest';
+import {
+    type UpdateSignalRequest,
+    UpdateSignalRequestFromJSON,
+    UpdateSignalRequestToJSON,
+} from '../models/UpdateSignalRequest';
+import {
+    type UpdateSignalTypeRequest,
+    UpdateSignalTypeRequestFromJSON,
+    UpdateSignalTypeRequestToJSON,
+} from '../models/UpdateSignalTypeRequest';
+import {
+    type UpdateTechnicalPersonRequest,
+    UpdateTechnicalPersonRequestFromJSON,
+    UpdateTechnicalPersonRequestToJSON,
+} from '../models/UpdateTechnicalPersonRequest';
 
 export interface ReferenceDataApiCreateAccountItemOperationRequest {
     createAccountItemRequest: CreateAccountItemRequest;
@@ -390,6 +475,12 @@ export interface ReferenceDataApiCreateHolidayTypeOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateMobileOperatorRequest {
+    saveMobileOperatorRequest: SaveMobileOperatorRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateModelOperationRequest {
     createModelRequest: CreateModelRequest;
     xCorrelationId?: string;
@@ -404,6 +495,12 @@ export interface ReferenceDataApiCreateModelProtocolOperationRequest {
 
 export interface ReferenceDataApiCreateNoteTypeOperationRequest {
     createNoteTypeRequest: CreateNoteTypeRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface ReferenceDataApiCreateProductRequest {
+    saveProductRequest: SaveProductRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -432,8 +529,32 @@ export interface ReferenceDataApiCreateSideTypeOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateSignalOperationRequest {
+    createSignalRequest: CreateSignalRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateSignalExplanationOperationRequest {
     createSignalExplanationRequest: CreateSignalExplanationRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface ReferenceDataApiCreateSignalRelationOperationRequest {
+    createSignalRelationRequest: CreateSignalRelationRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface ReferenceDataApiCreateSignalTypeOperationRequest {
+    createSignalTypeRequest: CreateSignalTypeRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface ReferenceDataApiCreateTechnicalPersonOperationRequest {
+    createTechnicalPersonRequest: CreateTechnicalPersonRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -493,6 +614,11 @@ export interface ReferenceDataApiDeleteHolidayTypeRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiDeleteMobileOperatorRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiDeleteModelRequest {
     id: string;
     xCorrelationId?: string;
@@ -504,6 +630,11 @@ export interface ReferenceDataApiDeleteModelProtocolRequest {
 }
 
 export interface ReferenceDataApiDeleteNoteTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteProductRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -528,7 +659,27 @@ export interface ReferenceDataApiDeleteSideTypeRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiDeleteSignalRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiDeleteSignalExplanationRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteSignalRelationRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteSignalTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteTechnicalPersonRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -623,6 +774,11 @@ export interface ReferenceDataApiGetHolidayTypeByIdRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetMobileOperatorByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetMobileOperatorsRequest {
     xCorrelationId?: string;
 }
@@ -647,6 +803,11 @@ export interface ReferenceDataApiGetMonitoringCentersRequest {
 }
 
 export interface ReferenceDataApiGetNoteTypeByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetProductByIdRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -696,7 +857,22 @@ export interface ReferenceDataApiGetSideTypesRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetSignalByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetSignalExplanationByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetSignalRelationByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetSignalTypeByIdRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -712,6 +888,11 @@ export interface ReferenceDataApiGetSignalsRequest {
 
 export interface ReferenceDataApiGetTechnicalPeopleRequest {
     dealerId?: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetTechnicalPersonByIdRequest {
+    id: string;
     xCorrelationId?: string;
 }
 
@@ -742,11 +923,21 @@ export interface ReferenceDataApiListNoteTypesRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiListProductsRequest {
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiListReferenceSignalExplanationsRequest {
     xCorrelationId?: string;
 }
 
 export interface ReferenceDataApiListSignalRelationsRequest {
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiListTechnicalPeopleDetailedRequest {
+    dealerId?: string;
+    activeOnly?: boolean;
     xCorrelationId?: string;
 }
 
@@ -816,6 +1007,12 @@ export interface ReferenceDataApiUpdateHolidayTypeOperationRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiUpdateMobileOperatorRequest {
+    id: string;
+    saveMobileOperatorRequest: SaveMobileOperatorRequest;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiUpdateModelOperationRequest {
     id: string;
     updateModelRequest: UpdateModelRequest;
@@ -825,6 +1022,12 @@ export interface ReferenceDataApiUpdateModelOperationRequest {
 export interface ReferenceDataApiUpdateNoteTypeOperationRequest {
     id: string;
     updateNoteTypeRequest: UpdateNoteTypeRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateProductRequest {
+    id: string;
+    saveProductRequest: SaveProductRequest;
     xCorrelationId?: string;
 }
 
@@ -852,9 +1055,33 @@ export interface ReferenceDataApiUpdateSideTypeOperationRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiUpdateSignalOperationRequest {
+    id: string;
+    updateSignalRequest: UpdateSignalRequest;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiUpdateSignalExplanationOperationRequest {
     id: string;
     updateSignalExplanationRequest: UpdateSignalExplanationRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateSignalRelationOperationRequest {
+    id: string;
+    updateSignalRelationRequest: UpdateSignalRelationRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateSignalTypeOperationRequest {
+    id: string;
+    updateSignalTypeRequest: UpdateSignalTypeRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateTechnicalPersonOperationRequest {
+    id: string;
+    updateTechnicalPersonRequest: UpdateTechnicalPersonRequest;
     xCorrelationId?: string;
 }
 
@@ -1557,6 +1784,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for createMobileOperator without sending the request
+     */
+    async createMobileOperatorRequestOpts(requestParameters: ReferenceDataApiCreateMobileOperatorRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveMobileOperatorRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveMobileOperatorRequest',
+                'Required parameter "saveMobileOperatorRequest" was null or undefined when calling createMobileOperator().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/mobile-operators`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveMobileOperatorRequestToJSON(requestParameters['saveMobileOperatorRequest']),
+        };
+    }
+
+    /**
+     * Create a GSM operator
+     */
+    async createMobileOperatorRaw(requestParameters: ReferenceDataApiCreateMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createMobileOperatorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a GSM operator
+     */
+    async createMobileOperator(requestParameters: ReferenceDataApiCreateMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createMobileOperatorRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for createModel without sending the request
      */
     async createModelRequestOpts(requestParameters: ReferenceDataApiCreateModelOperationRequest): Promise<runtime.RequestOpts> {
@@ -1742,6 +2032,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createNoteType(requestParameters: ReferenceDataApiCreateNoteTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createNoteTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createProduct without sending the request
+     */
+    async createProductRequestOpts(requestParameters: ReferenceDataApiCreateProductRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveProductRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveProductRequest',
+                'Required parameter "saveProductRequest" was null or undefined when calling createProduct().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/products`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveProductRequestToJSON(requestParameters['saveProductRequest']),
+        };
+    }
+
+    /**
+     * Create a product
+     */
+    async createProductRaw(requestParameters: ReferenceDataApiCreateProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createProductRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a product
+     */
+    async createProduct(requestParameters: ReferenceDataApiCreateProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createProductRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1998,6 +2351,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for createSignal without sending the request
+     */
+    async createSignalRequestOpts(requestParameters: ReferenceDataApiCreateSignalOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSignalRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSignalRequest',
+                'Required parameter "createSignalRequest" was null or undefined when calling createSignal().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signals`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSignalRequestToJSON(requestParameters['createSignalRequest']),
+        };
+    }
+
+    /**
+     * Create a signal definition
+     */
+    async createSignalRaw(requestParameters: ReferenceDataApiCreateSignalOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSignalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a signal definition
+     */
+    async createSignal(requestParameters: ReferenceDataApiCreateSignalOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSignalRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for createSignalExplanation without sending the request
      */
     async createSignalExplanationRequestOpts(requestParameters: ReferenceDataApiCreateSignalExplanationOperationRequest): Promise<runtime.RequestOpts> {
@@ -2057,6 +2473,195 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createSignalExplanation(requestParameters: ReferenceDataApiCreateSignalExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createSignalExplanationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createSignalRelation without sending the request
+     */
+    async createSignalRelationRequestOpts(requestParameters: ReferenceDataApiCreateSignalRelationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSignalRelationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSignalRelationRequest',
+                'Required parameter "createSignalRelationRequest" was null or undefined when calling createSignalRelation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relations`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSignalRelationRequestToJSON(requestParameters['createSignalRelationRequest']),
+        };
+    }
+
+    /**
+     * Create a signal relation
+     */
+    async createSignalRelationRaw(requestParameters: ReferenceDataApiCreateSignalRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSignalRelationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a signal relation
+     */
+    async createSignalRelation(requestParameters: ReferenceDataApiCreateSignalRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSignalRelationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createSignalType without sending the request
+     */
+    async createSignalTypeRequestOpts(requestParameters: ReferenceDataApiCreateSignalTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSignalTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSignalTypeRequest',
+                'Required parameter "createSignalTypeRequest" was null or undefined when calling createSignalType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-types`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSignalTypeRequestToJSON(requestParameters['createSignalTypeRequest']),
+        };
+    }
+
+    /**
+     * Create a signal type
+     */
+    async createSignalTypeRaw(requestParameters: ReferenceDataApiCreateSignalTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSignalTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a signal type
+     */
+    async createSignalType(requestParameters: ReferenceDataApiCreateSignalTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSignalTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createTechnicalPerson without sending the request
+     */
+    async createTechnicalPersonRequestOpts(requestParameters: ReferenceDataApiCreateTechnicalPersonOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createTechnicalPersonRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createTechnicalPersonRequest',
+                'Required parameter "createTechnicalPersonRequest" was null or undefined when calling createTechnicalPerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/technical-people`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateTechnicalPersonRequestToJSON(requestParameters['createTechnicalPersonRequest']),
+        };
+    }
+
+    /**
+     * Create a technician
+     */
+    async createTechnicalPersonRaw(requestParameters: ReferenceDataApiCreateTechnicalPersonOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createTechnicalPersonRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a technician
+     */
+    async createTechnicalPerson(requestParameters: ReferenceDataApiCreateTechnicalPersonOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createTechnicalPersonRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -2677,6 +3282,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for deleteMobileOperator without sending the request
+     */
+    async deleteMobileOperatorRequestOpts(requestParameters: ReferenceDataApiDeleteMobileOperatorRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMobileOperator().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/mobile-operators/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a GSM operator
+     */
+    async deleteMobileOperatorRaw(requestParameters: ReferenceDataApiDeleteMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMobileOperatorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a GSM operator
+     */
+    async deleteMobileOperator(requestParameters: ReferenceDataApiDeleteMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMobileOperatorRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Creates request options for deleteModel without sending the request
      */
     async deleteModelRequestOpts(requestParameters: ReferenceDataApiDeleteModelRequest): Promise<runtime.RequestOpts> {
@@ -2842,6 +3503,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteNoteType(requestParameters: ReferenceDataApiDeleteNoteTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteNoteTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteProduct without sending the request
+     */
+    async deleteProductRequestOpts(requestParameters: ReferenceDataApiDeleteProductRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteProduct().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/products/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a product
+     */
+    async deleteProductRaw(requestParameters: ReferenceDataApiDeleteProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteProductRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a product
+     */
+    async deleteProduct(requestParameters: ReferenceDataApiDeleteProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteProductRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -3069,6 +3786,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for deleteSignal without sending the request
+     */
+    async deleteSignalRequestOpts(requestParameters: ReferenceDataApiDeleteSignalRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSignal().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signals/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a signal definition
+     */
+    async deleteSignalRaw(requestParameters: ReferenceDataApiDeleteSignalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSignalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a signal definition
+     */
+    async deleteSignal(requestParameters: ReferenceDataApiDeleteSignalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSignalRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Creates request options for deleteSignalExplanation without sending the request
      */
     async deleteSignalExplanationRequestOpts(requestParameters: ReferenceDataApiDeleteSignalExplanationRequest): Promise<runtime.RequestOpts> {
@@ -3122,6 +3895,174 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteSignalExplanation(requestParameters: ReferenceDataApiDeleteSignalExplanationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSignalExplanationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSignalRelation without sending the request
+     */
+    async deleteSignalRelationRequestOpts(requestParameters: ReferenceDataApiDeleteSignalRelationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSignalRelation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a signal relation
+     */
+    async deleteSignalRelationRaw(requestParameters: ReferenceDataApiDeleteSignalRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSignalRelationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a signal relation
+     */
+    async deleteSignalRelation(requestParameters: ReferenceDataApiDeleteSignalRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSignalRelationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSignalType without sending the request
+     */
+    async deleteSignalTypeRequestOpts(requestParameters: ReferenceDataApiDeleteSignalTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSignalType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a signal type
+     */
+    async deleteSignalTypeRaw(requestParameters: ReferenceDataApiDeleteSignalTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSignalTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a signal type
+     */
+    async deleteSignalType(requestParameters: ReferenceDataApiDeleteSignalTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSignalTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteTechnicalPerson without sending the request
+     */
+    async deleteTechnicalPersonRequestOpts(requestParameters: ReferenceDataApiDeleteTechnicalPersonRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteTechnicalPerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/technical-people/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a technician
+     */
+    async deleteTechnicalPersonRaw(requestParameters: ReferenceDataApiDeleteTechnicalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteTechnicalPersonRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a technician
+     */
+    async deleteTechnicalPerson(requestParameters: ReferenceDataApiDeleteTechnicalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTechnicalPersonRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -4158,6 +5099,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getMobileOperatorById without sending the request
+     */
+    async getMobileOperatorByIdRequestOpts(requestParameters: ReferenceDataApiGetMobileOperatorByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getMobileOperatorById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/mobile-operators/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a GSM operator
+     */
+    async getMobileOperatorByIdRaw(requestParameters: ReferenceDataApiGetMobileOperatorByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileOperatorDetail>> {
+        const requestOptions = await this.getMobileOperatorByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MobileOperatorDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a GSM operator
+     */
+    async getMobileOperatorById(requestParameters: ReferenceDataApiGetMobileOperatorByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileOperatorDetail> {
+        const response = await this.getMobileOperatorByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getMobileOperators without sending the request
      */
     async getMobileOperatorsRequestOpts(requestParameters: ReferenceDataApiGetMobileOperatorsRequest): Promise<runtime.RequestOpts> {
@@ -4476,6 +5474,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getNoteTypeById(requestParameters: ReferenceDataApiGetNoteTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NoteTypeDetail> {
         const response = await this.getNoteTypeByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getProductById without sending the request
+     */
+    async getProductByIdRequestOpts(requestParameters: ReferenceDataApiGetProductByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getProductById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/products/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a product
+     */
+    async getProductByIdRaw(requestParameters: ReferenceDataApiGetProductByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProductDetail>> {
+        const requestOptions = await this.getProductByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ProductDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a product
+     */
+    async getProductById(requestParameters: ReferenceDataApiGetProductByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProductDetail> {
+        const response = await this.getProductByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -5008,6 +6063,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getSignalById without sending the request
+     */
+    async getSignalByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSignalById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signals/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a signal definition by id
+     */
+    async getSignalByIdRaw(requestParameters: ReferenceDataApiGetSignalByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalDetail>> {
+        const requestOptions = await this.getSignalByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a signal definition by id
+     */
+    async getSignalById(requestParameters: ReferenceDataApiGetSignalByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalDetail> {
+        const response = await this.getSignalByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getSignalExplanationById without sending the request
      */
     async getSignalExplanationByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalExplanationByIdRequest): Promise<runtime.RequestOpts> {
@@ -5061,6 +6173,120 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getSignalExplanationById(requestParameters: ReferenceDataApiGetSignalExplanationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalExplanationDetail> {
         const response = await this.getSignalExplanationByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSignalRelationById without sending the request
+     */
+    async getSignalRelationByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalRelationByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSignalRelationById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a signal relation by id
+     */
+    async getSignalRelationByIdRaw(requestParameters: ReferenceDataApiGetSignalRelationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRelationDetail>> {
+        const requestOptions = await this.getSignalRelationByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRelationDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a signal relation by id
+     */
+    async getSignalRelationById(requestParameters: ReferenceDataApiGetSignalRelationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRelationDetail> {
+        const response = await this.getSignalRelationByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSignalTypeById without sending the request
+     */
+    async getSignalTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalTypeByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSignalTypeById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a signal type by id
+     */
+    async getSignalTypeByIdRaw(requestParameters: ReferenceDataApiGetSignalTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalTypeDetail>> {
+        const requestOptions = await this.getSignalTypeByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalTypeDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a signal type by id
+     */
+    async getSignalTypeById(requestParameters: ReferenceDataApiGetSignalTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalTypeDetail> {
+        const response = await this.getSignalTypeByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -5218,6 +6444,65 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getTechnicalPeople(requestParameters: ReferenceDataApiGetTechnicalPeopleRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TechnicalPersonItem>> {
         const response = await this.getTechnicalPeopleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getTechnicalPersonById without sending the request
+     */
+    async getTechnicalPersonByIdRequestOpts(requestParameters: ReferenceDataApiGetTechnicalPersonByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getTechnicalPersonById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/technical-people/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The password is never returned; hasPassword reports whether one is set.
+     * Get a technician
+     */
+    async getTechnicalPersonByIdRaw(requestParameters: ReferenceDataApiGetTechnicalPersonByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TechnicalPersonDetail>> {
+        const requestOptions = await this.getTechnicalPersonByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TechnicalPersonDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * The password is never returned; hasPassword reports whether one is set.
+     * Get a technician
+     */
+    async getTechnicalPersonById(requestParameters: ReferenceDataApiGetTechnicalPersonByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TechnicalPersonDetail> {
+        const response = await this.getTechnicalPersonByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -5530,6 +6815,55 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for listProducts without sending the request
+     */
+    async listProductsRequestOpts(requestParameters: ReferenceDataApiListProductsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/products`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List products
+     */
+    async listProductsRaw(requestParameters: ReferenceDataApiListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductDetail>>> {
+        const requestOptions = await this.listProductsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductDetailFromJSON));
+    }
+
+    /**
+     * List products
+     */
+    async listProducts(requestParameters: ReferenceDataApiListProductsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductDetail>> {
+        const response = await this.listProductsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listReferenceSignalExplanations without sending the request
      */
     async listReferenceSignalExplanationsRequestOpts(requestParameters: ReferenceDataApiListReferenceSignalExplanationsRequest): Promise<runtime.RequestOpts> {
@@ -5626,6 +6960,65 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async listSignalRelations(requestParameters: ReferenceDataApiListSignalRelationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SignalRelationItem>> {
         const response = await this.listSignalRelationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listTechnicalPeopleDetailed without sending the request
+     */
+    async listTechnicalPeopleDetailedRequestOpts(requestParameters: ReferenceDataApiListTechnicalPeopleDetailedRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['dealerId'] != null) {
+            queryParameters['dealerId'] = requestParameters['dealerId'];
+        }
+
+        if (requestParameters['activeOnly'] != null) {
+            queryParameters['activeOnly'] = requestParameters['activeOnly'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/technical-people/detailed`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A dealer principal always sees only its own technicians.
+     * List technicians with their contact details
+     */
+    async listTechnicalPeopleDetailedRaw(requestParameters: ReferenceDataApiListTechnicalPeopleDetailedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TechnicalPersonDetail>>> {
+        const requestOptions = await this.listTechnicalPeopleDetailedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TechnicalPersonDetailFromJSON));
+    }
+
+    /**
+     * A dealer principal always sees only its own technicians.
+     * List technicians with their contact details
+     */
+    async listTechnicalPeopleDetailed(requestParameters: ReferenceDataApiListTechnicalPeopleDetailedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TechnicalPersonDetail>> {
+        const response = await this.listTechnicalPeopleDetailedRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -6367,6 +7760,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for updateMobileOperator without sending the request
+     */
+    async updateMobileOperatorRequestOpts(requestParameters: ReferenceDataApiUpdateMobileOperatorRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateMobileOperator().'
+            );
+        }
+
+        if (requestParameters['saveMobileOperatorRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveMobileOperatorRequest',
+                'Required parameter "saveMobileOperatorRequest" was null or undefined when calling updateMobileOperator().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/mobile-operators/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveMobileOperatorRequestToJSON(requestParameters['saveMobileOperatorRequest']),
+        };
+    }
+
+    /**
+     * Rename a GSM operator
+     */
+    async updateMobileOperatorRaw(requestParameters: ReferenceDataApiUpdateMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateMobileOperatorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Rename a GSM operator
+     */
+    async updateMobileOperator(requestParameters: ReferenceDataApiUpdateMobileOperatorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateMobileOperatorRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for updateModel without sending the request
      */
     async updateModelRequestOpts(requestParameters: ReferenceDataApiUpdateModelOperationRequest): Promise<runtime.RequestOpts> {
@@ -6497,6 +7957,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateNoteType(requestParameters: ReferenceDataApiUpdateNoteTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateNoteTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateProduct without sending the request
+     */
+    async updateProductRequestOpts(requestParameters: ReferenceDataApiUpdateProductRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateProduct().'
+            );
+        }
+
+        if (requestParameters['saveProductRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveProductRequest',
+                'Required parameter "saveProductRequest" was null or undefined when calling updateProduct().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/products/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveProductRequestToJSON(requestParameters['saveProductRequest']),
+        };
+    }
+
+    /**
+     * Update a product
+     */
+    async updateProductRaw(requestParameters: ReferenceDataApiUpdateProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateProductRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a product
+     */
+    async updateProduct(requestParameters: ReferenceDataApiUpdateProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateProductRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -6769,6 +8296,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for updateSignal without sending the request
+     */
+    async updateSignalRequestOpts(requestParameters: ReferenceDataApiUpdateSignalOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSignal().'
+            );
+        }
+
+        if (requestParameters['updateSignalRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSignalRequest',
+                'Required parameter "updateSignalRequest" was null or undefined when calling updateSignal().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signals/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSignalRequestToJSON(requestParameters['updateSignalRequest']),
+        };
+    }
+
+    /**
+     * Update a signal definition
+     */
+    async updateSignalRaw(requestParameters: ReferenceDataApiUpdateSignalOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSignalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a signal definition
+     */
+    async updateSignal(requestParameters: ReferenceDataApiUpdateSignalOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSignalRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for updateSignalExplanation without sending the request
      */
     async updateSignalExplanationRequestOpts(requestParameters: ReferenceDataApiUpdateSignalExplanationOperationRequest): Promise<runtime.RequestOpts> {
@@ -6832,6 +8426,209 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateSignalExplanation(requestParameters: ReferenceDataApiUpdateSignalExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateSignalExplanationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateSignalRelation without sending the request
+     */
+    async updateSignalRelationRequestOpts(requestParameters: ReferenceDataApiUpdateSignalRelationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSignalRelation().'
+            );
+        }
+
+        if (requestParameters['updateSignalRelationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSignalRelationRequest',
+                'Required parameter "updateSignalRelationRequest" was null or undefined when calling updateSignalRelation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSignalRelationRequestToJSON(requestParameters['updateSignalRelationRequest']),
+        };
+    }
+
+    /**
+     * Update a signal relation
+     */
+    async updateSignalRelationRaw(requestParameters: ReferenceDataApiUpdateSignalRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSignalRelationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a signal relation
+     */
+    async updateSignalRelation(requestParameters: ReferenceDataApiUpdateSignalRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSignalRelationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateSignalType without sending the request
+     */
+    async updateSignalTypeRequestOpts(requestParameters: ReferenceDataApiUpdateSignalTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSignalType().'
+            );
+        }
+
+        if (requestParameters['updateSignalTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSignalTypeRequest',
+                'Required parameter "updateSignalTypeRequest" was null or undefined when calling updateSignalType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSignalTypeRequestToJSON(requestParameters['updateSignalTypeRequest']),
+        };
+    }
+
+    /**
+     * Update a signal type
+     */
+    async updateSignalTypeRaw(requestParameters: ReferenceDataApiUpdateSignalTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSignalTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a signal type
+     */
+    async updateSignalType(requestParameters: ReferenceDataApiUpdateSignalTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSignalTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateTechnicalPerson without sending the request
+     */
+    async updateTechnicalPersonRequestOpts(requestParameters: ReferenceDataApiUpdateTechnicalPersonOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateTechnicalPerson().'
+            );
+        }
+
+        if (requestParameters['updateTechnicalPersonRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateTechnicalPersonRequest',
+                'Required parameter "updateTechnicalPersonRequest" was null or undefined when calling updateTechnicalPerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/technical-people/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateTechnicalPersonRequestToJSON(requestParameters['updateTechnicalPersonRequest']),
+        };
+    }
+
+    /**
+     * Omitting password keeps the stored one; sending an empty string clears it.
+     * Update a technician
+     */
+    async updateTechnicalPersonRaw(requestParameters: ReferenceDataApiUpdateTechnicalPersonOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateTechnicalPersonRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Omitting password keeps the stored one; sending an empty string clears it.
+     * Update a technician
+     */
+    async updateTechnicalPerson(requestParameters: ReferenceDataApiUpdateTechnicalPersonOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateTechnicalPersonRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

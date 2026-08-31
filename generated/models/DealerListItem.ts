@@ -80,7 +80,7 @@ export interface DealerListItem {
      */
     recordDateTime?: Date | null;
     /**
-     * The monitoring center this dealer belongs to.
+     * 
      * @type {string}
      * @memberof DealerListItem
      */

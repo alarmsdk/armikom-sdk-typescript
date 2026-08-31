@@ -23,7 +23,7 @@ function walk(dir: string): string[] {
   });
 }
 
-test('D70: the five unbuilt operations are absent from the frozen contract', () => {
+test('D70: the five unbuilt operations are absent from the pinned contract', () => {
   const spec = JSON.parse(
     readFileSync(join(repoRoot(), 'openapi/armikom-api.v1.json'), 'utf8'),
   ) as { paths: Record<string, Record<string, { operationId?: string }>> };
@@ -34,7 +34,9 @@ test('D70: the five unbuilt operations are absent from the frozen contract', () 
       if (op && typeof op === 'object' && op.operationId) ids.add(op.operationId);
     }
   }
-  assert.equal(ids.size, 309, 'operation count moved off the api-v1.0 freeze');
+  // The count is a fact about the pinned contract, not about D70 itself. It is
+  // here so a re-pin is a deliberate edit rather than something that slips in.
+  assert.equal(ids.size, 391, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
