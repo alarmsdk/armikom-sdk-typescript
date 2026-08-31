@@ -86,7 +86,7 @@ export class TelephonyApi extends runtime.BaseAPI {
     }
 
     /**
-     * Publishes a dial command on the message bus. Acceptance (202) means the command was published — it does NOT mean the call was placed. The bus is fire-and-forget; there is no delivery signal. The caller\'s PBX extension is read from the `ext` JWT claim and cannot be overridden. When signalEventId is supplied, the side\'s monitoring center is used for PBX routing and an action note is appended to the signal event.
+     * Publishes a dial command on the message bus. Acceptance (202) means the command was published — it does NOT mean the call was placed. The bus is fire-and-forget; there is no delivery signal. The caller\'s PBX extension is read from the `ext` JWT claim and cannot be overridden. Monitoring center resolution priority: explicit monitoringCenterId (from entity context or user selection) → signalEventId\'s side MC → sideId\'s MC → caller\'s session MC. When signalEventId is supplied, an action note is appended to the signal event.
      * Initiate a click-to-dial call via the PBX
      */
     async dialRaw(requestParameters: TelephonyApiDialOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DialResponse>> {
@@ -97,7 +97,7 @@ export class TelephonyApi extends runtime.BaseAPI {
     }
 
     /**
-     * Publishes a dial command on the message bus. Acceptance (202) means the command was published — it does NOT mean the call was placed. The bus is fire-and-forget; there is no delivery signal. The caller\'s PBX extension is read from the `ext` JWT claim and cannot be overridden. When signalEventId is supplied, the side\'s monitoring center is used for PBX routing and an action note is appended to the signal event.
+     * Publishes a dial command on the message bus. Acceptance (202) means the command was published — it does NOT mean the call was placed. The bus is fire-and-forget; there is no delivery signal. The caller\'s PBX extension is read from the `ext` JWT claim and cannot be overridden. Monitoring center resolution priority: explicit monitoringCenterId (from entity context or user selection) → signalEventId\'s side MC → sideId\'s MC → caller\'s session MC. When signalEventId is supplied, an action note is appended to the signal event.
      * Initiate a click-to-dial call via the PBX
      */
     async dial(requestParameters: TelephonyApiDialOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DialResponse> {

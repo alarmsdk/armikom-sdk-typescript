@@ -14,20 +14,466 @@
 
 import * as runtime from '../runtime';
 import {
+    type AdminWriteResponse,
+    AdminWriteResponseFromJSON,
+    AdminWriteResponseToJSON,
+} from '../models/AdminWriteResponse';
+import {
     type BulkHashResult,
     BulkHashResultFromJSON,
     BulkHashResultToJSON,
 } from '../models/BulkHashResult';
 import {
+    type CreateMailSettingRequest,
+    CreateMailSettingRequestFromJSON,
+    CreateMailSettingRequestToJSON,
+} from '../models/CreateMailSettingRequest';
+import {
+    type CreateMonitoringCenterRequest,
+    CreateMonitoringCenterRequestFromJSON,
+    CreateMonitoringCenterRequestToJSON,
+} from '../models/CreateMonitoringCenterRequest';
+import {
+    type CreateProsecCommandRequest,
+    CreateProsecCommandRequestFromJSON,
+    CreateProsecCommandRequestToJSON,
+} from '../models/CreateProsecCommandRequest';
+import {
+    type CreateReceiverRequest,
+    CreateReceiverRequestFromJSON,
+    CreateReceiverRequestToJSON,
+} from '../models/CreateReceiverRequest';
+import {
+    type CreateSmsSettingRequest,
+    CreateSmsSettingRequestFromJSON,
+    CreateSmsSettingRequestToJSON,
+} from '../models/CreateSmsSettingRequest';
+import {
+    type DeviceRegexDetail,
+    DeviceRegexDetailFromJSON,
+    DeviceRegexDetailToJSON,
+} from '../models/DeviceRegexDetail';
+import {
+    type EmergencyPhoneDetail,
+    EmergencyPhoneDetailFromJSON,
+    EmergencyPhoneDetailToJSON,
+} from '../models/EmergencyPhoneDetail';
+import {
+    type MailSettingDetail,
+    MailSettingDetailFromJSON,
+    MailSettingDetailToJSON,
+} from '../models/MailSettingDetail';
+import {
+    type MonitoringCenterDetail,
+    MonitoringCenterDetailFromJSON,
+    MonitoringCenterDetailToJSON,
+} from '../models/MonitoringCenterDetail';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+import {
+    type PromptDetail,
+    PromptDetailFromJSON,
+    PromptDetailToJSON,
+} from '../models/PromptDetail';
+import {
+    type ProsecCommandDetail,
+    ProsecCommandDetailFromJSON,
+    ProsecCommandDetailToJSON,
+} from '../models/ProsecCommandDetail';
+import {
+    type ReceiverDetail,
+    ReceiverDetailFromJSON,
+    ReceiverDetailToJSON,
+} from '../models/ReceiverDetail';
+import {
+    type ReceiverLineDetail,
+    ReceiverLineDetailFromJSON,
+    ReceiverLineDetailToJSON,
+} from '../models/ReceiverLineDetail';
+import {
+    type ReceiverLineTypeDetail,
+    ReceiverLineTypeDetailFromJSON,
+    ReceiverLineTypeDetailToJSON,
+} from '../models/ReceiverLineTypeDetail';
+import {
+    type ReceiverRuleDetail,
+    ReceiverRuleDetailFromJSON,
+    ReceiverRuleDetailToJSON,
+} from '../models/ReceiverRuleDetail';
+import {
+    type ReceiverTypeDetail,
+    ReceiverTypeDetailFromJSON,
+    ReceiverTypeDetailToJSON,
+} from '../models/ReceiverTypeDetail';
+import {
+    type SaveDeviceRegexRequest,
+    SaveDeviceRegexRequestFromJSON,
+    SaveDeviceRegexRequestToJSON,
+} from '../models/SaveDeviceRegexRequest';
+import {
+    type SaveEmergencyPhoneRequest,
+    SaveEmergencyPhoneRequestFromJSON,
+    SaveEmergencyPhoneRequestToJSON,
+} from '../models/SaveEmergencyPhoneRequest';
+import {
+    type SavePromptRequest,
+    SavePromptRequestFromJSON,
+    SavePromptRequestToJSON,
+} from '../models/SavePromptRequest';
+import {
+    type SaveReceiverLineRequest,
+    SaveReceiverLineRequestFromJSON,
+    SaveReceiverLineRequestToJSON,
+} from '../models/SaveReceiverLineRequest';
+import {
+    type SaveReceiverLineTypeRequest,
+    SaveReceiverLineTypeRequestFromJSON,
+    SaveReceiverLineTypeRequestToJSON,
+} from '../models/SaveReceiverLineTypeRequest';
+import {
+    type SaveReceiverRuleRequest,
+    SaveReceiverRuleRequestFromJSON,
+    SaveReceiverRuleRequestToJSON,
+} from '../models/SaveReceiverRuleRequest';
+import {
+    type SaveReceiverTypeRequest,
+    SaveReceiverTypeRequestFromJSON,
+    SaveReceiverTypeRequestToJSON,
+} from '../models/SaveReceiverTypeRequest';
+import {
+    type SmsSettingDetail,
+    SmsSettingDetailFromJSON,
+    SmsSettingDetailToJSON,
+} from '../models/SmsSettingDetail';
+import {
+    type UpdateMailSettingRequest,
+    UpdateMailSettingRequestFromJSON,
+    UpdateMailSettingRequestToJSON,
+} from '../models/UpdateMailSettingRequest';
+import {
+    type UpdateMonitoringCenterRequest,
+    UpdateMonitoringCenterRequestFromJSON,
+    UpdateMonitoringCenterRequestToJSON,
+} from '../models/UpdateMonitoringCenterRequest';
+import {
+    type UpdateReceiverRequest,
+    UpdateReceiverRequestFromJSON,
+    UpdateReceiverRequestToJSON,
+} from '../models/UpdateReceiverRequest';
+import {
+    type UpdateSmsSettingRequest,
+    UpdateSmsSettingRequestFromJSON,
+    UpdateSmsSettingRequestToJSON,
+} from '../models/UpdateSmsSettingRequest';
 
 export interface AdministrationApiBulkHashPasswordsRequest {
     dryRun?: boolean;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateDeviceRegexRequest {
+    saveDeviceRegexRequest: SaveDeviceRegexRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateEmergencyPhoneRequest {
+    saveEmergencyPhoneRequest: SaveEmergencyPhoneRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateMailSettingOperationRequest {
+    createMailSettingRequest: CreateMailSettingRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateMonitoringCenterOperationRequest {
+    createMonitoringCenterRequest: CreateMonitoringCenterRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreatePanelCommandRequest {
+    createProsecCommandRequest: CreateProsecCommandRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreatePromptRequest {
+    savePromptRequest: SavePromptRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateReceiverOperationRequest {
+    createReceiverRequest: CreateReceiverRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateReceiverLineRequest {
+    receiverId: string;
+    saveReceiverLineRequest: SaveReceiverLineRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateReceiverLineTypeRequest {
+    receiverId: string;
+    saveReceiverLineTypeRequest: SaveReceiverLineTypeRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateReceiverRuleRequest {
+    receiverId: string;
+    saveReceiverRuleRequest: SaveReceiverRuleRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateReceiverTypeRequest {
+    saveReceiverTypeRequest: SaveReceiverTypeRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateSmsSettingOperationRequest {
+    createSmsSettingRequest: CreateSmsSettingRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiDeleteDeviceRegexRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteEmergencyPhoneRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteMailSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteMonitoringCenterRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeletePanelCommandRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeletePromptRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteReceiverRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteReceiverLineRequest {
+    receiverId: string;
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteReceiverLineTypeRequest {
+    receiverId: string;
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteReceiverRuleRequest {
+    receiverId: string;
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteReceiverTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteSmsSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetAdminMonitoringCenterRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetAdminReceiverRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetDeviceRegexRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetEmergencyPhoneRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetMailSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetPromptRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetReceiverTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetSmsSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListAdminMonitoringCentersRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListAdminReceiversRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListDeviceRegexesRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListEmergencyPhonesRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListMailSettingsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListPanelCommandsRequest {
+    sideId?: string;
+    pendingOnly?: boolean;
+    limit?: number;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListPromptsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListReceiverLineTypesRequest {
+    receiverId: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListReceiverLinesRequest {
+    receiverId: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListReceiverRulesRequest {
+    receiverId: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListReceiverTypesRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListSmsSettingsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateDeviceRegexRequest {
+    id: string;
+    saveDeviceRegexRequest: SaveDeviceRegexRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateEmergencyPhoneRequest {
+    id: string;
+    saveEmergencyPhoneRequest: SaveEmergencyPhoneRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateMailSettingOperationRequest {
+    id: string;
+    updateMailSettingRequest: UpdateMailSettingRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateMonitoringCenterOperationRequest {
+    id: string;
+    updateMonitoringCenterRequest: UpdateMonitoringCenterRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdatePromptRequest {
+    id: string;
+    savePromptRequest: SavePromptRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateReceiverOperationRequest {
+    id: string;
+    updateReceiverRequest: UpdateReceiverRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateReceiverLineRequest {
+    receiverId: string;
+    id: string;
+    saveReceiverLineRequest: SaveReceiverLineRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateReceiverLineTypeRequest {
+    receiverId: string;
+    id: string;
+    saveReceiverLineTypeRequest: SaveReceiverLineTypeRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateReceiverRuleRequest {
+    receiverId: string;
+    id: string;
+    saveReceiverRuleRequest: SaveReceiverRuleRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateReceiverTypeRequest {
+    id: string;
+    saveReceiverTypeRequest: SaveReceiverTypeRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateSmsSettingOperationRequest {
+    id: string;
+    updateSmsSettingRequest: UpdateSmsSettingRequest;
+    xCorrelationId?: string;
 }
 
 /**
@@ -91,6 +537,3339 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async bulkHashPasswords(requestParameters: AdministrationApiBulkHashPasswordsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BulkHashResult> {
         const response = await this.bulkHashPasswordsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createDeviceRegex without sending the request
+     */
+    async createDeviceRegexRequestOpts(requestParameters: AdministrationApiCreateDeviceRegexRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveDeviceRegexRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveDeviceRegexRequest',
+                'Required parameter "saveDeviceRegexRequest" was null or undefined when calling createDeviceRegex().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/device-regexes`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveDeviceRegexRequestToJSON(requestParameters['saveDeviceRegexRequest']),
+        };
+    }
+
+    /**
+     * The pattern is compiled and probed under a timeout before it is stored.
+     * Create a device parser
+     */
+    async createDeviceRegexRaw(requestParameters: AdministrationApiCreateDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createDeviceRegexRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The pattern is compiled and probed under a timeout before it is stored.
+     * Create a device parser
+     */
+    async createDeviceRegex(requestParameters: AdministrationApiCreateDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createDeviceRegexRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createEmergencyPhone without sending the request
+     */
+    async createEmergencyPhoneRequestOpts(requestParameters: AdministrationApiCreateEmergencyPhoneRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveEmergencyPhoneRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveEmergencyPhoneRequest',
+                'Required parameter "saveEmergencyPhoneRequest" was null or undefined when calling createEmergencyPhone().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/emergency-phones`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveEmergencyPhoneRequestToJSON(requestParameters['saveEmergencyPhoneRequest']),
+        };
+    }
+
+    /**
+     * Create an emergency contact
+     */
+    async createEmergencyPhoneRaw(requestParameters: AdministrationApiCreateEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createEmergencyPhoneRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create an emergency contact
+     */
+    async createEmergencyPhone(requestParameters: AdministrationApiCreateEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createEmergencyPhoneRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createMailSetting without sending the request
+     */
+    async createMailSettingRequestOpts(requestParameters: AdministrationApiCreateMailSettingOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createMailSettingRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createMailSettingRequest',
+                'Required parameter "createMailSettingRequest" was null or undefined when calling createMailSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mail-settings`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMailSettingRequestToJSON(requestParameters['createMailSettingRequest']),
+        };
+    }
+
+    /**
+     * Create an SMTP profile
+     */
+    async createMailSettingRaw(requestParameters: AdministrationApiCreateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createMailSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create an SMTP profile
+     */
+    async createMailSetting(requestParameters: AdministrationApiCreateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createMonitoringCenter without sending the request
+     */
+    async createMonitoringCenterRequestOpts(requestParameters: AdministrationApiCreateMonitoringCenterOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createMonitoringCenterRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createMonitoringCenterRequest',
+                'Required parameter "createMonitoringCenterRequest" was null or undefined when calling createMonitoringCenter().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMonitoringCenterRequestToJSON(requestParameters['createMonitoringCenterRequest']),
+        };
+    }
+
+    /**
+     * Requires system:admin in addition to admin:config — this creates a tenant.
+     * Create a monitoring center
+     */
+    async createMonitoringCenterRaw(requestParameters: AdministrationApiCreateMonitoringCenterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createMonitoringCenterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Requires system:admin in addition to admin:config — this creates a tenant.
+     * Create a monitoring center
+     */
+    async createMonitoringCenter(requestParameters: AdministrationApiCreateMonitoringCenterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createMonitoringCenterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createPanelCommand without sending the request
+     */
+    async createPanelCommandRequestOpts(requestParameters: AdministrationApiCreatePanelCommandRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createProsecCommandRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createProsecCommandRequest',
+                'Required parameter "createProsecCommandRequest" was null or undefined when calling createPanelCommand().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/panel-commands`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateProsecCommandRequestToJSON(requestParameters['createProsecCommandRequest']),
+        };
+    }
+
+    /**
+     * The command stays collectable for validForSeconds (default 300, max 86400).
+     * Queue a panel command
+     */
+    async createPanelCommandRaw(requestParameters: AdministrationApiCreatePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createPanelCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The command stays collectable for validForSeconds (default 300, max 86400).
+     * Queue a panel command
+     */
+    async createPanelCommand(requestParameters: AdministrationApiCreatePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createPanelCommandRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createPrompt without sending the request
+     */
+    async createPromptRequestOpts(requestParameters: AdministrationApiCreatePromptRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['savePromptRequest'] == null) {
+            throw new runtime.RequiredError(
+                'savePromptRequest',
+                'Required parameter "savePromptRequest" was null or undefined when calling createPrompt().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/prompts`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SavePromptRequestToJSON(requestParameters['savePromptRequest']),
+        };
+    }
+
+    /**
+     * Create an AI prompt template
+     */
+    async createPromptRaw(requestParameters: AdministrationApiCreatePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createPromptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create an AI prompt template
+     */
+    async createPrompt(requestParameters: AdministrationApiCreatePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createPromptRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createReceiver without sending the request
+     */
+    async createReceiverRequestOpts(requestParameters: AdministrationApiCreateReceiverOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createReceiverRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createReceiverRequest',
+                'Required parameter "createReceiverRequest" was null or undefined when calling createReceiver().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateReceiverRequestToJSON(requestParameters['createReceiverRequest']),
+        };
+    }
+
+    /**
+     * Two receivers may not share an IP and port.
+     * Create a receiver
+     */
+    async createReceiverRaw(requestParameters: AdministrationApiCreateReceiverOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createReceiverRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Two receivers may not share an IP and port.
+     * Create a receiver
+     */
+    async createReceiver(requestParameters: AdministrationApiCreateReceiverOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createReceiverRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createReceiverLine without sending the request
+     */
+    async createReceiverLineRequestOpts(requestParameters: AdministrationApiCreateReceiverLineRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling createReceiverLine().'
+            );
+        }
+
+        if (requestParameters['saveReceiverLineRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverLineRequest',
+                'Required parameter "saveReceiverLineRequest" was null or undefined when calling createReceiverLine().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/lines`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverLineRequestToJSON(requestParameters['saveReceiverLineRequest']),
+        };
+    }
+
+    /**
+     * Add a line to a receiver
+     */
+    async createReceiverLineRaw(requestParameters: AdministrationApiCreateReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createReceiverLineRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Add a line to a receiver
+     */
+    async createReceiverLine(requestParameters: AdministrationApiCreateReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createReceiverLineRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createReceiverLineType without sending the request
+     */
+    async createReceiverLineTypeRequestOpts(requestParameters: AdministrationApiCreateReceiverLineTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling createReceiverLineType().'
+            );
+        }
+
+        if (requestParameters['saveReceiverLineTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverLineTypeRequest',
+                'Required parameter "saveReceiverLineTypeRequest" was null or undefined when calling createReceiverLineType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/line-types`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverLineTypeRequestToJSON(requestParameters['saveReceiverLineTypeRequest']),
+        };
+    }
+
+    /**
+     * Assign a line type to a receiver line
+     */
+    async createReceiverLineTypeRaw(requestParameters: AdministrationApiCreateReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createReceiverLineTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Assign a line type to a receiver line
+     */
+    async createReceiverLineType(requestParameters: AdministrationApiCreateReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createReceiverLineTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createReceiverRule without sending the request
+     */
+    async createReceiverRuleRequestOpts(requestParameters: AdministrationApiCreateReceiverRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling createReceiverRule().'
+            );
+        }
+
+        if (requestParameters['saveReceiverRuleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverRuleRequest',
+                'Required parameter "saveReceiverRuleRequest" was null or undefined when calling createReceiverRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/rules`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverRuleRequestToJSON(requestParameters['saveReceiverRuleRequest']),
+        };
+    }
+
+    /**
+     * A rule needs either a side number or an IP address; allow is 0 none, 1 allow, 2 block.
+     * Add an admission rule to a receiver
+     */
+    async createReceiverRuleRaw(requestParameters: AdministrationApiCreateReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createReceiverRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A rule needs either a side number or an IP address; allow is 0 none, 1 allow, 2 block.
+     * Add an admission rule to a receiver
+     */
+    async createReceiverRule(requestParameters: AdministrationApiCreateReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createReceiverRuleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createReceiverType without sending the request
+     */
+    async createReceiverTypeRequestOpts(requestParameters: AdministrationApiCreateReceiverTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveReceiverTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverTypeRequest',
+                'Required parameter "saveReceiverTypeRequest" was null or undefined when calling createReceiverType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receiver-types`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverTypeRequestToJSON(requestParameters['saveReceiverTypeRequest']),
+        };
+    }
+
+    /**
+     * Create a receiver type
+     */
+    async createReceiverTypeRaw(requestParameters: AdministrationApiCreateReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createReceiverTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a receiver type
+     */
+    async createReceiverType(requestParameters: AdministrationApiCreateReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createReceiverTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createSmsSetting without sending the request
+     */
+    async createSmsSettingRequestOpts(requestParameters: AdministrationApiCreateSmsSettingOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSmsSettingRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSmsSettingRequest',
+                'Required parameter "createSmsSettingRequest" was null or undefined when calling createSmsSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sms-settings`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSmsSettingRequestToJSON(requestParameters['createSmsSettingRequest']),
+        };
+    }
+
+    /**
+     * Create an SMS gateway profile
+     */
+    async createSmsSettingRaw(requestParameters: AdministrationApiCreateSmsSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSmsSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create an SMS gateway profile
+     */
+    async createSmsSetting(requestParameters: AdministrationApiCreateSmsSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSmsSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for deleteDeviceRegex without sending the request
+     */
+    async deleteDeviceRegexRequestOpts(requestParameters: AdministrationApiDeleteDeviceRegexRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteDeviceRegex().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/device-regexes/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a device parser
+     */
+    async deleteDeviceRegexRaw(requestParameters: AdministrationApiDeleteDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteDeviceRegexRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a device parser
+     */
+    async deleteDeviceRegex(requestParameters: AdministrationApiDeleteDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteDeviceRegexRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteEmergencyPhone without sending the request
+     */
+    async deleteEmergencyPhoneRequestOpts(requestParameters: AdministrationApiDeleteEmergencyPhoneRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteEmergencyPhone().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/emergency-phones/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an emergency contact
+     */
+    async deleteEmergencyPhoneRaw(requestParameters: AdministrationApiDeleteEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteEmergencyPhoneRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an emergency contact
+     */
+    async deleteEmergencyPhone(requestParameters: AdministrationApiDeleteEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteEmergencyPhoneRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteMailSetting without sending the request
+     */
+    async deleteMailSettingRequestOpts(requestParameters: AdministrationApiDeleteMailSettingRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMailSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mail-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an SMTP profile
+     */
+    async deleteMailSettingRaw(requestParameters: AdministrationApiDeleteMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMailSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an SMTP profile
+     */
+    async deleteMailSetting(requestParameters: AdministrationApiDeleteMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMailSettingRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteMonitoringCenter without sending the request
+     */
+    async deleteMonitoringCenterRequestOpts(requestParameters: AdministrationApiDeleteMonitoringCenterRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMonitoringCenter().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a monitoring center
+     */
+    async deleteMonitoringCenterRaw(requestParameters: AdministrationApiDeleteMonitoringCenterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMonitoringCenterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a monitoring center
+     */
+    async deleteMonitoringCenter(requestParameters: AdministrationApiDeleteMonitoringCenterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMonitoringCenterRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deletePanelCommand without sending the request
+     */
+    async deletePanelCommandRequestOpts(requestParameters: AdministrationApiDeletePanelCommandRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deletePanelCommand().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/panel-commands/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Cancel a queued panel command
+     */
+    async deletePanelCommandRaw(requestParameters: AdministrationApiDeletePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deletePanelCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Cancel a queued panel command
+     */
+    async deletePanelCommand(requestParameters: AdministrationApiDeletePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deletePanelCommandRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deletePrompt without sending the request
+     */
+    async deletePromptRequestOpts(requestParameters: AdministrationApiDeletePromptRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deletePrompt().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/prompts/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an AI prompt template
+     */
+    async deletePromptRaw(requestParameters: AdministrationApiDeletePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deletePromptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an AI prompt template
+     */
+    async deletePrompt(requestParameters: AdministrationApiDeletePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deletePromptRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteReceiver without sending the request
+     */
+    async deleteReceiverRequestOpts(requestParameters: AdministrationApiDeleteReceiverRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteReceiver().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a receiver and its lines, rules and line types
+     */
+    async deleteReceiverRaw(requestParameters: AdministrationApiDeleteReceiverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteReceiverRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a receiver and its lines, rules and line types
+     */
+    async deleteReceiver(requestParameters: AdministrationApiDeleteReceiverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReceiverRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteReceiverLine without sending the request
+     */
+    async deleteReceiverLineRequestOpts(requestParameters: AdministrationApiDeleteReceiverLineRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling deleteReceiverLine().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteReceiverLine().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/lines/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a receiver line
+     */
+    async deleteReceiverLineRaw(requestParameters: AdministrationApiDeleteReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteReceiverLineRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a receiver line
+     */
+    async deleteReceiverLine(requestParameters: AdministrationApiDeleteReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReceiverLineRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteReceiverLineType without sending the request
+     */
+    async deleteReceiverLineTypeRequestOpts(requestParameters: AdministrationApiDeleteReceiverLineTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling deleteReceiverLineType().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteReceiverLineType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/line-types/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove a line-type assignment
+     */
+    async deleteReceiverLineTypeRaw(requestParameters: AdministrationApiDeleteReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteReceiverLineTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove a line-type assignment
+     */
+    async deleteReceiverLineType(requestParameters: AdministrationApiDeleteReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReceiverLineTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteReceiverRule without sending the request
+     */
+    async deleteReceiverRuleRequestOpts(requestParameters: AdministrationApiDeleteReceiverRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling deleteReceiverRule().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteReceiverRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/rules/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an admission rule
+     */
+    async deleteReceiverRuleRaw(requestParameters: AdministrationApiDeleteReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteReceiverRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an admission rule
+     */
+    async deleteReceiverRule(requestParameters: AdministrationApiDeleteReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReceiverRuleRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteReceiverType without sending the request
+     */
+    async deleteReceiverTypeRequestOpts(requestParameters: AdministrationApiDeleteReceiverTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteReceiverType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receiver-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a receiver type
+     */
+    async deleteReceiverTypeRaw(requestParameters: AdministrationApiDeleteReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteReceiverTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a receiver type
+     */
+    async deleteReceiverType(requestParameters: AdministrationApiDeleteReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReceiverTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSmsSetting without sending the request
+     */
+    async deleteSmsSettingRequestOpts(requestParameters: AdministrationApiDeleteSmsSettingRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSmsSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sms-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an SMS gateway profile
+     */
+    async deleteSmsSettingRaw(requestParameters: AdministrationApiDeleteSmsSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSmsSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an SMS gateway profile
+     */
+    async deleteSmsSetting(requestParameters: AdministrationApiDeleteSmsSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSmsSettingRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getAdminMonitoringCenter without sending the request
+     */
+    async getAdminMonitoringCenterRequestOpts(requestParameters: AdministrationApiGetAdminMonitoringCenterRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getAdminMonitoringCenter().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a monitoring center
+     */
+    async getAdminMonitoringCenterRaw(requestParameters: AdministrationApiGetAdminMonitoringCenterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MonitoringCenterDetail>> {
+        const requestOptions = await this.getAdminMonitoringCenterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MonitoringCenterDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a monitoring center
+     */
+    async getAdminMonitoringCenter(requestParameters: AdministrationApiGetAdminMonitoringCenterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MonitoringCenterDetail> {
+        const response = await this.getAdminMonitoringCenterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getAdminReceiver without sending the request
+     */
+    async getAdminReceiverRequestOpts(requestParameters: AdministrationApiGetAdminReceiverRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getAdminReceiver().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a receiver
+     */
+    async getAdminReceiverRaw(requestParameters: AdministrationApiGetAdminReceiverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReceiverDetail>> {
+        const requestOptions = await this.getAdminReceiverRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReceiverDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a receiver
+     */
+    async getAdminReceiver(requestParameters: AdministrationApiGetAdminReceiverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReceiverDetail> {
+        const response = await this.getAdminReceiverRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getDeviceRegex without sending the request
+     */
+    async getDeviceRegexRequestOpts(requestParameters: AdministrationApiGetDeviceRegexRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getDeviceRegex().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/device-regexes/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a device parser
+     */
+    async getDeviceRegexRaw(requestParameters: AdministrationApiGetDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeviceRegexDetail>> {
+        const requestOptions = await this.getDeviceRegexRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeviceRegexDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a device parser
+     */
+    async getDeviceRegex(requestParameters: AdministrationApiGetDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeviceRegexDetail> {
+        const response = await this.getDeviceRegexRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getEmergencyPhone without sending the request
+     */
+    async getEmergencyPhoneRequestOpts(requestParameters: AdministrationApiGetEmergencyPhoneRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getEmergencyPhone().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/emergency-phones/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get an emergency contact
+     */
+    async getEmergencyPhoneRaw(requestParameters: AdministrationApiGetEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EmergencyPhoneDetail>> {
+        const requestOptions = await this.getEmergencyPhoneRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EmergencyPhoneDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get an emergency contact
+     */
+    async getEmergencyPhone(requestParameters: AdministrationApiGetEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EmergencyPhoneDetail> {
+        const response = await this.getEmergencyPhoneRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getMailSetting without sending the request
+     */
+    async getMailSettingRequestOpts(requestParameters: AdministrationApiGetMailSettingRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getMailSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mail-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get an SMTP profile
+     */
+    async getMailSettingRaw(requestParameters: AdministrationApiGetMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MailSettingDetail>> {
+        const requestOptions = await this.getMailSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MailSettingDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get an SMTP profile
+     */
+    async getMailSetting(requestParameters: AdministrationApiGetMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MailSettingDetail> {
+        const response = await this.getMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getPrompt without sending the request
+     */
+    async getPromptRequestOpts(requestParameters: AdministrationApiGetPromptRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getPrompt().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/prompts/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get an AI prompt template
+     */
+    async getPromptRaw(requestParameters: AdministrationApiGetPromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PromptDetail>> {
+        const requestOptions = await this.getPromptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PromptDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get an AI prompt template
+     */
+    async getPrompt(requestParameters: AdministrationApiGetPromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PromptDetail> {
+        const response = await this.getPromptRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getReceiverType without sending the request
+     */
+    async getReceiverTypeRequestOpts(requestParameters: AdministrationApiGetReceiverTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getReceiverType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receiver-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a receiver type
+     */
+    async getReceiverTypeRaw(requestParameters: AdministrationApiGetReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReceiverTypeDetail>> {
+        const requestOptions = await this.getReceiverTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReceiverTypeDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a receiver type
+     */
+    async getReceiverType(requestParameters: AdministrationApiGetReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReceiverTypeDetail> {
+        const response = await this.getReceiverTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSmsSetting without sending the request
+     */
+    async getSmsSettingRequestOpts(requestParameters: AdministrationApiGetSmsSettingRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSmsSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sms-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get an SMS gateway profile
+     */
+    async getSmsSettingRaw(requestParameters: AdministrationApiGetSmsSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SmsSettingDetail>> {
+        const requestOptions = await this.getSmsSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SmsSettingDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get an SMS gateway profile
+     */
+    async getSmsSetting(requestParameters: AdministrationApiGetSmsSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SmsSettingDetail> {
+        const response = await this.getSmsSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminMonitoringCenters without sending the request
+     */
+    async listAdminMonitoringCentersRequestOpts(requestParameters: AdministrationApiListAdminMonitoringCentersRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Credentials are never returned; each is reported as a has… boolean.
+     * List monitoring centers with their configuration
+     */
+    async listAdminMonitoringCentersRaw(requestParameters: AdministrationApiListAdminMonitoringCentersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MonitoringCenterDetail>>> {
+        const requestOptions = await this.listAdminMonitoringCentersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MonitoringCenterDetailFromJSON));
+    }
+
+    /**
+     * Credentials are never returned; each is reported as a has… boolean.
+     * List monitoring centers with their configuration
+     */
+    async listAdminMonitoringCenters(requestParameters: AdministrationApiListAdminMonitoringCentersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MonitoringCenterDetail>> {
+        const response = await this.listAdminMonitoringCentersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminReceivers without sending the request
+     */
+    async listAdminReceiversRequestOpts(requestParameters: AdministrationApiListAdminReceiversRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List receivers with their configuration
+     */
+    async listAdminReceiversRaw(requestParameters: AdministrationApiListAdminReceiversRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReceiverDetail>>> {
+        const requestOptions = await this.listAdminReceiversRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReceiverDetailFromJSON));
+    }
+
+    /**
+     * List receivers with their configuration
+     */
+    async listAdminReceivers(requestParameters: AdministrationApiListAdminReceiversRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReceiverDetail>> {
+        const response = await this.listAdminReceiversRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listDeviceRegexes without sending the request
+     */
+    async listDeviceRegexesRequestOpts(requestParameters: AdministrationApiListDeviceRegexesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/device-regexes`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List device parsers
+     */
+    async listDeviceRegexesRaw(requestParameters: AdministrationApiListDeviceRegexesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<DeviceRegexDetail>>> {
+        const requestOptions = await this.listDeviceRegexesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DeviceRegexDetailFromJSON));
+    }
+
+    /**
+     * List device parsers
+     */
+    async listDeviceRegexes(requestParameters: AdministrationApiListDeviceRegexesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<DeviceRegexDetail>> {
+        const response = await this.listDeviceRegexesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listEmergencyPhones without sending the request
+     */
+    async listEmergencyPhonesRequestOpts(requestParameters: AdministrationApiListEmergencyPhonesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/emergency-phones`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List emergency contacts
+     */
+    async listEmergencyPhonesRaw(requestParameters: AdministrationApiListEmergencyPhonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<EmergencyPhoneDetail>>> {
+        const requestOptions = await this.listEmergencyPhonesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EmergencyPhoneDetailFromJSON));
+    }
+
+    /**
+     * List emergency contacts
+     */
+    async listEmergencyPhones(requestParameters: AdministrationApiListEmergencyPhonesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<EmergencyPhoneDetail>> {
+        const response = await this.listEmergencyPhonesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listMailSettings without sending the request
+     */
+    async listMailSettingsRequestOpts(requestParameters: AdministrationApiListMailSettingsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mail-settings`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List SMTP profiles
+     */
+    async listMailSettingsRaw(requestParameters: AdministrationApiListMailSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MailSettingDetail>>> {
+        const requestOptions = await this.listMailSettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MailSettingDetailFromJSON));
+    }
+
+    /**
+     * List SMTP profiles
+     */
+    async listMailSettings(requestParameters: AdministrationApiListMailSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MailSettingDetail>> {
+        const response = await this.listMailSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listPanelCommands without sending the request
+     */
+    async listPanelCommandsRequestOpts(requestParameters: AdministrationApiListPanelCommandsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['sideId'] != null) {
+            queryParameters['sideId'] = requestParameters['sideId'];
+        }
+
+        if (requestParameters['pendingOnly'] != null) {
+            queryParameters['pendingOnly'] = requestParameters['pendingOnly'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/panel-commands`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Newest first, capped at 500. pendingOnly hides commands the panel already collected.
+     * List queued panel commands
+     */
+    async listPanelCommandsRaw(requestParameters: AdministrationApiListPanelCommandsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProsecCommandDetail>>> {
+        const requestOptions = await this.listPanelCommandsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProsecCommandDetailFromJSON));
+    }
+
+    /**
+     * Newest first, capped at 500. pendingOnly hides commands the panel already collected.
+     * List queued panel commands
+     */
+    async listPanelCommands(requestParameters: AdministrationApiListPanelCommandsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProsecCommandDetail>> {
+        const response = await this.listPanelCommandsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listPrompts without sending the request
+     */
+    async listPromptsRequestOpts(requestParameters: AdministrationApiListPromptsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/prompts`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List AI prompt templates
+     */
+    async listPromptsRaw(requestParameters: AdministrationApiListPromptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PromptDetail>>> {
+        const requestOptions = await this.listPromptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PromptDetailFromJSON));
+    }
+
+    /**
+     * List AI prompt templates
+     */
+    async listPrompts(requestParameters: AdministrationApiListPromptsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PromptDetail>> {
+        const response = await this.listPromptsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listReceiverLineTypes without sending the request
+     */
+    async listReceiverLineTypesRequestOpts(requestParameters: AdministrationApiListReceiverLineTypesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling listReceiverLineTypes().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/line-types`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the line-type assignments of a receiver
+     */
+    async listReceiverLineTypesRaw(requestParameters: AdministrationApiListReceiverLineTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReceiverLineTypeDetail>>> {
+        const requestOptions = await this.listReceiverLineTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReceiverLineTypeDetailFromJSON));
+    }
+
+    /**
+     * List the line-type assignments of a receiver
+     */
+    async listReceiverLineTypes(requestParameters: AdministrationApiListReceiverLineTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReceiverLineTypeDetail>> {
+        const response = await this.listReceiverLineTypesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listReceiverLines without sending the request
+     */
+    async listReceiverLinesRequestOpts(requestParameters: AdministrationApiListReceiverLinesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling listReceiverLines().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/lines`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the lines of a receiver
+     */
+    async listReceiverLinesRaw(requestParameters: AdministrationApiListReceiverLinesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReceiverLineDetail>>> {
+        const requestOptions = await this.listReceiverLinesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReceiverLineDetailFromJSON));
+    }
+
+    /**
+     * List the lines of a receiver
+     */
+    async listReceiverLines(requestParameters: AdministrationApiListReceiverLinesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReceiverLineDetail>> {
+        const response = await this.listReceiverLinesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listReceiverRules without sending the request
+     */
+    async listReceiverRulesRequestOpts(requestParameters: AdministrationApiListReceiverRulesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling listReceiverRules().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/rules`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the admission rules of a receiver
+     */
+    async listReceiverRulesRaw(requestParameters: AdministrationApiListReceiverRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReceiverRuleDetail>>> {
+        const requestOptions = await this.listReceiverRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReceiverRuleDetailFromJSON));
+    }
+
+    /**
+     * List the admission rules of a receiver
+     */
+    async listReceiverRules(requestParameters: AdministrationApiListReceiverRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReceiverRuleDetail>> {
+        const response = await this.listReceiverRulesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listReceiverTypes without sending the request
+     */
+    async listReceiverTypesRequestOpts(requestParameters: AdministrationApiListReceiverTypesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receiver-types`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List receiver types
+     */
+    async listReceiverTypesRaw(requestParameters: AdministrationApiListReceiverTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReceiverTypeDetail>>> {
+        const requestOptions = await this.listReceiverTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReceiverTypeDetailFromJSON));
+    }
+
+    /**
+     * List receiver types
+     */
+    async listReceiverTypes(requestParameters: AdministrationApiListReceiverTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReceiverTypeDetail>> {
+        const response = await this.listReceiverTypesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listSmsSettings without sending the request
+     */
+    async listSmsSettingsRequestOpts(requestParameters: AdministrationApiListSmsSettingsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sms-settings`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List SMS gateway profiles
+     */
+    async listSmsSettingsRaw(requestParameters: AdministrationApiListSmsSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SmsSettingDetail>>> {
+        const requestOptions = await this.listSmsSettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SmsSettingDetailFromJSON));
+    }
+
+    /**
+     * List SMS gateway profiles
+     */
+    async listSmsSettings(requestParameters: AdministrationApiListSmsSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SmsSettingDetail>> {
+        const response = await this.listSmsSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateDeviceRegex without sending the request
+     */
+    async updateDeviceRegexRequestOpts(requestParameters: AdministrationApiUpdateDeviceRegexRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateDeviceRegex().'
+            );
+        }
+
+        if (requestParameters['saveDeviceRegexRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveDeviceRegexRequest',
+                'Required parameter "saveDeviceRegexRequest" was null or undefined when calling updateDeviceRegex().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/device-regexes/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveDeviceRegexRequestToJSON(requestParameters['saveDeviceRegexRequest']),
+        };
+    }
+
+    /**
+     * Update a device parser
+     */
+    async updateDeviceRegexRaw(requestParameters: AdministrationApiUpdateDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateDeviceRegexRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a device parser
+     */
+    async updateDeviceRegex(requestParameters: AdministrationApiUpdateDeviceRegexRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateDeviceRegexRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateEmergencyPhone without sending the request
+     */
+    async updateEmergencyPhoneRequestOpts(requestParameters: AdministrationApiUpdateEmergencyPhoneRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateEmergencyPhone().'
+            );
+        }
+
+        if (requestParameters['saveEmergencyPhoneRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveEmergencyPhoneRequest',
+                'Required parameter "saveEmergencyPhoneRequest" was null or undefined when calling updateEmergencyPhone().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/emergency-phones/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveEmergencyPhoneRequestToJSON(requestParameters['saveEmergencyPhoneRequest']),
+        };
+    }
+
+    /**
+     * Update an emergency contact
+     */
+    async updateEmergencyPhoneRaw(requestParameters: AdministrationApiUpdateEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateEmergencyPhoneRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an emergency contact
+     */
+    async updateEmergencyPhone(requestParameters: AdministrationApiUpdateEmergencyPhoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateEmergencyPhoneRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateMailSetting without sending the request
+     */
+    async updateMailSettingRequestOpts(requestParameters: AdministrationApiUpdateMailSettingOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateMailSetting().'
+            );
+        }
+
+        if (requestParameters['updateMailSettingRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateMailSettingRequest',
+                'Required parameter "updateMailSettingRequest" was null or undefined when calling updateMailSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mail-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateMailSettingRequestToJSON(requestParameters['updateMailSettingRequest']),
+        };
+    }
+
+    /**
+     * Update an SMTP profile
+     */
+    async updateMailSettingRaw(requestParameters: AdministrationApiUpdateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateMailSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an SMTP profile
+     */
+    async updateMailSetting(requestParameters: AdministrationApiUpdateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateMonitoringCenter without sending the request
+     */
+    async updateMonitoringCenterRequestOpts(requestParameters: AdministrationApiUpdateMonitoringCenterOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateMonitoringCenter().'
+            );
+        }
+
+        if (requestParameters['updateMonitoringCenterRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateMonitoringCenterRequest',
+                'Required parameter "updateMonitoringCenterRequest" was null or undefined when calling updateMonitoringCenter().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateMonitoringCenterRequestToJSON(requestParameters['updateMonitoringCenterRequest']),
+        };
+    }
+
+    /**
+     * Omitting a password field keeps the stored secret; sending an empty string clears it.
+     * Update a monitoring center
+     */
+    async updateMonitoringCenterRaw(requestParameters: AdministrationApiUpdateMonitoringCenterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateMonitoringCenterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Omitting a password field keeps the stored secret; sending an empty string clears it.
+     * Update a monitoring center
+     */
+    async updateMonitoringCenter(requestParameters: AdministrationApiUpdateMonitoringCenterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateMonitoringCenterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updatePrompt without sending the request
+     */
+    async updatePromptRequestOpts(requestParameters: AdministrationApiUpdatePromptRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updatePrompt().'
+            );
+        }
+
+        if (requestParameters['savePromptRequest'] == null) {
+            throw new runtime.RequiredError(
+                'savePromptRequest',
+                'Required parameter "savePromptRequest" was null or undefined when calling updatePrompt().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/prompts/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SavePromptRequestToJSON(requestParameters['savePromptRequest']),
+        };
+    }
+
+    /**
+     * Update an AI prompt template
+     */
+    async updatePromptRaw(requestParameters: AdministrationApiUpdatePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updatePromptRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an AI prompt template
+     */
+    async updatePrompt(requestParameters: AdministrationApiUpdatePromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updatePromptRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateReceiver without sending the request
+     */
+    async updateReceiverRequestOpts(requestParameters: AdministrationApiUpdateReceiverOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateReceiver().'
+            );
+        }
+
+        if (requestParameters['updateReceiverRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateReceiverRequest',
+                'Required parameter "updateReceiverRequest" was null or undefined when calling updateReceiver().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateReceiverRequestToJSON(requestParameters['updateReceiverRequest']),
+        };
+    }
+
+    /**
+     * Update a receiver
+     */
+    async updateReceiverRaw(requestParameters: AdministrationApiUpdateReceiverOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateReceiverRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a receiver
+     */
+    async updateReceiver(requestParameters: AdministrationApiUpdateReceiverOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateReceiverRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateReceiverLine without sending the request
+     */
+    async updateReceiverLineRequestOpts(requestParameters: AdministrationApiUpdateReceiverLineRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling updateReceiverLine().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateReceiverLine().'
+            );
+        }
+
+        if (requestParameters['saveReceiverLineRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverLineRequest',
+                'Required parameter "saveReceiverLineRequest" was null or undefined when calling updateReceiverLine().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/lines/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverLineRequestToJSON(requestParameters['saveReceiverLineRequest']),
+        };
+    }
+
+    /**
+     * Update a receiver line
+     */
+    async updateReceiverLineRaw(requestParameters: AdministrationApiUpdateReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateReceiverLineRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a receiver line
+     */
+    async updateReceiverLine(requestParameters: AdministrationApiUpdateReceiverLineRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateReceiverLineRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateReceiverLineType without sending the request
+     */
+    async updateReceiverLineTypeRequestOpts(requestParameters: AdministrationApiUpdateReceiverLineTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling updateReceiverLineType().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateReceiverLineType().'
+            );
+        }
+
+        if (requestParameters['saveReceiverLineTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverLineTypeRequest',
+                'Required parameter "saveReceiverLineTypeRequest" was null or undefined when calling updateReceiverLineType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/line-types/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverLineTypeRequestToJSON(requestParameters['saveReceiverLineTypeRequest']),
+        };
+    }
+
+    /**
+     * Update a line-type assignment
+     */
+    async updateReceiverLineTypeRaw(requestParameters: AdministrationApiUpdateReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateReceiverLineTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a line-type assignment
+     */
+    async updateReceiverLineType(requestParameters: AdministrationApiUpdateReceiverLineTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateReceiverLineTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateReceiverRule without sending the request
+     */
+    async updateReceiverRuleRequestOpts(requestParameters: AdministrationApiUpdateReceiverRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling updateReceiverRule().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateReceiverRule().'
+            );
+        }
+
+        if (requestParameters['saveReceiverRuleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverRuleRequest',
+                'Required parameter "saveReceiverRuleRequest" was null or undefined when calling updateReceiverRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/rules/{id}`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverRuleRequestToJSON(requestParameters['saveReceiverRuleRequest']),
+        };
+    }
+
+    /**
+     * Update an admission rule
+     */
+    async updateReceiverRuleRaw(requestParameters: AdministrationApiUpdateReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateReceiverRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an admission rule
+     */
+    async updateReceiverRule(requestParameters: AdministrationApiUpdateReceiverRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateReceiverRuleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateReceiverType without sending the request
+     */
+    async updateReceiverTypeRequestOpts(requestParameters: AdministrationApiUpdateReceiverTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateReceiverType().'
+            );
+        }
+
+        if (requestParameters['saveReceiverTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverTypeRequest',
+                'Required parameter "saveReceiverTypeRequest" was null or undefined when calling updateReceiverType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receiver-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverTypeRequestToJSON(requestParameters['saveReceiverTypeRequest']),
+        };
+    }
+
+    /**
+     * Rename a receiver type
+     */
+    async updateReceiverTypeRaw(requestParameters: AdministrationApiUpdateReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateReceiverTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Rename a receiver type
+     */
+    async updateReceiverType(requestParameters: AdministrationApiUpdateReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateReceiverTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateSmsSetting without sending the request
+     */
+    async updateSmsSettingRequestOpts(requestParameters: AdministrationApiUpdateSmsSettingOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSmsSetting().'
+            );
+        }
+
+        if (requestParameters['updateSmsSettingRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSmsSettingRequest',
+                'Required parameter "updateSmsSettingRequest" was null or undefined when calling updateSmsSetting().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sms-settings/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSmsSettingRequestToJSON(requestParameters['updateSmsSettingRequest']),
+        };
+    }
+
+    /**
+     * Update an SMS gateway profile
+     */
+    async updateSmsSettingRaw(requestParameters: AdministrationApiUpdateSmsSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSmsSettingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an SMS gateway profile
+     */
+    async updateSmsSetting(requestParameters: AdministrationApiUpdateSmsSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSmsSettingRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
