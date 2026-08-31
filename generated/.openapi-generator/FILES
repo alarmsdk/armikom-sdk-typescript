@@ -221,6 +221,7 @@ docs/LockAlarmResponse.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/LookupItem.md
+docs/LookupItemPagedResult.md
 docs/MailSettingDetail.md
 docs/MobileMessageItem.md
 docs/MobileMessageItemPagedResult.md
@@ -352,9 +353,11 @@ docs/SignalExplanationsApi.md
 docs/SignalExportRequest.md
 docs/SignalRelationDetail.md
 docs/SignalRelationItem.md
+docs/SignalRelationItemPagedResult.md
 docs/SignalRelationSignalTypeRef.md
 docs/SignalTypeDetail.md
 docs/SignalTypeItem.md
+docs/SignalTypeItemPagedResult.md
 docs/SignalTypeRef.md
 docs/SimCardItem.md
 docs/SmsLogEntryResponse.md
@@ -609,6 +612,7 @@ models/LockAlarmResponse.ts
 models/LoginRequest.ts
 models/LoginResponse.ts
 models/LookupItem.ts
+models/LookupItemPagedResult.ts
 models/MailSettingDetail.ts
 models/MobileMessageItem.ts
 models/MobileMessageItemPagedResult.ts
@@ -726,9 +730,11 @@ models/SignalExplanationDto.ts
 models/SignalExportRequest.ts
 models/SignalRelationDetail.ts
 models/SignalRelationItem.ts
+models/SignalRelationItemPagedResult.ts
 models/SignalRelationSignalTypeRef.ts
 models/SignalTypeDetail.ts
 models/SignalTypeItem.ts
+models/SignalTypeItemPagedResult.ts
 models/SignalTypeRef.ts
 models/SimCardItem.ts
 models/SmsLogEntryResponse.ts

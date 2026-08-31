@@ -7039,7 +7039,7 @@ example().catch(console.error);
 
 ## getSignalTypes
 
-> Array&lt;SignalTypeItem&gt; getSignalTypes(xCorrelationId)
+> SignalTypeItemPagedResult getSignalTypes(q, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signal types with alert/priority/color metadata
 
@@ -7061,6 +7061,18 @@ async function example() {
   const api = new ReferenceDataApi(config);
 
   const body = {
+    // string (optional)
+    q: q_example,
+    // string (optional)
+    cursor: cursor_example,
+    // number (optional)
+    limit: 56,
+    // number (optional)
+    page: 56,
+    // number (optional)
+    pageSize: 56,
+    // number (optional)
+    offset: 56,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalTypesRequest;
@@ -7082,11 +7094,17 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **page** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**Array&lt;SignalTypeItem&gt;**](SignalTypeItem.md)
+[**SignalTypeItemPagedResult**](SignalTypeItemPagedResult.md)
 
 ### Authorization
 
@@ -7110,7 +7128,7 @@ example().catch(console.error);
 
 ## getSignals
 
-> Array&lt;LookupItem&gt; getSignals(protocolId, xCorrelationId)
+> LookupItemPagedResult getSignals(protocolId, q, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signals, optionally filtered by protocol
 
@@ -7134,6 +7152,18 @@ async function example() {
   const body = {
     // string (optional)
     protocolId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    q: q_example,
+    // string (optional)
+    cursor: cursor_example,
+    // number (optional)
+    limit: 56,
+    // number (optional)
+    page: 56,
+    // number (optional)
+    pageSize: 56,
+    // number (optional)
+    offset: 56,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalsRequest;
@@ -7156,11 +7186,17 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **protocolId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **page** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**Array&lt;LookupItem&gt;**](LookupItem.md)
+[**LookupItemPagedResult**](LookupItemPagedResult.md)
 
 ### Authorization
 
@@ -7916,7 +7952,7 @@ example().catch(console.error);
 
 ## listSignalRelations
 
-> Array&lt;SignalRelationItem&gt; listSignalRelations(xCorrelationId)
+> SignalRelationItemPagedResult listSignalRelations(q, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signal relations with source and target signal types
 
@@ -7940,6 +7976,18 @@ async function example() {
   const api = new ReferenceDataApi(config);
 
   const body = {
+    // string (optional)
+    q: q_example,
+    // string (optional)
+    cursor: cursor_example,
+    // number (optional)
+    limit: 56,
+    // number (optional)
+    page: 56,
+    // number (optional)
+    pageSize: 56,
+    // number (optional)
+    offset: 56,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies ListSignalRelationsRequest;
@@ -7961,11 +8009,17 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **page** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**Array&lt;SignalRelationItem&gt;**](SignalRelationItem.md)
+[**SignalRelationItemPagedResult**](SignalRelationItemPagedResult.md)
 
 ### Authorization
 

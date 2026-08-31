@@ -189,6 +189,11 @@ import {
     LookupItemToJSON,
 } from '../models/LookupItem';
 import {
+    type LookupItemPagedResult,
+    LookupItemPagedResultFromJSON,
+    LookupItemPagedResultToJSON,
+} from '../models/LookupItemPagedResult';
+import {
     type MobileOperatorDetail,
     MobileOperatorDetailFromJSON,
     MobileOperatorDetailToJSON,
@@ -274,20 +279,20 @@ import {
     SignalRelationDetailToJSON,
 } from '../models/SignalRelationDetail';
 import {
-    type SignalRelationItem,
-    SignalRelationItemFromJSON,
-    SignalRelationItemToJSON,
-} from '../models/SignalRelationItem';
+    type SignalRelationItemPagedResult,
+    SignalRelationItemPagedResultFromJSON,
+    SignalRelationItemPagedResultToJSON,
+} from '../models/SignalRelationItemPagedResult';
 import {
     type SignalTypeDetail,
     SignalTypeDetailFromJSON,
     SignalTypeDetailToJSON,
 } from '../models/SignalTypeDetail';
 import {
-    type SignalTypeItem,
-    SignalTypeItemFromJSON,
-    SignalTypeItemToJSON,
-} from '../models/SignalTypeItem';
+    type SignalTypeItemPagedResult,
+    SignalTypeItemPagedResultFromJSON,
+    SignalTypeItemPagedResultToJSON,
+} from '../models/SignalTypeItemPagedResult';
 import {
     type TechnicalPersonDetail,
     TechnicalPersonDetailFromJSON,
@@ -878,11 +883,23 @@ export interface ReferenceDataApiGetSignalTypeByIdRequest {
 }
 
 export interface ReferenceDataApiGetSignalTypesRequest {
+    q?: string;
+    cursor?: string;
+    limit?: number;
+    page?: number;
+    pageSize?: number;
+    offset?: number;
     xCorrelationId?: string;
 }
 
 export interface ReferenceDataApiGetSignalsRequest {
     protocolId?: string;
+    q?: string;
+    cursor?: string;
+    limit?: number;
+    page?: number;
+    pageSize?: number;
+    offset?: number;
     xCorrelationId?: string;
 }
 
@@ -932,6 +949,12 @@ export interface ReferenceDataApiListReferenceSignalExplanationsRequest {
 }
 
 export interface ReferenceDataApiListSignalRelationsRequest {
+    q?: string;
+    cursor?: string;
+    limit?: number;
+    page?: number;
+    pageSize?: number;
+    offset?: number;
     xCorrelationId?: string;
 }
 
@@ -6296,6 +6319,30 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     async getSignalTypesRequestOpts(requestParameters: ReferenceDataApiGetSignalTypesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -6324,17 +6371,17 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     /**
      * List signal types with alert/priority/color metadata
      */
-    async getSignalTypesRaw(requestParameters: ReferenceDataApiGetSignalTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SignalTypeItem>>> {
+    async getSignalTypesRaw(requestParameters: ReferenceDataApiGetSignalTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalTypeItemPagedResult>> {
         const requestOptions = await this.getSignalTypesRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SignalTypeItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalTypeItemPagedResultFromJSON(jsonValue));
     }
 
     /**
      * List signal types with alert/priority/color metadata
      */
-    async getSignalTypes(requestParameters: ReferenceDataApiGetSignalTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SignalTypeItem>> {
+    async getSignalTypes(requestParameters: ReferenceDataApiGetSignalTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalTypeItemPagedResult> {
         const response = await this.getSignalTypesRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -6347,6 +6394,30 @@ export class ReferenceDataApi extends runtime.BaseAPI {
 
         if (requestParameters['protocolId'] != null) {
             queryParameters['protocolId'] = requestParameters['protocolId'];
+        }
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -6377,17 +6448,17 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     /**
      * List signals, optionally filtered by protocol
      */
-    async getSignalsRaw(requestParameters: ReferenceDataApiGetSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+    async getSignalsRaw(requestParameters: ReferenceDataApiGetSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupItemPagedResult>> {
         const requestOptions = await this.getSignalsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => LookupItemPagedResultFromJSON(jsonValue));
     }
 
     /**
      * List signals, optionally filtered by protocol
      */
-    async getSignals(requestParameters: ReferenceDataApiGetSignalsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+    async getSignals(requestParameters: ReferenceDataApiGetSignalsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupItemPagedResult> {
         const response = await this.getSignalsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -6918,6 +6989,30 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     async listSignalRelationsRequestOpts(requestParameters: ReferenceDataApiListSignalRelationsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -6947,18 +7042,18 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      * XAF-owned, read-only. Used by the Engine for related-signal auto-close logic.
      * List signal relations with source and target signal types
      */
-    async listSignalRelationsRaw(requestParameters: ReferenceDataApiListSignalRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SignalRelationItem>>> {
+    async listSignalRelationsRaw(requestParameters: ReferenceDataApiListSignalRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRelationItemPagedResult>> {
         const requestOptions = await this.listSignalRelationsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SignalRelationItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRelationItemPagedResultFromJSON(jsonValue));
     }
 
     /**
      * XAF-owned, read-only. Used by the Engine for related-signal auto-close logic.
      * List signal relations with source and target signal types
      */
-    async listSignalRelations(requestParameters: ReferenceDataApiListSignalRelationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SignalRelationItem>> {
+    async listSignalRelations(requestParameters: ReferenceDataApiListSignalRelationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRelationItemPagedResult> {
         const response = await this.listSignalRelationsRaw(requestParameters, initOverrides);
         return await response.value();
     }
