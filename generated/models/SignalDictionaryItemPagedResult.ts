@@ -13,85 +13,85 @@
  */
 
 import { mapValues } from '../runtime';
-import type { LookupItem } from './LookupItem';
+import type { SignalDictionaryItem } from './SignalDictionaryItem';
 import {
-    LookupItemFromJSON,
-    LookupItemFromJSONTyped,
-    LookupItemToJSON,
-    LookupItemToJSONTyped,
-} from './LookupItem';
+    SignalDictionaryItemFromJSON,
+    SignalDictionaryItemFromJSONTyped,
+    SignalDictionaryItemToJSON,
+    SignalDictionaryItemToJSONTyped,
+} from './SignalDictionaryItem';
 
 /**
  * 
  * @export
- * @interface LookupItemPagedResult
+ * @interface SignalDictionaryItemPagedResult
  */
-export interface LookupItemPagedResult {
+export interface SignalDictionaryItemPagedResult {
     /**
      * 
-     * @type {Array<LookupItem>}
-     * @memberof LookupItemPagedResult
+     * @type {Array<SignalDictionaryItem>}
+     * @memberof SignalDictionaryItemPagedResult
      */
-    items?: Array<LookupItem> | null;
+    items?: Array<SignalDictionaryItem> | null;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      */
     totalCount?: number | null;
     /**
      * 
      * @type {string}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      */
     cursor?: string | null;
     /**
      * 
      * @type {boolean}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      */
     hasMore?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      * @deprecated
      */
     hasNextPage?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      * @deprecated
      */
     page?: number;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalDictionaryItemPagedResult
      * @deprecated
      */
     pageSize?: number;
 }
 
 /**
- * Check if a given object implements the LookupItemPagedResult interface.
+ * Check if a given object implements the SignalDictionaryItemPagedResult interface.
  */
-export function instanceOfLookupItemPagedResult(value: object): value is LookupItemPagedResult {
+export function instanceOfSignalDictionaryItemPagedResult(value: object): value is SignalDictionaryItemPagedResult {
     return true;
 }
 
-export function LookupItemPagedResultFromJSON(json: any): LookupItemPagedResult {
-    return LookupItemPagedResultFromJSONTyped(json, false);
+export function SignalDictionaryItemPagedResultFromJSON(json: any): SignalDictionaryItemPagedResult {
+    return SignalDictionaryItemPagedResultFromJSONTyped(json, false);
 }
 
-export function LookupItemPagedResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): LookupItemPagedResult {
+export function SignalDictionaryItemPagedResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): SignalDictionaryItemPagedResult {
     if (json == null) {
         return json;
     }
     return {
         
-        'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(LookupItemFromJSON)),
+        'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(SignalDictionaryItemFromJSON)),
         'totalCount': json['totalCount'] === undefined ? undefined : json['totalCount'] === null ? null : json['totalCount'],
         'cursor': json['cursor'] === undefined ? undefined : json['cursor'] === null ? null : json['cursor'],
         'hasMore': json['hasMore'] == null ? undefined : json['hasMore'],
@@ -101,18 +101,18 @@ export function LookupItemPagedResultFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function LookupItemPagedResultToJSON(json: any): LookupItemPagedResult {
-    return LookupItemPagedResultToJSONTyped(json, false);
+export function SignalDictionaryItemPagedResultToJSON(json: any): SignalDictionaryItemPagedResult {
+    return SignalDictionaryItemPagedResultToJSONTyped(json, false);
 }
 
-export function LookupItemPagedResultToJSONTyped(value?: LookupItemPagedResult | null, ignoreDiscriminator: boolean = false): any {
+export function SignalDictionaryItemPagedResultToJSONTyped(value?: SignalDictionaryItemPagedResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(LookupItemToJSON)),
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(SignalDictionaryItemToJSON)),
         'totalCount': value['totalCount'],
         'cursor': value['cursor'],
         'hasMore': value['hasMore'],
