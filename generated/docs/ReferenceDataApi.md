@@ -96,7 +96,7 @@ All URIs are relative to *http://localhost*
 | [**getSignalRelationById**](ReferenceDataApi.md#getsignalrelationbyid) | **GET** /v1/reference/signal-relations/{id} | Get a signal relation by id |
 | [**getSignalTypeById**](ReferenceDataApi.md#getsignaltypebyid) | **GET** /v1/reference/signal-types/{id} | Get a signal type by id |
 | [**getSignalTypes**](ReferenceDataApi.md#getsignaltypes) | **GET** /v1/reference/signal-types | List signal types with alert/priority/color metadata |
-| [**getSignals**](ReferenceDataApi.md#getsignals) | **GET** /v1/reference/signals | List signals, optionally filtered by protocol |
+| [**getSignals**](ReferenceDataApi.md#getsignals) | **GET** /v1/reference/signals | List the signal dictionary with each row\&#39;s signal type and alarm category |
 | [**getTechnicalPeople**](ReferenceDataApi.md#gettechnicalpeople) | **GET** /v1/reference/technical-people | List active technical people, optionally filtered by dealer |
 | [**getTechnicalPersonById**](ReferenceDataApi.md#gettechnicalpersonbyid) | **GET** /v1/reference/technical-people/{id} | Get a technician |
 | [**listDealerAccountTypes**](ReferenceDataApi.md#listdealeraccounttypes) | **GET** /v1/reference/dealer-account-types | List dealer account types, optionally filtered by dealer |
@@ -7128,9 +7128,11 @@ example().catch(console.error);
 
 ## getSignals
 
-> LookupItemPagedResult getSignals(protocolId, q, cursor, limit, page, pageSize, offset, xCorrelationId)
+> SignalListItemPagedResult getSignals(protocolId, signalTypeId, alarmCategoryId, unmapped, q, cursor, limit, page, pageSize, offset, xCorrelationId)
 
-List signals, optionally filtered by protocol
+List the signal dictionary with each row\&#39;s signal type and alarm category
+
+Filterable by protocol, signal type and alarm category. &#x60;unmapped&#x3D;true&#x60; returns only the codes with no signal type — the ones a packet cannot be classified by.
 
 ### Example
 
@@ -7152,6 +7154,12 @@ async function example() {
   const body = {
     // string (optional)
     protocolId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    signalTypeId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    alarmCategoryId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // boolean (optional)
+    unmapped: true,
     // string (optional)
     q: q_example,
     // string (optional)
@@ -7186,6 +7194,9 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **protocolId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **signalTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **unmapped** | `boolean` |  | [Optional] [Defaults to `undefined`] |
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
@@ -7196,7 +7207,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**LookupItemPagedResult**](LookupItemPagedResult.md)
+[**SignalListItemPagedResult**](SignalListItemPagedResult.md)
 
 ### Authorization
 

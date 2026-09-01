@@ -13,85 +13,85 @@
  */
 
 import { mapValues } from '../runtime';
-import type { LookupItem } from './LookupItem';
+import type { SignalListItem } from './SignalListItem';
 import {
-    LookupItemFromJSON,
-    LookupItemFromJSONTyped,
-    LookupItemToJSON,
-    LookupItemToJSONTyped,
-} from './LookupItem';
+    SignalListItemFromJSON,
+    SignalListItemFromJSONTyped,
+    SignalListItemToJSON,
+    SignalListItemToJSONTyped,
+} from './SignalListItem';
 
 /**
  * 
  * @export
- * @interface LookupItemPagedResult
+ * @interface SignalListItemPagedResult
  */
-export interface LookupItemPagedResult {
+export interface SignalListItemPagedResult {
     /**
      * 
-     * @type {Array<LookupItem>}
-     * @memberof LookupItemPagedResult
+     * @type {Array<SignalListItem>}
+     * @memberof SignalListItemPagedResult
      */
-    items?: Array<LookupItem> | null;
+    items?: Array<SignalListItem> | null;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      */
     totalCount?: number | null;
     /**
      * 
      * @type {string}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      */
     cursor?: string | null;
     /**
      * 
      * @type {boolean}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      */
     hasMore?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      * @deprecated
      */
     hasNextPage?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      * @deprecated
      */
     page?: number;
     /**
      * 
      * @type {number}
-     * @memberof LookupItemPagedResult
+     * @memberof SignalListItemPagedResult
      * @deprecated
      */
     pageSize?: number;
 }
 
 /**
- * Check if a given object implements the LookupItemPagedResult interface.
+ * Check if a given object implements the SignalListItemPagedResult interface.
  */
-export function instanceOfLookupItemPagedResult(value: object): value is LookupItemPagedResult {
+export function instanceOfSignalListItemPagedResult(value: object): value is SignalListItemPagedResult {
     return true;
 }
 
-export function LookupItemPagedResultFromJSON(json: any): LookupItemPagedResult {
-    return LookupItemPagedResultFromJSONTyped(json, false);
+export function SignalListItemPagedResultFromJSON(json: any): SignalListItemPagedResult {
+    return SignalListItemPagedResultFromJSONTyped(json, false);
 }
 
-export function LookupItemPagedResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): LookupItemPagedResult {
+export function SignalListItemPagedResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): SignalListItemPagedResult {
     if (json == null) {
         return json;
     }
     return {
         
-        'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(LookupItemFromJSON)),
+        'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(SignalListItemFromJSON)),
         'totalCount': json['totalCount'] === undefined ? undefined : json['totalCount'] === null ? null : json['totalCount'],
         'cursor': json['cursor'] === undefined ? undefined : json['cursor'] === null ? null : json['cursor'],
         'hasMore': json['hasMore'] == null ? undefined : json['hasMore'],
@@ -101,18 +101,18 @@ export function LookupItemPagedResultFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function LookupItemPagedResultToJSON(json: any): LookupItemPagedResult {
-    return LookupItemPagedResultToJSONTyped(json, false);
+export function SignalListItemPagedResultToJSON(json: any): SignalListItemPagedResult {
+    return SignalListItemPagedResultToJSONTyped(json, false);
 }
 
-export function LookupItemPagedResultToJSONTyped(value?: LookupItemPagedResult | null, ignoreDiscriminator: boolean = false): any {
+export function SignalListItemPagedResultToJSONTyped(value?: SignalListItemPagedResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(LookupItemToJSON)),
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(SignalListItemToJSON)),
         'totalCount': value['totalCount'],
         'cursor': value['cursor'],
         'hasMore': value['hasMore'],

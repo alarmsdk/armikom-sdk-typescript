@@ -189,11 +189,6 @@ import {
     LookupItemToJSON,
 } from '../models/LookupItem';
 import {
-    type LookupItemPagedResult,
-    LookupItemPagedResultFromJSON,
-    LookupItemPagedResultToJSON,
-} from '../models/LookupItemPagedResult';
-import {
     type MobileOperatorDetail,
     MobileOperatorDetailFromJSON,
     MobileOperatorDetailToJSON,
@@ -273,6 +268,11 @@ import {
     SignalExplanationDetailFromJSON,
     SignalExplanationDetailToJSON,
 } from '../models/SignalExplanationDetail';
+import {
+    type SignalListItemPagedResult,
+    SignalListItemPagedResultFromJSON,
+    SignalListItemPagedResultToJSON,
+} from '../models/SignalListItemPagedResult';
 import {
     type SignalRelationDetail,
     SignalRelationDetailFromJSON,
@@ -894,6 +894,9 @@ export interface ReferenceDataApiGetSignalTypesRequest {
 
 export interface ReferenceDataApiGetSignalsRequest {
     protocolId?: string;
+    signalTypeId?: string;
+    alarmCategoryId?: string;
+    unmapped?: boolean;
     q?: string;
     cursor?: string;
     limit?: number;
@@ -6396,6 +6399,18 @@ export class ReferenceDataApi extends runtime.BaseAPI {
             queryParameters['protocolId'] = requestParameters['protocolId'];
         }
 
+        if (requestParameters['signalTypeId'] != null) {
+            queryParameters['signalTypeId'] = requestParameters['signalTypeId'];
+        }
+
+        if (requestParameters['alarmCategoryId'] != null) {
+            queryParameters['alarmCategoryId'] = requestParameters['alarmCategoryId'];
+        }
+
+        if (requestParameters['unmapped'] != null) {
+            queryParameters['unmapped'] = requestParameters['unmapped'];
+        }
+
         if (requestParameters['q'] != null) {
             queryParameters['q'] = requestParameters['q'];
         }
@@ -6446,19 +6461,21 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
-     * List signals, optionally filtered by protocol
+     * Filterable by protocol, signal type and alarm category. `unmapped=true` returns only the codes with no signal type — the ones a packet cannot be classified by.
+     * List the signal dictionary with each row\'s signal type and alarm category
      */
-    async getSignalsRaw(requestParameters: ReferenceDataApiGetSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupItemPagedResult>> {
+    async getSignalsRaw(requestParameters: ReferenceDataApiGetSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalListItemPagedResult>> {
         const requestOptions = await this.getSignalsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => LookupItemPagedResultFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalListItemPagedResultFromJSON(jsonValue));
     }
 
     /**
-     * List signals, optionally filtered by protocol
+     * Filterable by protocol, signal type and alarm category. `unmapped=true` returns only the codes with no signal type — the ones a packet cannot be classified by.
+     * List the signal dictionary with each row\'s signal type and alarm category
      */
-    async getSignals(requestParameters: ReferenceDataApiGetSignalsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupItemPagedResult> {
+    async getSignals(requestParameters: ReferenceDataApiGetSignalsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalListItemPagedResult> {
         const response = await this.getSignalsRaw(requestParameters, initOverrides);
         return await response.value();
     }

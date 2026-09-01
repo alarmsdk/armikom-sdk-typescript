@@ -1,12 +1,12 @@
 
-# LookupItemPagedResult
+# SignalListItemPagedResult
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`items` | [Array&lt;LookupItem&gt;](LookupItem.md)
+`items` | [Array&lt;SignalListItem&gt;](SignalListItem.md)
 `totalCount` | number
 `cursor` | string
 `hasMore` | boolean
@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { LookupItemPagedResult } from ''
+import type { SignalListItemPagedResult } from ''
 
 // TODO: Update the object below with actual values
 const example = {
@@ -28,7 +28,7 @@ const example = {
   "hasNextPage": null,
   "page": null,
   "pageSize": null,
-} satisfies LookupItemPagedResult
+} satisfies SignalListItemPagedResult
 
 console.log(example)
 
@@ -37,7 +37,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LookupItemPagedResult
+const exampleParsed = JSON.parse(exampleJSON) as SignalListItemPagedResult
 console.log(exampleParsed)
 ```
 
