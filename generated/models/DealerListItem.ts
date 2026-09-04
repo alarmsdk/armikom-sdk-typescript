@@ -85,6 +85,18 @@ export interface DealerListItem {
      * @memberof DealerListItem
      */
     monitoringCenterId?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof DealerListItem
+     */
+    activeSideCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DealerListItem
+     */
+    inactiveSideCount?: number;
 }
 
 /**
@@ -115,6 +127,8 @@ export function DealerListItemFromJSONTyped(json: any, ignoreDiscriminator: bool
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'activeSideCount': json['activeSideCount'] == null ? undefined : json['activeSideCount'],
+        'inactiveSideCount': json['inactiveSideCount'] == null ? undefined : json['inactiveSideCount'],
     };
 }
 
@@ -140,6 +154,8 @@ export function DealerListItemToJSONTyped(value?: DealerListItem | null, ignoreD
         'regionId': value['regionId'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
         'monitoringCenterId': value['monitoringCenterId'],
+        'activeSideCount': value['activeSideCount'],
+        'inactiveSideCount': value['inactiveSideCount'],
     };
 }
 
