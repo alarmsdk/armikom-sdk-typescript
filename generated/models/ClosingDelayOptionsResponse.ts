@@ -43,6 +43,38 @@ export interface ClosingDelayOptionsResponse {
      * @memberof ClosingDelayOptionsResponse
      */
     todayClosingTime?: string | null;
+    /**
+     * Per-day closing times from the subscriber's timetable.
+     * @type {Array<ClosingScheduleEntry>}
+     * @memberof ClosingDelayOptionsResponse
+     */
+    closingSchedule?: Array<ClosingScheduleEntry> | null;
+}
+
+/**
+ * One day's closing time in the subscriber's weekly schedule.
+ * @export
+ * @interface ClosingScheduleEntry
+ */
+export interface ClosingScheduleEntry {
+    /**
+     * EDayOfWeek: Monday = 1 … Sunday = 7.
+     * @type {number}
+     * @memberof ClosingScheduleEntry
+     */
+    day?: number;
+    /**
+     * Closing time as "HH:mm".
+     * @type {string}
+     * @memberof ClosingScheduleEntry
+     */
+    closingTime?: string;
+    /**
+     * True when the closing is after midnight (shift closes on the next calendar day).
+     * @type {boolean}
+     * @memberof ClosingScheduleEntry
+     */
+    isNextDay?: boolean;
 }
 
 /**
@@ -66,6 +98,7 @@ export function ClosingDelayOptionsResponseFromJSONTyped(json: any, ignoreDiscri
         'availableModes': json['availableModes'] === undefined ? undefined : json['availableModes'] === null ? null : json['availableModes'],
         'suggestedBaseTime': json['suggestedBaseTime'] === undefined ? undefined : json['suggestedBaseTime'] === null ? null : (new Date(json['suggestedBaseTime'])),
         'todayClosingTime': json['todayClosingTime'] === undefined ? undefined : json['todayClosingTime'] === null ? null : json['todayClosingTime'],
+        'closingSchedule': json['closingSchedule'] === undefined ? undefined : json['closingSchedule'] === null ? null : json['closingSchedule'],
     };
 }
 
@@ -84,6 +117,7 @@ export function ClosingDelayOptionsResponseToJSONTyped(value?: ClosingDelayOptio
         'availableModes': value['availableModes'],
         'suggestedBaseTime': value['suggestedBaseTime'] == null ? value['suggestedBaseTime'] : value['suggestedBaseTime'].toISOString(),
         'todayClosingTime': value['todayClosingTime'],
+        'closingSchedule': value['closingSchedule'],
     };
 }
 
