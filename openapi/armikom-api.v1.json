@@ -15265,7 +15265,8 @@
         "tags": [
           "Customers"
         ],
-        "summary": "List customers (paged)",
+        "summary": "List customers with filtering, sorting and pagination",
+        "description": "Returns a paginated list of customers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,sideCount`).",
         "operationId": "ListCustomers",
         "parameters": [
           {
@@ -15320,6 +15321,14 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort field(s). Prefix with - for descending. E.g. -name,sideCount",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -16394,7 +16403,8 @@
         "tags": [
           "Dealers"
         ],
-        "summary": "List dealers (paged)",
+        "summary": "List dealers with filtering, sorting and pagination",
+        "description": "Returns a paginated list of dealers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,active`).",
         "operationId": "ListDealers",
         "parameters": [
           {
@@ -16464,6 +16474,14 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort field(s). Prefix with - for descending. E.g. -name,active",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -21167,7 +21185,8 @@
         "tags": [
           "MobileUsers"
         ],
-        "summary": "List mobile users (paged, tenant-scoped)",
+        "summary": "List mobile users with filtering, sorting and pagination",
+        "description": "Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).",
         "operationId": "ListMobileUsers",
         "parameters": [
           {
@@ -21214,6 +21233,14 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort field(s). Prefix with - for descending. E.g. -name,phone",
+            "schema": {
+              "type": "string"
             }
           },
           {

@@ -73,6 +73,7 @@ export interface CustomersApiListCustomersRequest {
     offset?: number;
     page?: number;
     pageSize?: number;
+    sort?: string;
     xCorrelationId?: string;
 }
 
@@ -352,6 +353,10 @@ export class CustomersApi extends runtime.BaseAPI {
 
         if (requestParameters['pageSize'] != null) {
             queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
