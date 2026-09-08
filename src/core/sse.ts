@@ -37,19 +37,35 @@ export class SseParser {
   onComment: ((text: string) => void) | null = null;
 
   push(chunk: string): SseFrame[] {
+    if (!chunk) return [];
     this.buffer += chunk;
     const frames: SseFrame[] = [];
+
+    /**
+     * A chunk boundary falls anywhere, including *between* the CR and the LF of
+     * a CRLF. Treating that lone trailing CR as a terminator would end the line
+     * early and then read the next chunk's leading LF as a blank line, which
+     * dispatches a frame that has not finished arriving. So it is held back
+     * until the next chunk says what follows it.
+     */
+    let searchable = this.buffer;
+    let held = '';
+    if (searchable.endsWith('\r')) {
+      held = '\r';
+      searchable = searchable.slice(0, -1);
+    }
 
     // Split on any of the three line terminators the spec allows. A trailing
     // fragment stays in the buffer for the next chunk.
     let index: number;
-    while ((index = this.buffer.search(LINE_BREAK)) !== -1) {
-      const line = this.buffer.slice(0, index);
-      const terminator = this.buffer.startsWith(CRLF, index) ? 2 : 1;
-      this.buffer = this.buffer.slice(index + terminator);
+    while ((index = searchable.search(LINE_BREAK)) !== -1) {
+      const line = searchable.slice(0, index);
+      const terminator = searchable.startsWith(CRLF, index) ? 2 : 1;
+      searchable = searchable.slice(index + terminator);
       const frame = this.consumeLine(line);
       if (frame) frames.push(frame);
     }
+    this.buffer = searchable + held;
     return frames;
   }
 

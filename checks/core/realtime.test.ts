@@ -210,3 +210,30 @@ test('the frame parser joins multi-line data and reads comments', () => {
   assert.equal(frames[0]?.data, 'one\ntwo');
   assert.equal(frames[0]?.id, '42');
 });
+
+test('a chunk boundary between the CR and the LF of a CRLF does not split a frame', () => {
+  const parser = new SseParser();
+  // The boundary lands mid-terminator: the CR arrives, the LF does not.
+  assert.deepEqual(parser.push('event: signal-events\r'), [], 'the lone CR is held back');
+  const frames = parser.push('\ndata: {"a":1}\r\n\r\n');
+  assert.equal(frames.length, 1, 'exactly one frame, not one truncated and one empty');
+  assert.equal(frames[0]?.event, 'signal-events');
+  assert.equal(frames[0]?.data, '{"a":1}');
+});
+
+test('CR, LF and CRLF are all accepted as terminators', () => {
+  const lf = new SseParser().push('event: a\ndata: 1\n\n');
+  const crlf = new SseParser().push('event: a\r\ndata: 1\r\n\r\n');
+  for (const [name, frames] of [['LF', lf], ['CRLF', crlf]] as const) {
+    assert.equal(frames.length, 1, `${name} should terminate a frame`);
+    assert.equal(frames[0]?.data, '1', `${name} data`);
+  }
+
+  // A CR-terminated stream is the ambiguous case: the final CR cannot be
+  // dispatched on, because the very next byte might be the LF that makes it a
+  // CRLF. It is held until something resolves it — more data, or a flush.
+  const cr = new SseParser();
+  assert.deepEqual(cr.push('event: a\rdata: 1\r\r'), [], 'the trailing CR is pending, not dropped');
+  const flushed = cr.flush();
+  assert.equal(flushed?.data, '1', 'and flush resolves it');
+});
