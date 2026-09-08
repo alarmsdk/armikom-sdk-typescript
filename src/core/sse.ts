@@ -36,6 +36,19 @@ export class SseParser {
   /** Fires for every `:` comment line, including the keep-alive heartbeat. */
   onComment: ((text: string) => void) | null = null;
 
+  /**
+   * The SSE "last event ID buffer": set by `id:` and persisting across frames
+   * until the server sends a new one.
+   *
+   * Exposed because reconnect replay needs it — a client that sends
+   * `Last-Event-ID` on reconnect can be replayed the events it missed from the
+   * server's buffer, which is the only thing that narrows the §01 S-9 gap
+   * rather than merely coping with it.
+   */
+  get lastEventId(): string | null {
+    return this.lastId;
+  }
+
   push(chunk: string): SseFrame[] {
     if (!chunk) return [];
     this.buffer += chunk;

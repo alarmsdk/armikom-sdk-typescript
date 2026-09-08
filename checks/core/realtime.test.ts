@@ -237,3 +237,18 @@ test('CR, LF and CRLF are all accepted as terminators', () => {
   const flushed = cr.flush();
   assert.equal(flushed?.data, '1', 'and flush resolves it');
 });
+
+test('the last-event-id buffer persists across frames, for reconnect replay', () => {
+  const parser = new SseParser();
+  const first = parser.push('id: evt-1\nevent: alarm-list-updated\ndata: {}\n\n');
+  const second = parser.push('event: alarm-list-updated\ndata: {}\n\n');
+
+  assert.equal(first[0]?.id, 'evt-1');
+  // Per the spec the id persists until the server sends a new one; a consumer
+  // reconnecting with `Last-Event-ID` needs the last one it actually saw.
+  assert.equal(second[0]?.id, 'evt-1');
+  assert.equal(parser.lastEventId, 'evt-1');
+
+  assert.equal(parser.push('id: evt-2\ndata: {}\n\n')[0]?.id, 'evt-2');
+  assert.equal(parser.lastEventId, 'evt-2');
+});
