@@ -8,5 +8,9 @@
     "declarationMap": false,
     "noEmit": false
   },
-  "include": ["generated/**/*.ts", "checks/**/*.ts"]
+  "include": [
+    "generated/**/*.ts",
+    "src/**/*.ts",
+    "checks/**/*.ts"
+  ]
 }
