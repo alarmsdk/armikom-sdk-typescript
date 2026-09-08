@@ -15,7 +15,8 @@ import { HttpClient } from '../../src/core/http-client.js';
 import { I18n } from '../../src/core/i18n.js';
 import { BatchedLogSink } from '../../src/core/telemetry.js';
 import { guidEquals, parseInstant, parseInstantOrThrow, toLowerCulture, toUpperCulture } from '../../src/core/text.js';
-import { WebStorageTokenStore, type StorageLike } from '../../src/core/tokens.js';
+import { MemoryTokenStore, WebStorageTokenStore, type StorageLike } from '../../src/core/tokens.js';
+import { AuthSession } from '../../src/core/session.js';
 import { AsyncResource } from '../../src/core/resource.js';
 import { MockTransport, until } from './_harness.js';
 import type { LogEvent } from '../../src/core/logger.js';
@@ -252,4 +253,51 @@ test('AsyncResource keeps its data through a failed reload and cancels supersede
   await resource.reload();
   assert.equal(resource.value, 'value-3');
   resource.dispose();
+});
+
+test('the batched sink drops per-request debug noise before it ships', async () => {
+  const batches: LogEvent[][] = [];
+  const sink = new BatchedLogSink({
+    maxBatchSize: 1,
+    flushIntervalMs: 10_000,
+    send: (events) => void batches.push([...events]),
+  });
+
+  // The pipeline emits one of these per request; shipping them would make
+  // telemetry the product's largest source of traffic.
+  sink.log({ level: 'debug', message: 'GET /v1/sides -> 200', event: 'request', timestamp: '' });
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.equal(batches.length, 0);
+
+  sink.log({ level: 'warn', message: 'retrying', event: 'retry', timestamp: '' });
+  await until(() => batches.length === 1, 500);
+  assert.equal(batches[0]?.[0]?.event, 'retry', 'retries and failures still ship');
+  sink.dispose();
+});
+
+test('restore() does not re-read the profile for a session that is already live', async () => {
+  let profileReads = 0;
+  const session = new AuthSession({
+    driver: {
+      async login() {
+        return { tokens: { accessToken: 'a', refreshToken: 'r', expiresAt: 9e15 } };
+      },
+      async refresh() {
+        return { tokens: { accessToken: 'a' } };
+      },
+      async currentUser() {
+        profileReads += 1;
+        return { user: { id: 'u1' }, scopes: [] };
+      },
+    },
+    tokenStore: new MemoryTokenStore(),
+  });
+
+  await session.login({});
+  assert.equal(profileReads, 1);
+
+  // A shell that calls restore() on init, moments after the login component
+  // signed in, must not cost a second GetCurrentUser.
+  assert.equal(await session.restore(), true);
+  assert.equal(profileReads, 1);
 });

@@ -138,10 +138,18 @@ export class AuthSession<TCredentials = unknown> {
     return this.ended.on(listener);
   }
 
-  /** Restores a session from a persistent token store on boot. */
+  /**
+   * Restores a session from a persistent token store on boot.
+   *
+   * A no-op when the session is already live and has a profile: a host that
+   * calls this from a shell's init after a login in the same page would
+   * otherwise read `GetCurrentUser` twice for one sign-in.
+   */
   async restore(): Promise<boolean> {
     const tokens = await this.store.read();
     if (!tokens?.accessToken) return false;
+    if (this.isAuthenticated && this.user) return true;
+
     this.applyState({ status: 'authenticated', user: this.user, scopes: this.scopes });
     await this.loadUser();
     return this.isAuthenticated;

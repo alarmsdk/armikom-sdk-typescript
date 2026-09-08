@@ -10,7 +10,7 @@
  * degrade alarm handling: never retried aggressively, never blocking, silently
  * dropped on failure.
  */
-import { type LogEvent, type Logger, redact } from './logger.js';
+import { type LogEvent, type LogLevel, type Logger, redact } from './logger.js';
 
 export interface BatchSinkOptions {
   /** Where the batch goes. Receives already-redacted events. */
@@ -27,13 +27,23 @@ export interface BatchSinkOptions {
   maxBufferSize?: number;
   /** Errors are shipped as they happen, not on the next tick. Default true. */
   flushOnError?: boolean;
+  /**
+   * Events below this level are dropped before they are buffered. Default
+   * `info`, which is the line that matters: the pipeline emits a `debug` event
+   * per request, and shipping one of those to a log server per API call turns
+   * telemetry into the product's largest source of traffic.
+   */
+  minLevel?: LogLevel;
 }
+
+const LEVEL_ORDER: Record<LogLevel, number> = { debug: 10, info: 20, warn: 30, error: 40 };
 
 export class BatchedLogSink implements Logger {
   private buffer: LogEvent[] = [];
   private timer: ReturnType<typeof setInterval> | null = null;
-  private readonly options: Required<Omit<BatchSinkOptions, 'send' | 'sendBeacon'>> &
+  private readonly options: Required<Omit<BatchSinkOptions, 'send' | 'sendBeacon' | 'minLevel'>> &
     Pick<BatchSinkOptions, 'send' | 'sendBeacon'>;
+  private readonly threshold: number;
   private disposers: Array<() => void> = [];
   private sending = false;
 
@@ -46,10 +56,12 @@ export class BatchedLogSink implements Logger {
       send: options.send,
       ...(options.sendBeacon ? { sendBeacon: options.sendBeacon } : {}),
     };
+    this.threshold = LEVEL_ORDER[options.minLevel ?? 'info'];
     this.start();
   }
 
   log(event: LogEvent): void {
+    if (LEVEL_ORDER[event.level] < this.threshold) return;
     this.buffer.push(redact(event));
     if (this.buffer.length > this.options.maxBufferSize) {
       // Drop the oldest: the newest events are the ones describing the failure
