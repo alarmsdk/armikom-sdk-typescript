@@ -32,19 +32,78 @@ export function toLowerCulture(value: string, culture?: string): string {
 }
 
 /**
- * §01 R-4 / C-09 — parses a wire timestamp to an absolute instant, and refuses
- * an offset-less one.
- *
- * `new Date("2026-08-16T11:22:33")` is read in the *host* zone. Under
- * `TZ=Europe/Istanbul` that is three hours away from what the server meant, and
- * under `TZ=UTC` — which is what CI usually runs — the bug is invisible. Every
- * wire value is UTC ISO-8601, so a value without a zone is a contract
- * violation, and the SDK says so instead of quietly shifting it.
+ * ISO-8601 date-time carrying no zone designator. Deliberately strict:
+ *  - a plain date (`2026-08-20`) is left alone; ECMAScript already reads it as UTC
+ *  - anything ending in `Z` or `±HH:MM` is unambiguous and is left alone
  */
-export function parseInstant(value: string | null | undefined): Date | null {
+const OFFSETLESS_ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/;
+
+export function isOffsetlessInstant(value: unknown): value is string {
+  return typeof value === 'string' && OFFSETLESS_ISO.test(value);
+}
+
+/**
+ * §01 R-4 — labels an offset-less wire timestamp as the UTC it actually is.
+ *
+ * **The API sends these.** Verified against a live instance on 2026-08-20 by
+ * the Vue console: every timestamp sampled came back as
+ * `"2026-08-20T19:09:48.991674"` — no offset, no `Z`. `new Date(value)` then
+ * reads it in the *host* zone, which under `Europe/Istanbul` is three hours
+ * early, and under a UTC CI host is silently correct — which is why no test
+ * ever caught it. Alarm age, lock age, signal time and every countdown in the
+ * console were wrong by the host offset.
+ *
+ * R-4 says the wire is UTC, so appending `Z` is the reading the contract
+ * intends. Applying it twice is impossible: a value that already carries a
+ * designator does not match.
+ */
+export function markInstantUtc(value: string): string {
+  return isOffsetlessInstant(value) ? `${value}Z` : value;
+}
+
+/**
+ * Walks a parsed JSON body and labels every offset-less timestamp as UTC.
+ *
+ * This is the response-side half of R-4, and it has to happen *before* the
+ * generated `FromJSON` runs: after that the value is already a shifted `Date`
+ * and the original text is gone.
+ */
+export function markTimestampsUtc<T>(value: T): T {
+  if (isOffsetlessInstant(value)) return `${value}Z` as unknown as T;
+  if (Array.isArray(value)) return value.map(markTimestampsUtc) as unknown as T;
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [key, item] of Object.entries(value as Record<string, unknown>)) {
+      out[key] = markTimestampsUtc(item);
+    }
+    return out as unknown as T;
+  }
+  return value;
+}
+
+/**
+ * §01 R-4 / C-09 — parses a wire timestamp to an absolute instant.
+ *
+ * Strict by default: an offset-less value returns null rather than being read
+ * in the host zone. Pass `{ assumeUtc: true }` to accept one as the UTC the
+ * contract says it is — which is what the response pipeline does, because the
+ * API sends them (see `markInstantUtc`). The strict form stays the default so
+ * that a value reaching this function by another route still has to say what
+ * zone it is in.
+ */
+export function parseInstant(
+  value: string | null | undefined,
+  options: { assumeUtc?: boolean } = {},
+): Date | null {
   if (!value) return null;
-  if (!/[zZ]$|[+-]\d{2}:?\d{2}$/.test(value.trim())) return null;
-  const parsed = new Date(value);
+  const trimmed = value.trim();
+  const labelled = /[zZ]$|[+-]\d{2}:?\d{2}$/.test(trimmed)
+    ? trimmed
+    : options.assumeUtc && isOffsetlessInstant(trimmed)
+      ? `${trimmed}Z`
+      : null;
+  if (labelled === null) return null;
+  const parsed = new Date(labelled);
   return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 

@@ -98,7 +98,7 @@ try {
 | `cache.ts` | §7 | ETag revalidation, persistent store, indexed reference lookups |
 | `files.ts` | §11 | Object URLs that are actually revoked, upload progress, streamed downloads |
 | `i18n.ts` | §9 | Fallback chain, `{{param}}` interpolation, **missing keys are observable** |
-| `text.ts` | §5, §9 | UTC-instant parsing that rejects offset-less values; Turkish-safe casing |
+| `text.ts` | §5, §9 | Labels the API's offset-less timestamps as the UTC they are; strict instant parsing; Turkish-safe casing |
 | `realtime.ts` | §12 | SSE over `fetch` (so it can hold a bearer header), reconnect, keep-alive watchdog, `resync` on every open, nudge coalescing, polling fallback |
 | `logger.ts` / `telemetry.ts` | §13 | Structured events, redaction, batched best-effort shipping |
 | `connectivity.ts` | §14 | online / degraded / offline from real outcomes, not `navigator.onLine` |
@@ -183,9 +183,18 @@ hand-edit of generated code, the *pin* job catches this repo drifting off the fr
 §01 R-4: every wire timestamp is UTC ISO-8601 and must parse to an **absolute instant**.
 `typescript-fetch` deserialises with `new Date(...)`, which reads an offset-less string in the *host*
 zone. The check suite therefore runs under `TZ=Europe/Istanbul`, not UTC — under UTC that leniency is
-invisible. `checks/contract/r4-instants.test.ts` pins both the correct behaviour and the known
-hazard; `parseInstant` in `src/core/text.ts` is the layer-2 answer, and it **refuses** an
-offset-less value rather than shifting it silently.
+invisible.
+
+**The API sends offset-less timestamps.** Verified against a live instance on 2026-08-20 by the Vue
+console: every value sampled came back as `"2026-08-20T19:09:48.991674"`. Under `Europe/Istanbul`
+that reads three hours early, and every alarm age, lock age and countdown in a console is wrong by
+the host offset — silently, because CI runs in UTC where the shift is zero.
+
+So the pipeline **labels** them rather than merely refusing them: `markTimestampsUtc` walks each JSON
+response body before the generated `FromJSON` sees it, which is the only point where the original
+text still exists. It is idempotent — a value already carrying `Z` or an offset does not match — and
+it can be turned off with `repairTimestamps: false`. `parseInstant` stays strict by default for
+values arriving by any other route; pass `{ assumeUtc: true }` to accept one.
 
 ## Consumers
 

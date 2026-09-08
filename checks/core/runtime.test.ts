@@ -14,7 +14,16 @@ import { ObjectUrlRegistry, filenameFromContentDisposition } from '../../src/cor
 import { HttpClient } from '../../src/core/http-client.js';
 import { I18n } from '../../src/core/i18n.js';
 import { BatchedLogSink } from '../../src/core/telemetry.js';
-import { guidEquals, parseInstant, parseInstantOrThrow, toLowerCulture, toUpperCulture } from '../../src/core/text.js';
+import {
+  guidEquals,
+  isOffsetlessInstant,
+  markInstantUtc,
+  markTimestampsUtc,
+  parseInstant,
+  parseInstantOrThrow,
+  toLowerCulture,
+  toUpperCulture,
+} from '../../src/core/text.js';
 import { MemoryTokenStore, WebStorageTokenStore, type StorageLike } from '../../src/core/tokens.js';
 import { AuthSession } from '../../src/core/session.js';
 import { AsyncResource } from '../../src/core/resource.js';
@@ -47,6 +56,61 @@ test('C-09 a UTC instant round-trips; an offset-less value is refused', () => {
   assert.equal(parseInstant('2026-08-16T11:22:33'), null);
   assert.throws(() => parseInstantOrThrow('2026-08-16T11:22:33', 'actionAt'), /actionAt/);
   assert.equal(parseInstant('2026-08-16T14:22:33+03:00')?.toISOString(), '2026-08-16T11:22:33.000Z');
+});
+
+test('R-4 an offset-less API timestamp is labelled UTC, not read in the host zone', () => {
+  // The shape the API actually sends, verified against a live instance.
+  const wire = '2026-08-20T19:09:48.991674';
+  assert.equal(isOffsetlessInstant(wire), true);
+  assert.equal(markInstantUtc(wire), '2026-08-20T19:09:48.991674Z');
+
+  // The bug this exists for: under Europe/Istanbul the naive read is three
+  // hours early, and under a UTC CI host the shift is zero and invisible.
+  assert.notEqual(new Date(wire).toISOString(), '2026-08-20T19:09:48.991Z');
+  assert.equal(new Date(markInstantUtc(wire)).toISOString(), '2026-08-20T19:09:48.991Z');
+
+  // Applying it twice is impossible; a labelled value does not match.
+  assert.equal(markInstantUtc('2026-08-20T19:09:48Z'), '2026-08-20T19:09:48Z');
+  assert.equal(markInstantUtc('2026-08-20T22:09:48+03:00'), '2026-08-20T22:09:48+03:00');
+  // A plain date is already read as UTC by ECMAScript; leave it alone.
+  assert.equal(markInstantUtc('2026-08-20'), '2026-08-20');
+
+  assert.equal(parseInstant(wire), null, 'strict by default');
+  assert.equal(parseInstant(wire, { assumeUtc: true })?.toISOString(), '2026-08-20T19:09:48.991Z');
+});
+
+test('R-4 the repair walks a whole response body, arrays and nesting included', () => {
+  const body = markTimestampsUtc({
+    eventDate: '2026-08-20T19:09:48.991674',
+    side: { lockedAt: '2026-08-20T19:00:00', name: 'DEPO 1' },
+    history: [{ at: '2026-08-20T18:00:00' }, { at: '2026-08-20T18:30:00Z' }],
+    count: 3,
+    nothing: null,
+  });
+  assert.equal(body.eventDate, '2026-08-20T19:09:48.991674Z');
+  assert.equal(body.side.lockedAt, '2026-08-20T19:00:00Z');
+  assert.equal(body.history[0]?.at, '2026-08-20T18:00:00Z');
+  assert.equal(body.history[1]?.at, '2026-08-20T18:30:00Z', 'already labelled, untouched');
+  assert.equal(body.side.name, 'DEPO 1', 'domain strings are not timestamps');
+  assert.equal(body.count, 3);
+  assert.equal(body.nothing, null);
+});
+
+test('R-4 the pipeline repairs timestamps before a caller ever sees them', async () => {
+  const transport = new MockTransport().always({
+    status: 200,
+    body: { id: '1', eventDate: '2026-08-20T19:09:48.991674' },
+  });
+  const http = new HttpClient({ baseUrl: 'https://api.test', transport: transport.transport });
+
+  const json = await http.json<{ eventDate: string }>({ method: 'GET', path: '/v1/alarm-events/1' });
+  assert.equal(new Date(json.eventDate).toISOString(), '2026-08-20T19:09:48.991Z');
+
+  // And on the raw path the generated transport reads, which is where the
+  // generator's `new Date(...)` would otherwise shift it.
+  const raw = await http.fetch('https://api.test/v1/alarm-events/1');
+  const body = (await raw.json()) as { eventDate: string };
+  assert.equal(body.eventDate, '2026-08-20T19:09:48.991674Z');
 });
 
 test('R-5 GUIDs compare by value, not by casing or braces', () => {

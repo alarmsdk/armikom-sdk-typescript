@@ -61,7 +61,7 @@ summarised.
 | Blob download at each export button | `core/files.ts` | **F-4/C-16** object URLs that are actually revoked; **F-1** upload progress; **F-3** a streaming form |
 | `t()` falling back to the key | `core/i18n.ts` | **LO-3** missing keys are *observable*. Silence is how the Armikom catalogues drifted to tr 552 / en 531 / az 508 (finding F15) |
 | `toUpperCase()` | `core/text.ts` | **C-14** Turkish `i` → `İ`. `"ilk".toUpperCase()` is a different word, and upper-casing a name before a save corrupts the record |
-| `new Date(value)` | `core/text.ts` | **R-4 / C-09** an offset-less timestamp is *refused* rather than silently read in the host zone |
+| `new Date(value)` | `core/text.ts` | **R-4 / C-09** offset-less timestamps — which is what the API actually sends — are labelled as the UTC they are, before the generated deserialiser turns them into a shifted `Date` |
 | Batched log shipping | `core/telemetry.ts` | **O-3 / C-05** redaction before shipping, including token-shaped substrings inside message text |
 | — | `core/realtime.ts` | All of **§12**: SSE over `fetch` so it can hold a bearer header, reconnect backoff, the keep-alive watchdog, `resync` on every open, nudge coalescing, and a polling fallback that **announces itself** |
 | — | `core/connectivity.ts` | **OF-3** online/degraded/offline from real request outcomes, not `navigator.onLine`, which lies behind a captive portal |

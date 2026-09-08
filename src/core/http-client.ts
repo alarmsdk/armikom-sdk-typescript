@@ -25,6 +25,7 @@ import {
 import { logEvent, noopLogger, type Logger } from './logger.js';
 import { backoffDelay, defaultRetryPolicy, isIdempotent, type HttpMethod, type RetryPolicy } from './retry.js';
 import type { AuthSession } from './session.js';
+import { markTimestampsUtc } from './text.js';
 import {
   buildQuery,
   combineSignals,
@@ -115,6 +116,12 @@ export interface HttpClientOptions {
   random?: () => number;
   /** §01 V-4 — reported to support so they know which client is talking. */
   contractVersion?: string;
+  /**
+   * §01 R-4 — label offset-less response timestamps as the UTC they are.
+   * On by default, because the API sends them: see `markInstantUtc`. Turn it
+   * off only against a service that genuinely means local time.
+   */
+  repairTimestamps?: boolean;
 }
 
 const CORRELATION_HEADER = 'x-correlation-id';
@@ -130,6 +137,7 @@ export class HttpClient {
   private readonly random: () => number;
   private culture: string | undefined;
   private timeZone: string | undefined;
+  private readonly repairTimestamps: boolean;
 
   constructor(options: HttpClientOptions) {
     this.options = options;
@@ -142,6 +150,7 @@ export class HttpClient {
     this.contractVersion = options.contractVersion;
     this.culture = options.culture;
     this.timeZone = options.timeZone;
+    this.repairTimestamps = options.repairTimestamps ?? true;
   }
 
   get baseUrl(): string {
@@ -333,7 +342,7 @@ export class HttpClient {
       responseType: 'raw',
       anonymous: isAnonymousPath(url),
     });
-    return response.data;
+    return this.repairTimestamps ? await repairResponseTimestamps(response.data) : response.data;
   };
 
   /** Convenience wrapper for the common case: a JSON response you just want the body of. */
@@ -443,7 +452,8 @@ export class HttpClient {
     const text = await response.text();
     if (!text) return { ...base, data: undefined as T };
     try {
-      return { ...base, data: JSON.parse(text) as T };
+      const parsed = JSON.parse(text) as T;
+      return { ...base, data: this.repairTimestamps ? markTimestampsUtc(parsed) : parsed };
     } catch (error) {
       // §01 E-6 / C-08 — a success status with a body that is not JSON is still
       // a failure the caller can act on, not a parse crash.
@@ -588,6 +598,36 @@ const ANONYMOUS_PATHS = [/\/v1\/auth\/login$/, /\/v1\/auth\/refresh$/, /\/v1\/i1
 export function isAnonymousPath(url: string): boolean {
   const path = url.split('?')[0] ?? url;
   return ANONYMOUS_PATHS.some((re) => re.test(path));
+}
+
+/**
+ * Rewrites a JSON response body so offset-less timestamps carry their `Z`.
+ *
+ * A new `Response` rather than an in-place edit, because the generated
+ * transport reads the body itself and a stream can only be consumed once. Only
+ * JSON is touched: a blob download must reach the caller byte-identical.
+ */
+async function repairResponseTimestamps(response: Response): Promise<Response> {
+  const contentType = response.headers.get('content-type') ?? '';
+  if (!/\bjson\b/i.test(contentType) || response.status === 204 || response.status === 304) return response;
+
+  const text = await response.clone().text();
+  if (!text) return response;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    // Not JSON despite the header. Hand back the original; the error path
+    // upstream is what turns a malformed body into a typed failure.
+    return response;
+  }
+  const repaired = JSON.stringify(markTimestampsUtc(parsed));
+  if (repaired === text) return response;
+  return new Response(repaired, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+  });
 }
 
 function isBrowser(): boolean {
