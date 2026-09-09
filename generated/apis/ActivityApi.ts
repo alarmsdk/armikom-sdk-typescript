@@ -81,7 +81,7 @@ export class ActivityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Accepts a batch of client-side usage telemetry events (window open/close, tab switching, navigation, action executions). This is NOT an audit trail — it records UI activity for analytics. For domain-write audit, see IAuditService (R4.8). Fire-and-forget on the client: a failed telemetry post must never block navigation or surface to a user. Events are written to the structured log (Seq) with the same property names as XAF\'s UserActivityLoggerController: SessionId, UserId, UserName, SourceContext.
+     * Accepts a batch of client-side usage telemetry events (window open/close, tab switching, navigation, action executions). This is NOT an audit trail — it records UI activity for analytics. For domain-write audit, see IAuditService (R4.8). Fire-and-forget on the client: a failed telemetry post must never block navigation or surface to a user. Events are written to the structured log (Seq) with the same property names as XAF\'s UserActivityLoggerController: SessionId, UserId, UserName, SourceContext — and, except for the noise types, also to OperatorEvent for the interaction dataset. A detail entry named \'correlationId\' holding the signal event id is what lets a console event be joined to the API\'s own record of the same alarm.
      * Submit usage telemetry events
      */
     async postActivityRaw(requestParameters: ActivityApiPostActivityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -92,7 +92,7 @@ export class ActivityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Accepts a batch of client-side usage telemetry events (window open/close, tab switching, navigation, action executions). This is NOT an audit trail — it records UI activity for analytics. For domain-write audit, see IAuditService (R4.8). Fire-and-forget on the client: a failed telemetry post must never block navigation or surface to a user. Events are written to the structured log (Seq) with the same property names as XAF\'s UserActivityLoggerController: SessionId, UserId, UserName, SourceContext.
+     * Accepts a batch of client-side usage telemetry events (window open/close, tab switching, navigation, action executions). This is NOT an audit trail — it records UI activity for analytics. For domain-write audit, see IAuditService (R4.8). Fire-and-forget on the client: a failed telemetry post must never block navigation or surface to a user. Events are written to the structured log (Seq) with the same property names as XAF\'s UserActivityLoggerController: SessionId, UserId, UserName, SourceContext — and, except for the noise types, also to OperatorEvent for the interaction dataset. A detail entry named \'correlationId\' holding the signal event id is what lets a console event be joined to the API\'s own record of the same alarm.
      * Submit usage telemetry events
      */
     async postActivity(requestParameters: ActivityApiPostActivityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {

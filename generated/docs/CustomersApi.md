@@ -8,7 +8,7 @@ All URIs are relative to *http://localhost*
 | [**deleteCustomer**](CustomersApi.md#deletecustomer) | **DELETE** /v1/customers/{id} | Delete a customer — guarded by linked sides |
 | [**getCustomerById**](CustomersApi.md#getcustomerbyid) | **GET** /v1/customers/{id} | Get a customer by ID |
 | [**getCustomerSides**](CustomersApi.md#getcustomersides) | **GET** /v1/customers/{id}/sides | List subscribers linked to this customer |
-| [**listCustomers**](CustomersApi.md#listcustomers) | **GET** /v1/customers | List customers (paged) |
+| [**listCustomers**](CustomersApi.md#listcustomers) | **GET** /v1/customers | List customers with filtering, sorting and pagination |
 | [**updateCustomer**](CustomersApi.md#updatecustomeroperation) | **PATCH** /v1/customers/{id} | Update customer fields (PATCH) |
 
 
@@ -319,9 +319,11 @@ example().catch(console.error);
 
 ## listCustomers
 
-> CustomerListItemPagedResult listCustomers(q, cityId, cursor, limit, offset, page, pageSize, xCorrelationId)
+> CustomerListItemPagedResult listCustomers(q, cityId, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
 
-List customers (paged)
+List customers with filtering, sorting and pagination
+
+Returns a paginated list of customers. Default sort is by name ascending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-name,sideCount&#x60;).
 
 ### Example
 
@@ -355,6 +357,8 @@ async function example() {
     page: 56,
     // number (optional)
     pageSize: 56,
+    // string (optional)
+    sort: sort_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies ListCustomersRequest;
@@ -383,6 +387,7 @@ example().catch(console.error);
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

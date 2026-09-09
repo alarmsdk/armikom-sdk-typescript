@@ -385,7 +385,8 @@ export class CustomersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List customers (paged)
+     * Returns a paginated list of customers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,sideCount`).
+     * List customers with filtering, sorting and pagination
      */
     async listCustomersRaw(requestParameters: CustomersApiListCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomerListItemPagedResult>> {
         const requestOptions = await this.listCustomersRequestOpts(requestParameters);
@@ -395,7 +396,8 @@ export class CustomersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List customers (paged)
+     * Returns a paginated list of customers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,sideCount`).
+     * List customers with filtering, sorting and pagination
      */
     async listCustomers(requestParameters: CustomersApiListCustomersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomerListItemPagedResult> {
         const response = await this.listCustomersRaw(requestParameters, initOverrides);

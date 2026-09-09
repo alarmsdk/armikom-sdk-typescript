@@ -8,7 +8,7 @@ All URIs are relative to *http://localhost*
 | [**deleteMobileUser**](MobileUsersApi.md#deletemobileuser) | **DELETE** /v1/mobile-users/{id} | Delete a mobile user — nulls delivery history FKs, cascades devices, reports removed links |
 | [**getMobileUserById**](MobileUsersApi.md#getmobileuserbyid) | **GET** /v1/mobile-users/{id} | Get a mobile user by ID (includes linked sides and devices) |
 | [**linkMobileUserToSide**](MobileUsersApi.md#linkmobileusertoside) | **POST** /v1/sides/{sideId}/mobile-users | Link an existing user or create-and-link atomically |
-| [**listMobileUsers**](MobileUsersApi.md#listmobileusers) | **GET** /v1/mobile-users | List mobile users (paged, tenant-scoped) |
+| [**listMobileUsers**](MobileUsersApi.md#listmobileusers) | **GET** /v1/mobile-users | List mobile users with filtering, sorting and pagination |
 | [**listMobileUsersForSide**](MobileUsersApi.md#listmobileusersforside) | **GET** /v1/sides/{sideId}/mobile-users | List mobile users linked to a subscriber |
 | [**resetMobileUserPassword**](MobileUsersApi.md#resetmobileuserpasswordoperation) | **POST** /v1/mobile-users/{id}/password | Reset a mobile user\&#39;s password |
 | [**unlinkMobileUserFromSide**](MobileUsersApi.md#unlinkmobileuserfromside) | **DELETE** /v1/sides/{sideId}/mobile-users/{userId} | Unlink a mobile user from a subscriber |
@@ -332,9 +332,11 @@ example().catch(console.error);
 
 ## listMobileUsers
 
-> MobileUserListItemPagedResult listMobileUsers(q, cursor, limit, offset, page, pageSize, xCorrelationId)
+> MobileUserListItemPagedResult listMobileUsers(q, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
 
-List mobile users (paged, tenant-scoped)
+List mobile users with filtering, sorting and pagination
+
+Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-name,phone&#x60;).
 
 ### Example
 
@@ -366,6 +368,8 @@ async function example() {
     page: 56,
     // number (optional)
     pageSize: 56,
+    // string (optional)
+    sort: sort_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies ListMobileUsersRequest;
@@ -393,6 +397,7 @@ example().catch(console.error);
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

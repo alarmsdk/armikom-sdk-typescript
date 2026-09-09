@@ -10,6 +10,7 @@ Name | Type
 `availableModes` | Array&lt;string&gt;
 `suggestedBaseTime` | Date
 `todayClosingTime` | string
+`closingSchedule` | [Array&lt;ClosingScheduleEntry&gt;](ClosingScheduleEntry.md)
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "availableModes": null,
   "suggestedBaseTime": null,
   "todayClosingTime": null,
+  "closingSchedule": null,
 } satisfies ClosingDelayOptionsResponse
 
 console.log(example)

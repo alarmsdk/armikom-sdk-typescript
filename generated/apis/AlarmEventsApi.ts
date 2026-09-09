@@ -408,7 +408,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns full alarm event detail including the linked signal event with subscriber info, contacts, notes, zones, timetables, and signal history.
+     * Returns full alarm event detail including the linked signal event with subscriber info, contacts, notes, zones, timetables, and signal history. Records alarm.viewed for the interaction dataset — every open, not only the first, so first view is MIN(occurred_at) per correlation and re-opens stay visible.
      * Get alarm event detail by ID
      */
     async getAlarmEventByIdRaw(requestParameters: AlarmEventsApiGetAlarmEventByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AlarmEventDetailResponse>> {
@@ -419,7 +419,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns full alarm event detail including the linked signal event with subscriber info, contacts, notes, zones, timetables, and signal history.
+     * Returns full alarm event detail including the linked signal event with subscriber info, contacts, notes, zones, timetables, and signal history. Records alarm.viewed for the interaction dataset — every open, not only the first, so first view is MIN(occurred_at) per correlation and re-opens stay visible.
      * Get alarm event detail by ID
      */
     async getAlarmEventById(requestParameters: AlarmEventsApiGetAlarmEventByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AlarmEventDetailResponse> {

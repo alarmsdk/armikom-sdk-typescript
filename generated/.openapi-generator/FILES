@@ -104,6 +104,7 @@ docs/ClosingDelayOptionsResponse.md
 docs/ClosingDelayRequest.md
 docs/ClosingDelayResponse.md
 docs/ClosingDelaysApi.md
+docs/ClosingScheduleEntry.md
 docs/CompleteAlarmRequest.md
 docs/CompleteAlarmResponse.md
 docs/ConfigurationApi.md
@@ -505,6 +506,7 @@ models/ClosingDelayListItemPagedResult.ts
 models/ClosingDelayOptionsResponse.ts
 models/ClosingDelayRequest.ts
 models/ClosingDelayResponse.ts
+models/ClosingScheduleEntry.ts
 models/CompleteAlarmRequest.ts
 models/CompleteAlarmResponse.ts
 models/CopilotConversationEventDto.ts

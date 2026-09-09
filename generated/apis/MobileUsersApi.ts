@@ -435,7 +435,8 @@ export class MobileUsersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List mobile users (paged, tenant-scoped)
+     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).
+     * List mobile users with filtering, sorting and pagination
      */
     async listMobileUsersRaw(requestParameters: MobileUsersApiListMobileUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileUserListItemPagedResult>> {
         const requestOptions = await this.listMobileUsersRequestOpts(requestParameters);
@@ -445,7 +446,8 @@ export class MobileUsersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List mobile users (paged, tenant-scoped)
+     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).
+     * List mobile users with filtering, sorting and pagination
      */
     async listMobileUsers(requestParameters: MobileUsersApiListMobileUsersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileUserListItemPagedResult> {
         const response = await this.listMobileUsersRaw(requestParameters, initOverrides);

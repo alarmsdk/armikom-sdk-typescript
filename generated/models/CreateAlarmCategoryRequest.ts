@@ -49,6 +49,14 @@ export interface CreateAlarmCategoryRequest {
      * @memberof CreateAlarmCategoryRequest
      */
     note?: string | null;
+    /**
+     * Alarms in this category require law-enforcement dispatch: on an AI-managed tenant they
+     * are escalated to a partner monitoring centre instead of being closed by the AI.
+     * Independent of Armikom.Api.Contracts.Reference.CreateAlarmCategoryRequest.CallType, which only selects how the IVR autodialer calls.
+     * @type {boolean}
+     * @memberof CreateAlarmCategoryRequest
+     */
+    escalateToPartner?: boolean | null;
 }
 
 /**
@@ -73,6 +81,7 @@ export function CreateAlarmCategoryRequestFromJSONTyped(json: any, ignoreDiscrim
         'code': json['code'] === undefined ? undefined : json['code'] === null ? null : json['code'],
         'callType': json['callType'] === undefined ? undefined : json['callType'] === null ? null : json['callType'],
         'note': json['note'] === undefined ? undefined : json['note'] === null ? null : json['note'],
+        'escalateToPartner': json['escalateToPartner'] === undefined ? undefined : json['escalateToPartner'] === null ? null : json['escalateToPartner'],
     };
 }
 
@@ -92,6 +101,7 @@ export function CreateAlarmCategoryRequestToJSONTyped(value?: CreateAlarmCategor
         'code': value['code'],
         'callType': value['callType'],
         'note': value['note'],
+        'escalateToPartner': value['escalateToPartner'],
     };
 }
 

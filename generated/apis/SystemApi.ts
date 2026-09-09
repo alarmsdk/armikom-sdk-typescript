@@ -23,13 +23,6 @@ export interface SystemApiGetCutoverHealthRequest {
     xCorrelationId?: string;
 }
 
-export interface HealthLiveResponse {
-    status?: string;
-    version?: string;
-    checks?: Array<{ name?: string; status?: string; description?: string; duration?: number }>;
-    totalDuration?: number;
-}
-
 /**
  * 
  */
@@ -75,43 +68,6 @@ export class SystemApi extends runtime.BaseAPI {
      */
     async getCutoverHealth(requestParameters: SystemApiGetCutoverHealthRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CutoverHealthResponse> {
         const response = await this.getCutoverHealthRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates request options for getHealthLive without sending the request
-     */
-    async getHealthLiveRequestOpts(): Promise<runtime.RequestOpts> {
-        const queryParameters: any = {};
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        let urlPath = `/health/live`;
-
-        return {
-            path: urlPath,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Returns 200 if the process is alive. No dependency checks.
-     * Liveness probe
-     */
-    async getHealthLiveRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<HealthLiveResponse>> {
-        const requestOptions = await this.getHealthLiveRequestOpts();
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response);
-    }
-
-    /**
-     * Returns 200 if the process is alive. No dependency checks.
-     * Liveness probe
-     */
-    async getHealthLive(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<HealthLiveResponse> {
-        const response = await this.getHealthLiveRaw(initOverrides);
         return await response.value();
     }
 

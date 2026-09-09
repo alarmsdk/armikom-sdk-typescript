@@ -1,34 +1,27 @@
 
-# AlarmCategoryDetail
+# ClosingScheduleEntry
 
+One day\'s closing time in the subscriber\'s weekly schedule.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`id` | string
-`name` | string
-`type` | number
-`code` | number
-`callType` | number
-`note` | string
-`escalateToPartner` | boolean
+`day` | number
+`closingTime` | string
+`isNextDay` | boolean
 
 ## Example
 
 ```typescript
-import type { AlarmCategoryDetail } from ''
+import type { ClosingScheduleEntry } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "id": null,
-  "name": null,
-  "type": null,
-  "code": null,
-  "callType": null,
-  "note": null,
-  "escalateToPartner": null,
-} satisfies AlarmCategoryDetail
+  "day": null,
+  "closingTime": null,
+  "isNextDay": null,
+} satisfies ClosingScheduleEntry
 
 console.log(example)
 
@@ -37,7 +30,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as AlarmCategoryDetail
+const exampleParsed = JSON.parse(exampleJSON) as ClosingScheduleEntry
 console.log(exampleParsed)
 ```
 

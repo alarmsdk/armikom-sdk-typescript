@@ -55,6 +55,12 @@ export interface AlarmCategoryDetail {
      * @memberof AlarmCategoryDetail
      */
     note?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlarmCategoryDetail
+     */
+    escalateToPartner?: boolean;
 }
 
 /**
@@ -80,6 +86,7 @@ export function AlarmCategoryDetailFromJSONTyped(json: any, ignoreDiscriminator:
         'code': json['code'] === undefined ? undefined : json['code'] === null ? null : json['code'],
         'callType': json['callType'] === undefined ? undefined : json['callType'] === null ? null : json['callType'],
         'note': json['note'] === undefined ? undefined : json['note'] === null ? null : json['note'],
+        'escalateToPartner': json['escalateToPartner'] == null ? undefined : json['escalateToPartner'],
     };
 }
 
@@ -100,6 +107,7 @@ export function AlarmCategoryDetailToJSONTyped(value?: AlarmCategoryDetail | nul
         'code': value['code'],
         'callType': value['callType'],
         'note': value['note'],
+        'escalateToPartner': value['escalateToPartner'],
     };
 }
 

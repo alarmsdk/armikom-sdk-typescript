@@ -623,7 +623,8 @@ export class DealersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List dealers (paged)
+     * Returns a paginated list of dealers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,active`).
+     * List dealers with filtering, sorting and pagination
      */
     async listDealersRaw(requestParameters: DealersApiListDealersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DealerListItemPagedResult>> {
         const requestOptions = await this.listDealersRequestOpts(requestParameters);
@@ -633,7 +634,8 @@ export class DealersApi extends runtime.BaseAPI {
     }
 
     /**
-     * List dealers (paged)
+     * Returns a paginated list of dealers. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,active`).
+     * List dealers with filtering, sorting and pagination
      */
     async listDealers(requestParameters: DealersApiListDealersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DealerListItemPagedResult> {
         const response = await this.listDealersRaw(requestParameters, initOverrides);

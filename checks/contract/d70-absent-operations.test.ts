@@ -1,6 +1,7 @@
-// D70 — these five operations are deliberately unbuilt. They are not gaps and
+// D70 — these four operations are deliberately unbuilt. They are not gaps and
 // must not be stubbed. If one appears in generated/, either the contract moved
 // or somebody hand-wrote into the generated layer.
+// Note: DeleteOperatorUser was removed from this list — it is now a real endpoint.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
@@ -9,7 +10,6 @@ import { join } from 'node:path';
 import { repoRoot } from './_helpers';
 
 const ABSENT = [
-  'DeleteOperatorUser',
   'GetRole',
   'GetSideControl',
   'GetSideSimCard',
@@ -23,7 +23,7 @@ function walk(dir: string): string[] {
   });
 }
 
-test('D70: the five unbuilt operations are absent from the pinned contract', () => {
+test('D70: the four unbuilt operations are absent from the pinned contract', () => {
   const spec = JSON.parse(
     readFileSync(join(repoRoot(), 'openapi/armikom-api.v1.json'), 'utf8'),
   ) as { paths: Record<string, Record<string, { operationId?: string }>> };
@@ -36,13 +36,13 @@ test('D70: the five unbuilt operations are absent from the pinned contract', () 
   }
   // The count is a fact about the pinned contract, not about D70 itself. It is
   // here so a re-pin is a deliberate edit rather than something that slips in.
-  assert.equal(ids.size, 391, 'operation count moved off the pinned contract');
+  assert.equal(ids.size, 392, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
 });
 
-test('D70: nothing in generated/ references the five unbuilt operations', () => {
+test('D70: nothing in generated/ references the four unbuilt operations', () => {
   const root = repoRoot();
   const files = walk(join(root, 'generated')).filter((f) => /\.(ts|md)$/.test(f));
   assert.ok(files.length > 300, `expected the full generated tree, saw ${files.length} files`);

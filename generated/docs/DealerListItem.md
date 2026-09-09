@@ -17,6 +17,8 @@ Name | Type
 `regionId` | string
 `recordDateTime` | Date
 `monitoringCenterId` | string
+`activeSideCount` | number
+`inactiveSideCount` | number
 
 ## Example
 
@@ -36,6 +38,8 @@ const example = {
   "regionId": null,
   "recordDateTime": null,
   "monitoringCenterId": null,
+  "activeSideCount": null,
+  "inactiveSideCount": null,
 } satisfies DealerListItem
 
 console.log(example)

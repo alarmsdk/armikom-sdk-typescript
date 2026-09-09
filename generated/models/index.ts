@@ -46,6 +46,7 @@ export * from './ClosingDelayListItemPagedResult';
 export * from './ClosingDelayOptionsResponse';
 export * from './ClosingDelayRequest';
 export * from './ClosingDelayResponse';
+export * from './ClosingScheduleEntry';
 export * from './CompleteAlarmRequest';
 export * from './CompleteAlarmResponse';
 export * from './CopilotConversationEventDto';

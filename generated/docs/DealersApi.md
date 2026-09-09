@@ -11,7 +11,7 @@ All URIs are relative to *http://localhost*
 | [**getDealerLogo**](DealersApi.md#getdealerlogo) | **GET** /v1/dealers/{id}/logo | Get the dealer logo image |
 | [**getDealerSideNoPool**](DealersApi.md#getdealersidenopool) | **GET** /v1/dealers/{dealerId}/side-nos/pool | Get unused reserved subscriber numbers for a dealer |
 | [**getDealerSideNos**](DealersApi.md#getdealersidenos) | **GET** /v1/dealers/{dealerId}/side-nos | List all reserved subscriber numbers for a dealer |
-| [**listDealers**](DealersApi.md#listdealers) | **GET** /v1/dealers | List dealers (paged) |
+| [**listDealers**](DealersApi.md#listdealers) | **GET** /v1/dealers | List dealers with filtering, sorting and pagination |
 | [**releaseDealerSideNo**](DealersApi.md#releasedealersideno) | **DELETE** /v1/dealers/{dealerId}/side-nos/{sideNo} | Release a single reserved subscriber number |
 | [**releaseDealerSideNoRange**](DealersApi.md#releasedealersidenorange) | **DELETE** /v1/dealers/{dealerId}/side-nos | Release a range of reserved subscriber numbers |
 | [**reserveDealerSideNos**](DealersApi.md#reservedealersidenosoperation) | **POST** /v1/dealers/{dealerId}/side-nos | Reserve subscriber numbers for a dealer |
@@ -554,9 +554,11 @@ example().catch(console.error);
 
 ## listDealers
 
-> DealerListItemPagedResult listDealers(q, active, cityId, regionId, cursor, limit, offset, page, pageSize, xCorrelationId)
+> DealerListItemPagedResult listDealers(q, active, cityId, regionId, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
 
-List dealers (paged)
+List dealers with filtering, sorting and pagination
+
+Returns a paginated list of dealers. Default sort is by name ascending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-name,active&#x60;).
 
 ### Example
 
@@ -594,6 +596,8 @@ async function example() {
     page: 56,
     // number (optional)
     pageSize: 56,
+    // string (optional)
+    sort: sort_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies ListDealersRequest;
@@ -624,6 +628,7 @@ example().catch(console.error);
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
