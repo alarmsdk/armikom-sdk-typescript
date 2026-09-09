@@ -21,6 +21,7 @@ All URIs are relative to *http://localhost*
 | [**deleteEmergencyPhone**](AdministrationApi.md#deleteemergencyphone) | **DELETE** /v1/admin/emergency-phones/{id} | Delete an emergency contact |
 | [**deleteMailSetting**](AdministrationApi.md#deletemailsetting) | **DELETE** /v1/admin/mail-settings/{id} | Delete an SMTP profile |
 | [**deleteMonitoringCenter**](AdministrationApi.md#deletemonitoringcenter) | **DELETE** /v1/admin/monitoring-centers/{id} | Delete a monitoring center |
+| [**deleteMonitoringCenterAlarmSound**](AdministrationApi.md#deletemonitoringcenteralarmsound) | **DELETE** /v1/admin/monitoring-centers/{id}/alarm-sound | Remove the alarm sound from a monitoring center |
 | [**deletePanelCommand**](AdministrationApi.md#deletepanelcommand) | **DELETE** /v1/admin/panel-commands/{id} | Cancel a queued panel command |
 | [**deletePrompt**](AdministrationApi.md#deleteprompt) | **DELETE** /v1/admin/prompts/{id} | Delete an AI prompt template |
 | [**deleteReceiver**](AdministrationApi.md#deletereceiver) | **DELETE** /v1/admin/receivers/{id} | Delete a receiver and its lines, rules and line types |
@@ -60,6 +61,7 @@ All URIs are relative to *http://localhost*
 | [**updateReceiverRule**](AdministrationApi.md#updatereceiverrule) | **PUT** /v1/admin/receivers/{receiverId}/rules/{id} | Update an admission rule |
 | [**updateReceiverType**](AdministrationApi.md#updatereceivertype) | **PATCH** /v1/admin/receiver-types/{id} | Rename a receiver type |
 | [**updateSmsSetting**](AdministrationApi.md#updatesmssettingoperation) | **PATCH** /v1/admin/sms-settings/{id} | Update an SMS gateway profile |
+| [**uploadMonitoringCenterAlarmSound**](AdministrationApi.md#uploadmonitoringcenteralarmsound) | **PUT** /v1/admin/monitoring-centers/{id}/alarm-sound | Upload or replace the alarm sound for a monitoring center |
 
 
 
@@ -1407,6 +1409,81 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteMonitoringCenterAlarmSound
+
+> deleteMonitoringCenterAlarmSound(id, xCorrelationId)
+
+Remove the alarm sound from a monitoring center
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { DeleteMonitoringCenterAlarmSoundRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteMonitoringCenterAlarmSoundRequest;
+
+  try {
+    const data = await api.deleteMonitoringCenterAlarmSound(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -4381,6 +4458,82 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## uploadMonitoringCenterAlarmSound
+
+> uploadMonitoringCenterAlarmSound(id, xCorrelationId)
+
+Upload or replace the alarm sound for a monitoring center
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { UploadMonitoringCenterAlarmSoundRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UploadMonitoringCenterAlarmSoundRequest;
+
+  try {
+    const data = await api.uploadMonitoringCenterAlarmSound(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `multipart/form-data`
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

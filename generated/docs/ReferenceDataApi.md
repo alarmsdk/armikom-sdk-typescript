@@ -7039,7 +7039,7 @@ example().catch(console.error);
 
 ## getSignalTypes
 
-> SignalTypeItemPagedResult getSignalTypes(q, cursor, limit, page, pageSize, offset, xCorrelationId)
+> SignalTypeItemPagedResult getSignalTypes(q, sort, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signal types with alert/priority/color metadata
 
@@ -7063,6 +7063,8 @@ async function example() {
   const body = {
     // string (optional)
     q: q_example,
+    // string (optional)
+    sort: sort_example,
     // string (optional)
     cursor: cursor_example,
     // number (optional)
@@ -7095,6 +7097,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |
@@ -7128,7 +7131,7 @@ example().catch(console.error);
 
 ## getSignals
 
-> SignalDictionaryItemPagedResult getSignals(protocolId, signalTypeId, alarmCategoryId, unmapped, q, cursor, limit, page, pageSize, offset, xCorrelationId)
+> SignalDictionaryItemPagedResult getSignals(protocolId, signalTypeId, alarmCategoryId, unmapped, q, sort, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signals, optionally filtered by protocol, signal type, alarm category, or mapping status
 
@@ -7160,6 +7163,8 @@ async function example() {
     unmapped: true,
     // string (optional)
     q: q_example,
+    // string (optional)
+    sort: sort_example,
     // string (optional)
     cursor: cursor_example,
     // number (optional)
@@ -7196,6 +7201,7 @@ example().catch(console.error);
 | **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **unmapped** | `boolean` |  | [Optional] [Defaults to `undefined`] |
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |
@@ -7961,7 +7967,7 @@ example().catch(console.error);
 
 ## listSignalRelations
 
-> SignalRelationItemPagedResult listSignalRelations(q, cursor, limit, page, pageSize, offset, xCorrelationId)
+> SignalRelationItemPagedResult listSignalRelations(q, sort, cursor, limit, page, pageSize, offset, xCorrelationId)
 
 List signal relations with source and target signal types
 
@@ -7987,6 +7993,8 @@ async function example() {
   const body = {
     // string (optional)
     q: q_example,
+    // string (optional)
+    sort: sort_example,
     // string (optional)
     cursor: cursor_example,
     // number (optional)
@@ -8019,6 +8027,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **page** | `number` |  | [Optional] [Defaults to `undefined`] |

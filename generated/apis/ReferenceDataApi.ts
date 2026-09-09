@@ -884,6 +884,7 @@ export interface ReferenceDataApiGetSignalTypeByIdRequest {
 
 export interface ReferenceDataApiGetSignalTypesRequest {
     q?: string;
+    sort?: string;
     cursor?: string;
     limit?: number;
     page?: number;
@@ -898,6 +899,7 @@ export interface ReferenceDataApiGetSignalsRequest {
     alarmCategoryId?: string;
     unmapped?: boolean;
     q?: string;
+    sort?: string;
     cursor?: string;
     limit?: number;
     page?: number;
@@ -953,6 +955,7 @@ export interface ReferenceDataApiListReferenceSignalExplanationsRequest {
 
 export interface ReferenceDataApiListSignalRelationsRequest {
     q?: string;
+    sort?: string;
     cursor?: string;
     limit?: number;
     page?: number;
@@ -6326,6 +6329,10 @@ export class ReferenceDataApi extends runtime.BaseAPI {
             queryParameters['q'] = requestParameters['q'];
         }
 
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
+        }
+
         if (requestParameters['cursor'] != null) {
             queryParameters['cursor'] = requestParameters['cursor'];
         }
@@ -6413,6 +6420,10 @@ export class ReferenceDataApi extends runtime.BaseAPI {
 
         if (requestParameters['q'] != null) {
             queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
         }
 
         if (requestParameters['cursor'] != null) {
@@ -7006,6 +7017,10 @@ export class ReferenceDataApi extends runtime.BaseAPI {
 
         if (requestParameters['q'] != null) {
             queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
         }
 
         if (requestParameters['cursor'] != null) {

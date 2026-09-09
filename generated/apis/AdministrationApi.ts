@@ -270,6 +270,11 @@ export interface AdministrationApiDeleteMonitoringCenterRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiDeleteMonitoringCenterAlarmSoundRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiDeletePanelCommandRequest {
     id: string;
     xCorrelationId?: string;
@@ -473,6 +478,11 @@ export interface AdministrationApiUpdateReceiverTypeRequest {
 export interface AdministrationApiUpdateSmsSettingOperationRequest {
     id: string;
     updateSmsSettingRequest: UpdateSmsSettingRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUploadMonitoringCenterAlarmSoundRequest {
+    id: string;
     xCorrelationId?: string;
 }
 
@@ -1552,6 +1562,62 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async deleteMonitoringCenter(requestParameters: AdministrationApiDeleteMonitoringCenterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteMonitoringCenterRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteMonitoringCenterAlarmSound without sending the request
+     */
+    async deleteMonitoringCenterAlarmSoundRequestOpts(requestParameters: AdministrationApiDeleteMonitoringCenterAlarmSoundRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMonitoringCenterAlarmSound().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers/{id}/alarm-sound`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove the alarm sound from a monitoring center
+     */
+    async deleteMonitoringCenterAlarmSoundRaw(requestParameters: AdministrationApiDeleteMonitoringCenterAlarmSoundRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMonitoringCenterAlarmSoundRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove the alarm sound from a monitoring center
+     */
+    async deleteMonitoringCenterAlarmSound(requestParameters: AdministrationApiDeleteMonitoringCenterAlarmSoundRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMonitoringCenterAlarmSoundRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -3871,6 +3937,62 @@ export class AdministrationApi extends runtime.BaseAPI {
     async updateSmsSetting(requestParameters: AdministrationApiUpdateSmsSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.updateSmsSettingRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Creates request options for uploadMonitoringCenterAlarmSound without sending the request
+     */
+    async uploadMonitoringCenterAlarmSoundRequestOpts(requestParameters: AdministrationApiUploadMonitoringCenterAlarmSoundRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling uploadMonitoringCenterAlarmSound().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/monitoring-centers/{id}/alarm-sound`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Upload or replace the alarm sound for a monitoring center
+     */
+    async uploadMonitoringCenterAlarmSoundRaw(requestParameters: AdministrationApiUploadMonitoringCenterAlarmSoundRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.uploadMonitoringCenterAlarmSoundRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Upload or replace the alarm sound for a monitoring center
+     */
+    async uploadMonitoringCenterAlarmSound(requestParameters: AdministrationApiUploadMonitoringCenterAlarmSoundRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.uploadMonitoringCenterAlarmSoundRaw(requestParameters, initOverrides);
     }
 
 }

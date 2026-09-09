@@ -1,6 +1,6 @@
 # armikom-sdk-typescript — generate · build · test · drift gate
 #
-# Contract: Armikom.Api master with the admin surface (229 paths · 391 operations
+# Contract: Armikom.Api master with the admin surface (230 paths · 394 operations
 # · 351 schemas, info.version v1). Additive over the api-v1.0 freeze — oasdiff
 # reports no breaking change against openapi/armikom-api.v1.frozen.json in the
 # API repo. The pinned spec is openapi/armikom-api.v1.json and its sha256 is

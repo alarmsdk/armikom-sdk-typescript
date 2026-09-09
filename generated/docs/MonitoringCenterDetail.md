@@ -23,6 +23,7 @@ Name | Type
 `sideNoEnd` | number
 `soundPath` | string
 `defaultSound` | string
+`hasAlarmSound` | boolean
 `smsProviderType` | string
 `smsUsername` | string
 `smsOrganization` | string
@@ -71,6 +72,7 @@ const example = {
   "sideNoEnd": null,
   "soundPath": null,
   "defaultSound": null,
+  "hasAlarmSound": null,
   "smsProviderType": null,
   "smsUsername": null,
   "smsOrganization": null,

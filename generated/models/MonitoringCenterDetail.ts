@@ -120,6 +120,12 @@ export interface MonitoringCenterDetail {
     defaultSound?: string | null;
     /**
      * 
+     * @type {boolean}
+     * @memberof MonitoringCenterDetail
+     */
+    hasAlarmSound?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof MonitoringCenterDetail
      */
@@ -297,6 +303,7 @@ export function MonitoringCenterDetailFromJSONTyped(json: any, ignoreDiscriminat
         'sideNoEnd': json['sideNoEnd'] === undefined ? undefined : json['sideNoEnd'] === null ? null : json['sideNoEnd'],
         'soundPath': json['soundPath'] === undefined ? undefined : json['soundPath'] === null ? null : json['soundPath'],
         'defaultSound': json['defaultSound'] === undefined ? undefined : json['defaultSound'] === null ? null : json['defaultSound'],
+        'hasAlarmSound': json['hasAlarmSound'] == null ? undefined : json['hasAlarmSound'],
         'smsProviderType': json['smsProviderType'] === undefined ? undefined : json['smsProviderType'] === null ? null : json['smsProviderType'],
         'smsUsername': json['smsUsername'] === undefined ? undefined : json['smsUsername'] === null ? null : json['smsUsername'],
         'smsOrganization': json['smsOrganization'] === undefined ? undefined : json['smsOrganization'] === null ? null : json['smsOrganization'],
@@ -351,6 +358,7 @@ export function MonitoringCenterDetailToJSONTyped(value?: MonitoringCenterDetail
         'sideNoEnd': value['sideNoEnd'],
         'soundPath': value['soundPath'],
         'defaultSound': value['defaultSound'],
+        'hasAlarmSound': value['hasAlarmSound'],
         'smsProviderType': value['smsProviderType'],
         'smsUsername': value['smsUsername'],
         'smsOrganization': value['smsOrganization'],
