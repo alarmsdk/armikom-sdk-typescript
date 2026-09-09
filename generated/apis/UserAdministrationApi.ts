@@ -81,6 +81,11 @@ export interface UserAdministrationApiCreateOperatorUserOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface UserAdministrationApiDeleteOperatorUserRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface UserAdministrationApiGetOperatorUserRequest {
     id: string;
     xCorrelationId?: string;
@@ -266,6 +271,62 @@ export class UserAdministrationApi extends runtime.BaseAPI {
     async createOperatorUser(requestParameters: UserAdministrationApiCreateOperatorUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperatorUserDetailResponse> {
         const response = await this.createOperatorUserRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Creates request options for deleteOperatorUser without sending the request
+     */
+    async deleteOperatorUserRequestOpts(requestParameters: UserAdministrationApiDeleteOperatorUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteOperatorUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/users/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an operator user
+     */
+    async deleteOperatorUserRaw(requestParameters: UserAdministrationApiDeleteOperatorUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteOperatorUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an operator user
+     */
+    async deleteOperatorUser(requestParameters: UserAdministrationApiDeleteOperatorUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteOperatorUserRaw(requestParameters, initOverrides);
     }
 
     /**
