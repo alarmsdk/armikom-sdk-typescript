@@ -1,7 +1,7 @@
 
 # MailSettingDetail
 
-A named SMTP profile scoped to a monitoring centre. The password is never  returned — Armikom.Api.Contracts.Admin.MailSettingDetail.HasPassword reports whether one is stored.
+A named SMTP profile scoped to a monitoring centre. The password is never returned — Armikom.Api.Contracts.Admin.MailSettingDetail.HasPassword reports whether one is stored.
 
 ## Properties
 

@@ -1,7 +1,7 @@
 
 # CopilotConversationIngestRequest
 
-A batch of live-call events posted by CopilotX. Batched rather than one request per  utterance because interim speech results arrive several times a second per channel and  the API\'s global rate limit is a per-principal budget, not a per-endpoint one.
+A batch of live-call events posted by CopilotX. Batched rather than one request per utterance because interim speech results arrive several times a second per channel and the API\'s global rate limit is a per-principal budget, not a per-endpoint one.
 
 ## Properties
 

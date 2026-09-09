@@ -1,7 +1,7 @@
 
 # CopilotSuggestedActionDto
 
-Something for the operator to know, to write, or to do. A proposal is never a command:  an Armikom.Api.Contracts.Copilot.CopilotSuggestedActionDto.Operation only tells the console which dialog to open pre-filled.
+Something for the operator to know, to write, or to do. A proposal is never a command: an Armikom.Api.Contracts.Copilot.CopilotSuggestedActionDto.Operation only tells the console which dialog to open pre-filled.
 
 ## Properties
 

@@ -1,7 +1,7 @@
 
 # ReceiverRuleDetail
 
-An explicit admission rule for one receiver: either a side number or a source IP,  with the decision to allow or reject it. Read by the Engine on every event.
+An explicit admission rule for one receiver: either a side number or a source IP, with the decision to allow or reject it. Read by the Engine on every event.
 
 ## Properties
 

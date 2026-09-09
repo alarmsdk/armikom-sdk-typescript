@@ -1,7 +1,7 @@
 
 # ProsecCommandDetail
 
-A queued panel command. Rows are consumed by the panel when it next polls,  which stamps Armikom.Api.Contracts.Admin.ProsecCommandDetail.SentAt; a row past Armikom.Api.Contracts.Admin.ProsecCommandDetail.ValidUntil is dropped.
+A queued panel command. Rows are consumed by the panel when it next polls, which stamps Armikom.Api.Contracts.Admin.ProsecCommandDetail.SentAt; a row past Armikom.Api.Contracts.Admin.ProsecCommandDetail.ValidUntil is dropped.
 
 ## Properties
 

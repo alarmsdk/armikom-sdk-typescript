@@ -1,7 +1,7 @@
 
 # DeviceRegexDetail
 
-A named parser for one device family. The Engine applies Armikom.Api.Contracts.Admin.DeviceRegexDetail.RegexText  to the raw packet, so a malformed pattern silently stops signal ingestion —  the API validates it before storing.
+A named parser for one device family. The Engine applies Armikom.Api.Contracts.Admin.DeviceRegexDetail.RegexText to the raw packet, so a malformed pattern silently stops signal ingestion — the API validates it before storing.
 
 ## Properties
 

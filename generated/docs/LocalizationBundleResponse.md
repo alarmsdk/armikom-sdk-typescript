@@ -1,7 +1,7 @@
 
 # LocalizationBundleResponse
 
-Full localisation bundle for a given culture.  Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
+Full localisation bundle for a given culture. Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
 
 ## Properties
 

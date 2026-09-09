@@ -1,7 +1,7 @@
 
 # AdminWriteResponse
 
-Uniform body returned by every admin create and update. Update returns the id  it was given, so a client can use one response shape for both verbs.
+Uniform body returned by every admin create and update. Update returns the id it was given, so a client can use one response shape for both verbs.
 
 ## Properties
 

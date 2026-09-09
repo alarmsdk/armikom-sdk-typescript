@@ -1,7 +1,7 @@
 
 # LinkMobileUserRequest
 
-Body for `POST /v1/sides/{sideId}/mobile-users`.  Supply Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.MobileUserId to link an existing user,  or Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Name/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Phone/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Password to create-and-link.  Supplying both is rejected as ambiguous.
+Body for `POST /v1/sides/{sideId}/mobile-users`. Supply Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.MobileUserId to link an existing user, or Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Name/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Phone/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Password to create-and-link. Supplying both is rejected as ambiguous.
 
 ## Properties
 

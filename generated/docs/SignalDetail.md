@@ -1,7 +1,7 @@
 
 # SignalDetail
 
-One row of the signal dictionary: the mapping the Engine looks up when a packet  arrives. It has no name or colours of its own — those come from the  Armikom.Api.Contracts.Admin.SignalDetail.SignalTypeId it points at.
+One row of the signal dictionary: the mapping the Engine looks up when a packet arrives. It has no name or colours of its own — those come from the Armikom.Api.Contracts.Admin.SignalDetail.SignalTypeId it points at.
 
 ## Properties
 

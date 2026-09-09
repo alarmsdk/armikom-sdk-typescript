@@ -249,7 +249,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -320,7 +320,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -631,7 +631,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -783,7 +783,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -1096,7 +1096,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -1380,7 +1380,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -1450,7 +1450,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -1695,7 +1695,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -1847,7 +1847,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -2159,7 +2159,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -2302,7 +2302,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -2372,7 +2372,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -2617,7 +2617,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -2769,7 +2769,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -3081,7 +3081,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -3224,7 +3224,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -3294,7 +3294,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -3540,7 +3540,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -3692,7 +3692,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -4004,7 +4004,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -4223,7 +4223,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -4293,7 +4293,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -4538,7 +4538,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -4690,7 +4690,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -5002,7 +5002,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -5221,7 +5221,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -5291,7 +5291,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -5536,7 +5536,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -5688,7 +5688,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -6000,7 +6000,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -6143,7 +6143,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -6237,7 +6237,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -6407,7 +6407,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -6552,7 +6552,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -6622,7 +6622,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -6868,7 +6868,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -7020,7 +7020,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -7332,7 +7332,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -7551,7 +7551,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -7706,7 +7706,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -8036,7 +8036,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -8283,7 +8283,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -8435,7 +8435,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -8590,7 +8590,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -8845,7 +8845,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -9092,7 +9092,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -9244,7 +9244,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -9314,7 +9314,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -9559,7 +9559,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -9711,7 +9711,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -10023,7 +10023,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -10242,7 +10242,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -10397,7 +10397,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -10651,7 +10651,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -10898,7 +10898,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -11050,7 +11050,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -11209,7 +11209,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -11349,7 +11349,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -11437,7 +11437,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -11691,7 +11691,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -11911,7 +11911,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -12168,7 +12168,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -12349,7 +12349,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -12420,7 +12420,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -12668,7 +12668,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -12916,7 +12916,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -13248,7 +13248,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -13703,7 +13703,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -13771,7 +13771,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -13911,7 +13911,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14063,7 +14063,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14215,7 +14215,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14361,7 +14361,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14514,7 +14514,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14771,7 +14771,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -14951,7 +14951,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -15019,7 +15019,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -15255,7 +15255,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -15384,7 +15384,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -15553,7 +15553,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -15705,7 +15705,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -15941,7 +15941,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -16160,7 +16160,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -16315,7 +16315,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -16392,7 +16392,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -16536,7 +16536,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -16705,7 +16705,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -16857,7 +16857,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -17093,7 +17093,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -17312,7 +17312,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -17457,7 +17457,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -17687,7 +17687,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -17830,7 +17830,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -17983,7 +17983,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -18238,7 +18238,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -18552,7 +18552,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -18783,7 +18783,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -18963,7 +18963,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -19052,7 +19052,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -19316,7 +19316,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -19405,7 +19405,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -19494,7 +19494,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -19797,7 +19797,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -20270,7 +20270,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -20574,7 +20574,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -20745,7 +20745,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -20993,7 +20993,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -21294,7 +21294,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -21615,7 +21615,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -21767,7 +21767,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -22079,7 +22079,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -22229,7 +22229,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -22478,7 +22478,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -22633,7 +22633,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -22990,7 +22990,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -23144,7 +23144,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -23316,7 +23316,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -23573,7 +23573,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -23830,7 +23830,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -23900,7 +23900,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -24145,7 +24145,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -24223,7 +24223,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -24468,7 +24468,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -24546,7 +24546,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -24791,7 +24791,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -24861,7 +24861,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -25106,7 +25106,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -25176,7 +25176,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -25421,7 +25421,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -25500,7 +25500,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -25745,7 +25745,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -25823,7 +25823,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -26068,7 +26068,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -26138,7 +26138,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -26383,7 +26383,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -26453,7 +26453,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -26698,7 +26698,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -26768,7 +26768,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -27013,7 +27013,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -27083,7 +27083,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -27328,7 +27328,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -27441,7 +27441,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -27686,7 +27686,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -27830,7 +27830,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -28075,7 +28075,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -28145,7 +28145,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -28390,7 +28390,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -28460,7 +28460,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -28604,7 +28604,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -28849,7 +28849,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -28919,7 +28919,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -28996,7 +28996,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -29241,7 +29241,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -29311,7 +29311,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -29556,7 +29556,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -29670,7 +29670,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -29915,7 +29915,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -29986,7 +29986,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -30065,7 +30065,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -30135,7 +30135,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -30380,7 +30380,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -30450,7 +30450,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -30695,7 +30695,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -30773,7 +30773,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -31018,7 +31018,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -31096,7 +31096,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -31341,7 +31341,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -31411,7 +31411,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -31656,7 +31656,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -31734,7 +31734,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -31979,7 +31979,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -32131,7 +32131,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -32443,7 +32443,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -32662,7 +32662,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -32814,7 +32814,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -33126,7 +33126,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -33345,7 +33345,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -33497,7 +33497,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -33716,7 +33716,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -33868,7 +33868,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -34180,7 +34180,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -34399,7 +34399,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -34551,7 +34551,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -34863,7 +34863,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -35082,7 +35082,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -35234,7 +35234,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -35546,7 +35546,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -35765,7 +35765,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -35917,7 +35917,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -36229,7 +36229,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -36448,7 +36448,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -36600,7 +36600,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -36912,7 +36912,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -37131,7 +37131,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -37283,7 +37283,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -37595,7 +37595,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -37814,7 +37814,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -37966,7 +37966,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -38278,7 +38278,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -38497,7 +38497,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -38649,7 +38649,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -38961,7 +38961,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -39180,7 +39180,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -39332,7 +39332,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -39644,7 +39644,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -39863,7 +39863,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -40015,7 +40015,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -40327,7 +40327,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -40546,7 +40546,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -40698,7 +40698,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -41010,7 +41010,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -41229,7 +41229,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -41381,7 +41381,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -41693,7 +41693,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -41912,7 +41912,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -42064,7 +42064,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -42376,7 +42376,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -42595,7 +42595,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -42747,7 +42747,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -43059,7 +43059,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -43278,7 +43278,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -43430,7 +43430,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -43742,7 +43742,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -43961,7 +43961,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -44113,7 +44113,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -44425,7 +44425,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -44644,7 +44644,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -44796,7 +44796,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -45108,7 +45108,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -45327,7 +45327,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -45479,7 +45479,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -45791,7 +45791,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -46010,7 +46010,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -46162,7 +46162,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -46474,7 +46474,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -46617,7 +46617,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -46687,7 +46687,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -46932,7 +46932,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -47084,7 +47084,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -47396,7 +47396,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -47615,7 +47615,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -47767,7 +47767,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -48079,7 +48079,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -48298,7 +48298,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -48451,7 +48451,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -48764,7 +48764,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -48983,7 +48983,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -49069,7 +49069,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -49155,7 +49155,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -49310,7 +49310,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -49564,7 +49564,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -49802,7 +49802,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -49945,7 +49945,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -50100,7 +50100,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -50382,7 +50382,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -50527,7 +50527,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -50648,7 +50648,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -50800,7 +50800,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -51036,7 +51036,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -51191,7 +51191,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -51445,7 +51445,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -51691,7 +51691,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -51947,7 +51947,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -52345,7 +52345,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -52597,7 +52597,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -52775,7 +52775,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -52971,7 +52971,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -53117,7 +53117,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -53374,7 +53374,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -53631,7 +53631,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -53964,7 +53964,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54203,7 +54203,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54418,7 +54418,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54506,7 +54506,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54606,7 +54606,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54677,7 +54677,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -54748,7 +54748,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55005,7 +55005,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55158,7 +55158,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55354,7 +55354,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55507,7 +55507,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55575,7 +55575,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55643,7 +55643,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55729,7 +55729,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -55939,7 +55939,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -56260,7 +56260,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -56338,7 +56338,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -56650,7 +56650,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -56943,7 +56943,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -57264,7 +57264,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -57341,7 +57341,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -57653,7 +57653,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -57870,7 +57870,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -58267,7 +58267,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -58345,7 +58345,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -58733,7 +58733,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -58950,7 +58950,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -59347,7 +59347,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -59519,7 +59519,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -59776,7 +59776,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -60089,7 +60089,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -60410,7 +60410,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -60487,7 +60487,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -60799,7 +60799,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -61016,7 +61016,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -61273,7 +61273,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -61595,7 +61595,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -61680,7 +61680,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -61992,7 +61992,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -62209,7 +62209,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -62466,7 +62466,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -62787,7 +62787,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -62864,7 +62864,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -63176,7 +63176,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -63393,7 +63393,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -63473,7 +63473,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -63871,7 +63871,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -63948,7 +63948,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -64261,7 +64261,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -64479,7 +64479,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -64783,7 +64783,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -65038,7 +65038,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -65360,7 +65360,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -65438,7 +65438,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -65750,7 +65750,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -66044,7 +66044,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -66276,7 +66276,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -66673,7 +66673,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -66751,7 +66751,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -67139,7 +67139,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -67356,7 +67356,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -67753,7 +67753,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -67831,7 +67831,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -68219,7 +68219,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -68436,7 +68436,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -68833,7 +68833,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -69231,7 +69231,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -69308,7 +69308,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -69696,7 +69696,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -69913,7 +69913,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -70255,7 +70255,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -70333,7 +70333,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -70552,7 +70552,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -70856,7 +70856,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -70934,7 +70934,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -71246,7 +71246,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -71464,7 +71464,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -71607,7 +71607,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -71853,7 +71853,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -71960,7 +71960,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -72047,7 +72047,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -72273,7 +72273,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -72558,7 +72558,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -72651,7 +72651,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -73049,7 +73049,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -73446,7 +73446,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -73767,7 +73767,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -74165,7 +74165,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -74563,7 +74563,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -74682,7 +74682,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -74837,7 +74837,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -75091,7 +75091,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -75243,7 +75243,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -75413,7 +75413,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -75583,7 +75583,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -75972,7 +75972,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -76164,7 +76164,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -76474,7 +76474,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -76691,7 +76691,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -76985,7 +76985,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -77269,7 +77269,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -77573,7 +77573,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -77887,7 +77887,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -78116,7 +78116,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -78336,7 +78336,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -78471,7 +78471,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -78691,7 +78691,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -78887,7 +78887,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -79033,7 +79033,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -79205,7 +79205,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -79275,7 +79275,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -79444,7 +79444,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -79596,7 +79596,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -79825,7 +79825,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -80044,7 +80044,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -80199,7 +80199,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       },
@@ -80432,7 +80432,7 @@
         },
         "security": [
           {
-            "Bearer": [ ]
+            "Bearer": []
           }
         ]
       }
@@ -80597,7 +80597,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Uniform body returned by every admin create and update. Update returns the id\r\nit was given, so a client can use one response shape for both verbs."
+        "description": "Uniform body returned by every admin create and update. Update returns the id\nit was given, so a client can use one response shape for both verbs."
       },
       "AlarmCategoryDetail": {
         "type": "object",
@@ -80736,7 +80736,7 @@
           },
           "resolvedTimeZone": {
             "type": "string",
-            "description": "Effective timezone after resolving the Side → Customer → MonitoringCenter chain.\r\nNull when no timezone is configured anywhere in the chain (display as UTC).",
+            "description": "Effective timezone after resolving the Side → Customer → MonitoringCenter chain.\nNull when no timezone is configured anywhere in the chain (display as UTC).",
             "nullable": true
           },
           "signalEvent": {
@@ -81647,7 +81647,7 @@
             "items": {
               "$ref": "#/components/schemas/ClosingScheduleEntry"
             },
-            "description": "Per-day closing times from the subscriber's timetable.\r\nNull when no timetable exists.",
+            "description": "Per-day closing times from the subscriber's timetable.\nNull when no timetable exists.",
             "nullable": true
           }
         },
@@ -81720,7 +81720,7 @@
           },
           "isNextDay": {
             "type": "boolean",
-            "description": "True when the closing time is after midnight, meaning the shift that\r\nstarts on Armikom.Api.Contracts.Signals.ClosingScheduleEntry.Day actually closes at this time on the next\r\ncalendar day (e.g. Friday's shift closes Saturday 02:00)."
+            "description": "True when the closing time is after midnight, meaning the shift that\nstarts on Armikom.Api.Contracts.Signals.ClosingScheduleEntry.Day actually closes at this time on the next\ncalendar day (e.g. Friday's shift closes Saturday 02:00)."
           }
         },
         "additionalProperties": false,
@@ -81762,7 +81762,7 @@
         "properties": {
           "kind": {
             "type": "string",
-            "description": "`call-started`, `call-status`, `segment`, `suggested-action` or\r\n            `summary`. An unknown kind rejects the event, not the batch.",
+            "description": "`call-started`, `call-status`, `segment`, `suggested-action` or\n            `summary`. An unknown kind rejects the event, not the batch.",
             "nullable": true
           },
           "callId": {
@@ -81772,12 +81772,12 @@
           },
           "operatorExtension": {
             "type": "string",
-            "description": "The operator's PBX extension. This is the delivery address: the frame reaches the one\r\nconsole whose `ext` claim matches, and no other.",
+            "description": "The operator's PBX extension. This is the delivery address: the frame reaches the one\nconsole whose `ext` claim matches, and no other.",
             "nullable": true
           },
           "signalEventId": {
             "type": "string",
-            "description": "The signal event this call relates to. Set when the call was initiated via click-to-dial\r\nfrom an alarm workspace. Allows the console to link the call to a specific alarm.",
+            "description": "The signal event this call relates to. Set when the call was initiated via click-to-dial\nfrom an alarm workspace. Allows the console to link the call to a specific alarm.",
             "format": "uuid",
             "nullable": true
           },
@@ -81815,7 +81815,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "One event. Armikom.Api.Contracts.Copilot.CopilotConversationEventDto.Kind selects which of the three optional payloads is populated;\r\nthe other two are absent."
+        "description": "One event. Armikom.Api.Contracts.Copilot.CopilotConversationEventDto.Kind selects which of the three optional payloads is populated;\nthe other two are absent."
       },
       "CopilotConversationIngestRequest": {
         "type": "object",
@@ -81830,7 +81830,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A batch of live-call events posted by CopilotX. Batched rather than one request per\r\nutterance because interim speech results arrive several times a second per channel and\r\nthe API's global rate limit is a per-principal budget, not a per-endpoint one."
+        "description": "A batch of live-call events posted by CopilotX. Batched rather than one request per\nutterance because interim speech results arrive several times a second per channel and\nthe API's global rate limit is a per-principal budget, not a per-endpoint one."
       },
       "CopilotConversationIngestResponse": {
         "type": "object",
@@ -81884,7 +81884,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "The console operation being proposed. The name is not validated against a vocabulary\r\nhere — the console runs the ones it knows and renders the rest as text, so a new\r\noperation ships without an API release and an older console cannot be told to run\r\nsomething it does not understand."
+        "description": "The console operation being proposed. The name is not validated against a vocabulary\nhere — the console runs the ones it knows and renders the rest as text, so a new\noperation ships without an API release and an older console cannot be told to run\nsomething it does not understand."
       },
       "CopilotSegmentDto": {
         "type": "object",
@@ -81967,7 +81967,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Something for the operator to know, to write, or to do. A proposal is never a command:\r\nan Armikom.Api.Contracts.Copilot.CopilotSuggestedActionDto.Operation only tells the console which dialog to open pre-filled."
+        "description": "Something for the operator to know, to write, or to do. A proposal is never a command:\nan Armikom.Api.Contracts.Copilot.CopilotSuggestedActionDto.Operation only tells the console which dialog to open pre-filled."
       },
       "CopilotSummaryDto": {
         "type": "object",
@@ -82174,7 +82174,7 @@
           },
           "escalateToPartner": {
             "type": "boolean",
-            "description": "Alarms in this category require law-enforcement dispatch: on an AI-managed tenant they\r\nare escalated to a partner monitoring centre instead of being closed by the AI.\r\nIndependent of Armikom.Api.Contracts.Reference.CreateAlarmCategoryRequest.CallType, which only selects how the IVR autodialer calls.",
+            "description": "Alarms in this category require law-enforcement dispatch: on an AI-managed tenant they\nare escalated to a partner monitoring centre instead of being closed by the AI.\nIndependent of Armikom.Api.Contracts.Reference.CreateAlarmCategoryRequest.CallType, which only selects how the IVR autodialer calls.",
             "nullable": true
           }
         },
@@ -82485,7 +82485,7 @@
           },
           "sideId": {
             "type": "string",
-            "description": "Required. The subscriber to link the new mobile user to.\r\nWithout a side link the user would be invisible to all tenants (D28).",
+            "description": "Required. The subscriber to link the new mobile user to.\nWithout a side link the user would be invisible to all tenants (D28).",
             "format": "uuid",
             "nullable": true
           }
@@ -82693,7 +82693,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Create body. Secret fields are write-only — they are accepted here and never\r\nechoed back by any read."
+        "description": "Create body. Secret fields are write-only — they are accepted here and never\nechoed back by any read."
       },
       "CreateNoteTypeRequest": {
         "type": "object",
@@ -84384,7 +84384,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A named parser for one device family. The Engine applies Armikom.Api.Contracts.Admin.DeviceRegexDetail.RegexText\r\nto the raw packet, so a malformed pattern silently stops signal ingestion —\r\nthe API validates it before storing."
+        "description": "A named parser for one device family. The Engine applies Armikom.Api.Contracts.Admin.DeviceRegexDetail.RegexText\nto the raw packet, so a malformed pattern silently stops signal ingestion —\nthe API validates it before storing."
       },
       "DialRequest": {
         "type": "object",
@@ -84409,7 +84409,7 @@
           },
           "monitoringCenterId": {
             "type": "string",
-            "description": "Optional. When the client knows the monitoring center (from entity context or\r\nuser selection), pass it to skip server-side resolution. Must belong to the\r\ncaller's tenant scope.",
+            "description": "Optional. When the client knows the monitoring center (from entity context or\nuser selection), pass it to skip server-side resolution. Must belong to the\ncaller's tenant scope.",
             "format": "uuid",
             "nullable": true
           }
@@ -84895,7 +84895,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Body for `POST /v1/sides/{sideId}/mobile-users`.\r\nSupply Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.MobileUserId to link an existing user,\r\nor Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Name/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Phone/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Password to create-and-link.\r\nSupplying both is rejected as ambiguous."
+        "description": "Body for `POST /v1/sides/{sideId}/mobile-users`.\nSupply Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.MobileUserId to link an existing user,\nor Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Name/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Phone/Armikom.Api.Contracts.MobileUsers.LinkMobileUserRequest.Password to create-and-link.\nSupplying both is rejected as ambiguous."
       },
       "LinkMobileUserResponse": {
         "type": "object",
@@ -84993,12 +84993,12 @@
             "additionalProperties": {
               "type": "string"
             },
-            "description": "Flat key→value map. Keys use dot notation with section prefixes:\r\n<list type=\"bullet\"><item>`UI.*` — shared UI labels (from SharedResource.resx)</item><item>`SMS.*` — SMS template strings (from SmsStrings.resx)</item><item>`ERROR.*` — error code messages (from ErrorCodes catalogue)</item><item>`ENUM.{Type}.{Value}` — enum member labels</item><item>`ACTION.*` — action/command labels (from xafml)</item></list>",
+            "description": "Flat key→value map. Keys use dot notation with section prefixes:\n<list type=\"bullet\"><item>`UI.*` — shared UI labels (from SharedResource.resx)</item><item>`SMS.*` — SMS template strings (from SmsStrings.resx)</item><item>`ERROR.*` — error code messages (from ErrorCodes catalogue)</item><item>`ENUM.{Type}.{Value}` — enum member labels</item><item>`ACTION.*` — action/command labels (from xafml)</item></list>",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Full localisation bundle for a given culture.\r\nClients cache this response keyed by ETag; subsequent requests use If-None-Match."
+        "description": "Full localisation bundle for a given culture.\nClients cache this response keyed by ETag; subsequent requests use If-None-Match."
       },
       "LockAlarmResponse": {
         "type": "object",
@@ -85110,7 +85110,7 @@
           },
           "monitoringCenterId": {
             "type": "string",
-            "description": "Present on MC-scoped collections (account-types, account-items, signal-explanations).\r\nNull for global/cross-MC items. Enables cross-MC admin clients to filter by entity context.",
+            "description": "Present on MC-scoped collections (account-types, account-items, signal-explanations).\nNull for global/cross-MC items. Enables cross-MC admin clients to filter by entity context.",
             "format": "uuid",
             "nullable": true
           }
@@ -85155,7 +85155,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A named SMTP profile scoped to a monitoring centre. The password is never\r\nreturned — Armikom.Api.Contracts.Admin.MailSettingDetail.HasPassword reports whether one is stored."
+        "description": "A named SMTP profile scoped to a monitoring centre. The password is never\nreturned — Armikom.Api.Contracts.Admin.MailSettingDetail.HasPassword reports whether one is stored."
       },
       "MobileMessageItem": {
         "type": "object",
@@ -85614,7 +85614,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A monitoring centre with its infrastructure configuration.\r\nSecrets are never returned: each credential is reported as a\r\n`has…` boolean so the console can show \"configured / not configured\"\r\nwithout ever holding the value."
+        "description": "A monitoring centre with its infrastructure configuration.\nSecrets are never returned: each credential is reported as a\n`has…` boolean so the console can show \"configured / not configured\"\nwithout ever holding the value."
       },
       "MonitoringCenterItem": {
         "type": "object",
@@ -86112,7 +86112,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A queued panel command. Rows are consumed by the panel when it next polls,\r\nwhich stamps Armikom.Api.Contracts.Admin.ProsecCommandDetail.SentAt; a row past Armikom.Api.Contracts.Admin.ProsecCommandDetail.ValidUntil is dropped."
+        "description": "A queued panel command. Rows are consumed by the panel when it next polls,\nwhich stamps Armikom.Api.Contracts.Admin.ProsecCommandDetail.SentAt; a row past Armikom.Api.Contracts.Admin.ProsecCommandDetail.ValidUntil is dropped."
       },
       "ProtocolDetail": {
         "type": "object",
@@ -86376,7 +86376,7 @@
           },
           "monitoringCenterId": {
             "type": "string",
-            "description": "The monitoring center this receiver belongs to.\r\nEnables cross-MC admin clients to filter receivers by entity context.",
+            "description": "The monitoring center this receiver belongs to.\nEnables cross-MC admin clients to filter receivers by entity context.",
             "format": "uuid",
             "nullable": true
           }
@@ -86468,7 +86468,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "An explicit admission rule for one receiver: either a side number or a source IP,\r\nwith the decision to allow or reject it. Read by the Engine on every event."
+        "description": "An explicit admission rule for one receiver: either a side number or a source IP,\nwith the decision to allow or reject it. Read by the Engine on every event."
       },
       "ReceiverTypeDetail": {
         "type": "object",
@@ -87015,7 +87015,7 @@
           },
           "recipients": {
             "type": "string",
-            "description": "\"first-contact\" (default) | \"explicit\" | \"contacts\".\r\n\"contacts\" uses Armikom.Api.Contracts.Messaging.SendSmsRequest.ContactIds to resolve phones from SideContacts.",
+            "description": "\"first-contact\" (default) | \"explicit\" | \"contacts\".\n\"contacts\" uses Armikom.Api.Contracts.Messaging.SendSmsRequest.ContactIds to resolve phones from SideContacts.",
             "nullable": true
           },
           "phones": {
@@ -87431,7 +87431,7 @@
           },
           "resolvedTimeZone": {
             "type": "string",
-            "description": "Effective timezone after resolving the fallback chain:\r\nSide.TimeZone → Customer.TimeZone → MonitoringCenter.TimeZone → null.",
+            "description": "Effective timezone after resolving the fallback chain:\nSide.TimeZone → Customer.TimeZone → MonitoringCenter.TimeZone → null.",
             "nullable": true
           },
           "armType": {
@@ -88697,7 +88697,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "One row of the signal dictionary: the mapping the Engine looks up when a packet\r\narrives. It has no name or colours of its own — those come from the\r\nArmikom.Api.Contracts.Admin.SignalDetail.SignalTypeId it points at."
+        "description": "One row of the signal dictionary: the mapping the Engine looks up when a packet\narrives. It has no name or colours of its own — those come from the\nArmikom.Api.Contracts.Admin.SignalDetail.SignalTypeId it points at."
       },
       "SignalDictionaryItem": {
         "type": "object",
@@ -88751,7 +88751,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A row in the signal dictionary: the (protocol, event code) pair the Engine\r\nmatches an incoming packet against, plus the classification it currently\r\nresolves to (or none, if unmapped)."
+        "description": "A row in the signal dictionary: the (protocol, event code) pair the Engine\nmatches an incoming packet against, plus the classification it currently\nresolves to (or none, if unmapped)."
       },
       "SignalDictionaryItemPagedResult": {
         "type": "object",
@@ -89133,7 +89133,7 @@
           },
           "timeZone": {
             "type": "string",
-            "description": "IANA timezone id for rendering timestamps in local time.\r\nFalls back to UTC when null.",
+            "description": "IANA timezone id for rendering timestamps in local time.\nFalls back to UTC when null.",
             "nullable": true
           }
         },
@@ -89854,7 +89854,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "A field technician belonging to a dealer. The password is never returned —\r\nArmikom.Api.Contracts.Admin.TechnicalPersonDetail.HasPassword reports whether one is stored."
+        "description": "A field technician belonging to a dealer. The password is never returned —\nArmikom.Api.Contracts.Admin.TechnicalPersonDetail.HasPassword reports whether one is stored."
       },
       "TechnicalPersonItem": {
         "type": "object",
@@ -90715,7 +90715,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "PATCH body. A property left null is not written — so omitting a password keeps\r\nthe stored one. Sending an empty string clears the stored secret."
+        "description": "PATCH body. A property left null is not written — so omitting a password keeps\nthe stored one. Sending an empty string clears the stored secret."
       },
       "UpdateNoteTypeRequest": {
         "type": "object",
@@ -91467,7 +91467,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "PATCH body. A property left null is not written. Nullable value types cannot\r\nexpress \"explicitly null\", so a nullable FK is cleared by sending the empty guid."
+        "description": "PATCH body. A property left null is not written. Nullable value types cannot\nexpress \"explicitly null\", so a nullable FK is cleared by sending the empty guid."
       },
       "UpdateSignalTypeRequest": {
         "type": "object",

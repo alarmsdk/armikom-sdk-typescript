@@ -1,7 +1,7 @@
 
 # CopilotConversationEventDto
 
-One event. Armikom.Api.Contracts.Copilot.CopilotConversationEventDto.Kind selects which of the three optional payloads is populated;  the other two are absent.
+One event. Armikom.Api.Contracts.Copilot.CopilotConversationEventDto.Kind selects which of the three optional payloads is populated; the other two are absent.
 
 ## Properties
 

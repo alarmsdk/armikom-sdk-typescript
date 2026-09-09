@@ -1,7 +1,7 @@
 
 # MonitoringCenterDetail
 
-A monitoring centre with its infrastructure configuration.  Secrets are never returned: each credential is reported as a  `has…` boolean so the console can show \"configured / not configured\"  without ever holding the value.
+A monitoring centre with its infrastructure configuration. Secrets are never returned: each credential is reported as a `has…` boolean so the console can show \"configured / not configured\" without ever holding the value.
 
 ## Properties
 
