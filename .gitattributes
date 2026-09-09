@@ -1,0 +1,3 @@
+# Force LF line endings for all text files so that check-drift
+# produces identical output on Linux CI and macOS/Windows devboxes.
+* text=auto eol=lf
