@@ -28,7 +28,7 @@ help:
 	@echo "make verify-spec   — the pinned spec still matches its recorded sha256"
 	@echo "make generate      — regenerate $(OUT)/ from the pinned spec (deterministic)"
 	@echo "make build         — dual ESM/CJS build, tsc --strict"
-	@echo "make test          — contract checks against the generated layer"
+	@echo "make test          — contract checks (generated layer) + core runtime checks"
 	@echo "make check-drift   — regenerate and fail on any diff under $(OUT)/"
 	@echo "make clean         — remove build output"
 
@@ -72,7 +72,7 @@ test: | node_modules
 	@printf '{\n  "type": "commonjs"\n}\n' > .build/checks/package.json
 	# TZ is deliberately non-UTC: the R-4 suite cannot detect naive-local parsing
 	# under TZ=UTC, and that is exactly the bug class it exists to catch.
-	TZ=Europe/Istanbul node --test ".build/checks/checks/contract/"*.test.js
+	TZ=Europe/Istanbul node --test ".build/checks/checks/contract/"*.test.js ".build/checks/checks/core/"*.test.js
 
 # The drift gate, run in CI. Regenerating must produce byte-identical output;
 # if it does not, generated/ was hand-edited or the toolchain moved.
