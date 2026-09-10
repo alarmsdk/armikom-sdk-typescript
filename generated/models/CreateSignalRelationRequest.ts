@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime';
 /**
- * Create body. The two membership lists are replace-all sets of SignalType ids.
+ * Create body. The three membership lists are replace-all sets of ids.
  * @export
  * @interface CreateSignalRelationRequest
  */
@@ -30,7 +30,25 @@ export interface CreateSignalRelationRequest {
      * @type {string}
      * @memberof CreateSignalRelationRequest
      */
-    kind?: string | null;
+    typeId?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateSignalRelationRequest
+     */
+    global?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSignalRelationRequest
+     */
+    parameters?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateSignalRelationRequest
+     */
+    priority?: number | null;
     /**
      * 
      * @type {Array<string>}
@@ -43,6 +61,12 @@ export interface CreateSignalRelationRequest {
      * @memberof CreateSignalRelationRequest
      */
     targetSignalTypeIds?: Array<string> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateSignalRelationRequest
+     */
+    sideIds?: Array<string> | null;
 }
 
 /**
@@ -63,9 +87,13 @@ export function CreateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
-        'kind': json['kind'] === undefined ? undefined : json['kind'] === null ? null : json['kind'],
+        'typeId': json['typeId'] === undefined ? undefined : json['typeId'] === null ? null : json['typeId'],
+        'global': json['global'] === undefined ? undefined : json['global'] === null ? null : json['global'],
+        'parameters': json['parameters'] === undefined ? undefined : json['parameters'] === null ? null : json['parameters'],
+        'priority': json['priority'] === undefined ? undefined : json['priority'] === null ? null : json['priority'],
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
+        'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
     };
 }
 
@@ -81,9 +109,13 @@ export function CreateSignalRelationRequestToJSONTyped(value?: CreateSignalRelat
     return {
         
         'name': value['name'],
-        'kind': value['kind'],
+        'typeId': value['typeId'],
+        'global': value['global'],
+        'parameters': value['parameters'],
+        'priority': value['priority'],
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
+        'sideIds': value['sideIds'],
     };
 }
 

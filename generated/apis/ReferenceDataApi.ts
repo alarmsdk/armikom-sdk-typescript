@@ -154,6 +154,11 @@ import {
     CreateSignalRelationRequestToJSON,
 } from '../models/CreateSignalRelationRequest';
 import {
+    type CreateSignalRelationTypeRequest,
+    CreateSignalRelationTypeRequestFromJSON,
+    CreateSignalRelationTypeRequestToJSON,
+} from '../models/CreateSignalRelationTypeRequest';
+import {
     type CreateSignalRequest,
     CreateSignalRequestFromJSON,
     CreateSignalRequestToJSON,
@@ -284,6 +289,16 @@ import {
     SignalRelationItemPagedResultToJSON,
 } from '../models/SignalRelationItemPagedResult';
 import {
+    type SignalRelationTypeDetail,
+    SignalRelationTypeDetailFromJSON,
+    SignalRelationTypeDetailToJSON,
+} from '../models/SignalRelationTypeDetail';
+import {
+    type SignalRelationTypeItemPagedResult,
+    SignalRelationTypeItemPagedResultFromJSON,
+    SignalRelationTypeItemPagedResultToJSON,
+} from '../models/SignalRelationTypeItemPagedResult';
+import {
     type SignalTypeDetail,
     SignalTypeDetailFromJSON,
     SignalTypeDetailToJSON,
@@ -398,6 +413,11 @@ import {
     UpdateSignalRelationRequestFromJSON,
     UpdateSignalRelationRequestToJSON,
 } from '../models/UpdateSignalRelationRequest';
+import {
+    type UpdateSignalRelationTypeRequest,
+    UpdateSignalRelationTypeRequestFromJSON,
+    UpdateSignalRelationTypeRequestToJSON,
+} from '../models/UpdateSignalRelationTypeRequest';
 import {
     type UpdateSignalRequest,
     UpdateSignalRequestFromJSON,
@@ -552,6 +572,12 @@ export interface ReferenceDataApiCreateSignalRelationOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateSignalRelationTypeOperationRequest {
+    createSignalRelationTypeRequest: CreateSignalRelationTypeRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateSignalTypeOperationRequest {
     createSignalTypeRequest: CreateSignalTypeRequest;
     xCorrelationId?: string;
@@ -675,6 +701,11 @@ export interface ReferenceDataApiDeleteSignalExplanationRequest {
 }
 
 export interface ReferenceDataApiDeleteSignalRelationRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteSignalRelationTypeRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -877,6 +908,11 @@ export interface ReferenceDataApiGetSignalRelationByIdRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetSignalRelationTypeByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetSignalTypeByIdRequest {
     id: string;
     xCorrelationId?: string;
@@ -950,6 +986,16 @@ export interface ReferenceDataApiListProductsRequest {
 }
 
 export interface ReferenceDataApiListReferenceSignalExplanationsRequest {
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiListSignalRelationTypesRequest {
+    q?: string;
+    cursor?: string;
+    limit?: number;
+    page?: number;
+    pageSize?: number;
+    offset?: number;
     xCorrelationId?: string;
 }
 
@@ -1099,6 +1145,12 @@ export interface ReferenceDataApiUpdateSignalExplanationOperationRequest {
 export interface ReferenceDataApiUpdateSignalRelationOperationRequest {
     id: string;
     updateSignalRelationRequest: UpdateSignalRelationRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateSignalRelationTypeOperationRequest {
+    id: string;
+    updateSignalRelationTypeRequest: UpdateSignalRelationTypeRequest;
     xCorrelationId?: string;
 }
 
@@ -2569,6 +2621,71 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for createSignalRelationType without sending the request
+     */
+    async createSignalRelationTypeRequestOpts(requestParameters: ReferenceDataApiCreateSignalRelationTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSignalRelationTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSignalRelationTypeRequest',
+                'Required parameter "createSignalRelationTypeRequest" was null or undefined when calling createSignalRelationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relation-types`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSignalRelationTypeRequestToJSON(requestParameters['createSignalRelationTypeRequest']),
+        };
+    }
+
+    /**
+     * The behaviour a relation type names is implemented by the Engine, so a type this build does not know is configuration the pipeline will skip. REMOVE and DELAY are seeded on Engine startup and cannot be created here.
+     * Create a signal relation type
+     */
+    async createSignalRelationTypeRaw(requestParameters: ReferenceDataApiCreateSignalRelationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSignalRelationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The behaviour a relation type names is implemented by the Engine, so a type this build does not know is configuration the pipeline will skip. REMOVE and DELAY are seeded on Engine startup and cannot be created here.
+     * Create a signal relation type
+     */
+    async createSignalRelationType(requestParameters: ReferenceDataApiCreateSignalRelationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSignalRelationTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for createSignalType without sending the request
      */
     async createSignalTypeRequestOpts(requestParameters: ReferenceDataApiCreateSignalTypeOperationRequest): Promise<runtime.RequestOpts> {
@@ -3980,6 +4097,64 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteSignalRelation(requestParameters: ReferenceDataApiDeleteSignalRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSignalRelationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSignalRelationType without sending the request
+     */
+    async deleteSignalRelationTypeRequestOpts(requestParameters: ReferenceDataApiDeleteSignalRelationTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSignalRelationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relation-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Refused for system types and for a type any relation still uses.
+     * Delete a signal relation type
+     */
+    async deleteSignalRelationTypeRaw(requestParameters: ReferenceDataApiDeleteSignalRelationTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSignalRelationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Refused for system types and for a type any relation still uses.
+     * Delete a signal relation type
+     */
+    async deleteSignalRelationType(requestParameters: ReferenceDataApiDeleteSignalRelationTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSignalRelationTypeRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -6263,6 +6438,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getSignalRelationTypeById without sending the request
+     */
+    async getSignalRelationTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalRelationTypeByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSignalRelationTypeById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relation-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a signal relation type by id
+     */
+    async getSignalRelationTypeByIdRaw(requestParameters: ReferenceDataApiGetSignalRelationTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRelationTypeDetail>> {
+        const requestOptions = await this.getSignalRelationTypeByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRelationTypeDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a signal relation type by id
+     */
+    async getSignalRelationTypeById(requestParameters: ReferenceDataApiGetSignalRelationTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRelationTypeDetail> {
+        const response = await this.getSignalRelationTypeByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getSignalTypeById without sending the request
      */
     async getSignalTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalTypeByIdRequest): Promise<runtime.RequestOpts> {
@@ -7006,6 +7238,81 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async listReferenceSignalExplanations(requestParameters: ReferenceDataApiListReferenceSignalExplanationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
         const response = await this.listReferenceSignalExplanationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listSignalRelationTypes without sending the request
+     */
+    async listSignalRelationTypesRequestOpts(requestParameters: ReferenceDataApiListSignalRelationTypesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relation-types`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * `parameterSchema` is the JSON Schema of ONE parameter object; a relation\'s `parameters` is an array of them. `isSystem` marks REMOVE and DELAY, which the Engine seeds and dispatches on.
+     * List the relation types a signal relation can carry
+     */
+    async listSignalRelationTypesRaw(requestParameters: ReferenceDataApiListSignalRelationTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRelationTypeItemPagedResult>> {
+        const requestOptions = await this.listSignalRelationTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRelationTypeItemPagedResultFromJSON(jsonValue));
+    }
+
+    /**
+     * `parameterSchema` is the JSON Schema of ONE parameter object; a relation\'s `parameters` is an array of them. `isSystem` marks REMOVE and DELAY, which the Engine seeds and dispatches on.
+     * List the relation types a signal relation can carry
+     */
+    async listSignalRelationTypes(requestParameters: ReferenceDataApiListSignalRelationTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRelationTypeItemPagedResult> {
+        const response = await this.listSignalRelationTypesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -8618,6 +8925,75 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateSignalRelation(requestParameters: ReferenceDataApiUpdateSignalRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.updateSignalRelationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateSignalRelationType without sending the request
+     */
+    async updateSignalRelationTypeRequestOpts(requestParameters: ReferenceDataApiUpdateSignalRelationTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSignalRelationType().'
+            );
+        }
+
+        if (requestParameters['updateSignalRelationTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSignalRelationTypeRequest',
+                'Required parameter "updateSignalRelationTypeRequest" was null or undefined when calling updateSignalRelationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-relation-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSignalRelationTypeRequestToJSON(requestParameters['updateSignalRelationTypeRequest']),
+        };
+    }
+
+    /**
+     * A system type\'s parameter schema is editable; its name is not.
+     * Update a signal relation type
+     */
+    async updateSignalRelationTypeRaw(requestParameters: ReferenceDataApiUpdateSignalRelationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSignalRelationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A system type\'s parameter schema is editable; its name is not.
+     * Update a signal relation type
+     */
+    async updateSignalRelationType(requestParameters: ReferenceDataApiUpdateSignalRelationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSignalRelationTypeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

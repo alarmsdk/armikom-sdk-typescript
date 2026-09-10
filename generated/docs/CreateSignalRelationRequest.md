@@ -1,16 +1,20 @@
 
 # CreateSignalRelationRequest
 
-Create body. The two membership lists are replace-all sets of SignalType ids.
+Create body. The three membership lists are replace-all sets of ids.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
 `name` | string
-`kind` | string
+`typeId` | string
+`global` | boolean
+`parameters` | string
+`priority` | number
 `sourceSignalTypeIds` | Array&lt;string&gt;
 `targetSignalTypeIds` | Array&lt;string&gt;
+`sideIds` | Array&lt;string&gt;
 
 ## Example
 
@@ -20,9 +24,13 @@ import type { CreateSignalRelationRequest } from ''
 // TODO: Update the object below with actual values
 const example = {
   "name": null,
-  "kind": null,
+  "typeId": null,
+  "global": null,
+  "parameters": null,
+  "priority": null,
   "sourceSignalTypeIds": null,
   "targetSignalTypeIds": null,
+  "sideIds": null,
 } satisfies CreateSignalRelationRequest
 
 console.log(example)

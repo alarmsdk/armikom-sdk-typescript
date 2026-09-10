@@ -14,7 +14,10 @@
 
 import { mapValues } from '../runtime';
 /**
- * PATCH body. A membership list left null is untouched; an empty list clears it.
+ * PATCH body. A property left null is not written and a membership list left null is
+ * untouched; an empty list clears its side. Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TypeId follows the same
+ * convention as every other nullable FK here — the empty guid clears it, which leaves the
+ * rule behaving as REMOVE.
  * @export
  * @interface UpdateSignalRelationRequest
  */
@@ -30,7 +33,25 @@ export interface UpdateSignalRelationRequest {
      * @type {string}
      * @memberof UpdateSignalRelationRequest
      */
-    kind?: string | null;
+    typeId?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateSignalRelationRequest
+     */
+    global?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSignalRelationRequest
+     */
+    parameters?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateSignalRelationRequest
+     */
+    priority?: number | null;
     /**
      * 
      * @type {Array<string>}
@@ -43,6 +64,12 @@ export interface UpdateSignalRelationRequest {
      * @memberof UpdateSignalRelationRequest
      */
     targetSignalTypeIds?: Array<string> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdateSignalRelationRequest
+     */
+    sideIds?: Array<string> | null;
 }
 
 /**
@@ -63,9 +90,13 @@ export function UpdateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
-        'kind': json['kind'] === undefined ? undefined : json['kind'] === null ? null : json['kind'],
+        'typeId': json['typeId'] === undefined ? undefined : json['typeId'] === null ? null : json['typeId'],
+        'global': json['global'] === undefined ? undefined : json['global'] === null ? null : json['global'],
+        'parameters': json['parameters'] === undefined ? undefined : json['parameters'] === null ? null : json['parameters'],
+        'priority': json['priority'] === undefined ? undefined : json['priority'] === null ? null : json['priority'],
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
+        'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
     };
 }
 
@@ -81,9 +112,13 @@ export function UpdateSignalRelationRequestToJSONTyped(value?: UpdateSignalRelat
     return {
         
         'name': value['name'],
-        'kind': value['kind'],
+        'typeId': value['typeId'],
+        'global': value['global'],
+        'parameters': value['parameters'],
+        'priority': value['priority'],
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
+        'sideIds': value['sideIds'],
     };
 }
 

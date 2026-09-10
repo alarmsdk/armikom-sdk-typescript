@@ -1,6 +1,7 @@
 
 # SignalRelationItem
 
+One relation rule as the read surface exposes it: what triggers it, what it acts on, what it does and who it applies to.
 
 ## Properties
 
@@ -8,9 +9,14 @@ Name | Type
 ------------ | -------------
 `id` | string
 `name` | string
-`kind` | string
+`typeId` | string
+`typeName` | string
+`global` | boolean
+`parameters` | string
+`priority` | number
 `sourceSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
+`sides` | [Array&lt;SignalRelationSideRef&gt;](SignalRelationSideRef.md)
 
 ## Example
 
@@ -21,9 +27,14 @@ import type { SignalRelationItem } from ''
 const example = {
   "id": null,
   "name": null,
-  "kind": null,
+  "typeId": null,
+  "typeName": null,
+  "global": null,
+  "parameters": null,
+  "priority": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,
+  "sides": null,
 } satisfies SignalRelationItem
 
 console.log(example)

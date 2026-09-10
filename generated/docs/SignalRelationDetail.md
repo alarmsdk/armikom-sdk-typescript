@@ -1,6 +1,7 @@
 
 # SignalRelationDetail
 
+One rule: when a signal of any source type arrives, do what Armikom.Api.Contracts.Admin.SignalRelationDetail.TypeName says to the open alarms of every target type.
 
 ## Properties
 
@@ -8,9 +9,14 @@ Name | Type
 ------------ | -------------
 `id` | string
 `name` | string
-`kind` | string
+`typeId` | string
+`typeName` | string
+`global` | boolean
+`parameters` | string
+`priority` | number
 `sourceSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
+`sides` | [Array&lt;SideRef&gt;](SideRef.md)
 
 ## Example
 
@@ -21,9 +27,14 @@ import type { SignalRelationDetail } from ''
 const example = {
   "id": null,
   "name": null,
-  "kind": null,
+  "typeId": null,
+  "typeName": null,
+  "global": null,
+  "parameters": null,
+  "priority": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,
+  "sides": null,
 } satisfies SignalRelationDetail
 
 console.log(example)

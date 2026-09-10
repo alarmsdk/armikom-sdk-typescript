@@ -161,6 +161,7 @@ docs/CreateSideUserRequest.md
 docs/CreateSideZoneRequest.md
 docs/CreateSignalExplanationRequest.md
 docs/CreateSignalRelationRequest.md
+docs/CreateSignalRelationTypeRequest.md
 docs/CreateSignalRequest.md
 docs/CreateSignalTypeRequest.md
 docs/CreateSimCardRequest.md
@@ -322,6 +323,7 @@ docs/SideMobileUserListItem.md
 docs/SideNoteItem.md
 docs/SideReasonItem.md
 docs/SideReasonItemPagedResult.md
+docs/SideRef.md
 docs/SideServiceListEnvelope.md
 docs/SideServiceResponse.md
 docs/SideServiceTransitionResponse.md
@@ -356,7 +358,11 @@ docs/SignalExportRequest.md
 docs/SignalRelationDetail.md
 docs/SignalRelationItem.md
 docs/SignalRelationItemPagedResult.md
+docs/SignalRelationSideRef.md
 docs/SignalRelationSignalTypeRef.md
+docs/SignalRelationTypeDetail.md
+docs/SignalRelationTypeItem.md
+docs/SignalRelationTypeItemPagedResult.md
 docs/SignalTypeDetail.md
 docs/SignalTypeItem.md
 docs/SignalTypeItemPagedResult.md
@@ -440,6 +446,7 @@ docs/UpdateSideUserRequest.md
 docs/UpdateSideZoneRequest.md
 docs/UpdateSignalExplanationRequest.md
 docs/UpdateSignalRelationRequest.md
+docs/UpdateSignalRelationTypeRequest.md
 docs/UpdateSignalRequest.md
 docs/UpdateSignalTypeRequest.md
 docs/UpdateSimCardRequest.md
@@ -561,6 +568,7 @@ models/CreateSideUserRequest.ts
 models/CreateSideZoneRequest.ts
 models/CreateSignalExplanationRequest.ts
 models/CreateSignalRelationRequest.ts
+models/CreateSignalRelationTypeRequest.ts
 models/CreateSignalRequest.ts
 models/CreateSignalTypeRequest.ts
 models/CreateSimCardRequest.ts
@@ -705,6 +713,7 @@ models/SideMobileUserListItem.ts
 models/SideNoteItem.ts
 models/SideReasonItem.ts
 models/SideReasonItemPagedResult.ts
+models/SideRef.ts
 models/SideServiceListEnvelope.ts
 models/SideServiceResponse.ts
 models/SideServiceTransitionResponse.ts
@@ -735,7 +744,11 @@ models/SignalExportRequest.ts
 models/SignalRelationDetail.ts
 models/SignalRelationItem.ts
 models/SignalRelationItemPagedResult.ts
+models/SignalRelationSideRef.ts
 models/SignalRelationSignalTypeRef.ts
+models/SignalRelationTypeDetail.ts
+models/SignalRelationTypeItem.ts
+models/SignalRelationTypeItemPagedResult.ts
 models/SignalTypeDetail.ts
 models/SignalTypeItem.ts
 models/SignalTypeItemPagedResult.ts
@@ -801,6 +814,7 @@ models/UpdateSideUserRequest.ts
 models/UpdateSideZoneRequest.ts
 models/UpdateSignalExplanationRequest.ts
 models/UpdateSignalRelationRequest.ts
+models/UpdateSignalRelationTypeRequest.ts
 models/UpdateSignalRequest.ts
 models/UpdateSignalTypeRequest.ts
 models/UpdateSimCardRequest.ts

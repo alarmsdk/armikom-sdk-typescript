@@ -36,7 +36,9 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   }
   // The count is a fact about the pinned contract, not about D70 itself. It is
   // here so a re-pin is a deliberate edit rather than something that slips in.
-  assert.equal(ids.size, 394, 'operation count moved off the pinned contract');
+  // 394 -> 399: the five signal-relation-type operations, added with the relation
+  // type/scope work. Re-pinned deliberately.
+  assert.equal(ids.size, 399, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

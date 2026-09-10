@@ -20,9 +20,17 @@ import {
     SignalTypeRefToJSON,
     SignalTypeRefToJSONTyped,
 } from './SignalTypeRef';
+import type { SideRef } from './SideRef';
+import {
+    SideRefFromJSON,
+    SideRefFromJSONTyped,
+    SideRefToJSON,
+    SideRefToJSONTyped,
+} from './SideRef';
 
 /**
- * 
+ * One rule: when a signal of any source type arrives, do what Armikom.Api.Contracts.Admin.SignalRelationDetail.TypeName says
+ * to the open alarms of every target type.
  * @export
  * @interface SignalRelationDetail
  */
@@ -40,11 +48,36 @@ export interface SignalRelationDetail {
      */
     name?: string | null;
     /**
+     * The relation type. Null means the rule predates types and behaves as REMOVE.
+     * @type {string}
+     * @memberof SignalRelationDetail
+     */
+    typeId?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof SignalRelationDetail
      */
-    kind?: string | null;
+    typeName?: string | null;
+    /**
+     * True: applies to every subscriber, and Armikom.Api.Contracts.Admin.SignalRelationDetail.Sides is ignored.
+     * @type {boolean}
+     * @memberof SignalRelationDetail
+     */
+    global?: boolean;
+    /**
+     * A JSON array of parameter objects, each shaped by the type's
+     * `ParameterSchema`. Null when the type takes no parameters.
+     * @type {string}
+     * @memberof SignalRelationDetail
+     */
+    parameters?: string | null;
+    /**
+     * Application order among the rules matching one signal, ascending.
+     * @type {number}
+     * @memberof SignalRelationDetail
+     */
+    priority?: number;
     /**
      * 
      * @type {Array<SignalTypeRef>}
@@ -57,6 +90,12 @@ export interface SignalRelationDetail {
      * @memberof SignalRelationDetail
      */
     targetSignalTypes?: Array<SignalTypeRef> | null;
+    /**
+     * The subscribers this rule is scoped to when Armikom.Api.Contracts.Admin.SignalRelationDetail.Global is false.
+     * @type {Array<SideRef>}
+     * @memberof SignalRelationDetail
+     */
+    sides?: Array<SideRef> | null;
 }
 
 /**
@@ -78,9 +117,14 @@ export function SignalRelationDetailFromJSONTyped(json: any, ignoreDiscriminator
         
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
-        'kind': json['kind'] === undefined ? undefined : json['kind'] === null ? null : json['kind'],
+        'typeId': json['typeId'] === undefined ? undefined : json['typeId'] === null ? null : json['typeId'],
+        'typeName': json['typeName'] === undefined ? undefined : json['typeName'] === null ? null : json['typeName'],
+        'global': json['global'] == null ? undefined : json['global'],
+        'parameters': json['parameters'] === undefined ? undefined : json['parameters'] === null ? null : json['parameters'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
         'sourceSignalTypes': json['sourceSignalTypes'] === undefined ? undefined : json['sourceSignalTypes'] === null ? null : ((json['sourceSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'targetSignalTypes': json['targetSignalTypes'] === undefined ? undefined : json['targetSignalTypes'] === null ? null : ((json['targetSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
+        'sides': json['sides'] === undefined ? undefined : json['sides'] === null ? null : ((json['sides'] as Array<any>).map(SideRefFromJSON)),
     };
 }
 
@@ -97,9 +141,14 @@ export function SignalRelationDetailToJSONTyped(value?: SignalRelationDetail | n
         
         'id': value['id'],
         'name': value['name'],
-        'kind': value['kind'],
+        'typeId': value['typeId'],
+        'typeName': value['typeName'],
+        'global': value['global'],
+        'parameters': value['parameters'],
+        'priority': value['priority'],
         'sourceSignalTypes': value['sourceSignalTypes'] == null ? undefined : ((value['sourceSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'targetSignalTypes': value['targetSignalTypes'] == null ? undefined : ((value['targetSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
+        'sides': value['sides'] == null ? undefined : ((value['sides'] as Array<any>).map(SideRefToJSON)),
     };
 }
 
