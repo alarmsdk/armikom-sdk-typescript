@@ -82163,6 +82163,9 @@
           "signalTypeSoundAlert": {
             "type": "boolean"
           },
+          "isFromDelay": {
+            "type": "boolean"
+          },
           "actionText": {
             "type": "string",
             "nullable": true
@@ -82266,6 +82269,9 @@
             "nullable": true
           },
           "signalTypeSoundAlert": {
+            "type": "boolean"
+          },
+          "isFromDelay": {
             "type": "boolean"
           },
           "actionText": {

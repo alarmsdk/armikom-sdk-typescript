@@ -25,6 +25,7 @@ Name | Type
 `monitoringCenterName` | string
 `signalTypePriority` | number
 `signalTypeSoundAlert` | boolean
+`isFromDelay` | boolean
 `actionText` | string
 `frontColor` | string
 `backColor` | string
@@ -57,6 +58,7 @@ const example = {
   "monitoringCenterName": null,
   "signalTypePriority": null,
   "signalTypeSoundAlert": null,
+  "isFromDelay": null,
   "actionText": null,
   "frontColor": null,
   "backColor": null,

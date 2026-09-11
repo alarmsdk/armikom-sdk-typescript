@@ -143,6 +143,12 @@ export interface AlarmEventDetailResponse {
     signalTypeSoundAlert?: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof AlarmEventDetailResponse
+     */
+    isFromDelay?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof AlarmEventDetailResponse
      */
@@ -210,6 +216,7 @@ export function AlarmEventDetailResponseFromJSONTyped(json: any, ignoreDiscrimin
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'signalTypePriority': json['signalTypePriority'] === undefined ? undefined : json['signalTypePriority'] === null ? null : json['signalTypePriority'],
         'signalTypeSoundAlert': json['signalTypeSoundAlert'] == null ? undefined : json['signalTypeSoundAlert'],
+        'isFromDelay': json['isFromDelay'] == null ? undefined : json['isFromDelay'],
         'actionText': json['actionText'] === undefined ? undefined : json['actionText'] === null ? null : json['actionText'],
         'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
         'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
@@ -248,6 +255,7 @@ export function AlarmEventDetailResponseToJSONTyped(value?: AlarmEventDetailResp
         'monitoringCenterName': value['monitoringCenterName'],
         'signalTypePriority': value['signalTypePriority'],
         'signalTypeSoundAlert': value['signalTypeSoundAlert'],
+        'isFromDelay': value['isFromDelay'],
         'actionText': value['actionText'],
         'frontColor': value['frontColor'],
         'backColor': value['backColor'],
