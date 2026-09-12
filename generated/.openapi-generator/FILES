@@ -47,6 +47,8 @@ apis/SubscribersApi.ts
 apis/SystemApi.ts
 apis/TechnicalWorkApi.ts
 apis/TelephonyApi.ts
+apis/UILayoutTemplatesApi.ts
+apis/UILayoutsApi.ts
 apis/UserAdministrationApi.ts
 apis/WaitingEventsApi.ts
 apis/WorkSchedulesApi.ts
@@ -289,6 +291,7 @@ docs/SaveReceiverLineRequest.md
 docs/SaveReceiverLineTypeRequest.md
 docs/SaveReceiverRuleRequest.md
 docs/SaveReceiverTypeRequest.md
+docs/SaveUiLayoutRequest.md
 docs/SearchApi.md
 docs/SearchResponse.md
 docs/SearchResultItem.md
@@ -405,6 +408,9 @@ docs/TechnicalWorkStatusResponse.md
 docs/TelephonyApi.md
 docs/TimeTableItem.md
 docs/TimeTableWriteItem.md
+docs/UILayoutTemplatesApi.md
+docs/UILayoutsApi.md
+docs/UiLayoutResponse.md
 docs/UpdateAccountItemRequest.md
 docs/UpdateAccountTypeRequest.md
 docs/UpdateActiveCategoryRequest.md
@@ -683,6 +689,7 @@ models/SaveReceiverLineRequest.ts
 models/SaveReceiverLineTypeRequest.ts
 models/SaveReceiverRuleRequest.ts
 models/SaveReceiverTypeRequest.ts
+models/SaveUiLayoutRequest.ts
 models/SearchResponse.ts
 models/SearchResultItem.ts
 models/SearchResultSection.ts
@@ -773,6 +780,7 @@ models/TechnicalWorkResponse.ts
 models/TechnicalWorkStatusResponse.ts
 models/TimeTableItem.ts
 models/TimeTableWriteItem.ts
+models/UiLayoutResponse.ts
 models/UpdateAccountItemRequest.ts
 models/UpdateAccountTypeRequest.ts
 models/UpdateActiveCategoryRequest.ts

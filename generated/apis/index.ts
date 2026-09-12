@@ -48,6 +48,8 @@ export * from './SubscribersApi';
 export * from './SystemApi';
 export * from './TechnicalWorkApi';
 export * from './TelephonyApi';
+export * from './UILayoutTemplatesApi';
+export * from './UILayoutsApi';
 export * from './UserAdministrationApi';
 export * from './WaitingEventsApi';
 export * from './WorkSchedulesApi';

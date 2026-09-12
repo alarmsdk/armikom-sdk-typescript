@@ -38,7 +38,9 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // here so a re-pin is a deliberate edit rather than something that slips in.
   // 394 -> 399: the five signal-relation-type operations, added with the relation
   // type/scope work. Re-pinned deliberately.
-  assert.equal(ids.size, 399, 'operation count moved off the pinned contract');
+  // 399 -> 404: the five UiLayout operations (GET/PUT/DELETE user layouts,
+  // GET/PUT layout templates). Re-pinned deliberately.
+  assert.equal(ids.size, 404, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
