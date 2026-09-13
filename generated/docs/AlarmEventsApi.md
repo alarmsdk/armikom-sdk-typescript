@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**batchCompleteAlarmEvents**](AlarmEventsApi.md#batchcompletealarmevents) | **POST** /v1/alarm-events/batch-complete | Complete all alarm events matching the selected signal codes |
 | [**batchDelayAlarmEvents**](AlarmEventsApi.md#batchdelayalarmevents) | **POST** /v1/alarm-events/batch-delay | Delay all alarm events matching the selected signal codes |
 | [**completeAlarmEvent**](AlarmEventsApi.md#completealarmevent) | **POST** /v1/alarm-events/{id}/complete | Complete an alarm event — stamp action, delete alarm rows, release lock |
+| [**getAdvisories**](AlarmEventsApi.md#getadvisories) | **GET** /v1/signal-events/{id}/advisories | AI advice attached to a signal event\&#39;s operator actions |
 | [**getAlarmEventById**](AlarmEventsApi.md#getalarmeventbyid) | **GET** /v1/alarm-events/{id} | Get alarm event detail by ID |
 | [**getAlarmEvents**](AlarmEventsApi.md#getalarmevents) | **GET** /v1/alarm-events | Get the active alarm event list |
 | [**getBatchCandidates**](AlarmEventsApi.md#getbatchcandidates) | **GET** /v1/alarm-events/batch-candidates | List alarm event signal codes grouped for batch operations |
@@ -257,6 +258,82 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getAdvisories
+
+> Array&lt;AdvisoryDto&gt; getAdvisories(id, xCorrelationId)
+
+AI advice attached to a signal event\&#39;s operator actions
+
+Returns the advisories produced for this signal event, newest first, each with its notes. A note names the operator action it attaches to (&#x60;hook&#x60;), how loudly to say it (&#x60;effect&#x60;), and — where it is about one row — which one (&#x60;targetRef&#x60;). No effect blocks an action: the strongest, &#x60;require-reason&#x60;, asks the operator to record why they are proceeding. Advisories with status &#x60;pending&#x60; are included on purpose: the console shows a brief wait on a guarded action while one is outstanding, and proceeds regardless once its own budget elapses. An empty list means no rule asked for advice, which is the normal case.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AlarmEventsApi,
+} from '';
+import type { GetAdvisoriesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AlarmEventsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetAdvisoriesRequest;
+
+  try {
+    const data = await api.getAdvisories(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;AdvisoryDto&gt;**](AdvisoryDto.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

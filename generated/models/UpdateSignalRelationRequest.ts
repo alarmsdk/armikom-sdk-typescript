@@ -53,6 +53,18 @@ export interface UpdateSignalRelationRequest {
      */
     priority?: number | null;
     /**
+     * Empty or null: always. `ALARM`: only when an alarm event was created.
+     * @type {string}
+     * @memberof UpdateSignalRelationRequest
+     */
+    triggerCondition?: string | null;
+    /**
+     * The prompt an `LLM` rule runs. The empty guid clears it.
+     * @type {string}
+     * @memberof UpdateSignalRelationRequest
+     */
+    promptId?: string | null;
+    /**
      * 
      * @type {Array<string>}
      * @memberof UpdateSignalRelationRequest
@@ -94,6 +106,8 @@ export function UpdateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
         'global': json['global'] === undefined ? undefined : json['global'] === null ? null : json['global'],
         'parameters': json['parameters'] === undefined ? undefined : json['parameters'] === null ? null : json['parameters'],
         'priority': json['priority'] === undefined ? undefined : json['priority'] === null ? null : json['priority'],
+        'triggerCondition': json['triggerCondition'] === undefined ? undefined : json['triggerCondition'] === null ? null : json['triggerCondition'],
+        'promptId': json['promptId'] === undefined ? undefined : json['promptId'] === null ? null : json['promptId'],
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
@@ -116,6 +130,8 @@ export function UpdateSignalRelationRequestToJSONTyped(value?: UpdateSignalRelat
         'global': value['global'],
         'parameters': value['parameters'],
         'priority': value['priority'],
+        'triggerCondition': value['triggerCondition'],
+        'promptId': value['promptId'],
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
         'sideIds': value['sideIds'],

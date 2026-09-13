@@ -14,6 +14,11 @@
 
 import * as runtime from '../runtime';
 import {
+    type AdvisoryDto,
+    AdvisoryDtoFromJSON,
+    AdvisoryDtoToJSON,
+} from '../models/AdvisoryDto';
+import {
     type AlarmEventDetailResponse,
     AlarmEventDetailResponseFromJSON,
     AlarmEventDetailResponseToJSON,
@@ -111,6 +116,11 @@ export interface AlarmEventsApiCompleteAlarmEventRequest {
     completeAlarmRequest: CompleteAlarmRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface AlarmEventsApiGetAdvisoriesRequest {
+    id: string;
+    xCorrelationId?: string;
 }
 
 export interface AlarmEventsApiGetAlarmEventByIdRequest {
@@ -365,6 +375,65 @@ export class AlarmEventsApi extends runtime.BaseAPI {
      */
     async completeAlarmEvent(requestParameters: AlarmEventsApiCompleteAlarmEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CompleteAlarmResponse> {
         const response = await this.completeAlarmEventRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getAdvisories without sending the request
+     */
+    async getAdvisoriesRequestOpts(requestParameters: AlarmEventsApiGetAdvisoriesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getAdvisories().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/signal-events/{id}/advisories`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the advisories produced for this signal event, newest first, each with its notes. A note names the operator action it attaches to (`hook`), how loudly to say it (`effect`), and — where it is about one row — which one (`targetRef`). No effect blocks an action: the strongest, `require-reason`, asks the operator to record why they are proceeding. Advisories with status `pending` are included on purpose: the console shows a brief wait on a guarded action while one is outstanding, and proceeds regardless once its own budget elapses. An empty list means no rule asked for advice, which is the normal case.
+     * AI advice attached to a signal event\'s operator actions
+     */
+    async getAdvisoriesRaw(requestParameters: AlarmEventsApiGetAdvisoriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AdvisoryDto>>> {
+        const requestOptions = await this.getAdvisoriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AdvisoryDtoFromJSON));
+    }
+
+    /**
+     * Returns the advisories produced for this signal event, newest first, each with its notes. A note names the operator action it attaches to (`hook`), how loudly to say it (`effect`), and — where it is about one row — which one (`targetRef`). No effect blocks an action: the strongest, `require-reason`, asks the operator to record why they are proceeding. Advisories with status `pending` are included on purpose: the console shows a brief wait on a guarded action while one is outstanding, and proceeds regardless once its own budget elapses. An empty list means no rule asked for advice, which is the normal case.
+     * AI advice attached to a signal event\'s operator actions
+     */
+    async getAdvisories(requestParameters: AlarmEventsApiGetAdvisoriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AdvisoryDto>> {
+        const response = await this.getAdvisoriesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -40,7 +40,9 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // type/scope work. Re-pinned deliberately.
   // 399 -> 404: the five UiLayout operations (GET/PUT/DELETE user layouts,
   // GET/PUT layout templates). Re-pinned deliberately.
-  assert.equal(ids.size, 404, 'operation count moved off the pinned contract');
+  // 404 -> 405: GetAdvisories, the read side of the LLM signal relation.
+  // Re-pinned deliberately.
+  assert.equal(ids.size, 405, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
