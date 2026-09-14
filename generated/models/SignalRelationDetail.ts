@@ -79,6 +79,26 @@ export interface SignalRelationDetail {
      */
     priority?: number;
     /**
+     * The extra condition the rule requires. Empty means always; `ALARM` means the
+     * signal must have produced an alarm event — which for an LLM rule is what keeps a model
+     * call off the packets no operator will ever see.
+     * @type {string}
+     * @memberof SignalRelationDetail
+     */
+    triggerCondition?: string | null;
+    /**
+     * The prompt an `LLM` rule runs. Without one such a rule cannot run.
+     * @type {string}
+     * @memberof SignalRelationDetail
+     */
+    promptId?: string | null;
+    /**
+     * Its name, so the console can render the rule without a second fetch.
+     * @type {string}
+     * @memberof SignalRelationDetail
+     */
+    promptName?: string | null;
+    /**
      * 
      * @type {Array<SignalTypeRef>}
      * @memberof SignalRelationDetail
@@ -122,6 +142,9 @@ export function SignalRelationDetailFromJSONTyped(json: any, ignoreDiscriminator
         'global': json['global'] == null ? undefined : json['global'],
         'parameters': json['parameters'] === undefined ? undefined : json['parameters'] === null ? null : json['parameters'],
         'priority': json['priority'] == null ? undefined : json['priority'],
+        'triggerCondition': json['triggerCondition'] === undefined ? undefined : json['triggerCondition'] === null ? null : json['triggerCondition'],
+        'promptId': json['promptId'] === undefined ? undefined : json['promptId'] === null ? null : json['promptId'],
+        'promptName': json['promptName'] === undefined ? undefined : json['promptName'] === null ? null : json['promptName'],
         'sourceSignalTypes': json['sourceSignalTypes'] === undefined ? undefined : json['sourceSignalTypes'] === null ? null : ((json['sourceSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'targetSignalTypes': json['targetSignalTypes'] === undefined ? undefined : json['targetSignalTypes'] === null ? null : ((json['targetSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'sides': json['sides'] === undefined ? undefined : json['sides'] === null ? null : ((json['sides'] as Array<any>).map(SideRefFromJSON)),
@@ -146,6 +169,9 @@ export function SignalRelationDetailToJSONTyped(value?: SignalRelationDetail | n
         'global': value['global'],
         'parameters': value['parameters'],
         'priority': value['priority'],
+        'triggerCondition': value['triggerCondition'],
+        'promptId': value['promptId'],
+        'promptName': value['promptName'],
         'sourceSignalTypes': value['sourceSignalTypes'] == null ? undefined : ((value['sourceSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'targetSignalTypes': value['targetSignalTypes'] == null ? undefined : ((value['targetSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'sides': value['sides'] == null ? undefined : ((value['sides'] as Array<any>).map(SideRefToJSON)),

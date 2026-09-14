@@ -63,6 +63,8 @@ docs/ActivityApi.md
 docs/ActivityEventItem.md
 docs/AdminWriteResponse.md
 docs/AdministrationApi.md
+docs/AdvisoryDto.md
+docs/AdvisoryNoteDto.md
 docs/AlarmCategoryDetail.md
 docs/AlarmEventDetailResponse.md
 docs/AlarmEventListItem.md
@@ -496,6 +498,8 @@ models/ActiveCategoryDetail.ts
 models/ActiveCategoryItem.ts
 models/ActivityEventItem.ts
 models/AdminWriteResponse.ts
+models/AdvisoryDto.ts
+models/AdvisoryNoteDto.ts
 models/AlarmCategoryDetail.ts
 models/AlarmEventDetailResponse.ts
 models/AlarmEventListItem.ts

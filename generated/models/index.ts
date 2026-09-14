@@ -7,6 +7,8 @@ export * from './ActiveCategoryDetail';
 export * from './ActiveCategoryItem';
 export * from './ActivityEventItem';
 export * from './AdminWriteResponse';
+export * from './AdvisoryDto';
+export * from './AdvisoryNoteDto';
 export * from './AlarmCategoryDetail';
 export * from './AlarmEventDetailResponse';
 export * from './AlarmEventListItem';

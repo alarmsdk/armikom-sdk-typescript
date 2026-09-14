@@ -13,6 +13,9 @@ Name | Type
 `typeName` | string
 `global` | boolean
 `parameters` | string
+`triggerCondition` | string
+`promptId` | string
+`promptName` | string
 `priority` | number
 `sourceSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
@@ -31,6 +34,9 @@ const example = {
   "typeName": null,
   "global": null,
   "parameters": null,
+  "triggerCondition": null,
+  "promptId": null,
+  "promptName": null,
   "priority": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,

@@ -12,6 +12,8 @@ Name | Type
 `global` | boolean
 `parameters` | string
 `priority` | number
+`triggerCondition` | string
+`promptId` | string
 `sourceSignalTypeIds` | Array&lt;string&gt;
 `targetSignalTypeIds` | Array&lt;string&gt;
 `sideIds` | Array&lt;string&gt;
@@ -28,6 +30,8 @@ const example = {
   "global": null,
   "parameters": null,
   "priority": null,
+  "triggerCondition": null,
+  "promptId": null,
   "sourceSignalTypeIds": null,
   "targetSignalTypeIds": null,
   "sideIds": null,
