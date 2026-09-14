@@ -23524,6 +23524,620 @@
         ]
       }
     },
+    "/v1/reports/operators/signal-summary": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Per-operator alarm handling summary",
+        "description": "Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller's monitoring centre unless an explicit centre is supplied. Covers (a) of the operator report requirements.",
+        "operationId": "GetOperatorSignalSummary",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "operatorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorSignalSummaryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/operators/call-summary": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Per-operator call summary from PBX records",
+        "description": "Returns call counts, talk time, and answered/missed breakdown per PBX extension. Covers (b) of the operator report requirements.",
+        "operationId": "GetOperatorCallSummary",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorCallSummaryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/operators/data-entry-summary": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Per-operator data entry summary",
+        "description": "Returns action text writes, subscriber creates, approvals, and audited write operations. Covers (c) of the operator report requirements.",
+        "operationId": "GetOperatorDataEntrySummary",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "operatorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorDataEntrySummaryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/operators/screen-time": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Per-operator screen time and presence",
+        "description": "Returns total screen dwell time, idle time, and session count. Idle periods are subtracted from dwell to compute active time. Covers (d) of the operator report requirements.",
+        "operationId": "GetOperatorScreenTime",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "operatorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorScreenTimeSummaryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/operators/comparison": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Side-by-side operator comparison",
+        "description": "Returns all metrics in one response for side-by-side comparison: signal handling, calls, data entry, and screen time. Use for shift comparisons and monthly awards. Covers (e) of the operator report requirements.",
+        "operationId": "GetOperatorComparison",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorComparisonResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reports/operators/response-times": {
+      "get": {
+        "tags": [
+          "Operator Reports"
+        ],
+        "summary": "Per-signal response time chain",
+        "description": "Returns the timing chain for each signal: queued → viewed → locked → completed, with aggregate percentiles. Answers 'how fast do we close each alarm type'. Covers (f) of the operator report requirements.",
+        "operationId": "GetSignalResponseTimes",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "operatorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignalResponseTimeResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/passive-signals": {
       "get": {
         "tags": [
@@ -88160,6 +88774,338 @@
         },
         "additionalProperties": false
       },
+      "OperatorCallSummaryItem": {
+        "type": "object",
+        "properties": {
+          "extension": {
+            "type": "string",
+            "nullable": true
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalCalls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answeredCalls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "missedCalls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDurationSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalTalkSeconds": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorCallSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorCallSummaryItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Per-operator call summary for a time window."
+      },
+      "OperatorComparisonItem": {
+        "type": "object",
+        "properties": {
+          "operatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "completed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quickCompleted": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "batchCompleted": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalHandled": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCalls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "answeredCalls": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalTalkSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "actionTextsWritten": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalActionTextLength": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sidesCreated": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDwellSeconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalIdleSeconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "activeSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "sessionCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorComparisonResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorComparisonItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Combined operator comparison — all metrics in one response."
+      },
+      "OperatorDataEntryItem": {
+        "type": "object",
+        "properties": {
+          "operatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionTextsWritten": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalActionTextLength": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sidesCreated": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sidesApproved": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "auditedWriteOperations": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorDataEntrySummaryResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorDataEntryItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Per-operator data-entry summary."
+      },
+      "OperatorScreenTimeItem": {
+        "type": "object",
+        "properties": {
+          "operatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalDwellSeconds": {
+            "type": "integer",
+            "description": "Total seconds recorded on screen (sum of dwell times).",
+            "format": "int64"
+          },
+          "totalIdleSeconds": {
+            "type": "integer",
+            "description": "Total seconds spent idle-locked.",
+            "format": "int64"
+          },
+          "activeSeconds": {
+            "type": "integer",
+            "description": "Net active time = dwell − idle.",
+            "format": "int64",
+            "readOnly": true
+          },
+          "sessionCount": {
+            "type": "integer",
+            "description": "Number of sessions.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorScreenTimeSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorScreenTimeItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Per-operator screen time summary."
+      },
+      "OperatorSignalSummaryItem": {
+        "type": "object",
+        "properties": {
+          "operatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "completed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quickCompleted": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "batchCompleted": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "batchDelayed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locksForced": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locksDenied": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alarmsViewed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperatorSignalSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OperatorSignalSummaryItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Per-operator alarm handling summary for a time window."
+      },
       "OperatorUserDetailResponse": {
         "type": "object",
         "properties": {
@@ -89147,6 +90093,46 @@
         "properties": {
           "newPassword": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResponseTimeAggregates": {
+        "type": "object",
+        "properties": {
+          "signalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "avgQueueToViewSeconds": {
+            "type": "number",
+            "description": "Average seconds from queue to first view.",
+            "format": "double",
+            "nullable": true
+          },
+          "avgQueueToLockSeconds": {
+            "type": "number",
+            "description": "Average seconds from queue to lock.",
+            "format": "double",
+            "nullable": true
+          },
+          "avgQueueToCompleteSeconds": {
+            "type": "number",
+            "description": "Average seconds from queue to completion.",
+            "format": "double",
+            "nullable": true
+          },
+          "p50QueueToCompleteSeconds": {
+            "type": "number",
+            "description": "P50 queue-to-complete seconds.",
+            "format": "double",
+            "nullable": true
+          },
+          "p95QueueToCompleteSeconds": {
+            "type": "number",
+            "description": "P95 queue-to-complete seconds.",
+            "format": "double",
             "nullable": true
           }
         },
@@ -91912,6 +92898,108 @@
           }
         },
         "additionalProperties": false
+      },
+      "SignalResponseTimeItem": {
+        "type": "object",
+        "properties": {
+          "correlationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "operatorId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "operatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "signalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "queuedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "firstViewedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lockedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "queueToViewSeconds": {
+            "type": "number",
+            "description": "Seconds from queue to first view.",
+            "format": "double",
+            "nullable": true
+          },
+          "viewToLockSeconds": {
+            "type": "number",
+            "description": "Seconds from first view to lock.",
+            "format": "double",
+            "nullable": true
+          },
+          "lockToCompleteSeconds": {
+            "type": "number",
+            "description": "Seconds from lock to complete.",
+            "format": "double",
+            "nullable": true
+          },
+          "queueToCompleteSeconds": {
+            "type": "number",
+            "description": "Total seconds from queue to complete.",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SignalResponseTimeResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "aggregates": {
+            "$ref": "#/components/schemas/ResponseTimeAggregates"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SignalResponseTimeItem"
+            },
+            "description": "Individual signal chains (paginated).",
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Per-signal time chain: queued → viewed → locked → completed."
       },
       "SignalTypeDetail": {
         "type": "object",

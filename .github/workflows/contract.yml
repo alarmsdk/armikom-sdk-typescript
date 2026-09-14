@@ -24,7 +24,7 @@ permissions:
 env:
   # Must match Makefile OPENAPI_GENERATOR_VERSION and openapitools.json.
   OPENAPI_GENERATOR_VERSION: '7.24.0'
-  FROZEN_TAG: api-v1.6
+  FROZEN_TAG: api-v1.7
   FROZEN_PATH: openapi/armikom-api.v1.frozen.json
 
 jobs:

@@ -16,6 +16,7 @@ apis/GeocodingApi.ts
 apis/InvoicesApi.ts
 apis/LocalisationApi.ts
 apis/MobileUsersApi.ts
+apis/OperatorReportsApi.ts
 apis/PassiveSignalsApi.ts
 apis/PushNotificationsApi.ts
 apis/ReferenceDataApi.ts
@@ -243,6 +244,17 @@ docs/MonitoringCenterItem.md
 docs/MonitoringCenterSideNoRangeItem.md
 docs/NextSideNoResponse.md
 docs/NoteTypeDetail.md
+docs/OperatorCallSummaryItem.md
+docs/OperatorCallSummaryResponse.md
+docs/OperatorComparisonItem.md
+docs/OperatorComparisonResponse.md
+docs/OperatorDataEntryItem.md
+docs/OperatorDataEntrySummaryResponse.md
+docs/OperatorReportsApi.md
+docs/OperatorScreenTimeItem.md
+docs/OperatorScreenTimeSummaryResponse.md
+docs/OperatorSignalSummaryItem.md
+docs/OperatorSignalSummaryResponse.md
 docs/OperatorUserDetailResponse.md
 docs/OperatorUserListItem.md
 docs/OperatorUserListItemPagedResult.md
@@ -278,6 +290,7 @@ docs/ReorderContactsRequest.md
 docs/ReserveDealerSideNosRequest.md
 docs/ResetMobileUserPasswordRequest.md
 docs/ResetPasswordRequest.md
+docs/ResponseTimeAggregates.md
 docs/RoleInfo.md
 docs/RoleListItem.md
 docs/SMSApi.md
@@ -366,6 +379,8 @@ docs/SignalRelationSignalTypeRef.md
 docs/SignalRelationTypeDetail.md
 docs/SignalRelationTypeItem.md
 docs/SignalRelationTypeItemPagedResult.md
+docs/SignalResponseTimeItem.md
+docs/SignalResponseTimeResponse.md
 docs/SignalTypeDetail.md
 docs/SignalTypeItem.md
 docs/SignalTypeItemPagedResult.md
@@ -646,6 +661,16 @@ models/MonitoringCenterItem.ts
 models/MonitoringCenterSideNoRangeItem.ts
 models/NextSideNoResponse.ts
 models/NoteTypeDetail.ts
+models/OperatorCallSummaryItem.ts
+models/OperatorCallSummaryResponse.ts
+models/OperatorComparisonItem.ts
+models/OperatorComparisonResponse.ts
+models/OperatorDataEntryItem.ts
+models/OperatorDataEntrySummaryResponse.ts
+models/OperatorScreenTimeItem.ts
+models/OperatorScreenTimeSummaryResponse.ts
+models/OperatorSignalSummaryItem.ts
+models/OperatorSignalSummaryResponse.ts
 models/OperatorUserDetailResponse.ts
 models/OperatorUserListItem.ts
 models/OperatorUserListItemPagedResult.ts
@@ -678,6 +703,7 @@ models/ReorderContactsRequest.ts
 models/ReserveDealerSideNosRequest.ts
 models/ResetMobileUserPasswordRequest.ts
 models/ResetPasswordRequest.ts
+models/ResponseTimeAggregates.ts
 models/RoleInfo.ts
 models/RoleListItem.ts
 models/SaveDeviceRegexRequest.ts
@@ -756,6 +782,8 @@ models/SignalRelationSignalTypeRef.ts
 models/SignalRelationTypeDetail.ts
 models/SignalRelationTypeItem.ts
 models/SignalRelationTypeItemPagedResult.ts
+models/SignalResponseTimeItem.ts
+models/SignalResponseTimeResponse.ts
 models/SignalTypeDetail.ts
 models/SignalTypeItem.ts
 models/SignalTypeItemPagedResult.ts
