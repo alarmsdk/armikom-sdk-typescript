@@ -144,6 +144,11 @@ import {
     SaveReceiverTypeRequestToJSON,
 } from '../models/SaveReceiverTypeRequest';
 import {
+    type SideDataIssueItem,
+    SideDataIssueItemFromJSON,
+    SideDataIssueItemToJSON,
+} from '../models/SideDataIssueItem';
+import {
     type SmsSettingDetail,
     SmsSettingDetailFromJSON,
     SmsSettingDetailToJSON,
@@ -350,6 +355,10 @@ export interface AdministrationApiGetPromptRequest {
 
 export interface AdministrationApiGetReceiverTypeRequest {
     id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetSidesWithDataIssuesRequest {
     xCorrelationId?: string;
 }
 
@@ -2488,6 +2497,57 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async getReceiverType(requestParameters: AdministrationApiGetReceiverTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReceiverTypeDetail> {
         const response = await this.getReceiverTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSidesWithDataIssues without sending the request
+     */
+    async getSidesWithDataIssuesRequestOpts(requestParameters: AdministrationApiGetSidesWithDataIssuesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/sides-data-issues`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns up to 1000 subscriber records that have a missing brand, model, or protocol, or a protocol that is not valid for the selected model. Scoped to the operator\'s monitoring centre via the ambient tenant filter.
+     * List subscribers with brand/model/protocol data issues
+     */
+    async getSidesWithDataIssuesRaw(requestParameters: AdministrationApiGetSidesWithDataIssuesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SideDataIssueItem>>> {
+        const requestOptions = await this.getSidesWithDataIssuesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SideDataIssueItemFromJSON));
+    }
+
+    /**
+     * Returns up to 1000 subscriber records that have a missing brand, model, or protocol, or a protocol that is not valid for the selected model. Scoped to the operator\'s monitoring centre via the ambient tenant filter.
+     * List subscribers with brand/model/protocol data issues
+     */
+    async getSidesWithDataIssues(requestParameters: AdministrationApiGetSidesWithDataIssuesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SideDataIssueItem>> {
+        const response = await this.getSidesWithDataIssuesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

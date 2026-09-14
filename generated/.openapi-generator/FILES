@@ -326,6 +326,7 @@ docs/SideAgreementItem.md
 docs/SideApprovalResponse.md
 docs/SideContactItem.md
 docs/SideControlItem.md
+docs/SideDataIssueItem.md
 docs/SideDetailResponse.md
 docs/SideDocumentItem.md
 docs/SideEffect.md
@@ -733,6 +734,7 @@ models/SideAgreementItem.ts
 models/SideApprovalResponse.ts
 models/SideContactItem.ts
 models/SideControlItem.ts
+models/SideDataIssueItem.ts
 models/SideDetailResponse.ts
 models/SideDocumentItem.ts
 models/SideEffect.ts

@@ -37,6 +37,7 @@ All URIs are relative to *http://localhost*
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
 | [**getPrompt**](AdministrationApi.md#getprompt) | **GET** /v1/admin/prompts/{id} | Get an AI prompt template |
 | [**getReceiverType**](AdministrationApi.md#getreceivertype) | **GET** /v1/admin/receiver-types/{id} | Get a receiver type |
+| [**getSidesWithDataIssues**](AdministrationApi.md#getsideswithdataissues) | **GET** /v1/admin/sides-data-issues | List subscribers with brand/model/protocol data issues |
 | [**getSmsSetting**](AdministrationApi.md#getsmssetting) | **GET** /v1/admin/sms-settings/{id} | Get an SMS gateway profile |
 | [**listAdminMonitoringCenters**](AdministrationApi.md#listadminmonitoringcenters) | **GET** /v1/admin/monitoring-centers | List monitoring centers with their configuration |
 | [**listAdminReceivers**](AdministrationApi.md#listadminreceivers) | **GET** /v1/admin/receivers | List receivers with their configuration |
@@ -2621,6 +2622,79 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSidesWithDataIssues
+
+> Array&lt;SideDataIssueItem&gt; getSidesWithDataIssues(xCorrelationId)
+
+List subscribers with brand/model/protocol data issues
+
+Returns up to 1000 subscriber records that have a missing brand, model, or protocol, or a protocol that is not valid for the selected model. Scoped to the operator\&#39;s monitoring centre via the ambient tenant filter.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetSidesWithDataIssuesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSidesWithDataIssuesRequest;
+
+  try {
+    const data = await api.getSidesWithDataIssues(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;SideDataIssueItem&gt;**](SideDataIssueItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

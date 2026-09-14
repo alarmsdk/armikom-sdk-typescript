@@ -245,6 +245,7 @@ export * from './SideAgreementItem';
 export * from './SideApprovalResponse';
 export * from './SideContactItem';
 export * from './SideControlItem';
+export * from './SideDataIssueItem';
 export * from './SideDetailResponse';
 export * from './SideDocumentItem';
 export * from './SideEffect';
