@@ -254,6 +254,301 @@
         ]
       }
     },
+    "/v1/admin/password-bulk-hash": {
+      "post": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Bulk-hash all remaining plaintext passwords",
+        "description": "Hashes every plaintext password in both TechnicalPerson and MobileUser tables using PBKDF2-SHA256. Re-runnable: rows that already carry the $pbkdf2-sha256$ prefix are skipped. Use dryRun=true to count without modifying data.",
+        "operationId": "BulkHashPasswords",
+        "parameters": [
+          {
+            "name": "dryRun",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkHashResult"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/sides-data-issues": {
+      "get": {
+        "tags": [
+          "Administration"
+        ],
+        "summary": "List subscribers with brand/model/protocol data issues",
+        "description": "Returns up to 1000 subscriber records that have a missing brand, model, or protocol, or a protocol that is not valid for the selected model. Scoped to the operator's monitoring centre via the ambient tenant filter.",
+        "operationId": "GetSidesWithDataIssues",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SideDataIssueItem"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/admin/monitoring-centers": {
       "get": {
         "tags": [
@@ -11430,301 +11725,6 @@
         ]
       }
     },
-    "/v1/admin/password-bulk-hash": {
-      "post": {
-        "tags": [
-          "Administration"
-        ],
-        "summary": "Bulk-hash all remaining plaintext passwords",
-        "description": "Hashes every plaintext password in both TechnicalPerson and MobileUser tables using PBKDF2-SHA256. Re-runnable: rows that already carry the $pbkdf2-sha256$ prefix are skipped. Use dryRun=true to count without modifying data.",
-        "operationId": "BulkHashPasswords",
-        "parameters": [
-          {
-            "name": "dryRun",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": true
-            }
-          },
-          {
-            "name": "X-Correlation-Id",
-            "in": "header",
-            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
-            "schema": {
-              "maxLength": 128,
-              "type": "string"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Idempotency-Replayed": {
-                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
-                "schema": {
-                  "enum": [
-                    "true"
-                  ],
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BulkHashResult"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "required": [
-                    "type",
-                    "title",
-                    "status",
-                    "code",
-                    "correlationId"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "URI reference identifying the problem type",
-                      "example": "https://docs.armikom.net/errors/side/not_found"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Short human-readable summary"
-                    },
-                    "status": {
-                      "type": "integer",
-                      "description": "HTTP status code",
-                      "format": "int32"
-                    },
-                    "detail": {
-                      "type": "string",
-                      "description": "Human-readable explanation",
-                      "nullable": true
-                    },
-                    "instance": {
-                      "type": "string",
-                      "description": "URI of the request that caused the problem",
-                      "nullable": true
-                    },
-                    "code": {
-                      "type": "string",
-                      "description": "Machine-readable error code (stable)",
-                      "example": "SIDE.NOT_FOUND"
-                    },
-                    "correlationId": {
-                      "type": "string",
-                      "description": "Request correlation identifier"
-                    },
-                    "params": {
-                      "type": "object",
-                      "description": "Context parameters for localisation templates",
-                      "nullable": true
-                    },
-                    "errors": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "description": "Per-field validation errors (field name → error codes)",
-                      "nullable": true
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing or invalid access token",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      }
-    },
-    "/v1/admin/sides-data-issues": {
-      "get": {
-        "tags": [
-          "Administration"
-        ],
-        "summary": "List subscribers with brand/model/protocol data issues",
-        "description": "Returns up to 1000 subscriber records that have a missing brand, model, or protocol, or a protocol that is not valid for the selected model. Scoped to the operator's monitoring centre via the ambient tenant filter.",
-        "operationId": "GetSidesWithDataIssues",
-        "parameters": [
-          {
-            "name": "X-Correlation-Id",
-            "in": "header",
-            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
-            "schema": {
-              "maxLength": 128,
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SideDataIssueItem"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "required": [
-                    "type",
-                    "title",
-                    "status",
-                    "code",
-                    "correlationId"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "URI reference identifying the problem type",
-                      "example": "https://docs.armikom.net/errors/side/not_found"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Short human-readable summary"
-                    },
-                    "status": {
-                      "type": "integer",
-                      "description": "HTTP status code",
-                      "format": "int32"
-                    },
-                    "detail": {
-                      "type": "string",
-                      "description": "Human-readable explanation",
-                      "nullable": true
-                    },
-                    "instance": {
-                      "type": "string",
-                      "description": "URI of the request that caused the problem",
-                      "nullable": true
-                    },
-                    "code": {
-                      "type": "string",
-                      "description": "Machine-readable error code (stable)",
-                      "example": "SIDE.NOT_FOUND"
-                    },
-                    "correlationId": {
-                      "type": "string",
-                      "description": "Request correlation identifier"
-                    },
-                    "params": {
-                      "type": "object",
-                      "description": "Context parameters for localisation templates",
-                      "nullable": true
-                    },
-                    "errors": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "description": "Per-field validation errors (field name → error codes)",
-                      "nullable": true
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing or invalid access token",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      }
-    },
     "/v1/alarm-events": {
       "get": {
         "tags": [
@@ -13397,6 +13397,86 @@
                       "description": "Per-field validation errors (field name → error codes)",
                       "nullable": true
                     }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/signal-events/{id}/advisories": {
+      "get": {
+        "tags": [
+          "Alarm Events"
+        ],
+        "summary": "AI advice attached to a signal event's operator actions",
+        "description": "Returns the advisories produced for this signal event, newest first, each with its notes. A note names the operator action it attaches to (`hook`), how loudly to say it (`effect`), and — where it is about one row — which one (`targetRef`). No effect blocks an action: the strongest, `require-reason`, asks the operator to record why they are proceeding. Advisories with status `pending` are included on purpose: the console shows a brief wait on a guarded action while one is outstanding, and proceeds regardless once its own budget elapses. An empty list means no rule asked for advice, which is the normal case.",
+        "operationId": "GetAdvisories",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AdvisoryDto"
                   }
                 }
               }
@@ -73661,147 +73741,6 @@
       }
     },
     "/v1/sides": {
-      "get": {
-        "tags": [
-          "Subscribers"
-        ],
-        "summary": "List subscribers with filtering, sorting and pagination",
-        "description": "Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`).",
-        "operationId": "GetSides",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "active",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "approved",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "dealerId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "cursor",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "X-Correlation-Id",
-            "in": "header",
-            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
-            "schema": {
-              "maxLength": 128,
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SideListItemPagedResult"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing or invalid access token",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Authenticated but missing the required scope",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      },
       "post": {
         "tags": [
           "Subscribers"
@@ -74047,17 +73986,44 @@
             "Bearer": []
           }
         ]
-      }
-    },
-    "/v1/sides/unapproved": {
+      },
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "summary": "List unapproved active subscribers",
-        "description": "Returns subscribers where `approved = false` and `active != false`, sorted by start date descending. Used by the approval workflow.",
-        "operationId": "GetUnapprovedSides",
+        "summary": "List subscribers with filtering, sorting and pagination",
+        "description": "Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`).",
+        "operationId": "GetSides",
         "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "approved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "dealerId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
           {
             "name": "cursor",
             "in": "query",
@@ -74095,6 +74061,13 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -74157,91 +74130,6 @@
       }
     },
     "/v1/sides/{sideId}": {
-      "get": {
-        "tags": [
-          "Subscribers"
-        ],
-        "summary": "Get subscriber detail by ID",
-        "operationId": "GetSideById",
-        "parameters": [
-          {
-            "name": "sideId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "X-Correlation-Id",
-            "in": "header",
-            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
-            "schema": {
-              "maxLength": 128,
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SideDetailResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing or invalid access token",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Authenticated but missing the required scope",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
-      },
       "put": {
         "tags": [
           "Subscribers"
@@ -74752,40 +74640,21 @@
             "Bearer": []
           }
         ]
-      }
-    },
-    "/v1/sides/{id}/signals": {
+      },
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "summary": "Get signal history for a subscriber",
-        "description": "Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via `page`/`pageSize` query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.",
-        "operationId": "GetSideSignals",
+        "summary": "Get subscriber detail by ID",
+        "operationId": "GetSideById",
         "parameters": [
           {
-            "name": "id",
+            "name": "sideId",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "format": "uuid"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
             }
           },
           {
@@ -74812,7 +74681,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SideSignalHistoryItemPagedResult"
+                  "$ref": "#/components/schemas/SideDetailResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -76742,6 +76622,206 @@
           },
           "401": {
             "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/sides/unapproved": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "summary": "List unapproved active subscribers",
+        "description": "Returns subscribers where `approved = false` and `active != false`, sorted by start date descending. Used by the approval workflow.",
+        "operationId": "GetUnapprovedSides",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SideListItemPagedResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/sides/{id}/signals": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "summary": "Get signal history for a subscriber",
+        "description": "Returns signal events for the specified subscriber, ordered by signal date descending. Supports pagination via `page`/`pageSize` query parameters. When pagination params are omitted, returns at most 128 items as a flat array for backward compatibility.",
+        "operationId": "GetSideSignals",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SideSignalHistoryItemPagedResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
             "headers": {
               "X-Correlation-Id": {
                 "description": "The correlation identifier for this request (echoed or generated).",
@@ -83758,6 +83838,97 @@
         "additionalProperties": false,
         "description": "Uniform body returned by every admin create and update. Update returns the id\nit was given, so a client can use one response shape for both verbs."
       },
+      "AdvisoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "description": "`pending`, `running`, `succeeded`, `failed` or `skipped`.",
+            "nullable": true
+          },
+          "summary": {
+            "type": "string",
+            "description": "The two or three sentences shown at the top of the advisory panel.",
+            "nullable": true
+          },
+          "relationName": {
+            "type": "string",
+            "description": "The rule that asked for this. Shown when an operator wants to know why.",
+            "nullable": true
+          },
+          "requestedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "skipReason": {
+            "type": "string",
+            "description": "Why nothing was produced, when nothing was. Null on success.",
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdvisoryNoteDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "One advisory run for a signal event: the AI summary, and the notes that attach to operator\nactions."
+      },
+      "AdvisoryNoteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "hook": {
+            "type": "string",
+            "description": "The action this attaches to, e.g. `call.contact`.",
+            "nullable": true
+          },
+          "effect": {
+            "type": "string",
+            "description": "What the console does with it: `inform`, `suggest`, `warn`,\n`confirm` or `require-reason`.",
+            "nullable": true
+          },
+          "severity": {
+            "type": "integer",
+            "description": "1..5. Orders competing notes on the same action.",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetRef": {
+            "type": "string",
+            "description": "The single row this note is about, as `kind:id`. Null means it applies to every\ntarget of its hook.",
+            "nullable": true
+          },
+          "evidence": {
+            "type": "string",
+            "description": "Which records the note was drawn from, as JSON. Shown so an operator can check the\nreading rather than take it on trust.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "One note, bound to one operator action."
+      },
       "AlarmCategoryDetail": {
         "type": "object",
         "properties": {
@@ -86620,6 +86791,17 @@
           "priority": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "triggerCondition": {
+            "type": "string",
+            "description": "Empty or null: always. `ALARM`: only when an alarm event was created.",
+            "nullable": true
+          },
+          "promptId": {
+            "type": "string",
+            "description": "The prompt an `LLM` rule runs. Required for that type, ignored by others.",
+            "format": "uuid",
             "nullable": true
           },
           "sourceSignalTypeIds": {
@@ -92848,6 +93030,22 @@
             "description": "Application order among the rules matching one signal, ascending.",
             "format": "int32"
           },
+          "triggerCondition": {
+            "type": "string",
+            "description": "The extra condition the rule requires. Empty means always; `ALARM` means the\nsignal must have produced an alarm event — which for an LLM rule is what keeps a model\ncall off the packets no operator will ever see.",
+            "nullable": true
+          },
+          "promptId": {
+            "type": "string",
+            "description": "The prompt an `LLM` rule runs. Without one such a rule cannot run.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "promptName": {
+            "type": "string",
+            "description": "Its name, so the console can render the rule without a second fetch.",
+            "nullable": true
+          },
           "sourceSignalTypes": {
             "type": "array",
             "items": {
@@ -92902,6 +93100,22 @@
           "parameters": {
             "type": "string",
             "description": "A JSON array of parameter objects shaped by the type's `ParameterSchema`.",
+            "nullable": true
+          },
+          "triggerCondition": {
+            "type": "string",
+            "description": "The extra condition the rule requires. Empty means always; `ALARM` means the\nsignal must have produced an alarm event — which for an LLM rule is what keeps a model\ncall off the packets no operator will ever see.",
+            "nullable": true
+          },
+          "promptId": {
+            "type": "string",
+            "description": "The prompt an `LLM` rule runs.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "promptName": {
+            "type": "string",
+            "description": "Its name, so the console can show the rule without a second fetch.",
             "nullable": true
           },
           "priority": {
@@ -95394,6 +95608,17 @@
           "priority": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "triggerCondition": {
+            "type": "string",
+            "description": "Empty or null: always. `ALARM`: only when an alarm event was created.",
+            "nullable": true
+          },
+          "promptId": {
+            "type": "string",
+            "description": "The prompt an `LLM` rule runs. The empty guid clears it.",
+            "format": "uuid",
             "nullable": true
           },
           "sourceSignalTypeIds": {

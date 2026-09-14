@@ -43,7 +43,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 404 -> 405: GetAdvisories, the read side of the LLM signal relation.
   // Re-pinned deliberately.
   // 405 -> 411: additional operations added on master. Re-pinned deliberately.
-  assert.equal(ids.size, 411, 'operation count moved off the pinned contract');
+  // 411 -> 412: GetAdvisories endpoint added. Re-pinned deliberately.
+  assert.equal(ids.size, 412, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
