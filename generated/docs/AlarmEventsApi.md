@@ -24,7 +24,7 @@ All URIs are relative to *http://localhost*
 
 Complete all alarm events matching the selected signal codes
 
-Stamps every affected SignalEvent.Action with the operator\&#39;s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. If expectedCount is provided and does not match the current count, returns 409. A single alarm-list-updated event is published, not one per row.
+Stamps every affected SignalEvent.Action with the operator\&#39;s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. When cutoffUtc is provided, only alarm events with EventDate &lt;&#x3D; cutoffUtc are processed. A single alarm-list-updated event is published, not one per row.
 
 ### Example
 
@@ -91,7 +91,6 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
-| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
@@ -105,7 +104,7 @@ example().catch(console.error);
 
 Delay all alarm events matching the selected signal codes
 
-Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes &lt;&#x3D; 0 returns 422. If expectedCount is provided and does not match the current count, returns 409.
+Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes &lt;&#x3D; 0 returns 422. When cutoffUtc is provided, only alarm events with EventDate &lt;&#x3D; cutoffUtc are processed.
 
 ### Example
 
@@ -172,7 +171,6 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
-| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

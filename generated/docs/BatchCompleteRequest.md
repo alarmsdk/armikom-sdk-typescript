@@ -8,7 +8,7 @@ Name | Type
 ------------ | -------------
 `signalCodes` | Array&lt;string&gt;
 `action` | string
-`expectedCount` | number
+`cutoffUtc` | Date
 
 ## Example
 
@@ -19,7 +19,7 @@ import type { BatchCompleteRequest } from ''
 const example = {
   "signalCodes": null,
   "action": null,
-  "expectedCount": null,
+  "cutoffUtc": null,
 } satisfies BatchCompleteRequest
 
 console.log(example)

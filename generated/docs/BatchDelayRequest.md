@@ -8,7 +8,7 @@ Name | Type
 ------------ | -------------
 `signalCodes` | Array&lt;string&gt;
 `delayMinutes` | number
-`expectedCount` | number
+`cutoffUtc` | Date
 
 ## Example
 
@@ -19,7 +19,7 @@ import type { BatchDelayRequest } from ''
 const example = {
   "signalCodes": null,
   "delayMinutes": null,
-  "expectedCount": null,
+  "cutoffUtc": null,
 } satisfies BatchDelayRequest
 
 console.log(example)

@@ -32,11 +32,13 @@ export interface BatchDelayRequest {
      */
     delayMinutes?: number;
     /**
-     * 
-     * @type {number}
+     * UTC timestamp of when the operator opened the batch screen.
+     * When provided, only alarm events created before this point are processed,
+     * so alarms arriving after the operator loaded the candidate list are untouched.
+     * @type {Date}
      * @memberof BatchDelayRequest
      */
-    expectedCount?: number | null;
+    cutoffUtc?: Date | null;
 }
 
 /**
@@ -58,7 +60,7 @@ export function BatchDelayRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'signalCodes': json['signalCodes'] === undefined ? undefined : json['signalCodes'] === null ? null : json['signalCodes'],
         'delayMinutes': json['delayMinutes'] == null ? undefined : json['delayMinutes'],
-        'expectedCount': json['expectedCount'] === undefined ? undefined : json['expectedCount'] === null ? null : json['expectedCount'],
+        'cutoffUtc': json['cutoffUtc'] === undefined ? undefined : json['cutoffUtc'] === null ? null : (new Date(json['cutoffUtc'])),
     };
 }
 
@@ -75,7 +77,7 @@ export function BatchDelayRequestToJSONTyped(value?: BatchDelayRequest | null, i
         
         'signalCodes': value['signalCodes'],
         'delayMinutes': value['delayMinutes'],
-        'expectedCount': value['expectedCount'],
+        'cutoffUtc': value['cutoffUtc'] == null ? value['cutoffUtc'] : value['cutoffUtc'].toISOString(),
     };
 }
 

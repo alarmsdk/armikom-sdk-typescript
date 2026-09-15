@@ -221,7 +221,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Stamps every affected SignalEvent.Action with the operator\'s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. If expectedCount is provided and does not match the current count, returns 409. A single alarm-list-updated event is published, not one per row.
+     * Stamps every affected SignalEvent.Action with the operator\'s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed. A single alarm-list-updated event is published, not one per row.
      * Complete all alarm events matching the selected signal codes
      */
     async batchCompleteAlarmEventsRaw(requestParameters: AlarmEventsApiBatchCompleteAlarmEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchCompleteResponse>> {
@@ -232,7 +232,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Stamps every affected SignalEvent.Action with the operator\'s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. If expectedCount is provided and does not match the current count, returns 409. A single alarm-list-updated event is published, not one per row.
+     * Stamps every affected SignalEvent.Action with the operator\'s action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed. A single alarm-list-updated event is published, not one per row.
      * Complete all alarm events matching the selected signal codes
      */
     async batchCompleteAlarmEvents(requestParameters: AlarmEventsApiBatchCompleteAlarmEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchCompleteResponse> {
@@ -286,7 +286,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. If expectedCount is provided and does not match the current count, returns 409.
+     * Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed.
      * Delay all alarm events matching the selected signal codes
      */
     async batchDelayAlarmEventsRaw(requestParameters: AlarmEventsApiBatchDelayAlarmEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchDelayResponse>> {
@@ -297,7 +297,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. If expectedCount is provided and does not match the current count, returns 409.
+     * Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed.
      * Delay all alarm events matching the selected signal codes
      */
     async batchDelayAlarmEvents(requestParameters: AlarmEventsApiBatchDelayAlarmEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchDelayResponse> {

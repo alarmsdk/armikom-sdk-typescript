@@ -32,11 +32,13 @@ export interface BatchCompleteRequest {
      */
     action?: string | null;
     /**
-     * 
-     * @type {number}
+     * UTC timestamp of when the operator opened the batch screen.
+     * When provided, only alarm events created before this point are processed,
+     * so alarms arriving after the operator loaded the candidate list are untouched.
+     * @type {Date}
      * @memberof BatchCompleteRequest
      */
-    expectedCount?: number | null;
+    cutoffUtc?: Date | null;
 }
 
 /**
@@ -58,7 +60,7 @@ export function BatchCompleteRequestFromJSONTyped(json: any, ignoreDiscriminator
         
         'signalCodes': json['signalCodes'] === undefined ? undefined : json['signalCodes'] === null ? null : json['signalCodes'],
         'action': json['action'] === undefined ? undefined : json['action'] === null ? null : json['action'],
-        'expectedCount': json['expectedCount'] === undefined ? undefined : json['expectedCount'] === null ? null : json['expectedCount'],
+        'cutoffUtc': json['cutoffUtc'] === undefined ? undefined : json['cutoffUtc'] === null ? null : (new Date(json['cutoffUtc'])),
     };
 }
 
@@ -75,7 +77,7 @@ export function BatchCompleteRequestToJSONTyped(value?: BatchCompleteRequest | n
         
         'signalCodes': value['signalCodes'],
         'action': value['action'],
-        'expectedCount': value['expectedCount'],
+        'cutoffUtc': value['cutoffUtc'] == null ? value['cutoffUtc'] : value['cutoffUtc'].toISOString(),
     };
 }
 

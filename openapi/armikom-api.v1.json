@@ -12942,7 +12942,7 @@
           "Alarm Events"
         ],
         "summary": "Complete all alarm events matching the selected signal codes",
-        "description": "Stamps every affected SignalEvent.Action with the operator's action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. If expectedCount is provided and does not match the current count, returns 409. A single alarm-list-updated event is published, not one per row.",
+        "description": "Stamps every affected SignalEvent.Action with the operator's action text (D19 format), then deletes the matching AlarmEvent rows. Returns the number of deleted rows. Empty signalCodes returns 422. Empty action returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed. A single alarm-list-updated event is published, not one per row.",
         "operationId": "BatchCompleteAlarmEvents",
         "parameters": [
           {
@@ -12998,82 +12998,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BatchCompleteResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "required": [
-                    "type",
-                    "title",
-                    "status",
-                    "code",
-                    "correlationId"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "URI reference identifying the problem type",
-                      "example": "https://docs.armikom.net/errors/side/not_found"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Short human-readable summary"
-                    },
-                    "status": {
-                      "type": "integer",
-                      "description": "HTTP status code",
-                      "format": "int32"
-                    },
-                    "detail": {
-                      "type": "string",
-                      "description": "Human-readable explanation",
-                      "nullable": true
-                    },
-                    "instance": {
-                      "type": "string",
-                      "description": "URI of the request that caused the problem",
-                      "nullable": true
-                    },
-                    "code": {
-                      "type": "string",
-                      "description": "Machine-readable error code (stable)",
-                      "example": "SIDE.NOT_FOUND"
-                    },
-                    "correlationId": {
-                      "type": "string",
-                      "description": "Request correlation identifier"
-                    },
-                    "params": {
-                      "type": "object",
-                      "description": "Context parameters for localisation templates",
-                      "nullable": true
-                    },
-                    "errors": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "description": "Per-field validation errors (field name → error codes)",
-                      "nullable": true
-                    }
-                  }
                 }
               }
             }
@@ -13190,7 +13114,7 @@
           "Alarm Events"
         ],
         "summary": "Delay all alarm events matching the selected signal codes",
-        "description": "Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. If expectedCount is provided and does not match the current count, returns 409.",
+        "description": "Moves each matching AlarmEvent to a WaitingEvent with the specified delay time, copying all 12 denormalized fields. The AlarmEvent rows are then deleted. Empty signalCodes returns 422. delayMinutes <= 0 returns 422. When cutoffUtc is provided, only alarm events with EventDate <= cutoffUtc are processed.",
         "operationId": "BatchDelayAlarmEvents",
         "parameters": [
           {
@@ -13246,82 +13170,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BatchDelayResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "headers": {
-              "X-Correlation-Id": {
-                "description": "The correlation identifier for this request (echoed or generated).",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "required": [
-                    "type",
-                    "title",
-                    "status",
-                    "code",
-                    "correlationId"
-                  ],
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "URI reference identifying the problem type",
-                      "example": "https://docs.armikom.net/errors/side/not_found"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Short human-readable summary"
-                    },
-                    "status": {
-                      "type": "integer",
-                      "description": "HTTP status code",
-                      "format": "int32"
-                    },
-                    "detail": {
-                      "type": "string",
-                      "description": "Human-readable explanation",
-                      "nullable": true
-                    },
-                    "instance": {
-                      "type": "string",
-                      "description": "URI of the request that caused the problem",
-                      "nullable": true
-                    },
-                    "code": {
-                      "type": "string",
-                      "description": "Machine-readable error code (stable)",
-                      "example": "SIDE.NOT_FOUND"
-                    },
-                    "correlationId": {
-                      "type": "string",
-                      "description": "Request correlation identifier"
-                    },
-                    "params": {
-                      "type": "object",
-                      "description": "Context parameters for localisation templates",
-                      "nullable": true
-                    },
-                    "errors": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "description": "Per-field validation errors (field name → error codes)",
-                      "nullable": true
-                    }
-                  }
                 }
               }
             }
@@ -84359,9 +84207,10 @@
             "type": "string",
             "nullable": true
           },
-          "expectedCount": {
-            "type": "integer",
-            "format": "int32",
+          "cutoffUtc": {
+            "type": "string",
+            "description": "UTC timestamp of when the operator opened the batch screen.\nWhen provided, only alarm events created before this point are processed,\nso alarms arriving after the operator loaded the candidate list are untouched.",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -84398,9 +84247,10 @@
             "type": "integer",
             "format": "int32"
           },
-          "expectedCount": {
-            "type": "integer",
-            "format": "int32",
+          "cutoffUtc": {
+            "type": "string",
+            "description": "UTC timestamp of when the operator opened the batch screen.\nWhen provided, only alarm events created before this point are processed,\nso alarms arriving after the operator loaded the candidate list are untouched.",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -87318,6 +87168,11 @@
         },
         "additionalProperties": false
       },
+      "DateTimeNullableOptional": {
+        "type": "string",
+        "format": "date-time",
+        "nullable": true
+      },
       "DeactivateSideRequest": {
         "type": "object",
         "properties": {
@@ -88084,6 +87939,11 @@
         },
         "additionalProperties": false
       },
+      "GuidNullableOptional": {
+        "type": "string",
+        "format": "uuid",
+        "nullable": true
+      },
       "HandleByAiRequest": {
         "type": "object",
         "properties": {
@@ -88137,6 +87997,11 @@
           }
         },
         "additionalProperties": false
+      },
+      "Int32NullableOptional": {
+        "type": "integer",
+        "format": "int32",
+        "nullable": true
       },
       "InvoiceGenerateRequest": {
         "type": "object",
@@ -94472,14 +94337,10 @@
             "nullable": true
           },
           "cityId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "districtId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "email1": {
             "type": "string",
@@ -94553,19 +94414,13 @@
             "nullable": true
           },
           "cityId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "regionId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "districtId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "contact1": {
             "type": "string",
@@ -94600,9 +94455,7 @@
             "nullable": true
           },
           "releatedDealerId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "onCallServiceNumber": {
             "type": "string",
@@ -94921,23 +94774,17 @@
             "nullable": true
           },
           "extension": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "$ref": "#/components/schemas/Int32NullableOptional"
           },
           "soundAlertEnabled": {
             "type": "boolean",
             "nullable": true
           },
           "monitoringCenterId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "workScheduleId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           }
         },
         "additionalProperties": false
@@ -95336,74 +95183,46 @@
             "nullable": true
           },
           "customerId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "dealerId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "installerId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "brandId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "modelId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "protocolId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "cityId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "districtId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "regionId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "accountTypeId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "sideTypeId": {
-            "type": "string",
-            "format": "uuid",
-            "nullable": true
+            "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "installDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "$ref": "#/components/schemas/DateTimeNullableOptional"
           },
           "startDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "$ref": "#/components/schemas/DateTimeNullableOptional"
           },
           "endDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+            "$ref": "#/components/schemas/DateTimeNullableOptional"
           }
         },
         "additionalProperties": false
