@@ -49,6 +49,11 @@ import {
     CityDetailToJSON,
 } from '../models/CityDetail';
 import {
+    type CityEmergencyContactDetail,
+    CityEmergencyContactDetailFromJSON,
+    CityEmergencyContactDetailToJSON,
+} from '../models/CityEmergencyContactDetail';
+import {
     type CountryDetail,
     CountryDetailFromJSON,
     CountryDetailToJSON,
@@ -253,6 +258,11 @@ import {
     ReferenceWriteResponseFromJSON,
     ReferenceWriteResponseToJSON,
 } from '../models/ReferenceWriteResponse';
+import {
+    type SaveCityEmergencyContactRequest,
+    SaveCityEmergencyContactRequestFromJSON,
+    SaveCityEmergencyContactRequestToJSON,
+} from '../models/SaveCityEmergencyContactRequest';
 import {
     type SaveMobileOperatorRequest,
     SaveMobileOperatorRequestFromJSON,
@@ -470,6 +480,13 @@ export interface ReferenceDataApiCreateCityOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateCityEmergencyContactRequest {
+    cityId: string;
+    saveCityEmergencyContactRequest: SaveCityEmergencyContactRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateCountryOperationRequest {
     createCountryRequest: CreateCountryRequest;
     xCorrelationId?: string;
@@ -616,6 +633,12 @@ export interface ReferenceDataApiDeleteBrandRequest {
 }
 
 export interface ReferenceDataApiDeleteCityRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteCityEmergencyContactRequest {
+    cityId: string;
     id: string;
     xCorrelationId?: string;
 }
@@ -954,6 +977,11 @@ export interface ReferenceDataApiGetTechnicalPersonByIdRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiListCityEmergencyContactsRequest {
+    cityId: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiListDealerAccountTypesRequest {
     dealerId?: string;
     xCorrelationId?: string;
@@ -1049,6 +1077,13 @@ export interface ReferenceDataApiUpdateBrandOperationRequest {
 export interface ReferenceDataApiUpdateCityOperationRequest {
     id: string;
     updateCityRequest: UpdateCityRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateCityEmergencyContactRequest {
+    cityId: string;
+    id: string;
+    saveCityEmergencyContactRequest: SaveCityEmergencyContactRequest;
     xCorrelationId?: string;
 }
 
@@ -1546,6 +1581,77 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createCity(requestParameters: ReferenceDataApiCreateCityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createCityRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createCityEmergencyContact without sending the request
+     */
+    async createCityEmergencyContactRequestOpts(requestParameters: ReferenceDataApiCreateCityEmergencyContactRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['cityId'] == null) {
+            throw new runtime.RequiredError(
+                'cityId',
+                'Required parameter "cityId" was null or undefined when calling createCityEmergencyContact().'
+            );
+        }
+
+        if (requestParameters['saveCityEmergencyContactRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveCityEmergencyContactRequest',
+                'Required parameter "saveCityEmergencyContactRequest" was null or undefined when calling createCityEmergencyContact().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/cities/{cityId}/emergency-contacts`;
+        urlPath = urlPath.replace('{cityId}', encodeURIComponent(String(requestParameters['cityId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveCityEmergencyContactRequestToJSON(requestParameters['saveCityEmergencyContactRequest']),
+        };
+    }
+
+    /**
+     * Create an emergency contact for a city
+     */
+    async createCityEmergencyContactRaw(requestParameters: ReferenceDataApiCreateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.createCityEmergencyContactRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create an emergency contact for a city
+     */
+    async createCityEmergencyContact(requestParameters: ReferenceDataApiCreateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.createCityEmergencyContactRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -3145,6 +3251,70 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteCity(requestParameters: ReferenceDataApiDeleteCityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteCityRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteCityEmergencyContact without sending the request
+     */
+    async deleteCityEmergencyContactRequestOpts(requestParameters: ReferenceDataApiDeleteCityEmergencyContactRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['cityId'] == null) {
+            throw new runtime.RequiredError(
+                'cityId',
+                'Required parameter "cityId" was null or undefined when calling deleteCityEmergencyContact().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteCityEmergencyContact().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/cities/{cityId}/emergency-contacts/{id}`;
+        urlPath = urlPath.replace('{cityId}', encodeURIComponent(String(requestParameters['cityId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete an emergency contact from a city
+     */
+    async deleteCityEmergencyContactRaw(requestParameters: ReferenceDataApiDeleteCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteCityEmergencyContactRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete an emergency contact from a city
+     */
+    async deleteCityEmergencyContact(requestParameters: ReferenceDataApiDeleteCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteCityEmergencyContactRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -6836,6 +7006,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for listCityEmergencyContacts without sending the request
+     */
+    async listCityEmergencyContactsRequestOpts(requestParameters: ReferenceDataApiListCityEmergencyContactsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['cityId'] == null) {
+            throw new runtime.RequiredError(
+                'cityId',
+                'Required parameter "cityId" was null or undefined when calling listCityEmergencyContacts().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/cities/{cityId}/emergency-contacts`;
+        urlPath = urlPath.replace('{cityId}', encodeURIComponent(String(requestParameters['cityId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List emergency contacts for a city
+     */
+    async listCityEmergencyContactsRaw(requestParameters: ReferenceDataApiListCityEmergencyContactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CityEmergencyContactDetail>>> {
+        const requestOptions = await this.listCityEmergencyContactsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CityEmergencyContactDetailFromJSON));
+    }
+
+    /**
+     * List emergency contacts for a city
+     */
+    async listCityEmergencyContacts(requestParameters: ReferenceDataApiListCityEmergencyContactsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CityEmergencyContactDetail>> {
+        const response = await this.listCityEmergencyContactsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listDealerAccountTypes without sending the request
      */
     async listDealerAccountTypesRequestOpts(requestParameters: ReferenceDataApiListDealerAccountTypesRequest): Promise<runtime.RequestOpts> {
@@ -7853,6 +8080,81 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateCity(requestParameters: ReferenceDataApiUpdateCityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateCityRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateCityEmergencyContact without sending the request
+     */
+    async updateCityEmergencyContactRequestOpts(requestParameters: ReferenceDataApiUpdateCityEmergencyContactRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['cityId'] == null) {
+            throw new runtime.RequiredError(
+                'cityId',
+                'Required parameter "cityId" was null or undefined when calling updateCityEmergencyContact().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateCityEmergencyContact().'
+            );
+        }
+
+        if (requestParameters['saveCityEmergencyContactRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveCityEmergencyContactRequest',
+                'Required parameter "saveCityEmergencyContactRequest" was null or undefined when calling updateCityEmergencyContact().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/cities/{cityId}/emergency-contacts/{id}`;
+        urlPath = urlPath.replace('{cityId}', encodeURIComponent(String(requestParameters['cityId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveCityEmergencyContactRequestToJSON(requestParameters['saveCityEmergencyContactRequest']),
+        };
+    }
+
+    /**
+     * Update an emergency contact for a city
+     */
+    async updateCityEmergencyContactRaw(requestParameters: ReferenceDataApiUpdateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.updateCityEmergencyContactRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update an emergency contact for a city
+     */
+    async updateCityEmergencyContact(requestParameters: ReferenceDataApiUpdateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.updateCityEmergencyContactRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

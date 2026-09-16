@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost*
 | [**createAlarmCategory**](ReferenceDataApi.md#createalarmcategoryoperation) | **POST** /v1/reference/alarm-categories | Create an alarm category |
 | [**createBrand**](ReferenceDataApi.md#createbrandoperation) | **POST** /v1/reference/brands | Create a brand |
 | [**createCity**](ReferenceDataApi.md#createcityoperation) | **POST** /v1/reference/cities | Create a city |
+| [**createCityEmergencyContact**](ReferenceDataApi.md#createcityemergencycontact) | **POST** /v1/reference/cities/{cityId}/emergency-contacts | Create an emergency contact for a city |
 | [**createCountry**](ReferenceDataApi.md#createcountryoperation) | **POST** /v1/reference/countries | Create a country |
 | [**createDealerAccountType**](ReferenceDataApi.md#createdealeraccounttypeoperation) | **POST** /v1/reference/dealer-account-types | Create a dealer account type |
 | [**createDistrict**](ReferenceDataApi.md#createdistrictoperation) | **POST** /v1/reference/districts | Create a district |
@@ -36,6 +37,7 @@ All URIs are relative to *http://localhost*
 | [**deleteAlarmCategory**](ReferenceDataApi.md#deletealarmcategory) | **DELETE** /v1/reference/alarm-categories/{id} | Delete an alarm category |
 | [**deleteBrand**](ReferenceDataApi.md#deletebrand) | **DELETE** /v1/reference/brands/{id} | Delete a brand |
 | [**deleteCity**](ReferenceDataApi.md#deletecity) | **DELETE** /v1/reference/cities/{id} | Delete a city |
+| [**deleteCityEmergencyContact**](ReferenceDataApi.md#deletecityemergencycontact) | **DELETE** /v1/reference/cities/{cityId}/emergency-contacts/{id} | Delete an emergency contact from a city |
 | [**deleteCountry**](ReferenceDataApi.md#deletecountry) | **DELETE** /v1/reference/countries/{id} | Delete a country |
 | [**deleteDealerAccountType**](ReferenceDataApi.md#deletedealeraccounttype) | **DELETE** /v1/reference/dealer-account-types/{id} | Delete a dealer account type |
 | [**deleteDistrict**](ReferenceDataApi.md#deletedistrict) | **DELETE** /v1/reference/districts/{id} | Delete a district |
@@ -102,6 +104,7 @@ All URIs are relative to *http://localhost*
 | [**getSignals**](ReferenceDataApi.md#getsignals) | **GET** /v1/reference/signals | List signals, optionally filtered by protocol, signal type, alarm category, or mapping status |
 | [**getTechnicalPeople**](ReferenceDataApi.md#gettechnicalpeople) | **GET** /v1/reference/technical-people | List active technical people, optionally filtered by dealer |
 | [**getTechnicalPersonById**](ReferenceDataApi.md#gettechnicalpersonbyid) | **GET** /v1/reference/technical-people/{id} | Get a technician |
+| [**listCityEmergencyContacts**](ReferenceDataApi.md#listcityemergencycontacts) | **GET** /v1/reference/cities/{cityId}/emergency-contacts | List emergency contacts for a city |
 | [**listDealerAccountTypes**](ReferenceDataApi.md#listdealeraccounttypes) | **GET** /v1/reference/dealer-account-types | List dealer account types, optionally filtered by dealer |
 | [**listHolidayTypes**](ReferenceDataApi.md#listholidaytypes) | **GET** /v1/reference/holiday-types | List holiday types |
 | [**listHolidays**](ReferenceDataApi.md#listholidays) | **GET** /v1/reference/holidays | List holidays, optionally filtered by holiday type |
@@ -119,6 +122,7 @@ All URIs are relative to *http://localhost*
 | [**updateAlarmCategory**](ReferenceDataApi.md#updatealarmcategoryoperation) | **PATCH** /v1/reference/alarm-categories/{id} | Update an alarm category |
 | [**updateBrand**](ReferenceDataApi.md#updatebrandoperation) | **PATCH** /v1/reference/brands/{id} | Update a brand |
 | [**updateCity**](ReferenceDataApi.md#updatecityoperation) | **PATCH** /v1/reference/cities/{id} | Update a city |
+| [**updateCityEmergencyContact**](ReferenceDataApi.md#updatecityemergencycontact) | **PATCH** /v1/reference/cities/{cityId}/emergency-contacts/{id} | Update an emergency contact for a city |
 | [**updateCountry**](ReferenceDataApi.md#updatecountryoperation) | **PATCH** /v1/reference/countries/{id} | Update a country |
 | [**updateDealerAccountType**](ReferenceDataApi.md#updatedealeraccounttypeoperation) | **PATCH** /v1/reference/dealer-account-types/{id} | Update a dealer account type |
 | [**updateDistrict**](ReferenceDataApi.md#updatedistrictoperation) | **PATCH** /v1/reference/districts/{id} | Update a district |
@@ -609,6 +613,88 @@ example().catch(console.error);
 | **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createCityEmergencyContact
+
+> ReferenceWriteResponse createCityEmergencyContact(cityId, saveCityEmergencyContactRequest, xCorrelationId, idempotencyKey)
+
+Create an emergency contact for a city
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { CreateCityEmergencyContactRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    cityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SaveCityEmergencyContactRequest
+    saveCityEmergencyContactRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateCityEmergencyContactRequest;
+
+  try {
+    const data = await api.createCityEmergencyContact(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cityId** | `string` |  | [Defaults to `undefined`] |
+| **saveCityEmergencyContactRequest** | [SaveCityEmergencyContactRequest](SaveCityEmergencyContactRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -2647,6 +2733,84 @@ example().catch(console.error);
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteCityEmergencyContact
+
+> deleteCityEmergencyContact(cityId, id, xCorrelationId)
+
+Delete an emergency contact from a city
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { DeleteCityEmergencyContactRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    cityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteCityEmergencyContactRequest;
+
+  try {
+    const data = await api.deleteCityEmergencyContact(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cityId** | `string` |  | [Defaults to `undefined`] |
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -7625,6 +7789,81 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## listCityEmergencyContacts
+
+> Array&lt;CityEmergencyContactDetail&gt; listCityEmergencyContacts(cityId, xCorrelationId)
+
+List emergency contacts for a city
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ListCityEmergencyContactsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    cityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListCityEmergencyContactsRequest;
+
+  try {
+    const data = await api.listCityEmergencyContacts(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cityId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;CityEmergencyContactDetail&gt;**](CityEmergencyContactDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## listDealerAccountTypes
 
 > Array&lt;LookupItem&gt; listDealerAccountTypes(dealerId, xCorrelationId)
@@ -8942,6 +9181,88 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateCityEmergencyContact
+
+> ReferenceWriteResponse updateCityEmergencyContact(cityId, id, saveCityEmergencyContactRequest, xCorrelationId)
+
+Update an emergency contact for a city
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { UpdateCityEmergencyContactRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    cityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SaveCityEmergencyContactRequest
+    saveCityEmergencyContactRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateCityEmergencyContactRequest;
+
+  try {
+    const data = await api.updateCityEmergencyContact(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **cityId** | `string` |  | [Defaults to `undefined`] |
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **saveCityEmergencyContactRequest** | [SaveCityEmergencyContactRequest](SaveCityEmergencyContactRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

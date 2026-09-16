@@ -100,6 +100,7 @@ docs/CallListItemPagedResult.md
 docs/CancelSideServiceRequest.md
 docs/ChangeOwnPasswordRequest.md
 docs/CityDetail.md
+docs/CityEmergencyContactDetail.md
 docs/ClientConfigResponse.md
 docs/CloneSideRequest.md
 docs/ClosingDelayApi.md
@@ -297,6 +298,7 @@ docs/RoleInfo.md
 docs/RoleListItem.md
 docs/SMSApi.md
 docs/SMSLogApi.md
+docs/SaveCityEmergencyContactRequest.md
 docs/SaveDeviceRegexRequest.md
 docs/SaveEmergencyPhoneRequest.md
 docs/SaveMobileOperatorRequest.md
@@ -532,6 +534,7 @@ models/CallListItemPagedResult.ts
 models/CancelSideServiceRequest.ts
 models/ChangeOwnPasswordRequest.ts
 models/CityDetail.ts
+models/CityEmergencyContactDetail.ts
 models/ClientConfigResponse.ts
 models/CloneSideRequest.ts
 models/ClosingDelayListItem.ts
@@ -711,6 +714,7 @@ models/ResetPasswordRequest.ts
 models/ResponseTimeAggregates.ts
 models/RoleInfo.ts
 models/RoleListItem.ts
+models/SaveCityEmergencyContactRequest.ts
 models/SaveDeviceRegexRequest.ts
 models/SaveEmergencyPhoneRequest.ts
 models/SaveMobileOperatorRequest.ts

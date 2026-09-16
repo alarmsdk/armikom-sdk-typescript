@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**globalSearch**](SearchApi.md#globalsearch) | **GET** /v1/search | Global search across subscribers and customers |
+| [**globalSearch**](SearchApi.md#globalsearch) | **GET** /v1/search | Global search across subscribers, contacts, mobile users and customers |
 
 
 
@@ -12,9 +12,9 @@ All URIs are relative to *http://localhost*
 
 > SearchResponse globalSearch(q, xCorrelationId)
 
-Global search across subscribers and customers
+Global search across subscribers, contacts, mobile users and customers
 
-Searches across two entity types (Side, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → Customer. Query must be at least 2 characters.
+Searches across four entity types (Side, SideContact, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → MobileUser → Customer. Contact and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
 
 ### Example
 
