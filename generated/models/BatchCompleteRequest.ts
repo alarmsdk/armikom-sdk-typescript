@@ -39,6 +39,20 @@ export interface BatchCompleteRequest {
      * @memberof BatchCompleteRequest
      */
     cutoffUtc?: Date | null;
+    /**
+     * Optional panel brand filter. When provided, only alarm events whose subscriber
+     * has this brand are processed.
+     * @type {string}
+     * @memberof BatchCompleteRequest
+     */
+    brandId?: string | null;
+    /**
+     * Optional panel model filter. When provided, only alarm events whose subscriber
+     * has this model are processed. Requires Armikom.Api.Contracts.Alarms.BatchCompleteRequest.BrandId to be meaningful.
+     * @type {string}
+     * @memberof BatchCompleteRequest
+     */
+    modelId?: string | null;
 }
 
 /**
@@ -61,6 +75,8 @@ export function BatchCompleteRequestFromJSONTyped(json: any, ignoreDiscriminator
         'signalCodes': json['signalCodes'] === undefined ? undefined : json['signalCodes'] === null ? null : json['signalCodes'],
         'action': json['action'] === undefined ? undefined : json['action'] === null ? null : json['action'],
         'cutoffUtc': json['cutoffUtc'] === undefined ? undefined : json['cutoffUtc'] === null ? null : (new Date(json['cutoffUtc'])),
+        'brandId': json['brandId'] === undefined ? undefined : json['brandId'] === null ? null : json['brandId'],
+        'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
     };
 }
 
@@ -78,6 +94,8 @@ export function BatchCompleteRequestToJSONTyped(value?: BatchCompleteRequest | n
         'signalCodes': value['signalCodes'],
         'action': value['action'],
         'cutoffUtc': value['cutoffUtc'] == null ? value['cutoffUtc'] : value['cutoffUtc'].toISOString(),
+        'brandId': value['brandId'],
+        'modelId': value['modelId'],
     };
 }
 

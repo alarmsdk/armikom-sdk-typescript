@@ -39,6 +39,20 @@ export interface BatchDelayRequest {
      * @memberof BatchDelayRequest
      */
     cutoffUtc?: Date | null;
+    /**
+     * Optional panel brand filter. When provided, only alarm events whose subscriber
+     * has this brand are delayed.
+     * @type {string}
+     * @memberof BatchDelayRequest
+     */
+    brandId?: string | null;
+    /**
+     * Optional panel model filter. When provided, only alarm events whose subscriber
+     * has this model are delayed. Requires Armikom.Api.Contracts.Alarms.BatchDelayRequest.BrandId to be meaningful.
+     * @type {string}
+     * @memberof BatchDelayRequest
+     */
+    modelId?: string | null;
 }
 
 /**
@@ -61,6 +75,8 @@ export function BatchDelayRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'signalCodes': json['signalCodes'] === undefined ? undefined : json['signalCodes'] === null ? null : json['signalCodes'],
         'delayMinutes': json['delayMinutes'] == null ? undefined : json['delayMinutes'],
         'cutoffUtc': json['cutoffUtc'] === undefined ? undefined : json['cutoffUtc'] === null ? null : (new Date(json['cutoffUtc'])),
+        'brandId': json['brandId'] === undefined ? undefined : json['brandId'] === null ? null : json['brandId'],
+        'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
     };
 }
 
@@ -78,6 +94,8 @@ export function BatchDelayRequestToJSONTyped(value?: BatchDelayRequest | null, i
         'signalCodes': value['signalCodes'],
         'delayMinutes': value['delayMinutes'],
         'cutoffUtc': value['cutoffUtc'] == null ? value['cutoffUtc'] : value['cutoffUtc'].toISOString(),
+        'brandId': value['brandId'],
+        'modelId': value['modelId'],
     };
 }
 

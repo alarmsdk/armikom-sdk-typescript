@@ -141,6 +141,8 @@ export interface AlarmEventsApiGetAlarmEventsRequest {
 }
 
 export interface AlarmEventsApiGetBatchCandidatesRequest {
+    brandId?: string;
+    modelId?: string;
     xCorrelationId?: string;
 }
 
@@ -585,6 +587,14 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     async getBatchCandidatesRequestOpts(requestParameters: AlarmEventsApiGetBatchCandidatesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
+        if (requestParameters['brandId'] != null) {
+            queryParameters['brandId'] = requestParameters['brandId'];
+        }
+
+        if (requestParameters['modelId'] != null) {
+            queryParameters['modelId'] = requestParameters['modelId'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -611,7 +621,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\'s alarms.
+     * Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\'s alarms. Optional brandId and modelId query parameters narrow results to alarm events whose subscriber has the matching panel brand and/or model.
      * List alarm event signal codes grouped for batch operations
      */
     async getBatchCandidatesRaw(requestParameters: AlarmEventsApiGetBatchCandidatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BatchCandidateItem>>> {
@@ -622,7 +632,7 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\'s alarms.
+     * Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\'s alarms. Optional brandId and modelId query parameters narrow results to alarm events whose subscriber has the matching panel brand and/or model.
      * List alarm event signal codes grouped for batch operations
      */
     async getBatchCandidates(requestParameters: AlarmEventsApiGetBatchCandidatesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BatchCandidateItem>> {

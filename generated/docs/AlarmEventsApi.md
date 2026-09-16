@@ -514,11 +514,11 @@ example().catch(console.error);
 
 ## getBatchCandidates
 
-> Array&lt;BatchCandidateItem&gt; getBatchCandidates(xCorrelationId)
+> Array&lt;BatchCandidateItem&gt; getBatchCandidates(brandId, modelId, xCorrelationId)
 
 List alarm event signal codes grouped for batch operations
 
-Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\&#39;s alarms.
+Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center\&#39;s alarms. Optional brandId and modelId query parameters narrow results to alarm events whose subscriber has the matching panel brand and/or model.
 
 ### Example
 
@@ -538,6 +538,10 @@ async function example() {
   const api = new AlarmEventsApi(config);
 
   const body = {
+    // string (optional)
+    brandId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    modelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetBatchCandidatesRequest;
@@ -559,6 +563,8 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **brandId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **modelId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

@@ -9,6 +9,8 @@ Name | Type
 `signalCodes` | Array&lt;string&gt;
 `action` | string
 `cutoffUtc` | Date
+`brandId` | string
+`modelId` | string
 
 ## Example
 
@@ -20,6 +22,8 @@ const example = {
   "signalCodes": null,
   "action": null,
   "cutoffUtc": null,
+  "brandId": null,
+  "modelId": null,
 } satisfies BatchCompleteRequest
 
 console.log(example)

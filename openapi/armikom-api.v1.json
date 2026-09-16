@@ -12871,9 +12871,25 @@
           "Alarm Events"
         ],
         "summary": "List alarm event signal codes grouped for batch operations",
-        "description": "Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center's alarms.",
+        "description": "Groups active alarm events by SignalType.SignalCode and returns each code with its display name and event count, ordered by count descending. Rows with null EventId or null/empty SignalCode are excluded. Tenant-filtered — an operator sees only their monitoring center's alarms. Optional brandId and modelId query parameters narrow results to alarm events whose subscriber has the matching panel brand and/or model.",
         "operationId": "GetBatchCandidates",
         "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
           {
             "name": "X-Correlation-Id",
             "in": "header",
@@ -85020,6 +85036,18 @@
             "description": "UTC timestamp of when the operator opened the batch screen.\nWhen provided, only alarm events created before this point are processed,\nso alarms arriving after the operator loaded the candidate list are untouched.",
             "format": "date-time",
             "nullable": true
+          },
+          "brandId": {
+            "type": "string",
+            "description": "Optional panel brand filter. When provided, only alarm events whose subscriber\nhas this brand are processed.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "string",
+            "description": "Optional panel model filter. When provided, only alarm events whose subscriber\nhas this model are processed. Requires Armikom.Api.Contracts.Alarms.BatchCompleteRequest.BrandId to be meaningful.",
+            "format": "uuid",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -85059,6 +85087,18 @@
             "type": "string",
             "description": "UTC timestamp of when the operator opened the batch screen.\nWhen provided, only alarm events created before this point are processed,\nso alarms arriving after the operator loaded the candidate list are untouched.",
             "format": "date-time",
+            "nullable": true
+          },
+          "brandId": {
+            "type": "string",
+            "description": "Optional panel brand filter. When provided, only alarm events whose subscriber\nhas this brand are delayed.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "string",
+            "description": "Optional panel model filter. When provided, only alarm events whose subscriber\nhas this model are delayed. Requires Armikom.Api.Contracts.Alarms.BatchDelayRequest.BrandId to be meaningful.",
+            "format": "uuid",
             "nullable": true
           }
         },
