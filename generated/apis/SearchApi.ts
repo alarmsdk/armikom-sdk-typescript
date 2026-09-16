@@ -65,8 +65,8 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across four entity types (Side, SideContact, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → MobileUser → Customer. Contact and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
-     * Global search across subscribers, contacts, mobile users and customers
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearchRaw(requestParameters: SearchApiGlobalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchResponse>> {
         const requestOptions = await this.globalSearchRequestOpts(requestParameters);
@@ -76,8 +76,8 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across four entity types (Side, SideContact, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → MobileUser → Customer. Contact and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
-     * Global search across subscribers, contacts, mobile users and customers
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearch(requestParameters: SearchApiGlobalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchResponse> {
         const response = await this.globalSearchRaw(requestParameters, initOverrides);

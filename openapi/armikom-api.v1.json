@@ -52022,8 +52022,8 @@
         "tags": [
           "Search"
         ],
-        "summary": "Global search across subscribers, contacts, mobile users and customers",
-        "description": "Searches across four entity types (Side, SideContact, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → MobileUser → Customer. Contact and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.",
+        "summary": "Global search across subscribers, contacts, key holders, mobile users and customers",
+        "description": "Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.",
         "operationId": "GlobalSearch",
         "parameters": [
           {
