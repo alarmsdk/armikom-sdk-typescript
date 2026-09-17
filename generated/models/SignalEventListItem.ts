@@ -103,6 +103,18 @@ export interface SignalEventListItem {
      * @memberof SignalEventListItem
      */
     alarmCategoryName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventListItem
+     */
+    frontColor?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventListItem
+     */
+    backColor?: string | null;
 }
 
 /**
@@ -136,6 +148,8 @@ export function SignalEventListItemFromJSONTyped(json: any, ignoreDiscriminator:
         'sideId': json['sideId'] === undefined ? undefined : json['sideId'] === null ? null : json['sideId'],
         'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
         'alarmCategoryName': json['alarmCategoryName'] === undefined ? undefined : json['alarmCategoryName'] === null ? null : json['alarmCategoryName'],
+        'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
+        'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
     };
 }
 
@@ -164,6 +178,8 @@ export function SignalEventListItemToJSONTyped(value?: SignalEventListItem | nul
         'sideId': value['sideId'],
         'dealerName': value['dealerName'],
         'alarmCategoryName': value['alarmCategoryName'],
+        'frontColor': value['frontColor'],
+        'backColor': value['backColor'],
     };
 }
 
