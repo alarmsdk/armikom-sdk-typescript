@@ -57289,6 +57289,13 @@
             }
           },
           {
+            "name": "signalName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sideId",
             "in": "query",
             "schema": {
@@ -57374,6 +57381,13 @@
           },
           {
             "name": "actionNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "signalNameNot",
             "in": "query",
             "schema": {
               "type": "string"

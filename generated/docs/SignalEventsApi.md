@@ -581,7 +581,7 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, signalNameNot, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
@@ -634,6 +634,8 @@ async function example() {
     // string (optional)
     action: action_example,
     // string (optional)
+    signalName: signalName_example,
+    // string (optional)
     sideId: sideId_example,
     // string (optional)
     receiverId: receiverId_example,
@@ -659,6 +661,8 @@ async function example() {
     alarmCategoryIdNot: alarmCategoryIdNot_example,
     // string (optional)
     actionNot: actionNot_example,
+    // string (optional)
+    signalNameNot: signalNameNot_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalEventsRequest;
@@ -694,6 +698,7 @@ example().catch(console.error);
 | **receiverName** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterName** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **action** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **signalName** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **sideId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **receiverId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
@@ -707,6 +712,7 @@ example().catch(console.error);
 | **dealerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **alarmCategoryIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **actionNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **signalNameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
