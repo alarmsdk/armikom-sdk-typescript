@@ -52023,7 +52023,7 @@
           "Search"
         ],
         "summary": "Global search across subscribers, contacts, key holders, mobile users and customers",
-        "description": "Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.",
+        "description": "Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section and limit to control results (max 50). Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.",
         "operationId": "GlobalSearch",
         "parameters": [
           {
@@ -52031,6 +52031,21 @@
             "in": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "entityType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           },
           {
@@ -91495,6 +91510,12 @@
           },
           "count": {
             "type": "integer",
+            "description": "Number of items in this page (same as Items.Count).",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "Total matching records for this entity type across the full dataset.",
             "format": "int32"
           }
         },

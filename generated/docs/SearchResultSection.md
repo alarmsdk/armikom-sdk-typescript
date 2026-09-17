@@ -9,6 +9,7 @@ Name | Type
 `entityType` | string
 `items` | [Array&lt;SearchResultItem&gt;](SearchResultItem.md)
 `count` | number
+`totalCount` | number
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "entityType": null,
   "items": null,
   "count": null,
+  "totalCount": null,
 } satisfies SearchResultSection
 
 console.log(example)

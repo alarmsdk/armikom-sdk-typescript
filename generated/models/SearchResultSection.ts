@@ -40,11 +40,17 @@ export interface SearchResultSection {
      */
     items?: Array<SearchResultItem> | null;
     /**
-     * 
+     * Number of items in this page (same as Items.Count).
      * @type {number}
      * @memberof SearchResultSection
      */
     count?: number;
+    /**
+     * Total matching records for this entity type across the full dataset.
+     * @type {number}
+     * @memberof SearchResultSection
+     */
+    totalCount?: number;
 }
 
 /**
@@ -67,6 +73,7 @@ export function SearchResultSectionFromJSONTyped(json: any, ignoreDiscriminator:
         'entityType': json['entityType'] === undefined ? undefined : json['entityType'] === null ? null : json['entityType'],
         'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(SearchResultItemFromJSON)),
         'count': json['count'] == null ? undefined : json['count'],
+        'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
     };
 }
 
@@ -84,6 +91,7 @@ export function SearchResultSectionToJSONTyped(value?: SearchResultSection | nul
         'entityType': value['entityType'],
         'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(SearchResultItemToJSON)),
         'count': value['count'],
+        'totalCount': value['totalCount'],
     };
 }
 

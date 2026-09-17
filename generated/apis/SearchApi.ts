@@ -21,6 +21,8 @@ import {
 
 export interface SearchApiGlobalSearchRequest {
     q?: string;
+    entityType?: string;
+    limit?: number;
     xCorrelationId?: string;
 }
 
@@ -37,6 +39,14 @@ export class SearchApi extends runtime.BaseAPI {
 
         if (requestParameters['q'] != null) {
             queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['entityType'] != null) {
+            queryParameters['entityType'] = requestParameters['entityType'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -65,7 +75,7 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section and limit to control results (max 50). Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
      * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearchRaw(requestParameters: SearchApiGlobalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchResponse>> {
@@ -76,7 +86,7 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section, ordered Side → SideContact → SideUser → MobileUser → Customer. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section and limit to control results (max 50). Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
      * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearch(requestParameters: SearchApiGlobalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchResponse> {
