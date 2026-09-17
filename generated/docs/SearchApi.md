@@ -10,11 +10,11 @@ All URIs are relative to *http://localhost*
 
 ## globalSearch
 
-> SearchResponse globalSearch(q, entityType, limit, xCorrelationId)
+> SearchResponse globalSearch(q, entityType, limit, skip, xCorrelationId)
 
 Global search across subscribers, contacts, key holders, mobile users and customers
 
-Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section and limit to control results (max 50). Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section, limit to control page size (max 50), and skip for offset-based pagination. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
 
 ### Example
 
@@ -40,6 +40,8 @@ async function example() {
     entityType: entityType_example,
     // number (optional)
     limit: 56,
+    // number (optional)
+    skip: 56,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GlobalSearchRequest;
@@ -64,6 +66,7 @@ example().catch(console.error);
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **entityType** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **skip** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
