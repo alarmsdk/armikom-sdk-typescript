@@ -46,7 +46,7 @@ test('every exclusion filter reaches the wire as its own query parameter', async
     alarmCategoryIdNot: 'cat-test',
     eventCodeNot: 'E602',
     actionNot: 'auto-closed',
-    signalName: 'Hırsız Alarmı,Yangın',
+    signalName: 'Hırsız Alarmı,*hirsiz*',
     signalNameNot: 'TST',
   });
 
@@ -64,8 +64,10 @@ test('every exclusion filter reaches the wire as its own query parameter', async
   assert.equal(query.get('actionNot'), 'auto-closed');
 
   // signalName carries a list. It goes out as one comma-separated value, the way
-  // the id filters do, and the non-ASCII names survive the encoding intact.
-  assert.equal(query.get('signalName'), 'Hırsız Alarmı,Yangın');
+  // the id filters do; the non-ASCII names survive the encoding intact, and so does
+  // the `*` that marks a value as a pattern rather than an exact name — percent-encoded
+  // to %2A by URLSearchParams, it must still reach the server as a star.
+  assert.equal(query.get('signalName'), 'Hırsız Alarmı,*hirsiz*');
   assert.equal(query.get('signalNameNot'), 'TST');
 });
 
