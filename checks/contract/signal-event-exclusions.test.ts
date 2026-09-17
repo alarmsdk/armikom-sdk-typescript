@@ -17,6 +17,8 @@ type _hasDealerIdNot = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'dealer
 type _hasCategoryIdNot = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'alarmCategoryIdNot'>>;
 type _hasEventCodeNot = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'eventCodeNot'>>;
 type _hasActionNot = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'actionNot'>>;
+type _hasSignalName = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'signalName'>>;
+type _hasSignalNameNot = Expect<Has<SignalEventsApiGetSignalEventsRequest, 'signalNameNot'>>;
 
 /** A fetch that records the URL it was called with and answers with an empty page. */
 function recordingFetch(): { calls: string[]; fetch: typeof fetch } {
@@ -44,6 +46,8 @@ test('every exclusion filter reaches the wire as its own query parameter', async
     alarmCategoryIdNot: 'cat-test',
     eventCodeNot: 'E602',
     actionNot: 'auto-closed',
+    signalName: 'Hırsız Alarmı,Yangın',
+    signalNameNot: 'TST',
   });
 
   assert.equal(calls.length, 1);
@@ -58,6 +62,11 @@ test('every exclusion filter reaches the wire as its own query parameter', async
   assert.equal(query.get('dealerIdNot'), 'dealer-a');
   assert.equal(query.get('eventCodeNot'), 'E602');
   assert.equal(query.get('actionNot'), 'auto-closed');
+
+  // signalName carries a list. It goes out as one comma-separated value, the way
+  // the id filters do, and the non-ASCII names survive the encoding intact.
+  assert.equal(query.get('signalName'), 'Hırsız Alarmı,Yangın');
+  assert.equal(query.get('signalNameNot'), 'TST');
 });
 
 test('omitted exclusions are not sent as empty parameters', async () => {
@@ -75,6 +84,7 @@ test('omitted exclusions are not sent as empty parameters', async () => {
     'alarmCategoryIdNot',
     'eventCodeNot',
     'actionNot',
+    'signalNameNot',
   ]) {
     assert.equal(query.has(key), false, `${key} must not be sent when it is not set`);
   }

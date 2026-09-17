@@ -769,7 +769,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all.
+     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of exact signal type names; `eventCode`/`action` and their counterparts stay single substring matches.
      * List signal events with filtering, sorting and pagination
      */
     async getSignalEventsRaw(requestParameters: SignalEventsApiGetSignalEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalEventListItemPagedResult>> {
@@ -780,7 +780,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all.
+     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of exact signal type names; `eventCode`/`action` and their counterparts stay single substring matches.
      * List signal events with filtering, sorting and pagination
      */
     async getSignalEvents(requestParameters: SignalEventsApiGetSignalEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalEventListItemPagedResult> {
