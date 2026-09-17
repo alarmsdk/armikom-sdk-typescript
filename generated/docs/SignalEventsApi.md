@@ -581,11 +581,11 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
-Returns a paginated list of signal events visible to the current user. Filter by date range with &#x60;from&#x60;/&#x60;to&#x60; (ISO-8601 UTC). Default sort is by signal date descending.
+Returns a paginated list of signal events visible to the current user. Filter by date range with &#x60;from&#x60;/&#x60;to&#x60; (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a &#x60;...Not&#x60; counterpart that excludes instead of includes, so &#x60;alarmCategoryIdNot&#x60; drops signals in those categories. Within one dimension the values are OR\&#39;ed, dimensions are AND\&#39;ed, and excluding a dimension never drops rows that have no value for it at all.
 
 ### Example
 
@@ -645,6 +645,20 @@ async function example() {
     dealerId: dealerId_example,
     // string (optional)
     alarmCategoryId: alarmCategoryId_example,
+    // string (optional)
+    sideIdNot: sideIdNot_example,
+    // string (optional)
+    receiverIdNot: receiverIdNot_example,
+    // string (optional)
+    monitoringCenterIdNot: monitoringCenterIdNot_example,
+    // string (optional)
+    eventCodeNot: eventCodeNot_example,
+    // string (optional)
+    dealerIdNot: dealerIdNot_example,
+    // string (optional)
+    alarmCategoryIdNot: alarmCategoryIdNot_example,
+    // string (optional)
+    actionNot: actionNot_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalEventsRequest;
@@ -686,6 +700,13 @@ example().catch(console.error);
 | **eventCode** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **dealerId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sideIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **receiverIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **eventCodeNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **dealerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **alarmCategoryIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **actionNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

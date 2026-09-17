@@ -57172,7 +57172,7 @@
           "Signal Events"
         ],
         "summary": "List signal events with filtering, sorting and pagination",
-        "description": "Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending.",
+        "description": "Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR'ed, dimensions are AND'ed, and excluding a dimension never drops rows that have no value for it at all.",
         "operationId": "GetSignalEvents",
         "parameters": [
           {
@@ -57317,6 +57317,55 @@
           },
           {
             "name": "alarmCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sideIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "receiverIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventCodeNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealerIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "alarmCategoryIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actionNot",
             "in": "query",
             "schema": {
               "type": "string"
