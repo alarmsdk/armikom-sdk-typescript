@@ -67,6 +67,12 @@ export interface CreateOperatorUserRequest {
      * @memberof CreateOperatorUserRequest
      */
     roleIds?: Array<string> | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreateOperatorUserRequest
+     */
+    alarmCategoryIds?: Array<string> | null;
 }
 
 /**
@@ -94,6 +100,7 @@ export function CreateOperatorUserRequestFromJSONTyped(json: any, ignoreDiscrimi
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'workScheduleId': json['workScheduleId'] === undefined ? undefined : json['workScheduleId'] === null ? null : json['workScheduleId'],
         'roleIds': json['roleIds'] === undefined ? undefined : json['roleIds'] === null ? null : json['roleIds'],
+        'alarmCategoryIds': json['alarmCategoryIds'] === undefined ? undefined : json['alarmCategoryIds'] === null ? null : json['alarmCategoryIds'],
     };
 }
 
@@ -116,6 +123,7 @@ export function CreateOperatorUserRequestToJSONTyped(value?: CreateOperatorUserR
         'monitoringCenterId': value['monitoringCenterId'],
         'workScheduleId': value['workScheduleId'],
         'roleIds': value['roleIds'],
+        'alarmCategoryIds': value['alarmCategoryIds'],
     };
 }
 

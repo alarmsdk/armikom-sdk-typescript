@@ -20,6 +20,13 @@ import {
     RoleInfoToJSON,
     RoleInfoToJSONTyped,
 } from './RoleInfo';
+import type { AlarmCategoryAssignment } from './AlarmCategoryAssignment';
+import {
+    AlarmCategoryAssignmentFromJSON,
+    AlarmCategoryAssignmentFromJSONTyped,
+    AlarmCategoryAssignmentToJSON,
+    AlarmCategoryAssignmentToJSONTyped,
+} from './AlarmCategoryAssignment';
 
 /**
  * 
@@ -93,6 +100,12 @@ export interface OperatorUserDetailResponse {
      * @memberof OperatorUserDetailResponse
      */
     roles?: Array<RoleInfo> | null;
+    /**
+     * 
+     * @type {Array<AlarmCategoryAssignment>}
+     * @memberof OperatorUserDetailResponse
+     */
+    allowedAlarmCategories?: Array<AlarmCategoryAssignment> | null;
 }
 
 /**
@@ -123,6 +136,7 @@ export function OperatorUserDetailResponseFromJSONTyped(json: any, ignoreDiscrim
         'lockedUntil': json['lockedUntil'] === undefined ? undefined : json['lockedUntil'] === null ? null : (new Date(json['lockedUntil'])),
         'isLocked': json['isLocked'] == null ? undefined : json['isLocked'],
         'roles': json['roles'] === undefined ? undefined : json['roles'] === null ? null : ((json['roles'] as Array<any>).map(RoleInfoFromJSON)),
+        'allowedAlarmCategories': json['allowedAlarmCategories'] === undefined ? undefined : json['allowedAlarmCategories'] === null ? null : ((json['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentFromJSON)),
     };
 }
 
@@ -148,6 +162,7 @@ export function OperatorUserDetailResponseToJSONTyped(value?: OperatorUserDetail
         'lockedUntil': value['lockedUntil'] == null ? value['lockedUntil'] : value['lockedUntil'].toISOString(),
         'isLocked': value['isLocked'],
         'roles': value['roles'] == null ? undefined : ((value['roles'] as Array<any>).map(RoleInfoToJSON)),
+        'allowedAlarmCategories': value['allowedAlarmCategories'] == null ? undefined : ((value['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentToJSON)),
     };
 }
 

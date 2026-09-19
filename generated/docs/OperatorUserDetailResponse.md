@@ -17,6 +17,7 @@ Name | Type
 `lockedUntil` | Date
 `isLocked` | boolean
 `roles` | [Array&lt;RoleInfo&gt;](RoleInfo.md)
+`allowedAlarmCategories` | [Array&lt;AlarmCategoryAssignment&gt;](AlarmCategoryAssignment.md)
 
 ## Example
 
@@ -36,6 +37,7 @@ const example = {
   "lockedUntil": null,
   "isLocked": null,
   "roles": null,
+  "allowedAlarmCategories": null,
 } satisfies OperatorUserDetailResponse
 
 console.log(example)

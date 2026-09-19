@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 | [**activateSide**](SubscribersApi.md#activatesideoperation) | **POST** /v1/sides/{sideId}/activate | Set a subscriber to active |
 | [**approveSide**](SubscribersApi.md#approvesideoperation) | **POST** /v1/sides/{sideId}/approve | Approve a subscriber |
+| [**batchUpdateSides**](SubscribersApi.md#batchupdatesides) | **POST** /v1/sides/batch-update | Set the same field values on many subscribers at once |
 | [**cloneSide**](SubscribersApi.md#clonesideoperation) | **POST** /v1/sides/{sideId}/clone | Clone a subscriber |
 | [**createPartition**](SubscribersApi.md#createpartitionoperation) | **POST** /v1/sides/{sideId}/partitions | Create a partition of a subscriber |
 | [**createSide**](SubscribersApi.md#createsideoperation) | **POST** /v1/sides | Create a new subscriber |
@@ -196,6 +197,87 @@ example().catch(console.error);
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## batchUpdateSides
+
+> SideBatchUpdateResponse batchUpdateSides(sideBatchUpdateRequest, xCorrelationId, idempotencyKey)
+
+Set the same field values on many subscribers at once
+
+Assigns panel brand/model/protocol, city/district/region, dealer, installer, customer, account type, subscriber type and comment across a set of subscribers. Name the set either with &#x60;sideIds&#x60; or with &#x60;filter&#x60; — the same criteria &#x60;GET /v1/sides&#x60; takes, re-run server-side so the batch hits exactly what the search matched — but not both. Each field is tri-state: absent leaves the column alone, a value sets it, an explicit null clears it. Pass &#x60;expectedCount&#x60; with the row count the operator confirmed; when the set has changed since, nothing is written and 409 SIDE_BATCH.COUNT_MISMATCH comes back. At most 1000 subscribers per call: an explicit list longer than that is refused, a filter matching more is capped and the response says &#x60;isCapped&#x60;. CloudAlarm subscribers are read-only and come back in &#x60;failures[]&#x60; rather than failing the call. Active/passive and approval are not settable here — they carry reason codes and have their own endpoints.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { BatchUpdateSidesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // SideBatchUpdateRequest
+    sideBatchUpdateRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies BatchUpdateSidesRequest;
+
+  try {
+    const data = await api.batchUpdateSides(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideBatchUpdateRequest** | [SideBatchUpdateRequest](SideBatchUpdateRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SideBatchUpdateResponse**](SideBatchUpdateResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -1755,11 +1837,11 @@ example().catch(console.error);
 
 ## getSides
 
-> SideListItemPagedResult getSides(q, active, approved, dealerId, cursor, limit, page, pageSize, offset, sort, xCorrelationId)
+> SideListItemPagedResult getSides(q, active, approved, dealerId, cursor, limit, page, pageSize, offset, sort, cityId, districtId, regionId, brandId, modelId, protocolId, accountTypeId, sideTypeId, monitoringCenterId, installerId, customerId, dealerIds, cityIdNot, districtIdNot, regionIdNot, brandIdNot, modelIdNot, protocolIdNot, accountTypeIdNot, sideTypeIdNot, monitoringCenterIdNot, installerIdNot, customerIdNot, dealerIdNot, name, nameNot, address, addressNot, serialNumber, serialNumberNot, comment, commentNot, phone, phoneNot, isOpen, cloudAlarm, neverSignalled, sideNoFrom, sideNoTo, installDateFrom, installDateTo, startDateFrom, startDateTo, endDateFrom, endDateTo, lastSignalFrom, lastSignalTo, xCorrelationId)
 
 List subscribers with filtering, sorting and pagination
 
-Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-startDate,sideNo&#x60;).
+Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-startDate,sideNo&#x60;). Advanced search: every id dimension (&#x60;brandId&#x60;, &#x60;modelId&#x60;, &#x60;protocolId&#x60;, &#x60;cityId&#x60;, &#x60;districtId&#x60;, &#x60;regionId&#x60;, &#x60;accountTypeId&#x60;, &#x60;sideTypeId&#x60;, &#x60;monitoringCenterId&#x60;, &#x60;installerId&#x60;, &#x60;customerId&#x60;, &#x60;dealerIds&#x60;) takes a comma-separated list and has a &#x60;...Not&#x60; counterpart that excludes instead of includes. Within one dimension the values are OR\&#39;ed, dimensions are AND\&#39;ed, and excluding a dimension never drops rows that have no value for it at all. &#x60;name&#x60;, &#x60;address&#x60;, &#x60;serialNumber&#x60;, &#x60;comment&#x60; and &#x60;phone&#x60; are substring matches with the same &#x60;...Not&#x60; counterparts; &#x60;sideNoFrom&#x60;/&#x60;To&#x60;, &#x60;installDateFrom&#x60;/&#x60;To&#x60;, &#x60;startDateFrom&#x60;/&#x60;To&#x60;, &#x60;endDateFrom&#x60;/&#x60;To&#x60; and &#x60;lastSignalFrom&#x60;/&#x60;To&#x60; are inclusive ranges.
 
 ### Example
 
@@ -1799,6 +1881,100 @@ async function example() {
     offset: 56,
     // string (optional)
     sort: sort_example,
+    // string (optional)
+    cityId: cityId_example,
+    // string (optional)
+    districtId: districtId_example,
+    // string (optional)
+    regionId: regionId_example,
+    // string (optional)
+    brandId: brandId_example,
+    // string (optional)
+    modelId: modelId_example,
+    // string (optional)
+    protocolId: protocolId_example,
+    // string (optional)
+    accountTypeId: accountTypeId_example,
+    // string (optional)
+    sideTypeId: sideTypeId_example,
+    // string (optional)
+    monitoringCenterId: monitoringCenterId_example,
+    // string (optional)
+    installerId: installerId_example,
+    // string (optional)
+    customerId: customerId_example,
+    // string (optional)
+    dealerIds: dealerIds_example,
+    // string (optional)
+    cityIdNot: cityIdNot_example,
+    // string (optional)
+    districtIdNot: districtIdNot_example,
+    // string (optional)
+    regionIdNot: regionIdNot_example,
+    // string (optional)
+    brandIdNot: brandIdNot_example,
+    // string (optional)
+    modelIdNot: modelIdNot_example,
+    // string (optional)
+    protocolIdNot: protocolIdNot_example,
+    // string (optional)
+    accountTypeIdNot: accountTypeIdNot_example,
+    // string (optional)
+    sideTypeIdNot: sideTypeIdNot_example,
+    // string (optional)
+    monitoringCenterIdNot: monitoringCenterIdNot_example,
+    // string (optional)
+    installerIdNot: installerIdNot_example,
+    // string (optional)
+    customerIdNot: customerIdNot_example,
+    // string (optional)
+    dealerIdNot: dealerIdNot_example,
+    // string (optional)
+    name: name_example,
+    // string (optional)
+    nameNot: nameNot_example,
+    // string (optional)
+    address: address_example,
+    // string (optional)
+    addressNot: addressNot_example,
+    // string (optional)
+    serialNumber: serialNumber_example,
+    // string (optional)
+    serialNumberNot: serialNumberNot_example,
+    // string (optional)
+    comment: comment_example,
+    // string (optional)
+    commentNot: commentNot_example,
+    // string (optional)
+    phone: phone_example,
+    // string (optional)
+    phoneNot: phoneNot_example,
+    // boolean (optional)
+    isOpen: true,
+    // boolean (optional)
+    cloudAlarm: true,
+    // boolean (optional)
+    neverSignalled: true,
+    // number (optional)
+    sideNoFrom: 56,
+    // number (optional)
+    sideNoTo: 56,
+    // Date (optional)
+    installDateFrom: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    installDateTo: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    startDateFrom: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    startDateTo: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    endDateFrom: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    endDateTo: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    lastSignalFrom: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    lastSignalTo: 2013-10-20T19:20:30+01:00,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSidesRequest;
@@ -1830,6 +2006,53 @@ example().catch(console.error);
 | **pageSize** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **sort** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cityId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **districtId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **regionId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **brandId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **modelId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **protocolId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **accountTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sideTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **installerId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **customerId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **dealerIds** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cityIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **districtIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **regionIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **brandIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **modelIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **protocolIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **accountTypeIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **sideTypeIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **installerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **customerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **dealerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **name** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **nameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **address** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **addressNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **serialNumber** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **serialNumberNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **comment** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **commentNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **phone** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **phoneNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **isOpen** | `boolean` |  | [Optional] [Defaults to `undefined`] |
+| **cloudAlarm** | `boolean` |  | [Optional] [Defaults to `undefined`] |
+| **neverSignalled** | `boolean` |  | [Optional] [Defaults to `undefined`] |
+| **sideNoFrom** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **sideNoTo** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **installDateFrom** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **installDateTo** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **startDateFrom** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **startDateTo** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **endDateFrom** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **endDateTo** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **lastSignalFrom** | `Date` |  | [Optional] [Defaults to `undefined`] |
+| **lastSignalTo** | `Date` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

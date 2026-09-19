@@ -151,6 +151,18 @@ export interface AlarmEventListItem {
      * @memberof AlarmEventListItem
      */
     backColor?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlarmEventListItem
+     */
+    alarmCategoryId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlarmEventListItem
+     */
+    alarmCategoryName?: string | null;
 }
 
 /**
@@ -192,6 +204,8 @@ export function AlarmEventListItemFromJSONTyped(json: any, ignoreDiscriminator: 
         'actionText': json['actionText'] === undefined ? undefined : json['actionText'] === null ? null : json['actionText'],
         'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
         'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
+        'alarmCategoryId': json['alarmCategoryId'] === undefined ? undefined : json['alarmCategoryId'] === null ? null : json['alarmCategoryId'],
+        'alarmCategoryName': json['alarmCategoryName'] === undefined ? undefined : json['alarmCategoryName'] === null ? null : json['alarmCategoryName'],
     };
 }
 
@@ -228,6 +242,8 @@ export function AlarmEventListItemToJSONTyped(value?: AlarmEventListItem | null,
         'actionText': value['actionText'],
         'frontColor': value['frontColor'],
         'backColor': value['backColor'],
+        'alarmCategoryId': value['alarmCategoryId'],
+        'alarmCategoryName': value['alarmCategoryName'],
     };
 }
 

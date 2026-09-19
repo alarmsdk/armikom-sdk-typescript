@@ -45,7 +45,7 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 405 -> 411: additional operations added on master. Re-pinned deliberately.
   // 411 -> 412: GetAdvisories endpoint added. Re-pinned deliberately.
   // 412 -> 416: CityEmergencyContact CRUD + expanded search. Re-pinned deliberately.
-  assert.equal(ids.size, 416, 'operation count moved off the pinned contract');
+  assert.equal(ids.size, 418, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

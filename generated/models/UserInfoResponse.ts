@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { AlarmCategoryAssignment } from './AlarmCategoryAssignment';
+import {
+    AlarmCategoryAssignmentFromJSON,
+    AlarmCategoryAssignmentFromJSONTyped,
+    AlarmCategoryAssignmentToJSON,
+    AlarmCategoryAssignmentToJSONTyped,
+} from './AlarmCategoryAssignment';
+
 /**
  * 
  * @export
@@ -73,6 +81,12 @@ export interface UserInfoResponse {
      * @memberof UserInfoResponse
      */
     scopes?: Array<string> | null;
+    /**
+     * 
+     * @type {Array<AlarmCategoryAssignment>}
+     * @memberof UserInfoResponse
+     */
+    allowedAlarmCategories?: Array<AlarmCategoryAssignment> | null;
 }
 
 /**
@@ -101,6 +115,7 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
         'extension': json['extension'] === undefined ? undefined : json['extension'] === null ? null : json['extension'],
         'scopes': json['scopes'] === undefined ? undefined : json['scopes'] === null ? null : json['scopes'],
+        'allowedAlarmCategories': json['allowedAlarmCategories'] === undefined ? undefined : json['allowedAlarmCategories'] === null ? null : ((json['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentFromJSON)),
     };
 }
 
@@ -124,6 +139,7 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'dealerName': value['dealerName'],
         'extension': value['extension'],
         'scopes': value['scopes'],
+        'allowedAlarmCategories': value['allowedAlarmCategories'] == null ? undefined : ((value['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentToJSON)),
     };
 }
 

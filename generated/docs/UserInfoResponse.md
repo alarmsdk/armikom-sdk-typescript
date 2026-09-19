@@ -15,6 +15,7 @@ Name | Type
 `dealerName` | string
 `extension` | string
 `scopes` | Array&lt;string&gt;
+`allowedAlarmCategories` | [Array&lt;AlarmCategoryAssignment&gt;](AlarmCategoryAssignment.md)
 
 ## Example
 
@@ -32,6 +33,7 @@ const example = {
   "dealerName": null,
   "extension": null,
   "scopes": null,
+  "allowedAlarmCategories": null,
 } satisfies UserInfoResponse
 
 console.log(example)

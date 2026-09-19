@@ -59,6 +59,16 @@ import {
     SideApprovalResponseToJSON,
 } from '../models/SideApprovalResponse';
 import {
+    type SideBatchUpdateRequest,
+    SideBatchUpdateRequestFromJSON,
+    SideBatchUpdateRequestToJSON,
+} from '../models/SideBatchUpdateRequest';
+import {
+    type SideBatchUpdateResponse,
+    SideBatchUpdateResponseFromJSON,
+    SideBatchUpdateResponseToJSON,
+} from '../models/SideBatchUpdateResponse';
+import {
     type SideContactItem,
     SideContactItemFromJSON,
     SideContactItemToJSON,
@@ -161,6 +171,12 @@ export interface SubscribersApiApproveSideOperationRequest {
     xCorrelationId?: string;
     idempotencyKey?: string;
     approveSideRequest?: ApproveSideRequest;
+}
+
+export interface SubscribersApiBatchUpdateSidesRequest {
+    sideBatchUpdateRequest: SideBatchUpdateRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface SubscribersApiCloneSideOperationRequest {
@@ -284,6 +300,53 @@ export interface SubscribersApiGetSidesRequest {
     pageSize?: number;
     offset?: number;
     sort?: string;
+    cityId?: string;
+    districtId?: string;
+    regionId?: string;
+    brandId?: string;
+    modelId?: string;
+    protocolId?: string;
+    accountTypeId?: string;
+    sideTypeId?: string;
+    monitoringCenterId?: string;
+    installerId?: string;
+    customerId?: string;
+    dealerIds?: string;
+    cityIdNot?: string;
+    districtIdNot?: string;
+    regionIdNot?: string;
+    brandIdNot?: string;
+    modelIdNot?: string;
+    protocolIdNot?: string;
+    accountTypeIdNot?: string;
+    sideTypeIdNot?: string;
+    monitoringCenterIdNot?: string;
+    installerIdNot?: string;
+    customerIdNot?: string;
+    dealerIdNot?: string;
+    name?: string;
+    nameNot?: string;
+    address?: string;
+    addressNot?: string;
+    serialNumber?: string;
+    serialNumberNot?: string;
+    comment?: string;
+    commentNot?: string;
+    phone?: string;
+    phoneNot?: string;
+    isOpen?: boolean;
+    cloudAlarm?: boolean;
+    neverSignalled?: boolean;
+    sideNoFrom?: number;
+    sideNoTo?: number;
+    installDateFrom?: Date;
+    installDateTo?: Date;
+    startDateFrom?: Date;
+    startDateTo?: Date;
+    endDateFrom?: Date;
+    endDateTo?: Date;
+    lastSignalFrom?: Date;
+    lastSignalTo?: Date;
     xCorrelationId?: string;
 }
 
@@ -436,6 +499,71 @@ export class SubscribersApi extends runtime.BaseAPI {
      */
     async approveSide(requestParameters: SubscribersApiApproveSideOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideApprovalResponse> {
         const response = await this.approveSideRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for batchUpdateSides without sending the request
+     */
+    async batchUpdateSidesRequestOpts(requestParameters: SubscribersApiBatchUpdateSidesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideBatchUpdateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'sideBatchUpdateRequest',
+                'Required parameter "sideBatchUpdateRequest" was null or undefined when calling batchUpdateSides().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/batch-update`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SideBatchUpdateRequestToJSON(requestParameters['sideBatchUpdateRequest']),
+        };
+    }
+
+    /**
+     * Assigns panel brand/model/protocol, city/district/region, dealer, installer, customer, account type, subscriber type and comment across a set of subscribers. Name the set either with `sideIds` or with `filter` — the same criteria `GET /v1/sides` takes, re-run server-side so the batch hits exactly what the search matched — but not both. Each field is tri-state: absent leaves the column alone, a value sets it, an explicit null clears it. Pass `expectedCount` with the row count the operator confirmed; when the set has changed since, nothing is written and 409 SIDE_BATCH.COUNT_MISMATCH comes back. At most 1000 subscribers per call: an explicit list longer than that is refused, a filter matching more is capped and the response says `isCapped`. CloudAlarm subscribers are read-only and come back in `failures[]` rather than failing the call. Active/passive and approval are not settable here — they carry reason codes and have their own endpoints.
+     * Set the same field values on many subscribers at once
+     */
+    async batchUpdateSidesRaw(requestParameters: SubscribersApiBatchUpdateSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideBatchUpdateResponse>> {
+        const requestOptions = await this.batchUpdateSidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SideBatchUpdateResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Assigns panel brand/model/protocol, city/district/region, dealer, installer, customer, account type, subscriber type and comment across a set of subscribers. Name the set either with `sideIds` or with `filter` — the same criteria `GET /v1/sides` takes, re-run server-side so the batch hits exactly what the search matched — but not both. Each field is tri-state: absent leaves the column alone, a value sets it, an explicit null clears it. Pass `expectedCount` with the row count the operator confirmed; when the set has changed since, nothing is written and 409 SIDE_BATCH.COUNT_MISMATCH comes back. At most 1000 subscribers per call: an explicit list longer than that is refused, a filter matching more is capped and the response says `isCapped`. CloudAlarm subscribers are read-only and come back in `failures[]` rather than failing the call. Active/passive and approval are not settable here — they carry reason codes and have their own endpoints.
+     * Set the same field values on many subscribers at once
+     */
+    async batchUpdateSides(requestParameters: SubscribersApiBatchUpdateSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideBatchUpdateResponse> {
+        const response = await this.batchUpdateSidesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1712,6 +1840,194 @@ export class SubscribersApi extends runtime.BaseAPI {
             queryParameters['sort'] = requestParameters['sort'];
         }
 
+        if (requestParameters['cityId'] != null) {
+            queryParameters['cityId'] = requestParameters['cityId'];
+        }
+
+        if (requestParameters['districtId'] != null) {
+            queryParameters['districtId'] = requestParameters['districtId'];
+        }
+
+        if (requestParameters['regionId'] != null) {
+            queryParameters['regionId'] = requestParameters['regionId'];
+        }
+
+        if (requestParameters['brandId'] != null) {
+            queryParameters['brandId'] = requestParameters['brandId'];
+        }
+
+        if (requestParameters['modelId'] != null) {
+            queryParameters['modelId'] = requestParameters['modelId'];
+        }
+
+        if (requestParameters['protocolId'] != null) {
+            queryParameters['protocolId'] = requestParameters['protocolId'];
+        }
+
+        if (requestParameters['accountTypeId'] != null) {
+            queryParameters['accountTypeId'] = requestParameters['accountTypeId'];
+        }
+
+        if (requestParameters['sideTypeId'] != null) {
+            queryParameters['sideTypeId'] = requestParameters['sideTypeId'];
+        }
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        if (requestParameters['installerId'] != null) {
+            queryParameters['installerId'] = requestParameters['installerId'];
+        }
+
+        if (requestParameters['customerId'] != null) {
+            queryParameters['customerId'] = requestParameters['customerId'];
+        }
+
+        if (requestParameters['dealerIds'] != null) {
+            queryParameters['dealerIds'] = requestParameters['dealerIds'];
+        }
+
+        if (requestParameters['cityIdNot'] != null) {
+            queryParameters['cityIdNot'] = requestParameters['cityIdNot'];
+        }
+
+        if (requestParameters['districtIdNot'] != null) {
+            queryParameters['districtIdNot'] = requestParameters['districtIdNot'];
+        }
+
+        if (requestParameters['regionIdNot'] != null) {
+            queryParameters['regionIdNot'] = requestParameters['regionIdNot'];
+        }
+
+        if (requestParameters['brandIdNot'] != null) {
+            queryParameters['brandIdNot'] = requestParameters['brandIdNot'];
+        }
+
+        if (requestParameters['modelIdNot'] != null) {
+            queryParameters['modelIdNot'] = requestParameters['modelIdNot'];
+        }
+
+        if (requestParameters['protocolIdNot'] != null) {
+            queryParameters['protocolIdNot'] = requestParameters['protocolIdNot'];
+        }
+
+        if (requestParameters['accountTypeIdNot'] != null) {
+            queryParameters['accountTypeIdNot'] = requestParameters['accountTypeIdNot'];
+        }
+
+        if (requestParameters['sideTypeIdNot'] != null) {
+            queryParameters['sideTypeIdNot'] = requestParameters['sideTypeIdNot'];
+        }
+
+        if (requestParameters['monitoringCenterIdNot'] != null) {
+            queryParameters['monitoringCenterIdNot'] = requestParameters['monitoringCenterIdNot'];
+        }
+
+        if (requestParameters['installerIdNot'] != null) {
+            queryParameters['installerIdNot'] = requestParameters['installerIdNot'];
+        }
+
+        if (requestParameters['customerIdNot'] != null) {
+            queryParameters['customerIdNot'] = requestParameters['customerIdNot'];
+        }
+
+        if (requestParameters['dealerIdNot'] != null) {
+            queryParameters['dealerIdNot'] = requestParameters['dealerIdNot'];
+        }
+
+        if (requestParameters['name'] != null) {
+            queryParameters['name'] = requestParameters['name'];
+        }
+
+        if (requestParameters['nameNot'] != null) {
+            queryParameters['nameNot'] = requestParameters['nameNot'];
+        }
+
+        if (requestParameters['address'] != null) {
+            queryParameters['address'] = requestParameters['address'];
+        }
+
+        if (requestParameters['addressNot'] != null) {
+            queryParameters['addressNot'] = requestParameters['addressNot'];
+        }
+
+        if (requestParameters['serialNumber'] != null) {
+            queryParameters['serialNumber'] = requestParameters['serialNumber'];
+        }
+
+        if (requestParameters['serialNumberNot'] != null) {
+            queryParameters['serialNumberNot'] = requestParameters['serialNumberNot'];
+        }
+
+        if (requestParameters['comment'] != null) {
+            queryParameters['comment'] = requestParameters['comment'];
+        }
+
+        if (requestParameters['commentNot'] != null) {
+            queryParameters['commentNot'] = requestParameters['commentNot'];
+        }
+
+        if (requestParameters['phone'] != null) {
+            queryParameters['phone'] = requestParameters['phone'];
+        }
+
+        if (requestParameters['phoneNot'] != null) {
+            queryParameters['phoneNot'] = requestParameters['phoneNot'];
+        }
+
+        if (requestParameters['isOpen'] != null) {
+            queryParameters['isOpen'] = requestParameters['isOpen'];
+        }
+
+        if (requestParameters['cloudAlarm'] != null) {
+            queryParameters['cloudAlarm'] = requestParameters['cloudAlarm'];
+        }
+
+        if (requestParameters['neverSignalled'] != null) {
+            queryParameters['neverSignalled'] = requestParameters['neverSignalled'];
+        }
+
+        if (requestParameters['sideNoFrom'] != null) {
+            queryParameters['sideNoFrom'] = requestParameters['sideNoFrom'];
+        }
+
+        if (requestParameters['sideNoTo'] != null) {
+            queryParameters['sideNoTo'] = requestParameters['sideNoTo'];
+        }
+
+        if (requestParameters['installDateFrom'] != null) {
+            queryParameters['installDateFrom'] = (requestParameters['installDateFrom'] as any).toISOString();
+        }
+
+        if (requestParameters['installDateTo'] != null) {
+            queryParameters['installDateTo'] = (requestParameters['installDateTo'] as any).toISOString();
+        }
+
+        if (requestParameters['startDateFrom'] != null) {
+            queryParameters['startDateFrom'] = (requestParameters['startDateFrom'] as any).toISOString();
+        }
+
+        if (requestParameters['startDateTo'] != null) {
+            queryParameters['startDateTo'] = (requestParameters['startDateTo'] as any).toISOString();
+        }
+
+        if (requestParameters['endDateFrom'] != null) {
+            queryParameters['endDateFrom'] = (requestParameters['endDateFrom'] as any).toISOString();
+        }
+
+        if (requestParameters['endDateTo'] != null) {
+            queryParameters['endDateTo'] = (requestParameters['endDateTo'] as any).toISOString();
+        }
+
+        if (requestParameters['lastSignalFrom'] != null) {
+            queryParameters['lastSignalFrom'] = (requestParameters['lastSignalFrom'] as any).toISOString();
+        }
+
+        if (requestParameters['lastSignalTo'] != null) {
+            queryParameters['lastSignalTo'] = (requestParameters['lastSignalTo'] as any).toISOString();
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -1738,7 +2054,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`).
+     * Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`). Advanced search: every id dimension (`brandId`, `modelId`, `protocolId`, `cityId`, `districtId`, `regionId`, `accountTypeId`, `sideTypeId`, `monitoringCenterId`, `installerId`, `customerId`, `dealerIds`) takes a comma-separated list and has a `...Not` counterpart that excludes instead of includes. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `name`, `address`, `serialNumber`, `comment` and `phone` are substring matches with the same `...Not` counterparts; `sideNoFrom`/`To`, `installDateFrom`/`To`, `startDateFrom`/`To`, `endDateFrom`/`To` and `lastSignalFrom`/`To` are inclusive ranges.
      * List subscribers with filtering, sorting and pagination
      */
     async getSidesRaw(requestParameters: SubscribersApiGetSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideListItemPagedResult>> {
@@ -1749,7 +2065,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`).
+     * Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`). Advanced search: every id dimension (`brandId`, `modelId`, `protocolId`, `cityId`, `districtId`, `regionId`, `accountTypeId`, `sideTypeId`, `monitoringCenterId`, `installerId`, `customerId`, `dealerIds`) takes a comma-separated list and has a `...Not` counterpart that excludes instead of includes. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `name`, `address`, `serialNumber`, `comment` and `phone` are substring matches with the same `...Not` counterparts; `sideNoFrom`/`To`, `installDateFrom`/`To`, `startDateFrom`/`To`, `endDateFrom`/`To` and `lastSignalFrom`/`To` are inclusive ranges.
      * List subscribers with filtering, sorting and pagination
      */
     async getSides(requestParameters: SubscribersApiGetSidesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideListItemPagedResult> {

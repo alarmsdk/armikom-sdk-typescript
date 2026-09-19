@@ -12,6 +12,7 @@ All URIs are relative to *http://localhost*
 | [**listRoles**](UserAdministrationApi.md#listroles) | **GET** /v1/auth/roles | List all roles with their scope mappings |
 | [**resetOperatorPassword**](UserAdministrationApi.md#resetoperatorpassword) | **POST** /v1/auth/users/{id}/password | Reset an operator\&#39;s password |
 | [**setRoleScopes**](UserAdministrationApi.md#setrolescopesoperation) | **PUT** /v1/auth/roles/{id}/scopes | Set scope mapping for a role |
+| [**setUserAlarmCategories**](UserAdministrationApi.md#setuseralarmcategoriesoperation) | **PUT** /v1/auth/users/{id}/alarm-categories | Set alarm category assignments for a user |
 | [**setUserRoles**](UserAdministrationApi.md#setuserrolesoperation) | **PUT** /v1/auth/users/{id}/roles | Set role assignments for a user |
 | [**unlockUser**](UserAdministrationApi.md#unlockuser) | **POST** /v1/auth/users/{id}/unlock | Unlock an operator account |
 | [**updateOperatorUser**](UserAdministrationApi.md#updateoperatoruseroperation) | **PUT** /v1/auth/users/{id} | Update an operator user |
@@ -626,6 +627,84 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
 | **setRoleScopesRequest** | [SetRoleScopesRequest](SetRoleScopesRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## setUserAlarmCategories
+
+> setUserAlarmCategories(id, setUserAlarmCategoriesRequest, xCorrelationId)
+
+Set alarm category assignments for a user
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { SetUserAlarmCategoriesOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SetUserAlarmCategoriesRequest
+    setUserAlarmCategoriesRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SetUserAlarmCategoriesOperationRequest;
+
+  try {
+    const data = await api.setUserAlarmCategories(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **setUserAlarmCategoriesRequest** | [SetUserAlarmCategoriesRequest](SetUserAlarmCategoriesRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

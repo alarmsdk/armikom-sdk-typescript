@@ -74750,7 +74750,7 @@
           "Subscribers"
         ],
         "summary": "List subscribers with filtering, sorting and pagination",
-        "description": "Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`).",
+        "description": "Returns a paginated list of subscribers visible to the current user. Operators see sides scoped to their monitoring center; dealers see only their own sides. Default sort is by start date descending. Supports multi-field sort via `sort` parameter (e.g. `-startDate,sideNo`). Advanced search: every id dimension (`brandId`, `modelId`, `protocolId`, `cityId`, `districtId`, `regionId`, `accountTypeId`, `sideTypeId`, `monitoringCenterId`, `installerId`, `customerId`, `dealerIds`) takes a comma-separated list and has a `...Not` counterpart that excludes instead of includes. Within one dimension the values are OR'ed, dimensions are AND'ed, and excluding a dimension never drops rows that have no value for it at all. `name`, `address`, `serialNumber`, `comment` and `phone` are substring matches with the same `...Not` counterparts; `sideNoFrom`/`To`, `installDateFrom`/`To`, `startDateFrom`/`To`, `endDateFrom`/`To` and `lastSignalFrom`/`To` are inclusive ranges.",
         "operationId": "GetSides",
         "parameters": [
           {
@@ -74826,6 +74826,345 @@
             "in": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "cityId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "districtId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regionId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "protocolId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountTypeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sideTypeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "installerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealerIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cityIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "districtIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regionIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "brandIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "protocolIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountTypeIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sideTypeIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "installerIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dealerIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nameNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "addressNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serialNumberNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commentNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phoneNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isOpen",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "cloudAlarm",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "neverSignalled",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sideNoFrom",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sideNoTo",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "installDateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "installDateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "startDateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "startDateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "lastSignalFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "lastSignalTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
             }
           },
           {
@@ -75468,6 +75807,319 @@
           },
           "403": {
             "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/sides/batch-update": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "summary": "Set the same field values on many subscribers at once",
+        "description": "Assigns panel brand/model/protocol, city/district/region, dealer, installer, customer, account type, subscriber type and comment across a set of subscribers. Name the set either with `sideIds` or with `filter` — the same criteria `GET /v1/sides` takes, re-run server-side so the batch hits exactly what the search matched — but not both. Each field is tri-state: absent leaves the column alone, a value sets it, an explicit null clears it. Pass `expectedCount` with the row count the operator confirmed; when the set has changed since, nothing is written and 409 SIDE_BATCH.COUNT_MISMATCH comes back. At most 1000 subscribers per call: an explicit list longer than that is refused, a filter matching more is capped and the response says `isCapped`. CloudAlarm subscribers are read-only and come back in `failures[]` rather than failing the call. Active/passive and approval are not settable here — they carry reason codes and have their own endpoints.",
+        "operationId": "BatchUpdateSides",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SideBatchUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SideBatchUpdateResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
             "headers": {
               "X-Correlation-Id": {
                 "description": "The correlation identifier for this request (echoed or generated).",
@@ -82338,6 +82990,226 @@
         ]
       }
     },
+    "/v1/auth/users/{id}/alarm-categories": {
+      "put": {
+        "tags": [
+          "User Administration"
+        ],
+        "summary": "Set alarm category assignments for a user",
+        "operationId": "SetUserAlarmCategories",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetUserAlarmCategoriesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/auth/roles": {
       "get": {
         "tags": [
@@ -84687,6 +85559,20 @@
         "additionalProperties": false,
         "description": "One note, bound to one operator action."
       },
+      "AlarmCategoryAssignment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AlarmCategoryDetail": {
         "type": "object",
         "properties": {
@@ -84825,6 +85711,15 @@
             "type": "string",
             "nullable": true
           },
+          "alarmCategoryId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "alarmCategoryName": {
+            "type": "string",
+            "nullable": true
+          },
           "resolvedTimeZone": {
             "type": "string",
             "description": "Effective timezone after resolving the Side → Customer → MonitoringCenter chain.\nNull when no timezone is configured anywhere in the chain (display as UTC).",
@@ -84930,6 +85825,15 @@
             "nullable": true
           },
           "backColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "alarmCategoryId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "alarmCategoryName": {
             "type": "string",
             "nullable": true
           }
@@ -86891,6 +87795,14 @@
             "nullable": true
           },
           "roleIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "alarmCategoryIds": {
             "type": "array",
             "items": {
               "type": "string",
@@ -90301,6 +91213,13 @@
               "$ref": "#/components/schemas/RoleInfo"
             },
             "nullable": true
+          },
+          "allowedAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmCategoryAssignment"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -91804,6 +92723,20 @@
         },
         "additionalProperties": false
       },
+      "SetUserAlarmCategoriesRequest": {
+        "type": "object",
+        "properties": {
+          "alarmCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SetUserRolesRequest": {
         "type": "object",
         "properties": {
@@ -91875,6 +92808,376 @@
           }
         },
         "additionalProperties": false
+      },
+      "SideBatchFilterRequest": {
+        "type": "object",
+        "properties": {
+          "cityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandId": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIds": {
+            "type": "string",
+            "description": "Comma-separated dealer ids. The endpoint's long-standing single-valued\n`dealerId` parameter still works and is AND'ed with this one.",
+            "nullable": true
+          },
+          "cityIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumberNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "commentNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOpen": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "cloudAlarm": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "neverSignalled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sideNoFrom": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sideNoTo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "installDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "installDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "q": {
+            "type": "string",
+            "description": "Free-text search, as `q` on the list endpoint.",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "approved": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "dealerId": {
+            "type": "string",
+            "description": "The list endpoint's single-valued `dealerId`, kept for symmetry with it.",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The same criteria the subscriber list takes on its query string, in a request body.\nInherits the advanced half so the two can never drift apart — a batch that selected a\ndifferent set from the grid the operator was reading is the whole risk here."
+      },
+      "SideBatchUpdateChanges": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "modelId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "protocolId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "cityId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "districtId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "regionId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "dealerId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "installerId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "customerId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "accountTypeId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "sideTypeId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "comment": {
+            "$ref": "#/components/schemas/StringOptional"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The assignable fields. Each is tri-state: absent leaves the column alone, a value sets\nit, an explicit `null` clears it."
+      },
+      "SideBatchUpdateFailure": {
+        "type": "object",
+        "properties": {
+          "sideId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sideNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "partNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine code from `ErrorCodes.Side`, so the UI can localise it.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "One subscriber the batch could not write, and why."
+      },
+      "SideBatchUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "sideIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The subscribers to update. Mutually exclusive with Armikom.Api.Contracts.Sides.SideBatchUpdateRequest.Filter.",
+            "nullable": true
+          },
+          "filter": {
+            "$ref": "#/components/schemas/SideBatchFilterRequest"
+          },
+          "expectedCount": {
+            "type": "integer",
+            "description": "The row count the operator was shown and confirmed against. When it does not match\nwhat the server resolves, nothing is written and the response says so.",
+            "format": "int32",
+            "nullable": true
+          },
+          "changes": {
+            "$ref": "#/components/schemas/SideBatchUpdateChanges"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A batch field assignment over the subscribers a search found: \"these four hundred\nsides all move to protocol X\"."
+      },
+      "SideBatchUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "requestedCount": {
+            "type": "integer",
+            "description": "How many subscribers the target resolved to.",
+            "format": "int32"
+          },
+          "updatedCount": {
+            "type": "integer",
+            "description": "How many were written.",
+            "format": "int32"
+          },
+          "skippedCount": {
+            "type": "integer",
+            "description": "How many were skipped — the length of Armikom.Api.Contracts.Sides.SideBatchUpdateResponse.Failures.",
+            "format": "int32"
+          },
+          "isCapped": {
+            "type": "boolean",
+            "description": "True when the target was a filter whose result set was larger than the server will\nwrite in one call, so only the first Armikom.Api.Contracts.Sides.SideBatchUpdateResponse.RequestedCount were taken."
+          },
+          "failures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SideBatchUpdateFailure"
+            },
+            "nullable": true
+          },
+          "sideEffects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "What a batch update actually did. Never a bare count: a batch where nine of four\nhundred rows were refused has to name those nine, or the operator's next move is to\nrun the whole thing again."
       },
       "SideContactItem": {
         "type": "object",
@@ -94750,6 +96053,10 @@
         },
         "additionalProperties": false
       },
+      "StringOptional": {
+        "type": "string",
+        "nullable": true
+      },
       "SubResourceWriteResponse": {
         "type": "object",
         "properties": {
@@ -96837,6 +98144,13 @@
             "type": "array",
             "items": {
               "type": "string"
+            },
+            "nullable": true
+          },
+          "allowedAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmCategoryAssignment"
             },
             "nullable": true
           }

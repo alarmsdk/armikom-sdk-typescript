@@ -65,6 +65,7 @@ docs/AdminWriteResponse.md
 docs/AdministrationApi.md
 docs/AdvisoryDto.md
 docs/AdvisoryNoteDto.md
+docs/AlarmCategoryAssignment.md
 docs/AlarmCategoryDetail.md
 docs/AlarmEventDetailResponse.md
 docs/AlarmEventListItem.md
@@ -325,9 +326,15 @@ docs/ServicesApi.md
 docs/SetLocationRequest.md
 docs/SetLocationResponse.md
 docs/SetRoleScopesRequest.md
+docs/SetUserAlarmCategoriesRequest.md
 docs/SetUserRolesRequest.md
 docs/SideAgreementItem.md
 docs/SideApprovalResponse.md
+docs/SideBatchFilterRequest.md
+docs/SideBatchUpdateChanges.md
+docs/SideBatchUpdateFailure.md
+docs/SideBatchUpdateRequest.md
+docs/SideBatchUpdateResponse.md
 docs/SideContactItem.md
 docs/SideControlItem.md
 docs/SideDataIssueItem.md
@@ -502,6 +509,7 @@ models/ActivityEventItem.ts
 models/AdminWriteResponse.ts
 models/AdvisoryDto.ts
 models/AdvisoryNoteDto.ts
+models/AlarmCategoryAssignment.ts
 models/AlarmCategoryDetail.ts
 models/AlarmEventDetailResponse.ts
 models/AlarmEventListItem.ts
@@ -737,9 +745,15 @@ models/ServicePhotoItem.ts
 models/SetLocationRequest.ts
 models/SetLocationResponse.ts
 models/SetRoleScopesRequest.ts
+models/SetUserAlarmCategoriesRequest.ts
 models/SetUserRolesRequest.ts
 models/SideAgreementItem.ts
 models/SideApprovalResponse.ts
+models/SideBatchFilterRequest.ts
+models/SideBatchUpdateChanges.ts
+models/SideBatchUpdateFailure.ts
+models/SideBatchUpdateRequest.ts
+models/SideBatchUpdateResponse.ts
 models/SideContactItem.ts
 models/SideControlItem.ts
 models/SideDataIssueItem.ts

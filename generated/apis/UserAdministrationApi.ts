@@ -54,6 +54,11 @@ import {
     SetRoleScopesRequestToJSON,
 } from '../models/SetRoleScopesRequest';
 import {
+    type SetUserAlarmCategoriesRequest,
+    SetUserAlarmCategoriesRequestFromJSON,
+    SetUserAlarmCategoriesRequestToJSON,
+} from '../models/SetUserAlarmCategoriesRequest';
+import {
     type SetUserRolesRequest,
     SetUserRolesRequestFromJSON,
     SetUserRolesRequestToJSON,
@@ -117,6 +122,12 @@ export interface UserAdministrationApiResetOperatorPasswordRequest {
 export interface UserAdministrationApiSetRoleScopesOperationRequest {
     id: string;
     setRoleScopesRequest: SetRoleScopesRequest;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiSetUserAlarmCategoriesOperationRequest {
+    id: string;
+    setUserAlarmCategoriesRequest: SetUserAlarmCategoriesRequest;
     xCorrelationId?: string;
 }
 
@@ -650,6 +661,72 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async setRoleScopes(requestParameters: UserAdministrationApiSetRoleScopesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.setRoleScopesRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for setUserAlarmCategories without sending the request
+     */
+    async setUserAlarmCategoriesRequestOpts(requestParameters: UserAdministrationApiSetUserAlarmCategoriesOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling setUserAlarmCategories().'
+            );
+        }
+
+        if (requestParameters['setUserAlarmCategoriesRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setUserAlarmCategoriesRequest',
+                'Required parameter "setUserAlarmCategoriesRequest" was null or undefined when calling setUserAlarmCategories().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/users/{id}/alarm-categories`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetUserAlarmCategoriesRequestToJSON(requestParameters['setUserAlarmCategoriesRequest']),
+        };
+    }
+
+    /**
+     * Set alarm category assignments for a user
+     */
+    async setUserAlarmCategoriesRaw(requestParameters: UserAdministrationApiSetUserAlarmCategoriesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.setUserAlarmCategoriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Set alarm category assignments for a user
+     */
+    async setUserAlarmCategories(requestParameters: UserAdministrationApiSetUserAlarmCategoriesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.setUserAlarmCategoriesRaw(requestParameters, initOverrides);
     }
 
     /**

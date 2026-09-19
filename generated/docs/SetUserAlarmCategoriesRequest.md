@@ -1,38 +1,22 @@
 
-# CreateOperatorUserRequest
+# SetUserAlarmCategoriesRequest
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`userName` | string
-`password` | string
-`isActive` | boolean
-`extension` | number
-`soundAlertEnabled` | boolean
-`monitoringCenterId` | string
-`workScheduleId` | string
-`roleIds` | Array&lt;string&gt;
 `alarmCategoryIds` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { CreateOperatorUserRequest } from ''
+import type { SetUserAlarmCategoriesRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "userName": null,
-  "password": null,
-  "isActive": null,
-  "extension": null,
-  "soundAlertEnabled": null,
-  "monitoringCenterId": null,
-  "workScheduleId": null,
-  "roleIds": null,
   "alarmCategoryIds": null,
-} satisfies CreateOperatorUserRequest
+} satisfies SetUserAlarmCategoriesRequest
 
 console.log(example)
 
@@ -41,7 +25,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as CreateOperatorUserRequest
+const exampleParsed = JSON.parse(exampleJSON) as SetUserAlarmCategoriesRequest
 console.log(exampleParsed)
 ```
 

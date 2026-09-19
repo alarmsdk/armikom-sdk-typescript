@@ -166,6 +166,18 @@ export interface AlarmEventDetailResponse {
      */
     backColor?: string | null;
     /**
+     * 
+     * @type {string}
+     * @memberof AlarmEventDetailResponse
+     */
+    alarmCategoryId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof AlarmEventDetailResponse
+     */
+    alarmCategoryName?: string | null;
+    /**
      * Effective timezone after resolving the Side → Customer → MonitoringCenter chain.
      * Null when no timezone is configured anywhere in the chain (display as UTC).
      * @type {string}
@@ -220,6 +232,8 @@ export function AlarmEventDetailResponseFromJSONTyped(json: any, ignoreDiscrimin
         'actionText': json['actionText'] === undefined ? undefined : json['actionText'] === null ? null : json['actionText'],
         'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
         'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
+        'alarmCategoryId': json['alarmCategoryId'] === undefined ? undefined : json['alarmCategoryId'] === null ? null : json['alarmCategoryId'],
+        'alarmCategoryName': json['alarmCategoryName'] === undefined ? undefined : json['alarmCategoryName'] === null ? null : json['alarmCategoryName'],
         'resolvedTimeZone': json['resolvedTimeZone'] === undefined ? undefined : json['resolvedTimeZone'] === null ? null : json['resolvedTimeZone'],
         'signalEvent': json['signalEvent'] == null ? undefined : SignalEventDetailResponseFromJSON(json['signalEvent']),
     };
@@ -259,6 +273,8 @@ export function AlarmEventDetailResponseToJSONTyped(value?: AlarmEventDetailResp
         'actionText': value['actionText'],
         'frontColor': value['frontColor'],
         'backColor': value['backColor'],
+        'alarmCategoryId': value['alarmCategoryId'],
+        'alarmCategoryName': value['alarmCategoryName'],
         'resolvedTimeZone': value['resolvedTimeZone'],
         'signalEvent': SignalEventDetailResponseToJSON(value['signalEvent']),
     };

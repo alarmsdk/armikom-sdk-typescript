@@ -28,6 +28,8 @@ Name | Type
 `actionText` | string
 `frontColor` | string
 `backColor` | string
+`alarmCategoryId` | string
+`alarmCategoryName` | string
 
 ## Example
 
@@ -58,6 +60,8 @@ const example = {
   "actionText": null,
   "frontColor": null,
   "backColor": null,
+  "alarmCategoryId": null,
+  "alarmCategoryName": null,
 } satisfies AlarmEventListItem
 
 console.log(example)
