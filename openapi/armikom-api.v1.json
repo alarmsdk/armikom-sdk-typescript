@@ -79663,9 +79663,9 @@
         "tags": [
           "UI Layout Templates"
         ],
-        "summary": "Get monitoring center published layout template for a screen",
-        "description": "Returns 404 when no template is published — the client uses the shipped default.",
-        "operationId": "GetUiLayoutTemplate",
+        "summary": "List all layout templates in the MC pool for a screen",
+        "description": "Returns the full pool of templates for the caller's monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.",
+        "operationId": "ListUiLayoutTemplates",
         "parameters": [
           {
             "name": "screen",
@@ -79699,7 +79699,897 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UiLayoutResponse"
+                  "$ref": "#/components/schemas/UiLayoutTemplateListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "UI Layout Templates"
+        ],
+        "summary": "Publish monitoring center layout template for a screen (legacy)",
+        "description": "Requires admin:config scope. Upserts a single template for the caller's monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.",
+        "operationId": "SaveUiLayoutTemplate",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveUiLayoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/ui-layout-templates/{screen}/{templateId}": {
+      "put": {
+        "tags": [
+          "UI Layout Templates"
+        ],
+        "summary": "Create or update a layout template in the MC pool",
+        "description": "Requires admin:config scope. Upserts a single template identified by templateId for the caller's monitoring center.",
+        "operationId": "SaveUiLayoutTemplateById",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveUiLayoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "UI Layout Templates"
+        ],
+        "summary": "Delete a layout template from the MC pool",
+        "description": "Requires admin:config scope. Removes a single template identified by templateId.",
+        "operationId": "DeleteUiLayoutTemplateById",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/ui-layout-templates/{screen}/active": {
+      "get": {
+        "tags": [
+          "UI Layout Templates"
+        ],
+        "summary": "Get the active template id for a screen",
+        "description": "Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.",
+        "operationId": "GetActiveUiLayoutTemplate",
+        "parameters": [
+          {
+            "name": "screen",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiLayoutActiveTemplateResponse"
                 }
               }
             }
@@ -79889,9 +80779,9 @@
         "tags": [
           "UI Layout Templates"
         ],
-        "summary": "Publish monitoring center layout template for a screen",
-        "description": "Requires admin:config scope. Upserts the template for the caller's monitoring center.",
-        "operationId": "SaveUiLayoutTemplate",
+        "summary": "Set the active template for a screen",
+        "description": "Requires admin:config scope. Sets which template id all operators in this MC will render.",
+        "operationId": "SetActiveUiLayoutTemplate",
         "parameters": [
           {
             "name": "screen",
@@ -79915,7 +80805,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SaveUiLayoutRequest"
+                "$ref": "#/components/schemas/SetActiveTemplateRequest"
               }
             }
           },
@@ -92683,6 +93573,17 @@
         },
         "additionalProperties": false
       },
+      "SetActiveTemplateRequest": {
+        "type": "object",
+        "properties": {
+          "activeTemplateId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request for PUT /v1/ui-layout-templates/{screen}/active."
+      },
       "SetLocationRequest": {
         "type": "object",
         "properties": {
@@ -96432,6 +97333,17 @@
         },
         "additionalProperties": false
       },
+      "UiLayoutActiveTemplateResponse": {
+        "type": "object",
+        "properties": {
+          "activeTemplateId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response for GET /v1/ui-layout-templates/{screen}/active."
+      },
       "UiLayoutResponse": {
         "type": "object",
         "properties": {
@@ -96449,6 +97361,51 @@
           }
         },
         "additionalProperties": false
+      },
+      "UiLayoutTemplateItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentJson": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAtUtc": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A single template in the MC-wide pool."
+      },
+      "UiLayoutTemplateListResponse": {
+        "type": "object",
+        "properties": {
+          "screen": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UiLayoutTemplateItem"
+            },
+            "nullable": true
+          },
+          "activeTemplateId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response for GET /v1/ui-layout-templates/{screen} (pool listing)."
       },
       "UpdateAccountItemRequest": {
         "type": "object",

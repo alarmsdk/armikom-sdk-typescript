@@ -24,12 +24,33 @@ import {
     SaveUiLayoutRequestToJSON,
 } from '../models/SaveUiLayoutRequest';
 import {
-    type UiLayoutResponse,
-    UiLayoutResponseFromJSON,
-    UiLayoutResponseToJSON,
-} from '../models/UiLayoutResponse';
+    type SetActiveTemplateRequest,
+    SetActiveTemplateRequestFromJSON,
+    SetActiveTemplateRequestToJSON,
+} from '../models/SetActiveTemplateRequest';
+import {
+    type UiLayoutActiveTemplateResponse,
+    UiLayoutActiveTemplateResponseFromJSON,
+    UiLayoutActiveTemplateResponseToJSON,
+} from '../models/UiLayoutActiveTemplateResponse';
+import {
+    type UiLayoutTemplateListResponse,
+    UiLayoutTemplateListResponseFromJSON,
+    UiLayoutTemplateListResponseToJSON,
+} from '../models/UiLayoutTemplateListResponse';
 
-export interface UILayoutTemplatesApiGetUiLayoutTemplateRequest {
+export interface UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest {
+    screen: string;
+    templateId: string;
+    xCorrelationId?: string;
+}
+
+export interface UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest {
+    screen: string;
+    xCorrelationId?: string;
+}
+
+export interface UILayoutTemplatesApiListUiLayoutTemplatesRequest {
     screen: string;
     xCorrelationId?: string;
 }
@@ -40,19 +61,157 @@ export interface UILayoutTemplatesApiSaveUiLayoutTemplateRequest {
     xCorrelationId?: string;
 }
 
+export interface UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest {
+    screen: string;
+    templateId: string;
+    saveUiLayoutRequest: SaveUiLayoutRequest;
+    xCorrelationId?: string;
+}
+
+export interface UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest {
+    screen: string;
+    setActiveTemplateRequest: SetActiveTemplateRequest;
+    xCorrelationId?: string;
+}
+
 /**
  * 
  */
 export class UILayoutTemplatesApi extends runtime.BaseAPI {
 
     /**
-     * Creates request options for getUiLayoutTemplate without sending the request
+     * Creates request options for deleteUiLayoutTemplateById without sending the request
      */
-    async getUiLayoutTemplateRequestOpts(requestParameters: UILayoutTemplatesApiGetUiLayoutTemplateRequest): Promise<runtime.RequestOpts> {
+    async deleteUiLayoutTemplateByIdRequestOpts(requestParameters: UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['screen'] == null) {
             throw new runtime.RequiredError(
                 'screen',
-                'Required parameter "screen" was null or undefined when calling getUiLayoutTemplate().'
+                'Required parameter "screen" was null or undefined when calling deleteUiLayoutTemplateById().'
+            );
+        }
+
+        if (requestParameters['templateId'] == null) {
+            throw new runtime.RequiredError(
+                'templateId',
+                'Required parameter "templateId" was null or undefined when calling deleteUiLayoutTemplateById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/ui-layout-templates/{screen}/{templateId}`;
+        urlPath = urlPath.replace('{screen}', encodeURIComponent(String(requestParameters['screen'])));
+        urlPath = urlPath.replace('{templateId}', encodeURIComponent(String(requestParameters['templateId'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Requires admin:config scope. Removes a single template identified by templateId.
+     * Delete a layout template from the MC pool
+     */
+    async deleteUiLayoutTemplateByIdRaw(requestParameters: UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteUiLayoutTemplateByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Requires admin:config scope. Removes a single template identified by templateId.
+     * Delete a layout template from the MC pool
+     */
+    async deleteUiLayoutTemplateById(requestParameters: UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteUiLayoutTemplateByIdRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getActiveUiLayoutTemplate without sending the request
+     */
+    async getActiveUiLayoutTemplateRequestOpts(requestParameters: UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['screen'] == null) {
+            throw new runtime.RequiredError(
+                'screen',
+                'Required parameter "screen" was null or undefined when calling getActiveUiLayoutTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/ui-layout-templates/{screen}/active`;
+        urlPath = urlPath.replace('{screen}', encodeURIComponent(String(requestParameters['screen'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.
+     * Get the active template id for a screen
+     */
+    async getActiveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UiLayoutActiveTemplateResponse>> {
+        const requestOptions = await this.getActiveUiLayoutTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UiLayoutActiveTemplateResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.
+     * Get the active template id for a screen
+     */
+    async getActiveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UiLayoutActiveTemplateResponse> {
+        const response = await this.getActiveUiLayoutTemplateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listUiLayoutTemplates without sending the request
+     */
+    async listUiLayoutTemplatesRequestOpts(requestParameters: UILayoutTemplatesApiListUiLayoutTemplatesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['screen'] == null) {
+            throw new runtime.RequiredError(
+                'screen',
+                'Required parameter "screen" was null or undefined when calling listUiLayoutTemplates().'
             );
         }
 
@@ -85,22 +244,22 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns 404 when no template is published — the client uses the shipped default.
-     * Get monitoring center published layout template for a screen
+     * Returns the full pool of templates for the caller\'s monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
+     * List all layout templates in the MC pool for a screen
      */
-    async getUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiGetUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UiLayoutResponse>> {
-        const requestOptions = await this.getUiLayoutTemplateRequestOpts(requestParameters);
+    async listUiLayoutTemplatesRaw(requestParameters: UILayoutTemplatesApiListUiLayoutTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UiLayoutTemplateListResponse>> {
+        const requestOptions = await this.listUiLayoutTemplatesRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UiLayoutResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UiLayoutTemplateListResponseFromJSON(jsonValue));
     }
 
     /**
-     * Returns 404 when no template is published — the client uses the shipped default.
-     * Get monitoring center published layout template for a screen
+     * Returns the full pool of templates for the caller\'s monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
+     * List all layout templates in the MC pool for a screen
      */
-    async getUiLayoutTemplate(requestParameters: UILayoutTemplatesApiGetUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UiLayoutResponse> {
-        const response = await this.getUiLayoutTemplateRaw(requestParameters, initOverrides);
+    async listUiLayoutTemplates(requestParameters: UILayoutTemplatesApiListUiLayoutTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UiLayoutTemplateListResponse> {
+        const response = await this.listUiLayoutTemplatesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -154,8 +313,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts the template for the caller\'s monitoring center.
-     * Publish monitoring center layout template for a screen
+     * Requires admin:config scope. Upserts a single template for the caller\'s monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
+     * Publish monitoring center layout template for a screen (legacy)
      */
     async saveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.saveUiLayoutTemplateRequestOpts(requestParameters);
@@ -165,11 +324,155 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts the template for the caller\'s monitoring center.
-     * Publish monitoring center layout template for a screen
+     * Requires admin:config scope. Upserts a single template for the caller\'s monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
+     * Publish monitoring center layout template for a screen (legacy)
      */
     async saveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.saveUiLayoutTemplateRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for saveUiLayoutTemplateById without sending the request
+     */
+    async saveUiLayoutTemplateByIdRequestOpts(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['screen'] == null) {
+            throw new runtime.RequiredError(
+                'screen',
+                'Required parameter "screen" was null or undefined when calling saveUiLayoutTemplateById().'
+            );
+        }
+
+        if (requestParameters['templateId'] == null) {
+            throw new runtime.RequiredError(
+                'templateId',
+                'Required parameter "templateId" was null or undefined when calling saveUiLayoutTemplateById().'
+            );
+        }
+
+        if (requestParameters['saveUiLayoutRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveUiLayoutRequest',
+                'Required parameter "saveUiLayoutRequest" was null or undefined when calling saveUiLayoutTemplateById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/ui-layout-templates/{screen}/{templateId}`;
+        urlPath = urlPath.replace('{screen}', encodeURIComponent(String(requestParameters['screen'])));
+        urlPath = urlPath.replace('{templateId}', encodeURIComponent(String(requestParameters['templateId'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveUiLayoutRequestToJSON(requestParameters['saveUiLayoutRequest']),
+        };
+    }
+
+    /**
+     * Requires admin:config scope. Upserts a single template identified by templateId for the caller\'s monitoring center.
+     * Create or update a layout template in the MC pool
+     */
+    async saveUiLayoutTemplateByIdRaw(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.saveUiLayoutTemplateByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Requires admin:config scope. Upserts a single template identified by templateId for the caller\'s monitoring center.
+     * Create or update a layout template in the MC pool
+     */
+    async saveUiLayoutTemplateById(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.saveUiLayoutTemplateByIdRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for setActiveUiLayoutTemplate without sending the request
+     */
+    async setActiveUiLayoutTemplateRequestOpts(requestParameters: UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['screen'] == null) {
+            throw new runtime.RequiredError(
+                'screen',
+                'Required parameter "screen" was null or undefined when calling setActiveUiLayoutTemplate().'
+            );
+        }
+
+        if (requestParameters['setActiveTemplateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setActiveTemplateRequest',
+                'Required parameter "setActiveTemplateRequest" was null or undefined when calling setActiveUiLayoutTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/ui-layout-templates/{screen}/active`;
+        urlPath = urlPath.replace('{screen}', encodeURIComponent(String(requestParameters['screen'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetActiveTemplateRequestToJSON(requestParameters['setActiveTemplateRequest']),
+        };
+    }
+
+    /**
+     * Requires admin:config scope. Sets which template id all operators in this MC will render.
+     * Set the active template for a screen
+     */
+    async setActiveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.setActiveUiLayoutTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Requires admin:config scope. Sets which template id all operators in this MC will render.
+     * Set the active template for a screen
+     */
+    async setActiveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.setActiveUiLayoutTemplateRaw(requestParameters, initOverrides);
     }
 
 }

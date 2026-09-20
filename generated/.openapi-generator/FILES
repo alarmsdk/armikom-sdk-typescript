@@ -323,6 +323,7 @@ docs/ServiceDetailsApi.md
 docs/ServicePhotoItem.md
 docs/ServicePhotosApi.md
 docs/ServicesApi.md
+docs/SetActiveTemplateRequest.md
 docs/SetLocationRequest.md
 docs/SetLocationResponse.md
 docs/SetRoleScopesRequest.md
@@ -437,7 +438,10 @@ docs/TimeTableItem.md
 docs/TimeTableWriteItem.md
 docs/UILayoutTemplatesApi.md
 docs/UILayoutsApi.md
+docs/UiLayoutActiveTemplateResponse.md
 docs/UiLayoutResponse.md
+docs/UiLayoutTemplateItem.md
+docs/UiLayoutTemplateListResponse.md
 docs/UpdateAccountItemRequest.md
 docs/UpdateAccountTypeRequest.md
 docs/UpdateActiveCategoryRequest.md
@@ -742,6 +746,7 @@ models/SendSmsRequest.ts
 models/SendSmsResponse.ts
 models/ServiceDetailItem.ts
 models/ServicePhotoItem.ts
+models/SetActiveTemplateRequest.ts
 models/SetLocationRequest.ts
 models/SetLocationResponse.ts
 models/SetRoleScopesRequest.ts
@@ -832,7 +837,10 @@ models/TechnicalWorkResponse.ts
 models/TechnicalWorkStatusResponse.ts
 models/TimeTableItem.ts
 models/TimeTableWriteItem.ts
+models/UiLayoutActiveTemplateResponse.ts
 models/UiLayoutResponse.ts
+models/UiLayoutTemplateItem.ts
+models/UiLayoutTemplateListResponse.ts
 models/UpdateAccountItemRequest.ts
 models/UpdateAccountTypeRequest.ts
 models/UpdateActiveCategoryRequest.ts
