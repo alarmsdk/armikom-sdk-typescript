@@ -12,6 +12,7 @@ All URIs are relative to *http://localhost*
 | [**getLiveSignals**](SignalEventsApi.md#getlivesignals) | **GET** /v1/live-signals | Get the most recent live signals |
 | [**getSignalEventById**](SignalEventsApi.md#getsignaleventbyid) | **GET** /v1/signal-events/{id} | Get signal event detail by ID |
 | [**getSignalEvents**](SignalEventsApi.md#getsignalevents) | **GET** /v1/signal-events | List signal events with filtering, sorting and pagination |
+| [**replaceActionText**](SignalEventsApi.md#replaceactiontextoperation) | **PUT** /v1/signal-events/{id}/action | Replace the entire action text on a signal event |
 
 
 
@@ -733,6 +734,87 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## replaceActionText
+
+> AppendActionTextResponse replaceActionText(id, replaceActionTextRequest, xCorrelationId)
+
+Replace the entire action text on a signal event
+
+Replaces (overwrites) SignalEvent.Action with the supplied text. Used when editing action text from the signal-view workspace. When stamp is true, the text is wrapped with the operator name and UTC timestamp. The denormalised AlarmEvent.ActionText is kept in sync.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SignalEventsApi,
+} from '';
+import type { ReplaceActionTextOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SignalEventsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // ReplaceActionTextRequest
+    replaceActionTextRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ReplaceActionTextOperationRequest;
+
+  try {
+    const data = await api.replaceActionText(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **replaceActionTextRequest** | [ReplaceActionTextRequest](ReplaceActionTextRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AppendActionTextResponse**](AppendActionTextResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

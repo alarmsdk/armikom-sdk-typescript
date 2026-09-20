@@ -44,6 +44,11 @@ import {
     ReceiverBlockResponseToJSON,
 } from '../models/ReceiverBlockResponse';
 import {
+    type ReplaceActionTextRequest,
+    ReplaceActionTextRequestFromJSON,
+    ReplaceActionTextRequestToJSON,
+} from '../models/ReplaceActionTextRequest';
+import {
     type SignalBlockRequest,
     SignalBlockRequestFromJSON,
     SignalBlockRequestToJSON,
@@ -151,6 +156,12 @@ export interface SignalEventsApiGetSignalEventsRequest {
     alarmCategoryIdNot?: string;
     actionNot?: string;
     signalNameNot?: string;
+    xCorrelationId?: string;
+}
+
+export interface SignalEventsApiReplaceActionTextOperationRequest {
+    id: string;
+    replaceActionTextRequest: ReplaceActionTextRequest;
     xCorrelationId?: string;
 }
 
@@ -785,6 +796,75 @@ export class SignalEventsApi extends runtime.BaseAPI {
      */
     async getSignalEvents(requestParameters: SignalEventsApiGetSignalEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalEventListItemPagedResult> {
         const response = await this.getSignalEventsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for replaceActionText without sending the request
+     */
+    async replaceActionTextRequestOpts(requestParameters: SignalEventsApiReplaceActionTextOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling replaceActionText().'
+            );
+        }
+
+        if (requestParameters['replaceActionTextRequest'] == null) {
+            throw new runtime.RequiredError(
+                'replaceActionTextRequest',
+                'Required parameter "replaceActionTextRequest" was null or undefined when calling replaceActionText().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/signal-events/{id}/action`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReplaceActionTextRequestToJSON(requestParameters['replaceActionTextRequest']),
+        };
+    }
+
+    /**
+     * Replaces (overwrites) SignalEvent.Action with the supplied text. Used when editing action text from the signal-view workspace. When stamp is true, the text is wrapped with the operator name and UTC timestamp. The denormalised AlarmEvent.ActionText is kept in sync.
+     * Replace the entire action text on a signal event
+     */
+    async replaceActionTextRaw(requestParameters: SignalEventsApiReplaceActionTextOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppendActionTextResponse>> {
+        const requestOptions = await this.replaceActionTextRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AppendActionTextResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Replaces (overwrites) SignalEvent.Action with the supplied text. Used when editing action text from the signal-view workspace. When stamp is true, the text is wrapped with the operator name and UTC timestamp. The denormalised AlarmEvent.ActionText is kept in sync.
+     * Replace the entire action text on a signal event
+     */
+    async replaceActionText(requestParameters: SignalEventsApiReplaceActionTextOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppendActionTextResponse> {
+        const response = await this.replaceActionTextRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
