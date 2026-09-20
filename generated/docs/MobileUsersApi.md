@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**batchLinkMobileUserToSides**](MobileUsersApi.md#batchlinkmobileusertosides) | **POST** /v1/mobile-users/{id}/sides/batch-link | Link one mobile user to many subscribers in a single call |
 | [**createMobileUser**](MobileUsersApi.md#createmobileuseroperation) | **POST** /v1/mobile-users | Create a mobile user linked to a subscriber — password is hashed before storage |
 | [**deleteMobileUser**](MobileUsersApi.md#deletemobileuser) | **DELETE** /v1/mobile-users/{id} | Delete a mobile user — nulls delivery history FKs, cascades devices, reports removed links |
 | [**getMobileUserById**](MobileUsersApi.md#getmobileuserbyid) | **GET** /v1/mobile-users/{id} | Get a mobile user by ID (includes linked sides and devices) |
@@ -14,6 +15,91 @@ All URIs are relative to *http://localhost*
 | [**unlinkMobileUserFromSide**](MobileUsersApi.md#unlinkmobileuserfromside) | **DELETE** /v1/sides/{sideId}/mobile-users/{userId} | Unlink a mobile user from a subscriber |
 | [**updateMobileUser**](MobileUsersApi.md#updatemobileuseroperation) | **PATCH** /v1/mobile-users/{id} | Update a mobile user (name/phone only — not password) |
 
+
+
+## batchLinkMobileUserToSides
+
+> BatchLinkSidesResponse batchLinkMobileUserToSides(id, batchLinkSidesRequest, xCorrelationId, idempotencyKey)
+
+Link one mobile user to many subscribers in a single call
+
+The per-subscriber &#x60;POST /v1/sides/{sideId}/mobile-users&#x60; one call at a time: a console linking a whole search result would otherwise spend one request per row and exhaust the caller\&#39;s rate-limit budget. Repeated ids in &#x60;sideIds&#x60; are collapsed before anything is written. Pass &#x60;expectedCount&#x60; with the count the operator confirmed; when the distinct list is a different size nothing is written and 409 MOBILE_USER.BATCH_COUNT_MISMATCH comes back. At most 500 subscribers per call. A subscriber the user already has is counted in &#x60;alreadyLinkedCount&#x60;, not failed. A subscriber that cannot be linked — unknown, or in a monitoring center that would lock the user out — comes back in &#x60;failures[]&#x60; with its code rather than failing the call, so one bad row does not discard the rest.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  MobileUsersApi,
+} from '';
+import type { BatchLinkMobileUserToSidesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new MobileUsersApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // BatchLinkSidesRequest
+    batchLinkSidesRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies BatchLinkMobileUserToSidesRequest;
+
+  try {
+    const data = await api.batchLinkMobileUserToSides(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **batchLinkSidesRequest** | [BatchLinkSidesRequest](BatchLinkSidesRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**BatchLinkSidesResponse**](BatchLinkSidesResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## createMobileUser

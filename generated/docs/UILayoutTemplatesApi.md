@@ -4,11 +4,11 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteUiLayoutTemplateById**](UILayoutTemplatesApi.md#deleteuilayouttemplatebyid) | **DELETE** /v1/ui-layout-templates/{screen}/{templateId} | Delete a layout template from the MC pool |
+| [**deleteUiLayoutTemplateById**](UILayoutTemplatesApi.md#deleteuilayouttemplatebyid) | **DELETE** /v1/ui-layout-templates/{screen}/{templateId} | Delete a layout template from the pool |
 | [**getActiveUiLayoutTemplate**](UILayoutTemplatesApi.md#getactiveuilayouttemplate) | **GET** /v1/ui-layout-templates/{screen}/active | Get the active template id for a screen |
-| [**listUiLayoutTemplates**](UILayoutTemplatesApi.md#listuilayouttemplates) | **GET** /v1/ui-layout-templates/{screen} | List all layout templates in the MC pool for a screen |
-| [**saveUiLayoutTemplate**](UILayoutTemplatesApi.md#saveuilayouttemplate) | **PUT** /v1/ui-layout-templates/{screen} | Publish monitoring center layout template for a screen (legacy) |
-| [**saveUiLayoutTemplateById**](UILayoutTemplatesApi.md#saveuilayouttemplatebyid) | **PUT** /v1/ui-layout-templates/{screen}/{templateId} | Create or update a layout template in the MC pool |
+| [**listUiLayoutTemplates**](UILayoutTemplatesApi.md#listuilayouttemplates) | **GET** /v1/ui-layout-templates/{screen} | List all layout templates in the pool for a screen |
+| [**saveUiLayoutTemplate**](UILayoutTemplatesApi.md#saveuilayouttemplate) | **PUT** /v1/ui-layout-templates/{screen} | Publish layout template for a screen (legacy) |
+| [**saveUiLayoutTemplateById**](UILayoutTemplatesApi.md#saveuilayouttemplatebyid) | **PUT** /v1/ui-layout-templates/{screen}/{templateId} | Create or update a layout template in the pool |
 | [**setActiveUiLayoutTemplate**](UILayoutTemplatesApi.md#setactiveuilayouttemplate) | **PUT** /v1/ui-layout-templates/{screen}/active | Set the active template for a screen |
 
 
@@ -17,7 +17,7 @@ All URIs are relative to *http://localhost*
 
 > deleteUiLayoutTemplateById(screen, templateId, xCorrelationId)
 
-Delete a layout template from the MC pool
+Delete a layout template from the pool
 
 Requires admin:config scope. Removes a single template identified by templateId.
 
@@ -100,7 +100,7 @@ example().catch(console.error);
 
 Get the active template id for a screen
 
-Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.
+Returns which template id is currently active. Returns 404 when no active template is set — the client uses the shipped default.
 
 ### Example
 
@@ -176,9 +176,9 @@ example().catch(console.error);
 
 > UiLayoutTemplateListResponse listUiLayoutTemplates(screen, xCorrelationId)
 
-List all layout templates in the MC pool for a screen
+List all layout templates in the pool for a screen
 
-Returns the full pool of templates for the caller\&#39;s monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
+Returns the full pool of system-global templates, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
 
 ### Example
 
@@ -253,9 +253,9 @@ example().catch(console.error);
 
 > saveUiLayoutTemplate(screen, saveUiLayoutRequest, xCorrelationId)
 
-Publish monitoring center layout template for a screen (legacy)
+Publish layout template for a screen (legacy)
 
-Requires admin:config scope. Upserts a single template for the caller\&#39;s monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
+Requires admin:config scope. Upserts a single system-global template. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
 
 ### Example
 
@@ -333,9 +333,9 @@ example().catch(console.error);
 
 > saveUiLayoutTemplateById(screen, templateId, saveUiLayoutRequest, xCorrelationId)
 
-Create or update a layout template in the MC pool
+Create or update a layout template in the pool
 
-Requires admin:config scope. Upserts a single template identified by templateId for the caller\&#39;s monitoring center.
+Requires admin:config scope. Upserts a single system-global template identified by templateId.
 
 ### Example
 
@@ -418,7 +418,7 @@ example().catch(console.error);
 
 Set the active template for a screen
 
-Requires admin:config scope. Sets which template id all operators in this MC will render.
+Requires admin:config scope. Sets which template id all operators will render.
 
 ### Example
 

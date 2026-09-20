@@ -14,6 +14,16 @@
 
 import * as runtime from '../runtime';
 import {
+    type BatchLinkSidesRequest,
+    BatchLinkSidesRequestFromJSON,
+    BatchLinkSidesRequestToJSON,
+} from '../models/BatchLinkSidesRequest';
+import {
+    type BatchLinkSidesResponse,
+    BatchLinkSidesResponseFromJSON,
+    BatchLinkSidesResponseToJSON,
+} from '../models/BatchLinkSidesResponse';
+import {
     type CreateMobileUserRequest,
     CreateMobileUserRequestFromJSON,
     CreateMobileUserRequestToJSON,
@@ -63,6 +73,13 @@ import {
     UpdateMobileUserRequestFromJSON,
     UpdateMobileUserRequestToJSON,
 } from '../models/UpdateMobileUserRequest';
+
+export interface MobileUsersApiBatchLinkMobileUserToSidesRequest {
+    id: string;
+    batchLinkSidesRequest: BatchLinkSidesRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
 
 export interface MobileUsersApiCreateMobileUserOperationRequest {
     createMobileUserRequest: CreateMobileUserRequest;
@@ -126,6 +143,79 @@ export interface MobileUsersApiUpdateMobileUserOperationRequest {
  * 
  */
 export class MobileUsersApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for batchLinkMobileUserToSides without sending the request
+     */
+    async batchLinkMobileUserToSidesRequestOpts(requestParameters: MobileUsersApiBatchLinkMobileUserToSidesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling batchLinkMobileUserToSides().'
+            );
+        }
+
+        if (requestParameters['batchLinkSidesRequest'] == null) {
+            throw new runtime.RequiredError(
+                'batchLinkSidesRequest',
+                'Required parameter "batchLinkSidesRequest" was null or undefined when calling batchLinkMobileUserToSides().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/mobile-users/{id}/sides/batch-link`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BatchLinkSidesRequestToJSON(requestParameters['batchLinkSidesRequest']),
+        };
+    }
+
+    /**
+     * The per-subscriber `POST /v1/sides/{sideId}/mobile-users` one call at a time: a console linking a whole search result would otherwise spend one request per row and exhaust the caller\'s rate-limit budget. Repeated ids in `sideIds` are collapsed before anything is written. Pass `expectedCount` with the count the operator confirmed; when the distinct list is a different size nothing is written and 409 MOBILE_USER.BATCH_COUNT_MISMATCH comes back. At most 500 subscribers per call. A subscriber the user already has is counted in `alreadyLinkedCount`, not failed. A subscriber that cannot be linked — unknown, or in a monitoring center that would lock the user out — comes back in `failures[]` with its code rather than failing the call, so one bad row does not discard the rest.
+     * Link one mobile user to many subscribers in a single call
+     */
+    async batchLinkMobileUserToSidesRaw(requestParameters: MobileUsersApiBatchLinkMobileUserToSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchLinkSidesResponse>> {
+        const requestOptions = await this.batchLinkMobileUserToSidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BatchLinkSidesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The per-subscriber `POST /v1/sides/{sideId}/mobile-users` one call at a time: a console linking a whole search result would otherwise spend one request per row and exhaust the caller\'s rate-limit budget. Repeated ids in `sideIds` are collapsed before anything is written. Pass `expectedCount` with the count the operator confirmed; when the distinct list is a different size nothing is written and 409 MOBILE_USER.BATCH_COUNT_MISMATCH comes back. At most 500 subscribers per call. A subscriber the user already has is counted in `alreadyLinkedCount`, not failed. A subscriber that cannot be linked — unknown, or in a monitoring center that would lock the user out — comes back in `failures[]` with its code rather than failing the call, so one bad row does not discard the rest.
+     * Link one mobile user to many subscribers in a single call
+     */
+    async batchLinkMobileUserToSides(requestParameters: MobileUsersApiBatchLinkMobileUserToSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchLinkSidesResponse> {
+        const response = await this.batchLinkMobileUserToSidesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for createMobileUser without sending the request

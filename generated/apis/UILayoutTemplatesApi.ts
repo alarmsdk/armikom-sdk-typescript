@@ -128,7 +128,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
 
     /**
      * Requires admin:config scope. Removes a single template identified by templateId.
-     * Delete a layout template from the MC pool
+     * Delete a layout template from the pool
      */
     async deleteUiLayoutTemplateByIdRaw(requestParameters: UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteUiLayoutTemplateByIdRequestOpts(requestParameters);
@@ -139,7 +139,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
 
     /**
      * Requires admin:config scope. Removes a single template identified by templateId.
-     * Delete a layout template from the MC pool
+     * Delete a layout template from the pool
      */
     async deleteUiLayoutTemplateById(requestParameters: UILayoutTemplatesApiDeleteUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteUiLayoutTemplateByIdRaw(requestParameters, initOverrides);
@@ -185,7 +185,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.
+     * Returns which template id is currently active. Returns 404 when no active template is set — the client uses the shipped default.
      * Get the active template id for a screen
      */
     async getActiveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UiLayoutActiveTemplateResponse>> {
@@ -196,7 +196,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns which template id is currently active for the MC. Returns 404 when no active template is set — the client uses the shipped default.
+     * Returns which template id is currently active. Returns 404 when no active template is set — the client uses the shipped default.
      * Get the active template id for a screen
      */
     async getActiveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiGetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UiLayoutActiveTemplateResponse> {
@@ -244,8 +244,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the full pool of templates for the caller\'s monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
-     * List all layout templates in the MC pool for a screen
+     * Returns the full pool of system-global templates, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
+     * List all layout templates in the pool for a screen
      */
     async listUiLayoutTemplatesRaw(requestParameters: UILayoutTemplatesApiListUiLayoutTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UiLayoutTemplateListResponse>> {
         const requestOptions = await this.listUiLayoutTemplatesRequestOpts(requestParameters);
@@ -255,8 +255,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the full pool of templates for the caller\'s monitoring center, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
-     * List all layout templates in the MC pool for a screen
+     * Returns the full pool of system-global templates, plus the id of the currently active template. An empty list means no custom templates exist — the client uses the shipped default.
+     * List all layout templates in the pool for a screen
      */
     async listUiLayoutTemplates(requestParameters: UILayoutTemplatesApiListUiLayoutTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UiLayoutTemplateListResponse> {
         const response = await this.listUiLayoutTemplatesRaw(requestParameters, initOverrides);
@@ -313,8 +313,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts a single template for the caller\'s monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
-     * Publish monitoring center layout template for a screen (legacy)
+     * Requires admin:config scope. Upserts a single system-global template. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
+     * Publish layout template for a screen (legacy)
      */
     async saveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.saveUiLayoutTemplateRequestOpts(requestParameters);
@@ -324,8 +324,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts a single template for the caller\'s monitoring center. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
-     * Publish monitoring center layout template for a screen (legacy)
+     * Requires admin:config scope. Upserts a single system-global template. Prefer the pool endpoints (/{screen}/{templateId}) for new code.
+     * Publish layout template for a screen (legacy)
      */
     async saveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.saveUiLayoutTemplateRaw(requestParameters, initOverrides);
@@ -389,8 +389,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts a single template identified by templateId for the caller\'s monitoring center.
-     * Create or update a layout template in the MC pool
+     * Requires admin:config scope. Upserts a single system-global template identified by templateId.
+     * Create or update a layout template in the pool
      */
     async saveUiLayoutTemplateByIdRaw(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.saveUiLayoutTemplateByIdRequestOpts(requestParameters);
@@ -400,8 +400,8 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Upserts a single template identified by templateId for the caller\'s monitoring center.
-     * Create or update a layout template in the MC pool
+     * Requires admin:config scope. Upserts a single system-global template identified by templateId.
+     * Create or update a layout template in the pool
      */
     async saveUiLayoutTemplateById(requestParameters: UILayoutTemplatesApiSaveUiLayoutTemplateByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.saveUiLayoutTemplateByIdRaw(requestParameters, initOverrides);
@@ -457,7 +457,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Sets which template id all operators in this MC will render.
+     * Requires admin:config scope. Sets which template id all operators will render.
      * Set the active template for a screen
      */
     async setActiveUiLayoutTemplateRaw(requestParameters: UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -468,7 +468,7 @@ export class UILayoutTemplatesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requires admin:config scope. Sets which template id all operators in this MC will render.
+     * Requires admin:config scope. Sets which template id all operators will render.
      * Set the active template for a screen
      */
     async setActiveUiLayoutTemplate(requestParameters: UILayoutTemplatesApiSetActiveUiLayoutTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
