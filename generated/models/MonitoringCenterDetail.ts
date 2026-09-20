@@ -69,13 +69,31 @@ export interface MonitoringCenterDetail {
      * @type {string}
      * @memberof MonitoringCenterDetail
      */
+    countryName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MonitoringCenterDetail
+     */
     cityId?: string | null;
     /**
      * 
      * @type {string}
      * @memberof MonitoringCenterDetail
      */
+    cityName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MonitoringCenterDetail
+     */
     districtId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MonitoringCenterDetail
+     */
+    districtName?: string | null;
     /**
      * 
      * @type {string}
@@ -94,6 +112,12 @@ export interface MonitoringCenterDetail {
      * @memberof MonitoringCenterDetail
      */
     prefix?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MonitoringCenterDetail
+     */
+    logo?: string | null;
     /**
      * 
      * @type {number}
@@ -294,11 +318,15 @@ export function MonitoringCenterDetailFromJSONTyped(json: any, ignoreDiscriminat
         'address': json['address'] === undefined ? undefined : json['address'] === null ? null : json['address'],
         'email': json['email'] === undefined ? undefined : json['email'] === null ? null : json['email'],
         'countryId': json['countryId'] === undefined ? undefined : json['countryId'] === null ? null : json['countryId'],
+        'countryName': json['countryName'] === undefined ? undefined : json['countryName'] === null ? null : json['countryName'],
         'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
+        'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
         'districtId': json['districtId'] === undefined ? undefined : json['districtId'] === null ? null : json['districtId'],
+        'districtName': json['districtName'] === undefined ? undefined : json['districtName'] === null ? null : json['districtName'],
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
         'prefix': json['prefix'] === undefined ? undefined : json['prefix'] === null ? null : json['prefix'],
+        'logo': json['logo'] === undefined ? undefined : json['logo'] === null ? null : json['logo'],
         'sideNoStart': json['sideNoStart'] === undefined ? undefined : json['sideNoStart'] === null ? null : json['sideNoStart'],
         'sideNoEnd': json['sideNoEnd'] === undefined ? undefined : json['sideNoEnd'] === null ? null : json['sideNoEnd'],
         'soundPath': json['soundPath'] === undefined ? undefined : json['soundPath'] === null ? null : json['soundPath'],
@@ -349,11 +377,15 @@ export function MonitoringCenterDetailToJSONTyped(value?: MonitoringCenterDetail
         'address': value['address'],
         'email': value['email'],
         'countryId': value['countryId'],
+        'countryName': value['countryName'],
         'cityId': value['cityId'],
+        'cityName': value['cityName'],
         'districtId': value['districtId'],
+        'districtName': value['districtName'],
         'geolocation': value['geolocation'],
         'timeZone': value['timeZone'],
         'prefix': value['prefix'],
+        'logo': value['logo'],
         'sideNoStart': value['sideNoStart'],
         'sideNoEnd': value['sideNoEnd'],
         'soundPath': value['soundPath'],

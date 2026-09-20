@@ -14,11 +14,15 @@ Name | Type
 `address` | string
 `email` | string
 `countryId` | string
+`countryName` | string
 `cityId` | string
+`cityName` | string
 `districtId` | string
+`districtName` | string
 `geolocation` | string
 `timeZone` | string
 `prefix` | string
+`logo` | string
 `sideNoStart` | number
 `sideNoEnd` | number
 `soundPath` | string
@@ -63,11 +67,15 @@ const example = {
   "address": null,
   "email": null,
   "countryId": null,
+  "countryName": null,
   "cityId": null,
+  "cityName": null,
   "districtId": null,
+  "districtName": null,
   "geolocation": null,
   "timeZone": null,
   "prefix": null,
+  "logo": null,
   "sideNoStart": null,
   "sideNoEnd": null,
   "soundPath": null,

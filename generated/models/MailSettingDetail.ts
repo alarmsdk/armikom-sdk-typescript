@@ -64,6 +64,12 @@ export interface MailSettingDetail {
     monitoringCenterId?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof MailSettingDetail
+     */
+    monitoringCenterName?: string | null;
+    /**
+     * 
      * @type {boolean}
      * @memberof MailSettingDetail
      */
@@ -94,6 +100,7 @@ export function MailSettingDetailFromJSONTyped(json: any, ignoreDiscriminator: b
         'mailUser': json['mailUser'] === undefined ? undefined : json['mailUser'] === null ? null : json['mailUser'],
         'mailSender': json['mailSender'] === undefined ? undefined : json['mailSender'] === null ? null : json['mailSender'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'hasPassword': json['hasPassword'] == null ? undefined : json['hasPassword'],
     };
 }
@@ -116,6 +123,7 @@ export function MailSettingDetailToJSONTyped(value?: MailSettingDetail | null, i
         'mailUser': value['mailUser'],
         'mailSender': value['mailSender'],
         'monitoringCenterId': value['monitoringCenterId'],
+        'monitoringCenterName': value['monitoringCenterName'],
         'hasPassword': value['hasPassword'],
     };
 }

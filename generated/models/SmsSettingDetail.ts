@@ -63,6 +63,12 @@ export interface SmsSettingDetail {
     monitoringCenterId?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof SmsSettingDetail
+     */
+    monitoringCenterName?: string | null;
+    /**
+     * 
      * @type {boolean}
      * @memberof SmsSettingDetail
      */
@@ -93,6 +99,7 @@ export function SmsSettingDetailFromJSONTyped(json: any, ignoreDiscriminator: bo
         'smsOrg': json['smsOrg'] === undefined ? undefined : json['smsOrg'] === null ? null : json['smsOrg'],
         'provider': json['provider'] === undefined ? undefined : json['provider'] === null ? null : json['provider'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'hasPassword': json['hasPassword'] == null ? undefined : json['hasPassword'],
     };
 }
@@ -115,6 +122,7 @@ export function SmsSettingDetailToJSONTyped(value?: SmsSettingDetail | null, ign
         'smsOrg': value['smsOrg'],
         'provider': value['provider'],
         'monitoringCenterId': value['monitoringCenterId'],
+        'monitoringCenterName': value['monitoringCenterName'],
         'hasPassword': value['hasPassword'],
     };
 }

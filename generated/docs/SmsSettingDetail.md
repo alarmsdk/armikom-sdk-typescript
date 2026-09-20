@@ -14,6 +14,7 @@ Name | Type
 `smsOrg` | string
 `provider` | number
 `monitoringCenterId` | string
+`monitoringCenterName` | string
 `hasPassword` | boolean
 
 ## Example
@@ -30,6 +31,7 @@ const example = {
   "smsOrg": null,
   "provider": null,
   "monitoringCenterId": null,
+  "monitoringCenterName": null,
   "hasPassword": null,
 } satisfies SmsSettingDetail
 

@@ -88,6 +88,12 @@ export interface CreateMonitoringCenterRequest {
     prefix?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof CreateMonitoringCenterRequest
+     */
+    logo?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof CreateMonitoringCenterRequest
      */
@@ -284,6 +290,7 @@ export function CreateMonitoringCenterRequestFromJSONTyped(json: any, ignoreDisc
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
         'prefix': json['prefix'] === undefined ? undefined : json['prefix'] === null ? null : json['prefix'],
+        'logo': json['logo'] === undefined ? undefined : json['logo'] === null ? null : json['logo'],
         'sideNoStart': json['sideNoStart'] === undefined ? undefined : json['sideNoStart'] === null ? null : json['sideNoStart'],
         'sideNoEnd': json['sideNoEnd'] === undefined ? undefined : json['sideNoEnd'] === null ? null : json['sideNoEnd'],
         'soundPath': json['soundPath'] === undefined ? undefined : json['soundPath'] === null ? null : json['soundPath'],
@@ -337,6 +344,7 @@ export function CreateMonitoringCenterRequestToJSONTyped(value?: CreateMonitorin
         'geolocation': value['geolocation'],
         'timeZone': value['timeZone'],
         'prefix': value['prefix'],
+        'logo': value['logo'],
         'sideNoStart': value['sideNoStart'],
         'sideNoEnd': value['sideNoEnd'],
         'soundPath': value['soundPath'],

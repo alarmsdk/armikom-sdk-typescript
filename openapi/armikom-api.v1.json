@@ -88517,6 +88517,10 @@
             "type": "string",
             "nullable": true
           },
+          "logo": {
+            "type": "string",
+            "nullable": true
+          },
           "sideNoStart": {
             "type": "integer",
             "format": "int32",
@@ -91162,6 +91166,10 @@
             "format": "uuid",
             "nullable": true
           },
+          "monitoringCenterName": {
+            "type": "string",
+            "nullable": true
+          },
           "hasPassword": {
             "type": "boolean"
           }
@@ -91491,14 +91499,26 @@
             "format": "uuid",
             "nullable": true
           },
+          "countryName": {
+            "type": "string",
+            "nullable": true
+          },
           "cityId": {
             "type": "string",
             "format": "uuid",
             "nullable": true
           },
+          "cityName": {
+            "type": "string",
+            "nullable": true
+          },
           "districtId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true
+          },
+          "districtName": {
+            "type": "string",
             "nullable": true
           },
           "geolocation": {
@@ -91510,6 +91530,10 @@
             "nullable": true
           },
           "prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "logo": {
             "type": "string",
             "nullable": true
           },
@@ -96897,6 +96921,10 @@
             "format": "uuid",
             "nullable": true
           },
+          "monitoringCenterName": {
+            "type": "string",
+            "nullable": true
+          },
           "hasPassword": {
             "type": "boolean"
           }
@@ -97893,6 +97921,10 @@
             "nullable": true
           },
           "prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "logo": {
             "type": "string",
             "nullable": true
           },

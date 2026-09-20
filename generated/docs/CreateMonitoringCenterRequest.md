@@ -18,6 +18,7 @@ Name | Type
 `geolocation` | string
 `timeZone` | string
 `prefix` | string
+`logo` | string
 `sideNoStart` | number
 `sideNoEnd` | number
 `soundPath` | string
@@ -65,6 +66,7 @@ const example = {
   "geolocation": null,
   "timeZone": null,
   "prefix": null,
+  "logo": null,
   "sideNoStart": null,
   "sideNoEnd": null,
   "soundPath": null,

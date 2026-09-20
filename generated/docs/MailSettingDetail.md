@@ -14,6 +14,7 @@ Name | Type
 `mailUser` | string
 `mailSender` | string
 `monitoringCenterId` | string
+`monitoringCenterName` | string
 `hasPassword` | boolean
 
 ## Example
@@ -30,6 +31,7 @@ const example = {
   "mailUser": null,
   "mailSender": null,
   "monitoringCenterId": null,
+  "monitoringCenterName": null,
   "hasPassword": null,
 } satisfies MailSettingDetail
 
