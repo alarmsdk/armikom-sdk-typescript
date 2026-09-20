@@ -46,7 +46,10 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 411 -> 412: GetAdvisories endpoint added. Re-pinned deliberately.
   // 412 -> 416: CityEmergencyContact CRUD + expanded search. Re-pinned deliberately.
   // 418 -> 422: UI layout template pool endpoints (list, save/delete by id, active). Re-pinned deliberately.
-  assert.equal(ids.size, 422, 'operation count moved off the pinned contract');
+  // 422 -> 423: BatchLinkMobileUserToSides — one user to many subscribers in a single
+  // request, so a console linking a search result stops spending one call per row.
+  // Re-pinned deliberately.
+  assert.equal(ids.size, 423, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

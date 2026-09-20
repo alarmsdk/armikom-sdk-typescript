@@ -85,6 +85,9 @@ docs/BatchCompleteRequest.md
 docs/BatchCompleteResponse.md
 docs/BatchDelayRequest.md
 docs/BatchDelayResponse.md
+docs/BatchLinkSideFailure.md
+docs/BatchLinkSidesRequest.md
+docs/BatchLinkSidesResponse.md
 docs/BulkCancelRequest.md
 docs/BulkCancelResponse.md
 docs/BulkCreateResponse.md
@@ -531,6 +534,9 @@ models/BatchCompleteRequest.ts
 models/BatchCompleteResponse.ts
 models/BatchDelayRequest.ts
 models/BatchDelayResponse.ts
+models/BatchLinkSideFailure.ts
+models/BatchLinkSidesRequest.ts
+models/BatchLinkSidesResponse.ts
 models/BulkCancelRequest.ts
 models/BulkCancelResponse.ts
 models/BulkCreateResponse.ts
