@@ -21,6 +21,12 @@ import { mapValues } from '../runtime';
 export interface UpdateSingleTimeTableRequest {
     /**
      * 
+     * @type {boolean}
+     * @memberof UpdateSingleTimeTableRequest
+     */
+    closed?: boolean | null;
+    /**
+     * 
      * @type {string}
      * @memberof UpdateSingleTimeTableRequest
      */
@@ -74,6 +80,7 @@ export function UpdateSingleTimeTableRequestFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
+        'closed': json['closed'] === undefined ? undefined : json['closed'] === null ? null : json['closed'],
         'openingTime': json['openingTime'] === undefined ? undefined : json['openingTime'] === null ? null : json['openingTime'],
         'closingTime': json['closingTime'] === undefined ? undefined : json['closingTime'] === null ? null : json['closingTime'],
         'openingEarlyMinutes': json['openingEarlyMinutes'] === undefined ? undefined : json['openingEarlyMinutes'] === null ? null : json['openingEarlyMinutes'],
@@ -94,6 +101,7 @@ export function UpdateSingleTimeTableRequestToJSONTyped(value?: UpdateSingleTime
 
     return {
         
+        'closed': value['closed'],
         'openingTime': value['openingTime'],
         'closingTime': value['closingTime'],
         'openingEarlyMinutes': value['openingEarlyMinutes'],

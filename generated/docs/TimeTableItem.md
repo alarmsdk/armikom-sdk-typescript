@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `id` | string
 `day` | number
+`closed` | boolean
 `openingTime` | string
 `closingTime` | string
 `openingEarly` | number
@@ -24,6 +25,7 @@ import type { TimeTableItem } from ''
 const example = {
   "id": null,
   "day": null,
+  "closed": null,
   "openingTime": null,
   "closingTime": null,
   "openingEarly": null,

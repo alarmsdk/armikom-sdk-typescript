@@ -33,6 +33,12 @@ export interface TimeTableItem {
     day?: number | null;
     /**
      * 
+     * @type {boolean}
+     * @memberof TimeTableItem
+     */
+    closed?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof TimeTableItem
      */
@@ -88,6 +94,7 @@ export function TimeTableItemFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'id': json['id'] == null ? undefined : json['id'],
         'day': json['day'] === undefined ? undefined : json['day'] === null ? null : json['day'],
+        'closed': json['closed'] == null ? undefined : json['closed'],
         'openingTime': json['openingTime'] === undefined ? undefined : json['openingTime'] === null ? null : json['openingTime'],
         'closingTime': json['closingTime'] === undefined ? undefined : json['closingTime'] === null ? null : json['closingTime'],
         'openingEarly': json['openingEarly'] === undefined ? undefined : json['openingEarly'] === null ? null : json['openingEarly'],
@@ -110,6 +117,7 @@ export function TimeTableItemToJSONTyped(value?: TimeTableItem | null, ignoreDis
         
         'id': value['id'],
         'day': value['day'],
+        'closed': value['closed'],
         'openingTime': value['openingTime'],
         'closingTime': value['closingTime'],
         'openingEarly': value['openingEarly'],

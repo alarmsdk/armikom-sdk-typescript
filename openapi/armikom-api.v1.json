@@ -97721,6 +97721,9 @@
             "format": "int32",
             "nullable": true
           },
+          "closed": {
+            "type": "boolean"
+          },
           "openingTime": {
             "type": "string",
             "nullable": true
@@ -97758,6 +97761,9 @@
           "day": {
             "type": "integer",
             "format": "int32"
+          },
+          "closed": {
+            "type": "boolean"
           },
           "openingTime": {
             "type": "string",
@@ -99336,6 +99342,10 @@
       "UpdateSingleTimeTableRequest": {
         "type": "object",
         "properties": {
+          "closed": {
+            "type": "boolean",
+            "nullable": true
+          },
           "openingTime": {
             "type": "string",
             "nullable": true

@@ -6,6 +6,7 @@
 
 Name | Type
 ------------ | -------------
+`closed` | boolean
 `openingTime` | string
 `closingTime` | string
 `openingEarlyMinutes` | number
@@ -20,6 +21,7 @@ import type { UpdateSingleTimeTableRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "closed": null,
   "openingTime": null,
   "closingTime": null,
   "openingEarlyMinutes": null,

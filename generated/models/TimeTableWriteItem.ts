@@ -27,6 +27,12 @@ export interface TimeTableWriteItem {
     day?: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof TimeTableWriteItem
+     */
+    closed?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof TimeTableWriteItem
      */
@@ -81,6 +87,7 @@ export function TimeTableWriteItemFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'day': json['day'] == null ? undefined : json['day'],
+        'closed': json['closed'] == null ? undefined : json['closed'],
         'openingTime': json['openingTime'] === undefined ? undefined : json['openingTime'] === null ? null : json['openingTime'],
         'closingTime': json['closingTime'] === undefined ? undefined : json['closingTime'] === null ? null : json['closingTime'],
         'openingEarlyMinutes': json['openingEarlyMinutes'] === undefined ? undefined : json['openingEarlyMinutes'] === null ? null : json['openingEarlyMinutes'],
@@ -102,6 +109,7 @@ export function TimeTableWriteItemToJSONTyped(value?: TimeTableWriteItem | null,
     return {
         
         'day': value['day'],
+        'closed': value['closed'],
         'openingTime': value['openingTime'],
         'closingTime': value['closingTime'],
         'openingEarlyMinutes': value['openingEarlyMinutes'],

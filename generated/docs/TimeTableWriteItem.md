@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `day` | number
+`closed` | boolean
 `openingTime` | string
 `closingTime` | string
 `openingEarlyMinutes` | number
@@ -22,6 +23,7 @@ import type { TimeTableWriteItem } from ''
 // TODO: Update the object below with actual values
 const example = {
   "day": null,
+  "closed": null,
   "openingTime": null,
   "closingTime": null,
   "openingEarlyMinutes": null,
