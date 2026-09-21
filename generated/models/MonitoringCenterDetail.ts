@@ -292,6 +292,12 @@ export interface MonitoringCenterDetail {
      * @memberof MonitoringCenterDetail
      */
     hasFcmApiKey?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MonitoringCenterDetail
+     */
+    options?: string | null;
 }
 
 /**
@@ -356,6 +362,7 @@ export function MonitoringCenterDetailFromJSONTyped(json: any, ignoreDiscriminat
         'fcmStorageBucket': json['fcmStorageBucket'] === undefined ? undefined : json['fcmStorageBucket'] === null ? null : json['fcmStorageBucket'],
         'fcmDatabaseUrl': json['fcmDatabaseUrl'] === undefined ? undefined : json['fcmDatabaseUrl'] === null ? null : json['fcmDatabaseUrl'],
         'hasFcmApiKey': json['hasFcmApiKey'] == null ? undefined : json['hasFcmApiKey'],
+        'options': json['options'] === undefined ? undefined : json['options'] === null ? null : json['options'],
     };
 }
 
@@ -415,6 +422,7 @@ export function MonitoringCenterDetailToJSONTyped(value?: MonitoringCenterDetail
         'fcmStorageBucket': value['fcmStorageBucket'],
         'fcmDatabaseUrl': value['fcmDatabaseUrl'],
         'hasFcmApiKey': value['hasFcmApiKey'],
+        'options': value['options'],
     };
 }
 

@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `name` | string
 `alarmSoundUrl` | string
+`options` | any
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { MonitoringCenterConfigItem } from ''
 const example = {
   "name": null,
   "alarmSoundUrl": null,
+  "options": null,
 } satisfies MonitoringCenterConfigItem
 
 console.log(example)

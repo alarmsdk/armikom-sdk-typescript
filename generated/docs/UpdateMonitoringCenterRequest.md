@@ -47,6 +47,7 @@ Name | Type
 `fcmMessagingSenderId` | string
 `fcmStorageBucket` | string
 `fcmDatabaseUrl` | string
+`options` | string
 
 ## Example
 
@@ -95,6 +96,7 @@ const example = {
   "fcmMessagingSenderId": null,
   "fcmStorageBucket": null,
   "fcmDatabaseUrl": null,
+  "options": null,
 } satisfies UpdateMonitoringCenterRequest
 
 console.log(example)

@@ -260,6 +260,12 @@ export interface UpdateMonitoringCenterRequest {
      * @memberof UpdateMonitoringCenterRequest
      */
     fcmDatabaseUrl?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMonitoringCenterRequest
+     */
+    options?: string | null;
 }
 
 /**
@@ -319,6 +325,7 @@ export function UpdateMonitoringCenterRequestFromJSONTyped(json: any, ignoreDisc
         'fcmMessagingSenderId': json['fcmMessagingSenderId'] === undefined ? undefined : json['fcmMessagingSenderId'] === null ? null : json['fcmMessagingSenderId'],
         'fcmStorageBucket': json['fcmStorageBucket'] === undefined ? undefined : json['fcmStorageBucket'] === null ? null : json['fcmStorageBucket'],
         'fcmDatabaseUrl': json['fcmDatabaseUrl'] === undefined ? undefined : json['fcmDatabaseUrl'] === null ? null : json['fcmDatabaseUrl'],
+        'options': json['options'] === undefined ? undefined : json['options'] === null ? null : json['options'],
     };
 }
 
@@ -373,6 +380,7 @@ export function UpdateMonitoringCenterRequestToJSONTyped(value?: UpdateMonitorin
         'fcmMessagingSenderId': value['fcmMessagingSenderId'],
         'fcmStorageBucket': value['fcmStorageBucket'],
         'fcmDatabaseUrl': value['fcmDatabaseUrl'],
+        'options': value['options'],
     };
 }
 

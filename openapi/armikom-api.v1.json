@@ -89302,6 +89302,10 @@
           "fcmDatabaseUrl": {
             "type": "string",
             "nullable": true
+          },
+          "options": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -92129,6 +92133,9 @@
           "alarmSoundUrl": {
             "type": "string",
             "nullable": true
+          },
+          "options": {
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -92316,6 +92323,10 @@
           },
           "hasFcmApiKey": {
             "type": "boolean"
+          },
+          "options": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -98727,6 +98738,10 @@
             "nullable": true
           },
           "fcmDatabaseUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "options": {
             "type": "string",
             "nullable": true
           }

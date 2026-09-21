@@ -31,6 +31,12 @@ export interface MonitoringCenterConfigItem {
      * @memberof MonitoringCenterConfigItem
      */
     alarmSoundUrl?: string | null;
+    /**
+     * 
+     * @type {any}
+     * @memberof MonitoringCenterConfigItem
+     */
+    options?: any | null;
 }
 
 /**
@@ -52,6 +58,7 @@ export function MonitoringCenterConfigItemFromJSONTyped(json: any, ignoreDiscrim
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'alarmSoundUrl': json['alarmSoundUrl'] === undefined ? undefined : json['alarmSoundUrl'] === null ? null : json['alarmSoundUrl'],
+        'options': json['options'] === undefined ? undefined : json['options'] === null ? null : json['options'],
     };
 }
 
@@ -68,6 +75,7 @@ export function MonitoringCenterConfigItemToJSONTyped(value?: MonitoringCenterCo
         
         'name': value['name'],
         'alarmSoundUrl': value['alarmSoundUrl'],
+        'options': value['options'],
     };
 }
 

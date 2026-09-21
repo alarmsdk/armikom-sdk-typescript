@@ -52,6 +52,7 @@ Name | Type
 `fcmStorageBucket` | string
 `fcmDatabaseUrl` | string
 `hasFcmApiKey` | boolean
+`options` | string
 
 ## Example
 
@@ -105,6 +106,7 @@ const example = {
   "fcmStorageBucket": null,
   "fcmDatabaseUrl": null,
   "hasFcmApiKey": null,
+  "options": null,
 } satisfies MonitoringCenterDetail
 
 console.log(example)
