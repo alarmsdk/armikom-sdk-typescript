@@ -38,6 +38,13 @@ export interface SideReasonItem {
      */
     activeCategoryName?: string | null;
     /**
+     * Whether the associated ActiveCategory represents an activation (`true`)
+     * or deactivation (`false`) reason.
+     * @type {boolean}
+     * @memberof SideReasonItem
+     */
+    categoryActive?: boolean | null;
+    /**
      * 
      * @type {string}
      * @memberof SideReasonItem
@@ -49,6 +56,18 @@ export interface SideReasonItem {
      * @memberof SideReasonItem
      */
     recordDate?: Date | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideReasonItem
+     */
+    operatorId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideReasonItem
+     */
+    operatorName?: string | null;
 }
 
 /**
@@ -71,8 +90,11 @@ export function SideReasonItemFromJSONTyped(json: any, ignoreDiscriminator: bool
         'id': json['id'] == null ? undefined : json['id'],
         'activeCategoryId': json['activeCategoryId'] === undefined ? undefined : json['activeCategoryId'] === null ? null : json['activeCategoryId'],
         'activeCategoryName': json['activeCategoryName'] === undefined ? undefined : json['activeCategoryName'] === null ? null : json['activeCategoryName'],
+        'categoryActive': json['categoryActive'] === undefined ? undefined : json['categoryActive'] === null ? null : json['categoryActive'],
         'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
         'recordDate': json['recordDate'] === undefined ? undefined : json['recordDate'] === null ? null : (new Date(json['recordDate'])),
+        'operatorId': json['operatorId'] === undefined ? undefined : json['operatorId'] === null ? null : json['operatorId'],
+        'operatorName': json['operatorName'] === undefined ? undefined : json['operatorName'] === null ? null : json['operatorName'],
     };
 }
 
@@ -90,8 +112,11 @@ export function SideReasonItemToJSONTyped(value?: SideReasonItem | null, ignoreD
         'id': value['id'],
         'activeCategoryId': value['activeCategoryId'],
         'activeCategoryName': value['activeCategoryName'],
+        'categoryActive': value['categoryActive'],
         'comment': value['comment'],
         'recordDate': value['recordDate'] == null ? value['recordDate'] : value['recordDate'].toISOString(),
+        'operatorId': value['operatorId'],
+        'operatorName': value['operatorName'],
     };
 }
 

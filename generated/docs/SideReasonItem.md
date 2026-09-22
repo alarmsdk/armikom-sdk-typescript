@@ -9,8 +9,11 @@ Name | Type
 `id` | string
 `activeCategoryId` | string
 `activeCategoryName` | string
+`categoryActive` | boolean
 `comment` | string
 `recordDate` | Date
+`operatorId` | string
+`operatorName` | string
 
 ## Example
 
@@ -22,8 +25,11 @@ const example = {
   "id": null,
   "activeCategoryId": null,
   "activeCategoryName": null,
+  "categoryActive": null,
   "comment": null,
   "recordDate": null,
+  "operatorId": null,
+  "operatorName": null,
 } satisfies SideReasonItem
 
 console.log(example)

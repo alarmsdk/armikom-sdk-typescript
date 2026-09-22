@@ -95653,6 +95653,11 @@
             "type": "string",
             "nullable": true
           },
+          "categoryActive": {
+            "type": "boolean",
+            "description": "Whether the associated ActiveCategory represents an activation (`true`)\nor deactivation (`false`) reason.",
+            "nullable": true
+          },
           "comment": {
             "type": "string",
             "nullable": true
@@ -95660,6 +95665,15 @@
           "recordDate": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "operatorId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "operatorName": {
+            "type": "string",
             "nullable": true
           }
         },
