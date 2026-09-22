@@ -28,6 +28,17 @@ import {
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+import {
+    type SideExportRequest,
+    SideExportRequestFromJSON,
+    SideExportRequestToJSON,
+} from '../models/SideExportRequest';
+
+export interface SidesApiExportSidesRequest {
+    sideExportRequest: SideExportRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
 
 export interface SidesApiGetAvailableSideNosRequest {
     start: number;
@@ -49,6 +60,70 @@ export interface SidesApiGetNextSideNoRequest {
  * 
  */
 export class SidesApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for exportSides without sending the request
+     */
+    async exportSidesRequestOpts(requestParameters: SidesApiExportSidesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideExportRequest'] == null) {
+            throw new runtime.RequiredError(
+                'sideExportRequest',
+                'Required parameter "sideExportRequest" was null or undefined when calling exportSides().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/export`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SideExportRequestToJSON(requestParameters['sideExportRequest']),
+        };
+    }
+
+    /**
+     * Exports subscribers matching the given filters to a file. Returns the file directly as a download. Maximum 50,000 rows.
+     * Export subscribers to CSV or XLSX
+     */
+    async exportSidesRaw(requestParameters: SidesApiExportSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exportSidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Exports subscribers matching the given filters to a file. Returns the file directly as a download. Maximum 50,000 rows.
+     * Export subscribers to CSV or XLSX
+     */
+    async exportSides(requestParameters: SidesApiExportSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exportSidesRaw(requestParameters, initOverrides);
+    }
 
     /**
      * Creates request options for getAvailableSideNos without sending the request

@@ -347,6 +347,7 @@ docs/SideDataIssueItem.md
 docs/SideDetailResponse.md
 docs/SideDocumentItem.md
 docs/SideEffect.md
+docs/SideExportRequest.md
 docs/SideHolidayItem.md
 docs/SideInvoiceItem.md
 docs/SideInvoiceItemPagedResult.md
@@ -775,6 +776,7 @@ models/SideDataIssueItem.ts
 models/SideDetailResponse.ts
 models/SideDocumentItem.ts
 models/SideEffect.ts
+models/SideExportRequest.ts
 models/SideHolidayItem.ts
 models/SideInvoiceItem.ts
 models/SideInvoiceItemPagedResult.ts

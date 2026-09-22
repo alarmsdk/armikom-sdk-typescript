@@ -266,6 +266,7 @@ export * from './SideDataIssueItem';
 export * from './SideDetailResponse';
 export * from './SideDocumentItem';
 export * from './SideEffect';
+export * from './SideExportRequest';
 export * from './SideHolidayItem';
 export * from './SideInvoiceItem';
 export * from './SideInvoiceItemPagedResult';
