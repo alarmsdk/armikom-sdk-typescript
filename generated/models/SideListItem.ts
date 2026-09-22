@@ -114,6 +114,12 @@ export interface SideListItem {
      * @type {string}
      * @memberof SideListItem
      */
+    businessSectorName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideListItem
+     */
     monitoringCenterName?: string | null;
     /**
      * 
@@ -233,6 +239,7 @@ export function SideListItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'modelName': json['modelName'] === undefined ? undefined : json['modelName'] === null ? null : json['modelName'],
         'protocolName': json['protocolName'] === undefined ? undefined : json['protocolName'] === null ? null : json['protocolName'],
         'accountTypeName': json['accountTypeName'] === undefined ? undefined : json['accountTypeName'] === null ? null : json['accountTypeName'],
+        'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
         'sideTypeName': json['sideTypeName'] === undefined ? undefined : json['sideTypeName'] === null ? null : json['sideTypeName'],
@@ -277,6 +284,7 @@ export function SideListItemToJSONTyped(value?: SideListItem | null, ignoreDiscr
         'modelName': value['modelName'],
         'protocolName': value['protocolName'],
         'accountTypeName': value['accountTypeName'],
+        'businessSectorName': value['businessSectorName'],
         'monitoringCenterName': value['monitoringCenterName'],
         'dealerName': value['dealerName'],
         'sideTypeName': value['sideTypeName'],

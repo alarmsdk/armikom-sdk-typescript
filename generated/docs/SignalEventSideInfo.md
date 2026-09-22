@@ -21,6 +21,7 @@ Name | Type
 `lockUser` | string
 `cityName` | string
 `accountTypeName` | string
+`businessSectorName` | string
 `taxOffice` | string
 `taxNo` | string
 
@@ -46,6 +47,7 @@ const example = {
   "lockUser": null,
   "cityName": null,
   "accountTypeName": null,
+  "businessSectorName": null,
   "taxOffice": null,
   "taxNo": null,
 } satisfies SignalEventSideInfo

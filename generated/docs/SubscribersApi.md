@@ -1837,7 +1837,7 @@ example().catch(console.error);
 
 ## getSides
 
-> SideListItemPagedResult getSides(q, active, approved, dealerId, cursor, limit, page, pageSize, offset, sort, cityId, districtId, regionId, brandId, modelId, protocolId, accountTypeId, sideTypeId, monitoringCenterId, installerId, customerId, dealerIds, cityIdNot, districtIdNot, regionIdNot, brandIdNot, modelIdNot, protocolIdNot, accountTypeIdNot, sideTypeIdNot, monitoringCenterIdNot, installerIdNot, customerIdNot, dealerIdNot, name, nameNot, address, addressNot, serialNumber, serialNumberNot, comment, commentNot, phone, phoneNot, isOpen, cloudAlarm, neverSignalled, sideNoFrom, sideNoTo, installDateFrom, installDateTo, startDateFrom, startDateTo, endDateFrom, endDateTo, lastSignalFrom, lastSignalTo, xCorrelationId)
+> SideListItemPagedResult getSides(q, active, approved, dealerId, cursor, limit, page, pageSize, offset, sort, cityId, districtId, regionId, brandId, modelId, protocolId, accountTypeId, businessSectorId, sideTypeId, monitoringCenterId, installerId, customerId, dealerIds, cityIdNot, districtIdNot, regionIdNot, brandIdNot, modelIdNot, protocolIdNot, accountTypeIdNot, businessSectorIdNot, sideTypeIdNot, monitoringCenterIdNot, installerIdNot, customerIdNot, dealerIdNot, name, nameNot, address, addressNot, serialNumber, serialNumberNot, comment, commentNot, phone, phoneNot, isOpen, cloudAlarm, neverSignalled, sideNoFrom, sideNoTo, installDateFrom, installDateTo, startDateFrom, startDateTo, endDateFrom, endDateTo, lastSignalFrom, lastSignalTo, xCorrelationId)
 
 List subscribers with filtering, sorting and pagination
 
@@ -1896,6 +1896,8 @@ async function example() {
     // string (optional)
     accountTypeId: accountTypeId_example,
     // string (optional)
+    businessSectorId: businessSectorId_example,
+    // string (optional)
     sideTypeId: sideTypeId_example,
     // string (optional)
     monitoringCenterId: monitoringCenterId_example,
@@ -1919,6 +1921,8 @@ async function example() {
     protocolIdNot: protocolIdNot_example,
     // string (optional)
     accountTypeIdNot: accountTypeIdNot_example,
+    // string (optional)
+    businessSectorIdNot: businessSectorIdNot_example,
     // string (optional)
     sideTypeIdNot: sideTypeIdNot_example,
     // string (optional)
@@ -2013,6 +2017,7 @@ example().catch(console.error);
 | **modelId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **protocolId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **accountTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **businessSectorId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **sideTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **installerId** | `string` |  | [Optional] [Defaults to `undefined`] |
@@ -2025,6 +2030,7 @@ example().catch(console.error);
 | **modelIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **protocolIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **accountTypeIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **businessSectorIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **sideTypeIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **installerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |

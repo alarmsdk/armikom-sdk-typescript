@@ -114,6 +114,12 @@ export interface SignalEventSideInfo {
      * @type {string}
      * @memberof SignalEventSideInfo
      */
+    businessSectorName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
     taxOffice?: string | null;
     /**
      * 
@@ -155,6 +161,7 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'lockUser': json['lockUser'] === undefined ? undefined : json['lockUser'] === null ? null : json['lockUser'],
         'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
         'accountTypeName': json['accountTypeName'] === undefined ? undefined : json['accountTypeName'] === null ? null : json['accountTypeName'],
+        'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
         'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
         'taxNo': json['taxNo'] === undefined ? undefined : json['taxNo'] === null ? null : json['taxNo'],
     };
@@ -186,6 +193,7 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'lockUser': value['lockUser'],
         'cityName': value['cityName'],
         'accountTypeName': value['accountTypeName'],
+        'businessSectorName': value['businessSectorName'],
         'taxOffice': value['taxOffice'],
         'taxNo': value['taxNo'],
     };

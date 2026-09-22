@@ -85,6 +85,12 @@ export interface SideBatchUpdateChanges {
      * @type {string}
      * @memberof SideBatchUpdateChanges
      */
+    businessSectorId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideBatchUpdateChanges
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -121,6 +127,7 @@ export function SideBatchUpdateChangesFromJSONTyped(json: any, ignoreDiscriminat
         'installerId': json['installerId'] === undefined ? undefined : json['installerId'] === null ? null : json['installerId'],
         'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
+        'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
     };
@@ -147,6 +154,7 @@ export function SideBatchUpdateChangesToJSONTyped(value?: SideBatchUpdateChanges
         'installerId': value['installerId'],
         'customerId': value['customerId'],
         'accountTypeId': value['accountTypeId'],
+        'businessSectorId': value['businessSectorId'],
         'sideTypeId': value['sideTypeId'],
         'comment': value['comment'],
     };

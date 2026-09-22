@@ -17,6 +17,7 @@ Name | Type
 `installerId` | string
 `customerId` | string
 `accountTypeId` | string
+`businessSectorId` | string
 `sideTypeId` | string
 `comment` | string
 
@@ -37,6 +38,7 @@ const example = {
   "installerId": null,
   "customerId": null,
   "accountTypeId": null,
+  "businessSectorId": null,
   "sideTypeId": null,
   "comment": null,
 } satisfies SideBatchUpdateChanges

@@ -337,6 +337,18 @@ export interface SideDetailResponse {
      * @type {string}
      * @memberof SideDetailResponse
      */
+    businessSectorId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideDetailResponse
+     */
+    businessSectorName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideDetailResponse
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -463,6 +475,8 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'regionName': json['regionName'] === undefined ? undefined : json['regionName'] === null ? null : json['regionName'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
         'accountTypeName': json['accountTypeName'] === undefined ? undefined : json['accountTypeName'] === null ? null : json['accountTypeName'],
+        'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'sideTypeName': json['sideTypeName'] === undefined ? undefined : json['sideTypeName'] === null ? null : json['sideTypeName'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
@@ -539,6 +553,8 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'regionName': value['regionName'],
         'accountTypeId': value['accountTypeId'],
         'accountTypeName': value['accountTypeName'],
+        'businessSectorId': value['businessSectorId'],
+        'businessSectorName': value['businessSectorName'],
         'sideTypeId': value['sideTypeId'],
         'sideTypeName': value['sideTypeName'],
         'monitoringCenterId': value['monitoringCenterId'],

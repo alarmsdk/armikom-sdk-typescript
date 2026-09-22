@@ -21,6 +21,7 @@ Name | Type
 `modelName` | string
 `protocolName` | string
 `accountTypeName` | string
+`businessSectorName` | string
 `monitoringCenterName` | string
 `dealerName` | string
 `sideTypeName` | string
@@ -59,6 +60,7 @@ const example = {
   "modelName": null,
   "protocolName": null,
   "accountTypeName": null,
+  "businessSectorName": null,
   "monitoringCenterName": null,
   "dealerName": null,
   "sideTypeName": null,

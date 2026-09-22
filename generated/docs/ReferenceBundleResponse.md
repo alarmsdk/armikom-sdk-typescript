@@ -11,6 +11,7 @@ Name | Type
 `regions` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `cities` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `accountTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
+`businessSectors` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `sideTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `serviceTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `accountItems` | [Array&lt;LookupItem&gt;](LookupItem.md)
@@ -33,6 +34,7 @@ const example = {
   "regions": null,
   "cities": null,
   "accountTypes": null,
+  "businessSectors": null,
   "sideTypes": null,
   "serviceTypes": null,
   "accountItems": null,

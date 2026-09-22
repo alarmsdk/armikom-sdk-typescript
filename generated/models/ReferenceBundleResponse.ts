@@ -97,6 +97,12 @@ export interface ReferenceBundleResponse {
      * @type {Array<LookupItem>}
      * @memberof ReferenceBundleResponse
      */
+    businessSectors?: Array<LookupItem> | null;
+    /**
+     * 
+     * @type {Array<LookupItem>}
+     * @memberof ReferenceBundleResponse
+     */
     sideTypes?: Array<LookupItem> | null;
     /**
      * 
@@ -170,6 +176,7 @@ export function ReferenceBundleResponseFromJSONTyped(json: any, ignoreDiscrimina
         'regions': json['regions'] === undefined ? undefined : json['regions'] === null ? null : ((json['regions'] as Array<any>).map(LookupItemFromJSON)),
         'cities': json['cities'] === undefined ? undefined : json['cities'] === null ? null : ((json['cities'] as Array<any>).map(LookupItemFromJSON)),
         'accountTypes': json['accountTypes'] === undefined ? undefined : json['accountTypes'] === null ? null : ((json['accountTypes'] as Array<any>).map(LookupItemFromJSON)),
+        'businessSectors': json['businessSectors'] === undefined ? undefined : json['businessSectors'] === null ? null : ((json['businessSectors'] as Array<any>).map(LookupItemFromJSON)),
         'sideTypes': json['sideTypes'] === undefined ? undefined : json['sideTypes'] === null ? null : ((json['sideTypes'] as Array<any>).map(LookupItemFromJSON)),
         'serviceTypes': json['serviceTypes'] === undefined ? undefined : json['serviceTypes'] === null ? null : ((json['serviceTypes'] as Array<any>).map(LookupItemFromJSON)),
         'accountItems': json['accountItems'] === undefined ? undefined : json['accountItems'] === null ? null : ((json['accountItems'] as Array<any>).map(LookupItemFromJSON)),
@@ -198,6 +205,7 @@ export function ReferenceBundleResponseToJSONTyped(value?: ReferenceBundleRespon
         'regions': value['regions'] == null ? undefined : ((value['regions'] as Array<any>).map(LookupItemToJSON)),
         'cities': value['cities'] == null ? undefined : ((value['cities'] as Array<any>).map(LookupItemToJSON)),
         'accountTypes': value['accountTypes'] == null ? undefined : ((value['accountTypes'] as Array<any>).map(LookupItemToJSON)),
+        'businessSectors': value['businessSectors'] == null ? undefined : ((value['businessSectors'] as Array<any>).map(LookupItemToJSON)),
         'sideTypes': value['sideTypes'] == null ? undefined : ((value['sideTypes'] as Array<any>).map(LookupItemToJSON)),
         'serviceTypes': value['serviceTypes'] == null ? undefined : ((value['serviceTypes'] as Array<any>).map(LookupItemToJSON)),
         'accountItems': value['accountItems'] == null ? undefined : ((value['accountItems'] as Array<any>).map(LookupItemToJSON)),

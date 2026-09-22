@@ -75695,6 +75695,13 @@
             }
           },
           {
+            "name": "businessSectorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sideTypeId",
             "in": "query",
             "schema": {
@@ -75773,6 +75780,13 @@
           },
           {
             "name": "accountTypeIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "businessSectorIdNot",
             "in": "query",
             "schema": {
               "type": "string"
@@ -90112,6 +90126,11 @@
             "format": "uuid",
             "nullable": true
           },
+          "businessSectorId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
           "sideTypeId": {
             "type": "string",
             "format": "uuid",
@@ -93839,6 +93858,13 @@
             },
             "nullable": true
           },
+          "businessSectors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupItem"
+            },
+            "nullable": true
+          },
           "sideTypes": {
             "type": "array",
             "items": {
@@ -94729,6 +94755,10 @@
             "type": "string",
             "nullable": true
           },
+          "businessSectorId": {
+            "type": "string",
+            "nullable": true
+          },
           "sideTypeId": {
             "type": "string",
             "nullable": true
@@ -94775,6 +94805,10 @@
             "nullable": true
           },
           "accountTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorIdNot": {
             "type": "string",
             "nullable": true
           },
@@ -94954,6 +94988,9 @@
             "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "accountTypeId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "businessSectorId": {
             "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "sideTypeId": {
@@ -95442,6 +95479,15 @@
             "type": "string",
             "nullable": true
           },
+          "businessSectorId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "businessSectorName": {
+            "type": "string",
+            "nullable": true
+          },
           "sideTypeId": {
             "type": "string",
             "format": "uuid",
@@ -95726,6 +95772,10 @@
             "nullable": true
           },
           "accountTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorName": {
             "type": "string",
             "nullable": true
           },
@@ -97047,6 +97097,10 @@
             "nullable": true
           },
           "accountTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorName": {
             "type": "string",
             "nullable": true
           },
@@ -99568,6 +99622,9 @@
             "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "accountTypeId": {
+            "$ref": "#/components/schemas/GuidNullableOptional"
+          },
+          "businessSectorId": {
             "$ref": "#/components/schemas/GuidNullableOptional"
           },
           "sideTypeId": {

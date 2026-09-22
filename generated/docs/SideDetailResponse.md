@@ -58,6 +58,8 @@ Name | Type
 `regionName` | string
 `accountTypeId` | string
 `accountTypeName` | string
+`businessSectorId` | string
+`businessSectorName` | string
 `sideTypeId` | string
 `sideTypeName` | string
 `monitoringCenterId` | string
@@ -128,6 +130,8 @@ const example = {
   "regionName": null,
   "accountTypeId": null,
   "accountTypeName": null,
+  "businessSectorId": null,
+  "businessSectorName": null,
   "sideTypeId": null,
   "sideTypeName": null,
   "monitoringCenterId": null,

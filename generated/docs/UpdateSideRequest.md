@@ -38,6 +38,7 @@ Name | Type
 `districtId` | string
 `regionId` | string
 `accountTypeId` | string
+`businessSectorId` | string
 `sideTypeId` | string
 `installDate` | Date
 `startDate` | Date
@@ -82,6 +83,7 @@ const example = {
   "districtId": null,
   "regionId": null,
   "accountTypeId": null,
+  "businessSectorId": null,
   "sideTypeId": null,
   "installDate": null,
   "startDate": null,

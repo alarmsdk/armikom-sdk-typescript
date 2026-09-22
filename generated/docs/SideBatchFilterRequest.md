@@ -14,6 +14,7 @@ Name | Type
 `modelId` | string
 `protocolId` | string
 `accountTypeId` | string
+`businessSectorId` | string
 `sideTypeId` | string
 `monitoringCenterId` | string
 `installerId` | string
@@ -26,6 +27,7 @@ Name | Type
 `modelIdNot` | string
 `protocolIdNot` | string
 `accountTypeIdNot` | string
+`businessSectorIdNot` | string
 `sideTypeIdNot` | string
 `monitoringCenterIdNot` | string
 `installerIdNot` | string
@@ -73,6 +75,7 @@ const example = {
   "modelId": null,
   "protocolId": null,
   "accountTypeId": null,
+  "businessSectorId": null,
   "sideTypeId": null,
   "monitoringCenterId": null,
   "installerId": null,
@@ -85,6 +88,7 @@ const example = {
   "modelIdNot": null,
   "protocolIdNot": null,
   "accountTypeIdNot": null,
+  "businessSectorIdNot": null,
   "sideTypeIdNot": null,
   "monitoringCenterIdNot": null,
   "installerIdNot": null,
