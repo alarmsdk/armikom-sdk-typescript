@@ -12,6 +12,7 @@ Name | Type
 `phone2` | string
 `sideNoStart` | number
 `sideNoEnd` | number
+`options` | any
 
 ## Example
 
@@ -26,6 +27,7 @@ const example = {
   "phone2": null,
   "sideNoStart": null,
   "sideNoEnd": null,
+  "options": null,
 } satisfies MonitoringCenterItem
 
 console.log(example)

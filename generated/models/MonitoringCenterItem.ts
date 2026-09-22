@@ -55,6 +55,12 @@ export interface MonitoringCenterItem {
      * @memberof MonitoringCenterItem
      */
     sideNoEnd?: number | null;
+    /**
+     * 
+     * @type {any}
+     * @memberof MonitoringCenterItem
+     */
+    options?: any | null;
 }
 
 /**
@@ -80,6 +86,7 @@ export function MonitoringCenterItemFromJSONTyped(json: any, ignoreDiscriminator
         'phone2': json['phone2'] === undefined ? undefined : json['phone2'] === null ? null : json['phone2'],
         'sideNoStart': json['sideNoStart'] === undefined ? undefined : json['sideNoStart'] === null ? null : json['sideNoStart'],
         'sideNoEnd': json['sideNoEnd'] === undefined ? undefined : json['sideNoEnd'] === null ? null : json['sideNoEnd'],
+        'options': json['options'] === undefined ? undefined : json['options'] === null ? null : json['options'],
     };
 }
 
@@ -100,6 +107,7 @@ export function MonitoringCenterItemToJSONTyped(value?: MonitoringCenterItem | n
         'phone2': value['phone2'],
         'sideNoStart': value['sideNoStart'],
         'sideNoEnd': value['sideNoEnd'],
+        'options': value['options'],
     };
 }
 
