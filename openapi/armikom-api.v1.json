@@ -89763,6 +89763,14 @@
             "type": "string",
             "nullable": true
           },
+          "taxOffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxNo": {
+            "type": "string",
+            "nullable": true
+          },
           "latitude": {
             "type": "string",
             "nullable": true
@@ -95030,6 +95038,14 @@
             "type": "string",
             "nullable": true
           },
+          "taxOffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxNo": {
+            "type": "string",
+            "nullable": true
+          },
           "latitude": {
             "type": "string",
             "nullable": true
@@ -95428,6 +95444,14 @@
             "nullable": true
           },
           "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxOffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxNo": {
             "type": "string",
             "nullable": true
           },
@@ -96703,6 +96727,18 @@
             "nullable": true
           },
           "cityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxOffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxNo": {
             "type": "string",
             "nullable": true
           }
@@ -99137,6 +99173,14 @@
             "nullable": true
           },
           "policeStationNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxOffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxNo": {
             "type": "string",
             "nullable": true
           },

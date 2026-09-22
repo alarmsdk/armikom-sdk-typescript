@@ -144,6 +144,18 @@ export interface SideListItem {
      * @type {string}
      * @memberof SideListItem
      */
+    taxOffice?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideListItem
+     */
+    taxNo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideListItem
+     */
     address?: string | null;
     /**
      * 
@@ -226,6 +238,8 @@ export function SideListItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'sideTypeName': json['sideTypeName'] === undefined ? undefined : json['sideTypeName'] === null ? null : json['sideTypeName'],
         'customerName': json['customerName'] === undefined ? undefined : json['customerName'] === null ? null : json['customerName'],
         'serialNumber': json['serialNumber'] === undefined ? undefined : json['serialNumber'] === null ? null : json['serialNumber'],
+        'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
+        'taxNo': json['taxNo'] === undefined ? undefined : json['taxNo'] === null ? null : json['taxNo'],
         'address': json['address'] === undefined ? undefined : json['address'] === null ? null : json['address'],
         'phone1': json['phone1'] === undefined ? undefined : json['phone1'] === null ? null : json['phone1'],
         'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
@@ -268,6 +282,8 @@ export function SideListItemToJSONTyped(value?: SideListItem | null, ignoreDiscr
         'sideTypeName': value['sideTypeName'],
         'customerName': value['customerName'],
         'serialNumber': value['serialNumber'],
+        'taxOffice': value['taxOffice'],
+        'taxNo': value['taxNo'],
         'address': value['address'],
         'phone1': value['phone1'],
         'comment': value['comment'],

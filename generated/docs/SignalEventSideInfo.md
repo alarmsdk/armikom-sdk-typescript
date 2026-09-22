@@ -20,6 +20,9 @@ Name | Type
 `protocolName` | string
 `lockUser` | string
 `cityName` | string
+`accountTypeName` | string
+`taxOffice` | string
+`taxNo` | string
 
 ## Example
 
@@ -42,6 +45,9 @@ const example = {
   "protocolName": null,
   "lockUser": null,
   "cityName": null,
+  "accountTypeName": null,
+  "taxOffice": null,
+  "taxNo": null,
 } satisfies SignalEventSideInfo
 
 console.log(example)

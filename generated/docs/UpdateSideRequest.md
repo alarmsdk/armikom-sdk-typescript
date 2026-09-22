@@ -17,6 +17,8 @@ Name | Type
 `safePassword` | string
 `identityNo` | string
 `policeStationNo` | string
+`taxOffice` | string
+`taxNo` | string
 `latitude` | string
 `longitude` | string
 `timeZone` | string
@@ -59,6 +61,8 @@ const example = {
   "safePassword": null,
   "identityNo": null,
   "policeStationNo": null,
+  "taxOffice": null,
+  "taxNo": null,
   "latitude": null,
   "longitude": null,
   "timeZone": null,

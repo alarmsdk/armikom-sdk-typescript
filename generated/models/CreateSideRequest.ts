@@ -102,6 +102,18 @@ export interface CreateSideRequest {
      * @type {string}
      * @memberof CreateSideRequest
      */
+    taxOffice?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSideRequest
+     */
+    taxNo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSideRequest
+     */
     latitude?: string | null;
     /**
      * 
@@ -279,6 +291,8 @@ export function CreateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'safePassword': json['safePassword'] === undefined ? undefined : json['safePassword'] === null ? null : json['safePassword'],
         'identityNo': json['identityNo'] === undefined ? undefined : json['identityNo'] === null ? null : json['identityNo'],
         'policeStationNo': json['policeStationNo'] === undefined ? undefined : json['policeStationNo'] === null ? null : json['policeStationNo'],
+        'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
+        'taxNo': json['taxNo'] === undefined ? undefined : json['taxNo'] === null ? null : json['taxNo'],
         'latitude': json['latitude'] === undefined ? undefined : json['latitude'] === null ? null : json['latitude'],
         'longitude': json['longitude'] === undefined ? undefined : json['longitude'] === null ? null : json['longitude'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
@@ -331,6 +345,8 @@ export function CreateSideRequestToJSONTyped(value?: CreateSideRequest | null, i
         'safePassword': value['safePassword'],
         'identityNo': value['identityNo'],
         'policeStationNo': value['policeStationNo'],
+        'taxOffice': value['taxOffice'],
+        'taxNo': value['taxNo'],
         'latitude': value['latitude'],
         'longitude': value['longitude'],
         'timeZone': value['timeZone'],

@@ -26,6 +26,8 @@ Name | Type
 `sideTypeName` | string
 `customerName` | string
 `serialNumber` | string
+`taxOffice` | string
+`taxNo` | string
 `address` | string
 `phone1` | string
 `comment` | string
@@ -62,6 +64,8 @@ const example = {
   "sideTypeName": null,
   "customerName": null,
   "serialNumber": null,
+  "taxOffice": null,
+  "taxNo": null,
   "address": null,
   "phone1": null,
   "comment": null,
