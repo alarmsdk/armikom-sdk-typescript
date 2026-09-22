@@ -219,6 +219,7 @@ export * from './ReferenceWriteResponse';
 export * from './RefreshRequest';
 export * from './RefreshResponse';
 export * from './ReorderContactsRequest';
+export * from './ReorderSignalExplanationsRequest';
 export * from './ReplaceActionTextRequest';
 export * from './ReserveDealerSideNosRequest';
 export * from './ResetMobileUserPasswordRequest';

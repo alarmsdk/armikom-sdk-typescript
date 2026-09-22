@@ -116,6 +116,7 @@ All URIs are relative to *http://localhost*
 | [**listSignalRelationTypes**](ReferenceDataApi.md#listsignalrelationtypes) | **GET** /v1/reference/signal-relation-types | List the relation types a signal relation can carry |
 | [**listSignalRelations**](ReferenceDataApi.md#listsignalrelations) | **GET** /v1/reference/signal-relations | List signal relations with source and target signal types |
 | [**listTechnicalPeopleDetailed**](ReferenceDataApi.md#listtechnicalpeopledetailed) | **GET** /v1/reference/technical-people/detailed | List technicians with their contact details |
+| [**reorderSignalExplanations**](ReferenceDataApi.md#reordersignalexplanationsoperation) | **PUT** /v1/reference/signal-explanations/order | Reorder signal explanations atomically |
 | [**updateAccountItem**](ReferenceDataApi.md#updateaccountitemoperation) | **PATCH** /v1/reference/account-items/{id} | Update an account item |
 | [**updateAccountType**](ReferenceDataApi.md#updateaccounttypeoperation) | **PATCH** /v1/reference/account-types/{id} | Update an account type |
 | [**updateActiveCategory**](ReferenceDataApi.md#updateactivecategoryoperation) | **PATCH** /v1/reference/active-categories/{id} | Update an active category |
@@ -8701,6 +8702,83 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## reorderSignalExplanations
+
+> reorderSignalExplanations(reorderSignalExplanationsRequest, xCorrelationId)
+
+Reorder signal explanations atomically
+
+Provide the full list of signal explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ReorderSignalExplanationsOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // ReorderSignalExplanationsRequest
+    reorderSignalExplanationsRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ReorderSignalExplanationsOperationRequest;
+
+  try {
+    const data = await api.reorderSignalExplanations(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **reorderSignalExplanationsRequest** | [ReorderSignalExplanationsRequest](ReorderSignalExplanationsRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

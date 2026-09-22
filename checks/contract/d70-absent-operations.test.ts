@@ -49,8 +49,9 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 422 -> 423: BatchLinkMobileUserToSides — one user to many subscribers in a single
   // request, so a console linking a search result stops spending one call per row.
   // 423 -> 424: PUT replaceActionText — replace (not append) action text on a signal event.
+  // 424 -> 425: PUT ReorderSignalExplanations — atomic reorder of signal explanations.
   // Re-pinned deliberately.
-  assert.equal(ids.size, 424, 'operation count moved off the pinned contract');
+  assert.equal(ids.size, 425, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

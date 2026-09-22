@@ -259,6 +259,11 @@ import {
     ReferenceWriteResponseToJSON,
 } from '../models/ReferenceWriteResponse';
 import {
+    type ReorderSignalExplanationsRequest,
+    ReorderSignalExplanationsRequestFromJSON,
+    ReorderSignalExplanationsRequestToJSON,
+} from '../models/ReorderSignalExplanationsRequest';
+import {
     type SaveCityEmergencyContactRequest,
     SaveCityEmergencyContactRequestFromJSON,
     SaveCityEmergencyContactRequestToJSON,
@@ -1041,6 +1046,11 @@ export interface ReferenceDataApiListSignalRelationsRequest {
 export interface ReferenceDataApiListTechnicalPeopleDetailedRequest {
     dealerId?: string;
     activeOnly?: boolean;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiReorderSignalExplanationsOperationRequest {
+    reorderSignalExplanationsRequest: ReorderSignalExplanationsRequest;
     xCorrelationId?: string;
 }
 
@@ -7679,6 +7689,66 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     async listTechnicalPeopleDetailed(requestParameters: ReferenceDataApiListTechnicalPeopleDetailedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TechnicalPersonDetail>> {
         const response = await this.listTechnicalPeopleDetailedRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Creates request options for reorderSignalExplanations without sending the request
+     */
+    async reorderSignalExplanationsRequestOpts(requestParameters: ReferenceDataApiReorderSignalExplanationsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['reorderSignalExplanationsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'reorderSignalExplanationsRequest',
+                'Required parameter "reorderSignalExplanationsRequest" was null or undefined when calling reorderSignalExplanations().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-explanations/order`;
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReorderSignalExplanationsRequestToJSON(requestParameters['reorderSignalExplanationsRequest']),
+        };
+    }
+
+    /**
+     * Provide the full list of signal explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+     * Reorder signal explanations atomically
+     */
+    async reorderSignalExplanationsRaw(requestParameters: ReferenceDataApiReorderSignalExplanationsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.reorderSignalExplanationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Provide the full list of signal explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+     * Reorder signal explanations atomically
+     */
+    async reorderSignalExplanations(requestParameters: ReferenceDataApiReorderSignalExplanationsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.reorderSignalExplanationsRaw(requestParameters, initOverrides);
     }
 
     /**

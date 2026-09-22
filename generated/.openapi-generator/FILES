@@ -294,6 +294,7 @@ docs/ReferenceWriteResponse.md
 docs/RefreshRequest.md
 docs/RefreshResponse.md
 docs/ReorderContactsRequest.md
+docs/ReorderSignalExplanationsRequest.md
 docs/ReplaceActionTextRequest.md
 docs/ReserveDealerSideNosRequest.md
 docs/ResetMobileUserPasswordRequest.md
@@ -727,6 +728,7 @@ models/ReferenceWriteResponse.ts
 models/RefreshRequest.ts
 models/RefreshResponse.ts
 models/ReorderContactsRequest.ts
+models/ReorderSignalExplanationsRequest.ts
 models/ReplaceActionTextRequest.ts
 models/ReserveDealerSideNosRequest.ts
 models/ResetMobileUserPasswordRequest.ts
