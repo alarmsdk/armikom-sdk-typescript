@@ -156,6 +156,10 @@ export interface SignalEventsApiGetSignalEventsRequest {
     alarmCategoryIdNot?: string;
     actionNot?: string;
     signalNameNot?: string;
+    completedById?: string;
+    completedByName?: string;
+    completedByIdNot?: string;
+    completedByNameNot?: string;
     xCorrelationId?: string;
 }
 
@@ -754,6 +758,22 @@ export class SignalEventsApi extends runtime.BaseAPI {
             queryParameters['signalNameNot'] = requestParameters['signalNameNot'];
         }
 
+        if (requestParameters['completedById'] != null) {
+            queryParameters['completedById'] = requestParameters['completedById'];
+        }
+
+        if (requestParameters['completedByName'] != null) {
+            queryParameters['completedByName'] = requestParameters['completedByName'];
+        }
+
+        if (requestParameters['completedByIdNot'] != null) {
+            queryParameters['completedByIdNot'] = requestParameters['completedByIdNot'];
+        }
+
+        if (requestParameters['completedByNameNot'] != null) {
+            queryParameters['completedByNameNot'] = requestParameters['completedByNameNot'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -780,7 +800,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of signal type names, each exact unless it carries a `*` wildcard (`*hirsiz*` contains, `HIRSIZ*` starts with); `eventCode`/`action` and their counterparts stay single substring matches.
+     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of signal type names, each exact unless it carries a `*` wildcard (`*hirsiz*` contains, `HIRSIZ*` starts with); `eventCode`/`action` and their counterparts stay single substring matches. `completedById`/`completedByIdNot` filter by the operator GUID who completed the signal (comma-separated). `completedByName`/`completedByNameNot` filter by substring match on the operator display name stamped at completion time.
      * List signal events with filtering, sorting and pagination
      */
     async getSignalEventsRaw(requestParameters: SignalEventsApiGetSignalEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalEventListItemPagedResult>> {
@@ -791,7 +811,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of signal type names, each exact unless it carries a `*` wildcard (`*hirsiz*` contains, `HIRSIZ*` starts with); `eventCode`/`action` and their counterparts stay single substring matches.
+     * Returns a paginated list of signal events visible to the current user. Filter by date range with `from`/`to` (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a `...Not` counterpart that excludes instead of includes, so `alarmCategoryIdNot` drops signals in those categories. Within one dimension the values are OR\'ed, dimensions are AND\'ed, and excluding a dimension never drops rows that have no value for it at all. `signalName`/`signalNameNot` take a comma-separated list of signal type names, each exact unless it carries a `*` wildcard (`*hirsiz*` contains, `HIRSIZ*` starts with); `eventCode`/`action` and their counterparts stay single substring matches. `completedById`/`completedByIdNot` filter by the operator GUID who completed the signal (comma-separated). `completedByName`/`completedByNameNot` filter by substring match on the operator display name stamped at completion time.
      * List signal events with filtering, sorting and pagination
      */
     async getSignalEvents(requestParameters: SignalEventsApiGetSignalEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalEventListItemPagedResult> {

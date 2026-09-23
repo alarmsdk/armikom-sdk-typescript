@@ -108,6 +108,12 @@ export interface SignalEventListItem {
      * @type {string}
      * @memberof SignalEventListItem
      */
+    completedByName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventListItem
+     */
     frontColor?: string | null;
     /**
      * 
@@ -148,6 +154,7 @@ export function SignalEventListItemFromJSONTyped(json: any, ignoreDiscriminator:
         'sideId': json['sideId'] === undefined ? undefined : json['sideId'] === null ? null : json['sideId'],
         'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
         'alarmCategoryName': json['alarmCategoryName'] === undefined ? undefined : json['alarmCategoryName'] === null ? null : json['alarmCategoryName'],
+        'completedByName': json['completedByName'] === undefined ? undefined : json['completedByName'] === null ? null : json['completedByName'],
         'frontColor': json['frontColor'] === undefined ? undefined : json['frontColor'] === null ? null : json['frontColor'],
         'backColor': json['backColor'] === undefined ? undefined : json['backColor'] === null ? null : json['backColor'],
     };
@@ -178,6 +185,7 @@ export function SignalEventListItemToJSONTyped(value?: SignalEventListItem | nul
         'sideId': value['sideId'],
         'dealerName': value['dealerName'],
         'alarmCategoryName': value['alarmCategoryName'],
+        'completedByName': value['completedByName'],
         'frontColor': value['frontColor'],
         'backColor': value['backColor'],
     };

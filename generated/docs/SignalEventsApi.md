@@ -582,11 +582,11 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, signalNameNot, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, signalNameNot, completedById, completedByName, completedByIdNot, completedByNameNot, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
-Returns a paginated list of signal events visible to the current user. Filter by date range with &#x60;from&#x60;/&#x60;to&#x60; (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a &#x60;...Not&#x60; counterpart that excludes instead of includes, so &#x60;alarmCategoryIdNot&#x60; drops signals in those categories. Within one dimension the values are OR\&#39;ed, dimensions are AND\&#39;ed, and excluding a dimension never drops rows that have no value for it at all. &#x60;signalName&#x60;/&#x60;signalNameNot&#x60; take a comma-separated list of signal type names, each exact unless it carries a &#x60;*&#x60; wildcard (&#x60;*hirsiz*&#x60; contains, &#x60;HIRSIZ*&#x60; starts with); &#x60;eventCode&#x60;/&#x60;action&#x60; and their counterparts stay single substring matches.
+Returns a paginated list of signal events visible to the current user. Filter by date range with &#x60;from&#x60;/&#x60;to&#x60; (ISO-8601 UTC). Default sort is by signal date descending. Each id filter has a &#x60;...Not&#x60; counterpart that excludes instead of includes, so &#x60;alarmCategoryIdNot&#x60; drops signals in those categories. Within one dimension the values are OR\&#39;ed, dimensions are AND\&#39;ed, and excluding a dimension never drops rows that have no value for it at all. &#x60;signalName&#x60;/&#x60;signalNameNot&#x60; take a comma-separated list of signal type names, each exact unless it carries a &#x60;*&#x60; wildcard (&#x60;*hirsiz*&#x60; contains, &#x60;HIRSIZ*&#x60; starts with); &#x60;eventCode&#x60;/&#x60;action&#x60; and their counterparts stay single substring matches. &#x60;completedById&#x60;/&#x60;completedByIdNot&#x60; filter by the operator GUID who completed the signal (comma-separated). &#x60;completedByName&#x60;/&#x60;completedByNameNot&#x60; filter by substring match on the operator display name stamped at completion time.
 
 ### Example
 
@@ -664,6 +664,14 @@ async function example() {
     actionNot: actionNot_example,
     // string (optional)
     signalNameNot: signalNameNot_example,
+    // string (optional)
+    completedById: completedById_example,
+    // string (optional)
+    completedByName: completedByName_example,
+    // string (optional)
+    completedByIdNot: completedByIdNot_example,
+    // string (optional)
+    completedByNameNot: completedByNameNot_example,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies GetSignalEventsRequest;
@@ -714,6 +722,10 @@ example().catch(console.error);
 | **alarmCategoryIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **actionNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **signalNameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **completedById** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **completedByName** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **completedByIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **completedByNameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

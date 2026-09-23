@@ -20,6 +20,7 @@ Name | Type
 `sideId` | string
 `dealerName` | string
 `alarmCategoryName` | string
+`completedByName` | string
 `frontColor` | string
 `backColor` | string
 
@@ -44,6 +45,7 @@ const example = {
   "sideId": null,
   "dealerName": null,
   "alarmCategoryName": null,
+  "completedByName": null,
   "frontColor": null,
   "backColor": null,
 } satisfies SignalEventListItem
