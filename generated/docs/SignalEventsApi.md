@@ -582,7 +582,7 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, actionNot, signalNameNot, completedById, completedByName, completedByIdNot, completedByNameNot, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, businessSectorId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, businessSectorIdNot, actionNot, signalNameNot, completedById, completedByName, completedByIdNot, completedByNameNot, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
@@ -649,6 +649,8 @@ async function example() {
     // string (optional)
     alarmCategoryId: alarmCategoryId_example,
     // string (optional)
+    businessSectorId: businessSectorId_example,
+    // string (optional)
     sideIdNot: sideIdNot_example,
     // string (optional)
     receiverIdNot: receiverIdNot_example,
@@ -660,6 +662,8 @@ async function example() {
     dealerIdNot: dealerIdNot_example,
     // string (optional)
     alarmCategoryIdNot: alarmCategoryIdNot_example,
+    // string (optional)
+    businessSectorIdNot: businessSectorIdNot_example,
     // string (optional)
     actionNot: actionNot_example,
     // string (optional)
@@ -714,12 +718,14 @@ example().catch(console.error);
 | **eventCode** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **dealerId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **businessSectorId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **sideIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **receiverIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **eventCodeNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **dealerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **alarmCategoryIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **businessSectorIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **actionNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **signalNameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **completedById** | `string` |  | [Optional] [Defaults to `undefined`] |

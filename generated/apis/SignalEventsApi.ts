@@ -148,12 +148,14 @@ export interface SignalEventsApiGetSignalEventsRequest {
     eventCode?: string;
     dealerId?: string;
     alarmCategoryId?: string;
+    businessSectorId?: string;
     sideIdNot?: string;
     receiverIdNot?: string;
     monitoringCenterIdNot?: string;
     eventCodeNot?: string;
     dealerIdNot?: string;
     alarmCategoryIdNot?: string;
+    businessSectorIdNot?: string;
     actionNot?: string;
     signalNameNot?: string;
     completedById?: string;
@@ -726,6 +728,10 @@ export class SignalEventsApi extends runtime.BaseAPI {
             queryParameters['alarmCategoryId'] = requestParameters['alarmCategoryId'];
         }
 
+        if (requestParameters['businessSectorId'] != null) {
+            queryParameters['businessSectorId'] = requestParameters['businessSectorId'];
+        }
+
         if (requestParameters['sideIdNot'] != null) {
             queryParameters['sideIdNot'] = requestParameters['sideIdNot'];
         }
@@ -748,6 +754,10 @@ export class SignalEventsApi extends runtime.BaseAPI {
 
         if (requestParameters['alarmCategoryIdNot'] != null) {
             queryParameters['alarmCategoryIdNot'] = requestParameters['alarmCategoryIdNot'];
+        }
+
+        if (requestParameters['businessSectorIdNot'] != null) {
+            queryParameters['businessSectorIdNot'] = requestParameters['businessSectorIdNot'];
         }
 
         if (requestParameters['actionNot'] != null) {

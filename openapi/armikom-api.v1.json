@@ -58155,6 +58155,13 @@
             }
           },
           {
+            "name": "businessSectorId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sideIdNot",
             "in": "query",
             "schema": {
@@ -58191,6 +58198,13 @@
           },
           {
             "name": "alarmCategoryIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "businessSectorIdNot",
             "in": "query",
             "schema": {
               "type": "string"
