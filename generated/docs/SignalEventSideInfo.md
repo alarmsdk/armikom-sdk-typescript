@@ -24,6 +24,34 @@ Name | Type
 `businessSectorName` | string
 `taxOffice` | string
 `taxNo` | string
+`phone2` | string
+`sysPhone` | string
+`mobilePhone` | string
+`districtName` | string
+`regionName` | string
+`sideTypeName` | string
+`serialNumber` | string
+`identityNo` | string
+`safePassword` | string
+`comment` | string
+`armType` | string
+`policeStationNo` | string
+`timeZone` | string
+`active` | boolean
+`isOpen` | boolean
+`isOnline` | boolean
+`gprs` | boolean
+`cloudAlarm` | boolean
+`installDate` | Date
+`startDate` | Date
+`endDate` | Date
+`passiveDate` | Date
+`lastSignalDate` | Date
+`recordDateTime` | Date
+`timeoutDuration` | number
+`gprsTimeoutMinutes` | number
+`gprsModule` | number
+`ebsModulePort` | number
 
 ## Example
 
@@ -50,6 +78,34 @@ const example = {
   "businessSectorName": null,
   "taxOffice": null,
   "taxNo": null,
+  "phone2": null,
+  "sysPhone": null,
+  "mobilePhone": null,
+  "districtName": null,
+  "regionName": null,
+  "sideTypeName": null,
+  "serialNumber": null,
+  "identityNo": null,
+  "safePassword": null,
+  "comment": null,
+  "armType": null,
+  "policeStationNo": null,
+  "timeZone": null,
+  "active": null,
+  "isOpen": null,
+  "isOnline": null,
+  "gprs": null,
+  "cloudAlarm": null,
+  "installDate": null,
+  "startDate": null,
+  "endDate": null,
+  "passiveDate": null,
+  "lastSignalDate": null,
+  "recordDateTime": null,
+  "timeoutDuration": null,
+  "gprsTimeoutMinutes": null,
+  "gprsModule": null,
+  "ebsModulePort": null,
 } satisfies SignalEventSideInfo
 
 console.log(example)

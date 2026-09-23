@@ -97111,6 +97111,125 @@
           "taxNo": {
             "type": "string",
             "nullable": true
+          },
+          "phone2": {
+            "type": "string",
+            "nullable": true
+          },
+          "sysPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobilePhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtName": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "safePassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "armType": {
+            "type": "string",
+            "nullable": true
+          },
+          "policeStationNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isOpen": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isOnline": {
+            "type": "boolean"
+          },
+          "gprs": {
+            "type": "boolean"
+          },
+          "cloudAlarm": {
+            "type": "boolean"
+          },
+          "installDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "passiveDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "recordDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "timeoutDuration": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "gprsTimeoutMinutes": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "gprsModule": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ebsModulePort": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false

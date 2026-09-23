@@ -127,6 +127,174 @@ export interface SignalEventSideInfo {
      * @memberof SignalEventSideInfo
      */
     taxNo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    phone2?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    sysPhone?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    mobilePhone?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    districtName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    regionName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    sideTypeName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    serialNumber?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    identityNo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    safePassword?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    comment?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    armType?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    policeStationNo?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    timeZone?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    active?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    isOpen?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    isOnline?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    gprs?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    cloudAlarm?: boolean;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    installDate?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    startDate?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    endDate?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    passiveDate?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    lastSignalDate?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SignalEventSideInfo
+     */
+    recordDateTime?: Date | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SignalEventSideInfo
+     */
+    timeoutDuration?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SignalEventSideInfo
+     */
+    gprsTimeoutMinutes?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SignalEventSideInfo
+     */
+    gprsModule?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SignalEventSideInfo
+     */
+    ebsModulePort?: number | null;
 }
 
 /**
@@ -164,6 +332,34 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
         'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
         'taxNo': json['taxNo'] === undefined ? undefined : json['taxNo'] === null ? null : json['taxNo'],
+        'phone2': json['phone2'] === undefined ? undefined : json['phone2'] === null ? null : json['phone2'],
+        'sysPhone': json['sysPhone'] === undefined ? undefined : json['sysPhone'] === null ? null : json['sysPhone'],
+        'mobilePhone': json['mobilePhone'] === undefined ? undefined : json['mobilePhone'] === null ? null : json['mobilePhone'],
+        'districtName': json['districtName'] === undefined ? undefined : json['districtName'] === null ? null : json['districtName'],
+        'regionName': json['regionName'] === undefined ? undefined : json['regionName'] === null ? null : json['regionName'],
+        'sideTypeName': json['sideTypeName'] === undefined ? undefined : json['sideTypeName'] === null ? null : json['sideTypeName'],
+        'serialNumber': json['serialNumber'] === undefined ? undefined : json['serialNumber'] === null ? null : json['serialNumber'],
+        'identityNo': json['identityNo'] === undefined ? undefined : json['identityNo'] === null ? null : json['identityNo'],
+        'safePassword': json['safePassword'] === undefined ? undefined : json['safePassword'] === null ? null : json['safePassword'],
+        'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
+        'armType': json['armType'] === undefined ? undefined : json['armType'] === null ? null : json['armType'],
+        'policeStationNo': json['policeStationNo'] === undefined ? undefined : json['policeStationNo'] === null ? null : json['policeStationNo'],
+        'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
+        'active': json['active'] === undefined ? undefined : json['active'] === null ? null : json['active'],
+        'isOpen': json['isOpen'] === undefined ? undefined : json['isOpen'] === null ? null : json['isOpen'],
+        'isOnline': json['isOnline'] == null ? undefined : json['isOnline'],
+        'gprs': json['gprs'] == null ? undefined : json['gprs'],
+        'cloudAlarm': json['cloudAlarm'] == null ? undefined : json['cloudAlarm'],
+        'installDate': json['installDate'] === undefined ? undefined : json['installDate'] === null ? null : (new Date(json['installDate'])),
+        'startDate': json['startDate'] === undefined ? undefined : json['startDate'] === null ? null : (new Date(json['startDate'])),
+        'endDate': json['endDate'] === undefined ? undefined : json['endDate'] === null ? null : (new Date(json['endDate'])),
+        'passiveDate': json['passiveDate'] === undefined ? undefined : json['passiveDate'] === null ? null : (new Date(json['passiveDate'])),
+        'lastSignalDate': json['lastSignalDate'] === undefined ? undefined : json['lastSignalDate'] === null ? null : (new Date(json['lastSignalDate'])),
+        'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
+        'timeoutDuration': json['timeoutDuration'] === undefined ? undefined : json['timeoutDuration'] === null ? null : json['timeoutDuration'],
+        'gprsTimeoutMinutes': json['gprsTimeoutMinutes'] === undefined ? undefined : json['gprsTimeoutMinutes'] === null ? null : json['gprsTimeoutMinutes'],
+        'gprsModule': json['gprsModule'] === undefined ? undefined : json['gprsModule'] === null ? null : json['gprsModule'],
+        'ebsModulePort': json['ebsModulePort'] === undefined ? undefined : json['ebsModulePort'] === null ? null : json['ebsModulePort'],
     };
 }
 
@@ -196,6 +392,34 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'businessSectorName': value['businessSectorName'],
         'taxOffice': value['taxOffice'],
         'taxNo': value['taxNo'],
+        'phone2': value['phone2'],
+        'sysPhone': value['sysPhone'],
+        'mobilePhone': value['mobilePhone'],
+        'districtName': value['districtName'],
+        'regionName': value['regionName'],
+        'sideTypeName': value['sideTypeName'],
+        'serialNumber': value['serialNumber'],
+        'identityNo': value['identityNo'],
+        'safePassword': value['safePassword'],
+        'comment': value['comment'],
+        'armType': value['armType'],
+        'policeStationNo': value['policeStationNo'],
+        'timeZone': value['timeZone'],
+        'active': value['active'],
+        'isOpen': value['isOpen'],
+        'isOnline': value['isOnline'],
+        'gprs': value['gprs'],
+        'cloudAlarm': value['cloudAlarm'],
+        'installDate': value['installDate'] == null ? value['installDate'] : value['installDate'].toISOString(),
+        'startDate': value['startDate'] == null ? value['startDate'] : value['startDate'].toISOString(),
+        'endDate': value['endDate'] == null ? value['endDate'] : value['endDate'].toISOString(),
+        'passiveDate': value['passiveDate'] == null ? value['passiveDate'] : value['passiveDate'].toISOString(),
+        'lastSignalDate': value['lastSignalDate'] == null ? value['lastSignalDate'] : value['lastSignalDate'].toISOString(),
+        'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
+        'timeoutDuration': value['timeoutDuration'],
+        'gprsTimeoutMinutes': value['gprsTimeoutMinutes'],
+        'gprsModule': value['gprsModule'],
+        'ebsModulePort': value['ebsModulePort'],
     };
 }
 
