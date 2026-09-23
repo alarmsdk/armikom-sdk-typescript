@@ -14,6 +14,16 @@
 
 import * as runtime from '../runtime';
 import {
+    type BulkSendSmsRequest,
+    BulkSendSmsRequestFromJSON,
+    BulkSendSmsRequestToJSON,
+} from '../models/BulkSendSmsRequest';
+import {
+    type BulkSendSmsResponse,
+    BulkSendSmsResponseFromJSON,
+    BulkSendSmsResponseToJSON,
+} from '../models/BulkSendSmsResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -34,6 +44,12 @@ import {
     SmsTemplateResponseToJSON,
 } from '../models/SmsTemplateResponse';
 
+export interface SMSApiBulkSendSmsOperationRequest {
+    bulkSendSmsRequest: BulkSendSmsRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface SMSApiGetSignalEventSmsTemplateRequest {
     id: string;
     xCorrelationId?: string;
@@ -50,6 +66,71 @@ export interface SMSApiSendSideSmsRequest {
  * 
  */
 export class SMSApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for bulkSendSms without sending the request
+     */
+    async bulkSendSmsRequestOpts(requestParameters: SMSApiBulkSendSmsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['bulkSendSmsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'bulkSendSmsRequest',
+                'Required parameter "bulkSendSmsRequest" was null or undefined when calling bulkSendSms().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/batch-sms`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BulkSendSmsRequestToJSON(requestParameters['bulkSendSmsRequest']),
+        };
+    }
+
+    /**
+     * Sends the same SMS text to many subscribers. The target is named by sideIds or by filter (same criteria as GET /v1/sides). Recipients per subscriber are resolved server-side: \'first-contact\' uses Phone1 of the first contact, \'sms-contacts\' uses all contacts defined in the subscriber\'s SideSms notification rules. At most 1000 subscribers per call.
+     * Queue SMS messages for multiple subscribers at once
+     */
+    async bulkSendSmsRaw(requestParameters: SMSApiBulkSendSmsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BulkSendSmsResponse>> {
+        const requestOptions = await this.bulkSendSmsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BulkSendSmsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Sends the same SMS text to many subscribers. The target is named by sideIds or by filter (same criteria as GET /v1/sides). Recipients per subscriber are resolved server-side: \'first-contact\' uses Phone1 of the first contact, \'sms-contacts\' uses all contacts defined in the subscriber\'s SideSms notification rules. At most 1000 subscribers per call.
+     * Queue SMS messages for multiple subscribers at once
+     */
+    async bulkSendSms(requestParameters: SMSApiBulkSendSmsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BulkSendSmsResponse> {
+        const response = await this.bulkSendSmsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for getSignalEventSmsTemplate without sending the request

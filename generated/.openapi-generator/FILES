@@ -94,9 +94,13 @@ docs/BulkCreateResponse.md
 docs/BulkCreateSideZoneRequest.md
 docs/BulkHashResult.md
 docs/BulkHolidayRequest.md
+docs/BulkSendSmsRequest.md
+docs/BulkSendSmsResponse.md
 docs/BulkSideSignalTypeOverride.md
 docs/BulkSideSignalTypeRequest.md
 docs/BulkSideSignalTypeResponse.md
+docs/BulkSmsFailure.md
+docs/BulkSmsFilterRequest.md
 docs/CallDetailResponse.md
 docs/CallHistoryApi.md
 docs/CallListItem.md
@@ -546,9 +550,13 @@ models/BulkCreateResponse.ts
 models/BulkCreateSideZoneRequest.ts
 models/BulkHashResult.ts
 models/BulkHolidayRequest.ts
+models/BulkSendSmsRequest.ts
+models/BulkSendSmsResponse.ts
 models/BulkSideSignalTypeOverride.ts
 models/BulkSideSignalTypeRequest.ts
 models/BulkSideSignalTypeResponse.ts
+models/BulkSmsFailure.ts
+models/BulkSmsFilterRequest.ts
 models/CallDetailResponse.ts
 models/CallListItem.ts
 models/CallListItemPagedResult.ts

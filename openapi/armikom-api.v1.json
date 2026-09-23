@@ -58641,6 +58641,254 @@
         ]
       }
     },
+    "/v1/sides/batch-sms": {
+      "post": {
+        "tags": [
+          "SMS"
+        ],
+        "summary": "Queue SMS messages for multiple subscribers at once",
+        "description": "Sends the same SMS text to many subscribers. The target is named by sideIds or by filter (same criteria as GET /v1/sides). Recipients per subscriber are resolved server-side: 'first-contact' uses Phone1 of the first contact, 'sms-contacts' uses all contacts defined in the subscriber's SideSms notification rules. At most 1000 subscribers per call.",
+        "operationId": "BulkSendSms",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkSendSmsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BulkSendSmsResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/sides/{sideId}/sms": {
       "post": {
         "tags": [
@@ -88067,6 +88315,86 @@
         },
         "additionalProperties": false
       },
+      "BulkSendSmsRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The message text, shared by all subscribers.",
+            "nullable": true
+          },
+          "recipients": {
+            "type": "string",
+            "description": "\"first-contact\" (default) | \"sms-contacts\".\nUnlike single-subscriber SMS, explicit phones and per-subscriber contact picking\nare not available in bulk — the operator chooses a strategy, not individual recipients.",
+            "nullable": true
+          },
+          "sideIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The subscribers to send to. Mutually exclusive with Filter.",
+            "nullable": true
+          },
+          "filter": {
+            "$ref": "#/components/schemas/BulkSmsFilterRequest"
+          },
+          "expectedCount": {
+            "type": "integer",
+            "description": "The row count the operator confirmed. When it doesn't match, nothing is sent.",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Send the same SMS text to many subscribers at once. The target is named one of two ways\n(exactly like SideBatchUpdateRequest): SideIds for a ticked list, or Filter for\n\"everything this search matched\". Recipients per subscriber are resolved server-side:\n\"first-contact\" uses Phone1 of the first SideContact (by RowNo), \"sms-contacts\" uses\nall contacts defined in the subscriber's SideSms notification rules."
+      },
+      "BulkSendSmsResponse": {
+        "type": "object",
+        "properties": {
+          "requestedCount": {
+            "type": "integer",
+            "description": "How many subscribers the target resolved to.",
+            "format": "int32"
+          },
+          "queuedCount": {
+            "type": "integer",
+            "description": "How many SMS messages were queued across all subscribers.",
+            "format": "int32"
+          },
+          "successCount": {
+            "type": "integer",
+            "description": "How many subscribers succeeded.",
+            "format": "int32"
+          },
+          "failedCount": {
+            "type": "integer",
+            "description": "How many subscribers were skipped — the length of Failures.",
+            "format": "int32"
+          },
+          "isCapped": {
+            "type": "boolean",
+            "description": "True when the target was a filter whose result set was larger than the server will\nprocess in one call."
+          },
+          "failures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BulkSmsFailure"
+            },
+            "nullable": true
+          },
+          "sideEffects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Result of a bulk SMS operation — per-subscriber reporting, same pattern as SideBatchUpdateResponse."
+      },
       "BulkSideSignalTypeOverride": {
         "type": "object",
         "properties": {
@@ -88131,6 +88459,270 @@
           }
         },
         "additionalProperties": false
+      },
+      "BulkSmsFailure": {
+        "type": "object",
+        "properties": {
+          "sideId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sideNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "partNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "One subscriber the bulk SMS could not send to, and why."
+      },
+      "BulkSmsFilterRequest": {
+        "type": "object",
+        "properties": {
+          "cityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandId": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIds": {
+            "type": "string",
+            "description": "Comma-separated dealer ids. The endpoint's long-standing single-valued\n`dealerId` parameter still works and is AND'ed with this one.",
+            "nullable": true
+          },
+          "cityIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumberNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "commentNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOpen": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "cloudAlarm": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "neverSignalled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sideNoFrom": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sideNoTo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "installDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "installDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "q": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "approved": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "dealerId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The same filter criteria the subscriber list takes, reused server-side."
       },
       "CallDetailResponse": {
         "type": "object",
