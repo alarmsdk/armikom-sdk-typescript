@@ -74,6 +74,7 @@ docs/AlarmEventSortBy.md
 docs/AlarmEventsApi.md
 docs/AppendActionTextRequest.md
 docs/AppendActionTextResponse.md
+docs/ApplyHolidayFilterTarget.md
 docs/ApplyHolidayTarget.md
 docs/ApplyHolidaysRequest.md
 docs/ApplyHolidaysResponse.md
@@ -538,6 +539,7 @@ models/AlarmEventListItem.ts
 models/AlarmEventSortBy.ts
 models/AppendActionTextRequest.ts
 models/AppendActionTextResponse.ts
+models/ApplyHolidayFilterTarget.ts
 models/ApplyHolidayTarget.ts
 models/ApplyHolidaysRequest.ts
 models/ApplyHolidaysResponse.ts

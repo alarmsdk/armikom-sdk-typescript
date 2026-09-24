@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `holidays` | [Array&lt;CreateHolidayRequest&gt;](CreateHolidayRequest.md)
 `target` | [ApplyHolidayTarget](ApplyHolidayTarget.md)
+`expectedCount` | number
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { ApplyHolidaysRequest } from ''
 const example = {
   "holidays": null,
   "target": null,
+  "expectedCount": null,
 } satisfies ApplyHolidaysRequest
 
 console.log(example)

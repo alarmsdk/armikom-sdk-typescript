@@ -16,6 +16,7 @@ export * from './AlarmEventListItem';
 export * from './AlarmEventSortBy';
 export * from './AppendActionTextRequest';
 export * from './AppendActionTextResponse';
+export * from './ApplyHolidayFilterTarget';
 export * from './ApplyHolidayTarget';
 export * from './ApplyHolidaysRequest';
 export * from './ApplyHolidaysResponse';

@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { ApplyHolidayFilterTarget } from './ApplyHolidayFilterTarget';
+import {
+    ApplyHolidayFilterTargetFromJSON,
+    ApplyHolidayFilterTargetFromJSONTyped,
+    ApplyHolidayFilterTargetToJSON,
+    ApplyHolidayFilterTargetToJSONTyped,
+} from './ApplyHolidayFilterTarget';
+
 /**
  * 
  * @export
@@ -37,6 +45,12 @@ export interface ApplyHolidayTarget {
      * @memberof ApplyHolidayTarget
      */
     allInMonitoringCenter?: boolean;
+    /**
+     * 
+     * @type {ApplyHolidayFilterTarget}
+     * @memberof ApplyHolidayTarget
+     */
+    filter?: ApplyHolidayFilterTarget;
 }
 
 /**
@@ -59,6 +73,7 @@ export function ApplyHolidayTargetFromJSONTyped(json: any, ignoreDiscriminator: 
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
         'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
         'allInMonitoringCenter': json['allInMonitoringCenter'] == null ? undefined : json['allInMonitoringCenter'],
+        'filter': json['filter'] == null ? undefined : ApplyHolidayFilterTargetFromJSON(json['filter']),
     };
 }
 
@@ -76,6 +91,7 @@ export function ApplyHolidayTargetToJSONTyped(value?: ApplyHolidayTarget | null,
         'sideIds': value['sideIds'],
         'dealerId': value['dealerId'],
         'allInMonitoringCenter': value['allInMonitoringCenter'],
+        'filter': ApplyHolidayFilterTargetToJSON(value['filter']),
     };
 }
 

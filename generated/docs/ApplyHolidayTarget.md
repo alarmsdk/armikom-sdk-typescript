@@ -9,6 +9,7 @@ Name | Type
 `sideIds` | Array&lt;string&gt;
 `dealerId` | string
 `allInMonitoringCenter` | boolean
+`filter` | [ApplyHolidayFilterTarget](ApplyHolidayFilterTarget.md)
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "sideIds": null,
   "dealerId": null,
   "allInMonitoringCenter": null,
+  "filter": null,
 } satisfies ApplyHolidayTarget
 
 console.log(example)

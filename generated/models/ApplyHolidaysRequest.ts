@@ -46,6 +46,14 @@ export interface ApplyHolidaysRequest {
      * @memberof ApplyHolidaysRequest
      */
     target?: ApplyHolidayTarget;
+    /**
+     * The row count the operator was shown and confirmed against. When it does not match
+     * what the server resolves, nothing is written and the response says so — same guard
+     * as Armikom.Api.Contracts.Sides.SideBatchUpdateRequest.ExpectedCount.
+     * @type {number}
+     * @memberof ApplyHolidaysRequest
+     */
+    expectedCount?: number | null;
 }
 
 /**
@@ -67,6 +75,7 @@ export function ApplyHolidaysRequestFromJSONTyped(json: any, ignoreDiscriminator
         
         'holidays': json['holidays'] === undefined ? undefined : json['holidays'] === null ? null : ((json['holidays'] as Array<any>).map(CreateHolidayRequestFromJSON)),
         'target': json['target'] == null ? undefined : ApplyHolidayTargetFromJSON(json['target']),
+        'expectedCount': json['expectedCount'] === undefined ? undefined : json['expectedCount'] === null ? null : json['expectedCount'],
     };
 }
 
@@ -83,6 +92,7 @@ export function ApplyHolidaysRequestToJSONTyped(value?: ApplyHolidaysRequest | n
         
         'holidays': value['holidays'] == null ? undefined : ((value['holidays'] as Array<any>).map(CreateHolidayRequestToJSON)),
         'target': ApplyHolidayTargetToJSON(value['target']),
+        'expectedCount': value['expectedCount'],
     };
 }
 

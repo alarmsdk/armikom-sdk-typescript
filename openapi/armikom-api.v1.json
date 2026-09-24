@@ -89149,6 +89149,237 @@
         },
         "additionalProperties": false
       },
+      "ApplyHolidayFilterTarget": {
+        "type": "object",
+        "properties": {
+          "cityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtId": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandId": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIds": {
+            "type": "string",
+            "description": "Comma-separated dealer ids. The endpoint's long-standing single-valued\n`dealerId` parameter still works and is AND'ed with this one.",
+            "nullable": true
+          },
+          "cityIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "regionIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "protocolIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "installerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "addressNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumberNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "commentNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOpen": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "cloudAlarm": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "neverSignalled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sideNoFrom": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sideNoTo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "installDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "installDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "startDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDateTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastSignalTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "q": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "approved": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "dealerId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The same criteria the subscriber list takes on its query string, in a request body —\nidentical to Armikom.Api.Contracts.Sides.SideBatchFilterRequest and Armikom.Api.Contracts.Messaging.BulkSmsFilterRequest."
+      },
       "ApplyHolidayTarget": {
         "type": "object",
         "properties": {
@@ -89167,6 +89398,9 @@
           },
           "allInMonitoringCenter": {
             "type": "boolean"
+          },
+          "filter": {
+            "$ref": "#/components/schemas/ApplyHolidayFilterTarget"
           }
         },
         "additionalProperties": false
@@ -89183,6 +89417,12 @@
           },
           "target": {
             "$ref": "#/components/schemas/ApplyHolidayTarget"
+          },
+          "expectedCount": {
+            "type": "integer",
+            "description": "The row count the operator was shown and confirmed against. When it does not match\nwhat the server resolves, nothing is written and the response says so — same guard\nas Armikom.Api.Contracts.Sides.SideBatchUpdateRequest.ExpectedCount.",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false
