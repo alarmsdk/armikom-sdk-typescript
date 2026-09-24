@@ -17,6 +17,7 @@ All URIs are relative to *http://localhost*
 | [**getSideContacts**](SubscribersApi.md#getsidecontacts) | **GET** /v1/sides/{sideId}/contacts | List contacts for a subscriber |
 | [**getSideControls**](SubscribersApi.md#getsidecontrols) | **GET** /v1/sides/{sideId}/controls | List control records for a subscriber |
 | [**getSideDocuments**](SubscribersApi.md#getsidedocuments) | **GET** /v1/sides/{sideId}/documents | List document metadata for a subscriber |
+| [**getSideEffectiveHolidays**](SubscribersApi.md#getsideeffectiveholidays) | **GET** /v1/sides/{sideId}/holidays/effective | List every holiday the Engine applies to a subscriber |
 | [**getSideHolidays**](SubscribersApi.md#getsideholidays) | **GET** /v1/sides/{sideId}/holidays | List holidays for a subscriber |
 | [**getSideMails**](SubscribersApi.md#getsidemails) | **GET** /v1/sides/{sideId}/mails | List e-mail notification rules for a subscriber |
 | [**getSideNotes**](SubscribersApi.md#getsidenotes) | **GET** /v1/sides/{sideId}/notes | List notes for a subscriber |
@@ -1053,6 +1054,82 @@ example().catch(console.error);
 ### Return type
 
 [**Array&lt;SideDocumentItem&gt;**](SideDocumentItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSideEffectiveHolidays
+
+> Array&lt;EffectiveSideHolidayItem&gt; getSideEffectiveHolidays(sideId, xCorrelationId)
+
+List every holiday the Engine applies to a subscriber
+
+The subscriber\&#39;s own holidays (&#x60;source &#x3D; side&#x60;) plus the reference holidays inherited through its side type\&#39;s holiday types (&#x60;source &#x3D; sideType&#x60;), in calendar order (month, then day).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { GetSideEffectiveHolidaysRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSideEffectiveHolidaysRequest;
+
+  try {
+    const data = await api.getSideEffectiveHolidays(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;EffectiveSideHolidayItem&gt;**](EffectiveSideHolidayItem.md)
 
 ### Authorization
 

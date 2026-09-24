@@ -207,6 +207,7 @@ docs/DeviceRegexDetail.md
 docs/DialRequest.md
 docs/DialResponse.md
 docs/DistrictDetail.md
+docs/EffectiveSideHolidayItem.md
 docs/EffectiveSignalTypeItem.md
 docs/EmailMetrics.md
 docs/EmergencyPhoneDetail.md
@@ -222,6 +223,7 @@ docs/GeocodingApi.md
 docs/HandleByAiRequest.md
 docs/HandleByAiResponse.md
 docs/HolidayDetail.md
+docs/HolidayListItem.md
 docs/InvoiceGenerateRequest.md
 docs/InvoiceGenerateResponse.md
 docs/InvoicePreviewItem.md
@@ -333,6 +335,7 @@ docs/ServicePhotoItem.md
 docs/ServicePhotosApi.md
 docs/ServicesApi.md
 docs/SetActiveTemplateRequest.md
+docs/SetHolidayTypeSideTypesRequest.md
 docs/SetLocationRequest.md
 docs/SetLocationResponse.md
 docs/SetRoleScopesRequest.md
@@ -656,6 +659,7 @@ models/DeviceRegexDetail.ts
 models/DialRequest.ts
 models/DialResponse.ts
 models/DistrictDetail.ts
+models/EffectiveSideHolidayItem.ts
 models/EffectiveSignalTypeItem.ts
 models/EmailMetrics.ts
 models/EmergencyPhoneDetail.ts
@@ -668,6 +672,7 @@ models/GeocodeSideResponse.ts
 models/HandleByAiRequest.ts
 models/HandleByAiResponse.ts
 models/HolidayDetail.ts
+models/HolidayListItem.ts
 models/InvoiceGenerateRequest.ts
 models/InvoiceGenerateResponse.ts
 models/InvoicePreviewItem.ts
@@ -766,6 +771,7 @@ models/SendSmsResponse.ts
 models/ServiceDetailItem.ts
 models/ServicePhotoItem.ts
 models/SetActiveTemplateRequest.ts
+models/SetHolidayTypeSideTypesRequest.ts
 models/SetLocationRequest.ts
 models/SetLocationResponse.ts
 models/SetRoleScopesRequest.ts

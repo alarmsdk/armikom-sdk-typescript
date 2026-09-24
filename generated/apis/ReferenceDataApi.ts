@@ -194,6 +194,11 @@ import {
     HolidayDetailToJSON,
 } from '../models/HolidayDetail';
 import {
+    type HolidayListItem,
+    HolidayListItemFromJSON,
+    HolidayListItemToJSON,
+} from '../models/HolidayListItem';
+import {
     type LookupItem,
     LookupItemFromJSON,
     LookupItemToJSON,
@@ -278,6 +283,11 @@ import {
     SaveProductRequestFromJSON,
     SaveProductRequestToJSON,
 } from '../models/SaveProductRequest';
+import {
+    type SetHolidayTypeSideTypesRequest,
+    SetHolidayTypeSideTypesRequestFromJSON,
+    SetHolidayTypeSideTypesRequestToJSON,
+} from '../models/SetHolidayTypeSideTypesRequest';
 import {
     type SignalDetail,
     SignalDetailFromJSON,
@@ -838,6 +848,11 @@ export interface ReferenceDataApiGetHolidayTypeByIdRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetHolidayTypeSideTypesRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetMobileOperatorByIdRequest {
     id: string;
     xCorrelationId?: string;
@@ -1051,6 +1066,12 @@ export interface ReferenceDataApiListTechnicalPeopleDetailedRequest {
 
 export interface ReferenceDataApiReorderSignalExplanationsOperationRequest {
     reorderSignalExplanationsRequest: ReorderSignalExplanationsRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiSetHolidayTypeSideTypesOperationRequest {
+    id: string;
+    setHolidayTypeSideTypesRequest: SetHolidayTypeSideTypesRequest;
     xCorrelationId?: string;
 }
 
@@ -5483,6 +5504,65 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getHolidayTypeSideTypes without sending the request
+     */
+    async getHolidayTypeSideTypesRequestOpts(requestParameters: ReferenceDataApiGetHolidayTypeSideTypesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getHolidayTypeSideTypes().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/holiday-types/{id}/side-types`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Subscribers of these types inherit the holiday type\'s dates in the Engine (HOP on opening, no late-opening/closing checks).
+     * List the subscriber types a holiday type applies to
+     */
+    async getHolidayTypeSideTypesRaw(requestParameters: ReferenceDataApiGetHolidayTypeSideTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+        const requestOptions = await this.getHolidayTypeSideTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+    }
+
+    /**
+     * Subscribers of these types inherit the holiday type\'s dates in the Engine (HOP on opening, no late-opening/closing checks).
+     * List the subscriber types a holiday type applies to
+     */
+    async getHolidayTypeSideTypes(requestParameters: ReferenceDataApiGetHolidayTypeSideTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+        const response = await this.getHolidayTypeSideTypesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getMobileOperatorById without sending the request
      */
     async getMobileOperatorByIdRequestOpts(requestParameters: ReferenceDataApiGetMobileOperatorByIdRequest): Promise<runtime.RequestOpts> {
@@ -7210,19 +7290,21 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Each row carries its calendar date. `parentId` repeats `holidayTypeId` for clients that read the list as a lookup.
      * List holidays, optionally filtered by holiday type
      */
-    async listHolidaysRaw(requestParameters: ReferenceDataApiListHolidaysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+    async listHolidaysRaw(requestParameters: ReferenceDataApiListHolidaysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<HolidayListItem>>> {
         const requestOptions = await this.listHolidaysRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HolidayListItemFromJSON));
     }
 
     /**
+     * Each row carries its calendar date. `parentId` repeats `holidayTypeId` for clients that read the list as a lookup.
      * List holidays, optionally filtered by holiday type
      */
-    async listHolidays(requestParameters: ReferenceDataApiListHolidaysRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+    async listHolidays(requestParameters: ReferenceDataApiListHolidaysRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<HolidayListItem>> {
         const response = await this.listHolidaysRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -7749,6 +7831,75 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async reorderSignalExplanations(requestParameters: ReferenceDataApiReorderSignalExplanationsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.reorderSignalExplanationsRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for setHolidayTypeSideTypes without sending the request
+     */
+    async setHolidayTypeSideTypesRequestOpts(requestParameters: ReferenceDataApiSetHolidayTypeSideTypesOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling setHolidayTypeSideTypes().'
+            );
+        }
+
+        if (requestParameters['setHolidayTypeSideTypesRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setHolidayTypeSideTypesRequest',
+                'Required parameter "setHolidayTypeSideTypesRequest" was null or undefined when calling setHolidayTypeSideTypes().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/holiday-types/{id}/side-types`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetHolidayTypeSideTypesRequestToJSON(requestParameters['setHolidayTypeSideTypesRequest']),
+        };
+    }
+
+    /**
+     * `sideTypeIds` is the complete new set; ids left out are unlinked and an empty list unlinks all. Returns the resulting set.
+     * Replace the subscriber types a holiday type applies to
+     */
+    async setHolidayTypeSideTypesRaw(requestParameters: ReferenceDataApiSetHolidayTypeSideTypesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+        const requestOptions = await this.setHolidayTypeSideTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+    }
+
+    /**
+     * `sideTypeIds` is the complete new set; ids left out are unlinked and an empty list unlinks all. Returns the resulting set.
+     * Replace the subscriber types a holiday type applies to
+     */
+    async setHolidayTypeSideTypes(requestParameters: ReferenceDataApiSetHolidayTypeSideTypesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+        const response = await this.setHolidayTypeSideTypesRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

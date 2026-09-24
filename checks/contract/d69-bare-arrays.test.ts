@@ -1,7 +1,8 @@
 // D69 — most GET lists under /v1/reference/ return a BARE ARRAY, not a paged
 // envelope. Three signal-dictionary endpoints (GetSignals, GetSignalTypes,
 // ListSignalRelations) were promoted to PagedResult to support the admin UI's
-// pagination and search. The remaining 27 stay bare arrays.
+// pagination and search. The remaining 28 stay bare arrays (27 -> 28:
+// GetHolidayTypeSideTypes, G-80 — a holiday type's linked side types).
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -45,7 +46,7 @@ test('D69: listSignalRelations returns a paged envelope', async () => {
 
 const PAGINATED_OPS = new Set(['GetSignals', 'GetSignalTypes', 'ListSignalRelations']);
 
-test('D69: 27 bare-array + 3 paginated reference lists in generated/', () => {
+test('D69: 28 bare-array + 3 paginated reference lists in generated/', () => {
   const root = repoRoot();
   const spec = JSON.parse(
     readFileSync(join(root, 'openapi/armikom-api.v1.json'), 'utf8'),
@@ -65,7 +66,7 @@ test('D69: 27 bare-array + 3 paginated reference lists in generated/', () => {
     }
   }
 
-  assert.equal(bare.length, 27, `expected 27 bare-array reference lists, got ${bare.length}`);
+  assert.equal(bare.length, 28, `expected 28 bare-array reference lists, got ${bare.length}`);
 
   for (const op of PAGINATED_OPS) {
     assert.ok(paged.includes(op), `${op} should be a paginated endpoint`);

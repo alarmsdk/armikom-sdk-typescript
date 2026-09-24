@@ -44,6 +44,11 @@ import {
     DeactivateSideRequestToJSON,
 } from '../models/DeactivateSideRequest';
 import {
+    type EffectiveSideHolidayItem,
+    EffectiveSideHolidayItemFromJSON,
+    EffectiveSideHolidayItemToJSON,
+} from '../models/EffectiveSideHolidayItem';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -232,6 +237,11 @@ export interface SubscribersApiGetSideControlsRequest {
 }
 
 export interface SubscribersApiGetSideDocumentsRequest {
+    sideId: string;
+    xCorrelationId?: string;
+}
+
+export interface SubscribersApiGetSideEffectiveHolidaysRequest {
     sideId: string;
     xCorrelationId?: string;
 }
@@ -1199,6 +1209,65 @@ export class SubscribersApi extends runtime.BaseAPI {
      */
     async getSideDocuments(requestParameters: SubscribersApiGetSideDocumentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SideDocumentItem>> {
         const response = await this.getSideDocumentsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSideEffectiveHolidays without sending the request
+     */
+    async getSideEffectiveHolidaysRequestOpts(requestParameters: SubscribersApiGetSideEffectiveHolidaysRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling getSideEffectiveHolidays().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/holidays/effective`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The subscriber\'s own holidays (`source = side`) plus the reference holidays inherited through its side type\'s holiday types (`source = sideType`), in calendar order (month, then day).
+     * List every holiday the Engine applies to a subscriber
+     */
+    async getSideEffectiveHolidaysRaw(requestParameters: SubscribersApiGetSideEffectiveHolidaysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<EffectiveSideHolidayItem>>> {
+        const requestOptions = await this.getSideEffectiveHolidaysRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EffectiveSideHolidayItemFromJSON));
+    }
+
+    /**
+     * The subscriber\'s own holidays (`source = side`) plus the reference holidays inherited through its side type\'s holiday types (`source = sideType`), in calendar order (month, then day).
+     * List every holiday the Engine applies to a subscriber
+     */
+    async getSideEffectiveHolidays(requestParameters: SubscribersApiGetSideEffectiveHolidaysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<EffectiveSideHolidayItem>> {
+        const response = await this.getSideEffectiveHolidaysRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

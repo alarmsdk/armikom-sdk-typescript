@@ -77,6 +77,7 @@ All URIs are relative to *http://localhost*
 | [**getDistricts**](ReferenceDataApi.md#getdistricts) | **GET** /v1/reference/districts | List districts, optionally filtered by city |
 | [**getHolidayById**](ReferenceDataApi.md#getholidaybyid) | **GET** /v1/reference/holidays/{id} | Get holiday by id |
 | [**getHolidayTypeById**](ReferenceDataApi.md#getholidaytypebyid) | **GET** /v1/reference/holiday-types/{id} | Get holiday type by id |
+| [**getHolidayTypeSideTypes**](ReferenceDataApi.md#getholidaytypesidetypes) | **GET** /v1/reference/holiday-types/{id}/side-types | List the subscriber types a holiday type applies to |
 | [**getMobileOperatorById**](ReferenceDataApi.md#getmobileoperatorbyid) | **GET** /v1/reference/mobile-operators/{id} | Get a GSM operator |
 | [**getMobileOperators**](ReferenceDataApi.md#getmobileoperators) | **GET** /v1/reference/mobile-operators | List mobile operators |
 | [**getModelById**](ReferenceDataApi.md#getmodelbyid) | **GET** /v1/reference/models/{id} | Get model by id |
@@ -117,6 +118,7 @@ All URIs are relative to *http://localhost*
 | [**listSignalRelations**](ReferenceDataApi.md#listsignalrelations) | **GET** /v1/reference/signal-relations | List signal relations with source and target signal types |
 | [**listTechnicalPeopleDetailed**](ReferenceDataApi.md#listtechnicalpeopledetailed) | **GET** /v1/reference/technical-people/detailed | List technicians with their contact details |
 | [**reorderSignalExplanations**](ReferenceDataApi.md#reordersignalexplanationsoperation) | **PUT** /v1/reference/signal-explanations/order | Reorder signal explanations atomically |
+| [**setHolidayTypeSideTypes**](ReferenceDataApi.md#setholidaytypesidetypesoperation) | **PUT** /v1/reference/holiday-types/{id}/side-types | Replace the subscriber types a holiday type applies to |
 | [**updateAccountItem**](ReferenceDataApi.md#updateaccountitemoperation) | **PATCH** /v1/reference/account-items/{id} | Update an account item |
 | [**updateAccountType**](ReferenceDataApi.md#updateaccounttypeoperation) | **PATCH** /v1/reference/account-types/{id} | Update an account type |
 | [**updateActiveCategory**](ReferenceDataApi.md#updateactivecategoryoperation) | **PATCH** /v1/reference/active-categories/{id} | Update an active category |
@@ -5743,6 +5745,83 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getHolidayTypeSideTypes
+
+> Array&lt;LookupItem&gt; getHolidayTypeSideTypes(id, xCorrelationId)
+
+List the subscriber types a holiday type applies to
+
+Subscribers of these types inherit the holiday type\&#39;s dates in the Engine (HOP on opening, no late-opening/closing checks).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetHolidayTypeSideTypesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetHolidayTypeSideTypesRequest;
+
+  try {
+    const data = await api.getHolidayTypeSideTypes(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;LookupItem&gt;**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getMobileOperatorById
 
 > MobileOperatorDetail getMobileOperatorById(id, xCorrelationId)
@@ -8012,9 +8091,11 @@ example().catch(console.error);
 
 ## listHolidays
 
-> Array&lt;LookupItem&gt; listHolidays(holidayTypeId, xCorrelationId)
+> Array&lt;HolidayListItem&gt; listHolidays(holidayTypeId, xCorrelationId)
 
 List holidays, optionally filtered by holiday type
+
+Each row carries its calendar date. &#x60;parentId&#x60; repeats &#x60;holidayTypeId&#x60; for clients that read the list as a lookup.
 
 ### Example
 
@@ -8062,7 +8143,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**Array&lt;LookupItem&gt;**](LookupItem.md)
+[**Array&lt;HolidayListItem&gt;**](HolidayListItem.md)
 
 ### Authorization
 
@@ -8778,6 +8859,87 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## setHolidayTypeSideTypes
+
+> Array&lt;LookupItem&gt; setHolidayTypeSideTypes(id, setHolidayTypeSideTypesRequest, xCorrelationId)
+
+Replace the subscriber types a holiday type applies to
+
+&#x60;sideTypeIds&#x60; is the complete new set; ids left out are unlinked and an empty list unlinks all. Returns the resulting set.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { SetHolidayTypeSideTypesOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SetHolidayTypeSideTypesRequest
+    setHolidayTypeSideTypesRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SetHolidayTypeSideTypesOperationRequest;
+
+  try {
+    const data = await api.setHolidayTypeSideTypes(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **setHolidayTypeSideTypesRequest** | [SetHolidayTypeSideTypesRequest](SetHolidayTypeSideTypesRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;LookupItem&gt;**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
