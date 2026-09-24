@@ -62,6 +62,18 @@ export interface CreateSignalRelationRequest {
      */
     promptId?: string | null;
     /**
+     * When set, the rule applies only from this UTC date onward.
+     * @type {Date}
+     * @memberof CreateSignalRelationRequest
+     */
+    validFrom?: Date | null;
+    /**
+     * When set, the rule applies only until this UTC date.
+     * @type {Date}
+     * @memberof CreateSignalRelationRequest
+     */
+    validTo?: Date | null;
+    /**
      * 
      * @type {Array<string>}
      * @memberof CreateSignalRelationRequest
@@ -105,6 +117,8 @@ export function CreateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
         'priority': json['priority'] === undefined ? undefined : json['priority'] === null ? null : json['priority'],
         'triggerCondition': json['triggerCondition'] === undefined ? undefined : json['triggerCondition'] === null ? null : json['triggerCondition'],
         'promptId': json['promptId'] === undefined ? undefined : json['promptId'] === null ? null : json['promptId'],
+        'validFrom': json['validFrom'] === undefined ? undefined : json['validFrom'] === null ? null : (new Date(json['validFrom'])),
+        'validTo': json['validTo'] === undefined ? undefined : json['validTo'] === null ? null : (new Date(json['validTo'])),
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
@@ -129,6 +143,8 @@ export function CreateSignalRelationRequestToJSONTyped(value?: CreateSignalRelat
         'priority': value['priority'],
         'triggerCondition': value['triggerCondition'],
         'promptId': value['promptId'],
+        'validFrom': value['validFrom'] == null ? undefined : ((value['validFrom']).toISOString()),
+        'validTo': value['validTo'] == null ? undefined : ((value['validTo']).toISOString()),
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
         'sideIds': value['sideIds'],

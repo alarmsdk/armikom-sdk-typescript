@@ -99,6 +99,18 @@ export interface SignalRelationDetail {
      */
     promptName?: string | null;
     /**
+     * When set, the rule applies only from this UTC date onward. Null means no lower bound.
+     * @type {Date}
+     * @memberof SignalRelationDetail
+     */
+    validFrom?: Date | null;
+    /**
+     * When set, the rule applies only until this UTC date. Null means no upper bound.
+     * @type {Date}
+     * @memberof SignalRelationDetail
+     */
+    validTo?: Date | null;
+    /**
      * 
      * @type {Array<SignalTypeRef>}
      * @memberof SignalRelationDetail
@@ -145,6 +157,8 @@ export function SignalRelationDetailFromJSONTyped(json: any, ignoreDiscriminator
         'triggerCondition': json['triggerCondition'] === undefined ? undefined : json['triggerCondition'] === null ? null : json['triggerCondition'],
         'promptId': json['promptId'] === undefined ? undefined : json['promptId'] === null ? null : json['promptId'],
         'promptName': json['promptName'] === undefined ? undefined : json['promptName'] === null ? null : json['promptName'],
+        'validFrom': json['validFrom'] === undefined ? undefined : json['validFrom'] === null ? null : (new Date(json['validFrom'])),
+        'validTo': json['validTo'] === undefined ? undefined : json['validTo'] === null ? null : (new Date(json['validTo'])),
         'sourceSignalTypes': json['sourceSignalTypes'] === undefined ? undefined : json['sourceSignalTypes'] === null ? null : ((json['sourceSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'targetSignalTypes': json['targetSignalTypes'] === undefined ? undefined : json['targetSignalTypes'] === null ? null : ((json['targetSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'sides': json['sides'] === undefined ? undefined : json['sides'] === null ? null : ((json['sides'] as Array<any>).map(SideRefFromJSON)),
@@ -172,6 +186,8 @@ export function SignalRelationDetailToJSONTyped(value?: SignalRelationDetail | n
         'triggerCondition': value['triggerCondition'],
         'promptId': value['promptId'],
         'promptName': value['promptName'],
+        'validFrom': value['validFrom'] == null ? undefined : ((value['validFrom']).toISOString()),
+        'validTo': value['validTo'] == null ? undefined : ((value['validTo']).toISOString()),
         'sourceSignalTypes': value['sourceSignalTypes'] == null ? undefined : ((value['sourceSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'targetSignalTypes': value['targetSignalTypes'] == null ? undefined : ((value['targetSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'sides': value['sides'] == null ? undefined : ((value['sides'] as Array<any>).map(SideRefToJSON)),
