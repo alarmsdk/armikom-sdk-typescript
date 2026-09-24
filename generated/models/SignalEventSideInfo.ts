@@ -84,6 +84,12 @@ export interface SignalEventSideInfo {
      * @type {string}
      * @memberof SignalEventSideInfo
      */
+    modelId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
     modelName?: string | null;
     /**
      * True when the panel model has an HTML description available.
@@ -331,6 +337,7 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'installerName': json['installerName'] === undefined ? undefined : json['installerName'] === null ? null : json['installerName'],
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'brandName': json['brandName'] === undefined ? undefined : json['brandName'] === null ? null : json['brandName'],
+        'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
         'modelName': json['modelName'] === undefined ? undefined : json['modelName'] === null ? null : json['modelName'],
         'hasModelDescription': json['hasModelDescription'] == null ? undefined : json['hasModelDescription'],
         'protocolName': json['protocolName'] === undefined ? undefined : json['protocolName'] === null ? null : json['protocolName'],
@@ -392,6 +399,7 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'installerName': value['installerName'],
         'monitoringCenterName': value['monitoringCenterName'],
         'brandName': value['brandName'],
+        'modelId': value['modelId'],
         'modelName': value['modelName'],
         'hasModelDescription': value['hasModelDescription'],
         'protocolName': value['protocolName'],

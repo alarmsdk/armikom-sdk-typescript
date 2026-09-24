@@ -16,6 +16,7 @@ Name | Type
 `installerName` | string
 `monitoringCenterName` | string
 `brandName` | string
+`modelId` | string
 `modelName` | string
 `hasModelDescription` | boolean
 `protocolName` | string
@@ -71,6 +72,7 @@ const example = {
   "installerName": null,
   "monitoringCenterName": null,
   "brandName": null,
+  "modelId": null,
   "modelName": null,
   "hasModelDescription": null,
   "protocolName": null,
