@@ -27,6 +27,8 @@ Name | Type
 `geolocation` | string
 `monitoringCenterId` | string
 `hasLogo` | boolean
+`enableSms` | boolean
+`enableEmail` | boolean
 
 ## Example
 
@@ -56,6 +58,8 @@ const example = {
   "geolocation": null,
   "monitoringCenterId": null,
   "hasLogo": null,
+  "enableSms": null,
+  "enableEmail": null,
 } satisfies DealerDetailResponse
 
 console.log(example)

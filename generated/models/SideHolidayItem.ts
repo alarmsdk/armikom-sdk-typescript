@@ -43,6 +43,20 @@ export interface SideHolidayItem {
      * @memberof SideHolidayItem
      */
     recurring?: boolean | null;
+    /**
+     * When set, the holiday starts at this time (HH:mm format, e.g. "12:00") instead of midnight.
+     * Null means the holiday covers the full day from start.
+     * @type {string}
+     * @memberof SideHolidayItem
+     */
+    startTime?: string | null;
+    /**
+     * When set, the holiday ends at this time (HH:mm format, e.g. "18:00") instead of end-of-day.
+     * Null means the holiday covers the full day to end.
+     * @type {string}
+     * @memberof SideHolidayItem
+     */
+    endTime?: string | null;
 }
 
 /**
@@ -66,6 +80,8 @@ export function SideHolidayItemFromJSONTyped(json: any, ignoreDiscriminator: boo
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'startDate': json['startDate'] === undefined ? undefined : json['startDate'] === null ? null : (new Date(json['startDate'])),
         'recurring': json['recurring'] === undefined ? undefined : json['recurring'] === null ? null : json['recurring'],
+        'startTime': json['startTime'] === undefined ? undefined : json['startTime'] === null ? null : json['startTime'],
+        'endTime': json['endTime'] === undefined ? undefined : json['endTime'] === null ? null : json['endTime'],
     };
 }
 
@@ -84,6 +100,8 @@ export function SideHolidayItemToJSONTyped(value?: SideHolidayItem | null, ignor
         'name': value['name'],
         'startDate': value['startDate'] == null ? value['startDate'] : value['startDate'].toISOString(),
         'recurring': value['recurring'],
+        'startTime': value['startTime'],
+        'endTime': value['endTime'],
     };
 }
 

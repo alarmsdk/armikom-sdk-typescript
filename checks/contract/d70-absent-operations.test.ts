@@ -52,8 +52,9 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 424 -> 425: PUT ReorderSignalExplanations — atomic reorder of signal explanations.
   // 425 -> 426: POST ExportSides — subscriber CSV/XLSX export.
   // 426 -> 427: POST BulkSendSms — bulk SMS to filtered subscribers.
+  // 427 -> 431: dealer SMS/email, holiday partial times, model description, guard tours.
   // Re-pinned deliberately.
-  assert.equal(ids.size, 427, 'operation count moved off the pinned contract');
+  assert.equal(ids.size, 431, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

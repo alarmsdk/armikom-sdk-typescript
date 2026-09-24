@@ -121,6 +121,18 @@ export interface UpdateDealerRequest {
      * @memberof UpdateDealerRequest
      */
     geolocation?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateDealerRequest
+     */
+    enableSms?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateDealerRequest
+     */
+    enableEmail?: boolean | null;
 }
 
 /**
@@ -157,6 +169,8 @@ export function UpdateDealerRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'releatedDealerId': json['releatedDealerId'] === undefined ? undefined : json['releatedDealerId'] === null ? null : json['releatedDealerId'],
         'onCallServiceNumber': json['onCallServiceNumber'] === undefined ? undefined : json['onCallServiceNumber'] === null ? null : json['onCallServiceNumber'],
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
+        'enableSms': json['enableSms'] === undefined ? undefined : json['enableSms'] === null ? null : json['enableSms'],
+        'enableEmail': json['enableEmail'] === undefined ? undefined : json['enableEmail'] === null ? null : json['enableEmail'],
     };
 }
 
@@ -188,6 +202,8 @@ export function UpdateDealerRequestToJSONTyped(value?: UpdateDealerRequest | nul
         'releatedDealerId': value['releatedDealerId'],
         'onCallServiceNumber': value['onCallServiceNumber'],
         'geolocation': value['geolocation'],
+        'enableSms': value['enableSms'],
+        'enableEmail': value['enableEmail'],
     };
 }
 

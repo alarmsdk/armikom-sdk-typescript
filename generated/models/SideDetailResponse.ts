@@ -81,6 +81,12 @@ export interface SideDetailResponse {
     gprs?: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof SideDetailResponse
+     */
+    enableRemoteManagement?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof SideDetailResponse
      */
@@ -433,6 +439,7 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'cloudAlarm': json['cloudAlarm'] == null ? undefined : json['cloudAlarm'],
         'isOnline': json['isOnline'] == null ? undefined : json['isOnline'],
         'gprs': json['gprs'] == null ? undefined : json['gprs'],
+        'enableRemoteManagement': json['enableRemoteManagement'] == null ? undefined : json['enableRemoteManagement'],
         'lockUser': json['lockUser'] === undefined ? undefined : json['lockUser'] === null ? null : json['lockUser'],
         'address': json['address'] === undefined ? undefined : json['address'] === null ? null : json['address'],
         'phone1': json['phone1'] === undefined ? undefined : json['phone1'] === null ? null : json['phone1'],
@@ -511,6 +518,7 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'cloudAlarm': value['cloudAlarm'],
         'isOnline': value['isOnline'],
         'gprs': value['gprs'],
+        'enableRemoteManagement': value['enableRemoteManagement'],
         'lockUser': value['lockUser'],
         'address': value['address'],
         'phone1': value['phone1'],

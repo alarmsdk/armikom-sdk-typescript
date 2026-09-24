@@ -87,6 +87,18 @@ export interface DealerListItem {
     monitoringCenterId?: string | null;
     /**
      * 
+     * @type {boolean}
+     * @memberof DealerListItem
+     */
+    enableSms?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DealerListItem
+     */
+    enableEmail?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof DealerListItem
      */
@@ -127,6 +139,8 @@ export function DealerListItemFromJSONTyped(json: any, ignoreDiscriminator: bool
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
+        'enableEmail': json['enableEmail'] == null ? undefined : json['enableEmail'],
         'activeSideCount': json['activeSideCount'] == null ? undefined : json['activeSideCount'],
         'inactiveSideCount': json['inactiveSideCount'] == null ? undefined : json['inactiveSideCount'],
     };
@@ -154,6 +168,8 @@ export function DealerListItemToJSONTyped(value?: DealerListItem | null, ignoreD
         'regionId': value['regionId'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
         'monitoringCenterId': value['monitoringCenterId'],
+        'enableSms': value['enableSms'],
+        'enableEmail': value['enableEmail'],
         'activeSideCount': value['activeSideCount'],
         'inactiveSideCount': value['inactiveSideCount'],
     };

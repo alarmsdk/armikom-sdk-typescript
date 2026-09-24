@@ -30,6 +30,7 @@ Name | Type
 `gprs` | boolean
 `gprsModule` | number
 `ebsModulePort` | number
+`enableRemoteManagement` | boolean
 `customerId` | string
 `customerName` | string
 `dealerId` | string
@@ -79,6 +80,7 @@ const example = {
   "gprs": null,
   "gprsModule": null,
   "ebsModulePort": null,
+  "enableRemoteManagement": null,
   "customerId": null,
   "customerName": null,
   "dealerId": null,

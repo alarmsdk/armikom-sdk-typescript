@@ -17,6 +17,8 @@ Name | Type
 `regionId` | string
 `recordDateTime` | Date
 `monitoringCenterId` | string
+`enableSms` | boolean
+`enableEmail` | boolean
 `activeSideCount` | number
 `inactiveSideCount` | number
 
@@ -38,6 +40,8 @@ const example = {
   "regionId": null,
   "recordDateTime": null,
   "monitoringCenterId": null,
+  "enableSms": null,
+  "enableEmail": null,
   "activeSideCount": null,
   "inactiveSideCount": null,
 } satisfies DealerListItem

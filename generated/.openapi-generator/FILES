@@ -34,6 +34,7 @@ apis/StatisticsApi.ts
 apis/StreamingApi.ts
 apis/SubscriberAgreementsApi.ts
 apis/SubscriberControlsApi.ts
+apis/SubscriberGuardToursApi.ts
 apis/SubscriberHolidaysApi.ts
 apis/SubscriberInvoicesApi.ts
 apis/SubscriberMailsApi.ts
@@ -352,6 +353,9 @@ docs/SideDetailResponse.md
 docs/SideDocumentItem.md
 docs/SideEffect.md
 docs/SideExportRequest.md
+docs/SideGuardTourItem.md
+docs/SideGuardTourRequest.md
+docs/SideGuardTourSignalTypeItem.md
 docs/SideHolidayItem.md
 docs/SideInvoiceItem.md
 docs/SideInvoiceItemPagedResult.md
@@ -423,6 +427,7 @@ docs/SubmitFeedbackRequest.md
 docs/SubmitFeedbackResponse.md
 docs/SubscriberAgreementsApi.md
 docs/SubscriberControlsApi.md
+docs/SubscriberGuardToursApi.md
 docs/SubscriberHolidaysApi.md
 docs/SubscriberInvoicesApi.md
 docs/SubscriberMailsApi.md
@@ -785,6 +790,9 @@ models/SideDetailResponse.ts
 models/SideDocumentItem.ts
 models/SideEffect.ts
 models/SideExportRequest.ts
+models/SideGuardTourItem.ts
+models/SideGuardTourRequest.ts
+models/SideGuardTourSignalTypeItem.ts
 models/SideHolidayItem.ts
 models/SideInvoiceItem.ts
 models/SideInvoiceItemPagedResult.ts

@@ -1,5 +1,5 @@
 
-# SideHolidayItem
+# SideGuardTourSignalTypeItem
 
 
 ## Properties
@@ -8,25 +8,19 @@ Name | Type
 ------------ | -------------
 `id` | string
 `name` | string
-`startDate` | Date
-`recurring` | boolean
-`startTime` | string
-`endTime` | string
+`signalCode` | string
 
 ## Example
 
 ```typescript
-import type { SideHolidayItem } from ''
+import type { SideGuardTourSignalTypeItem } from ''
 
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
   "name": null,
-  "startDate": null,
-  "recurring": null,
-  "startTime": null,
-  "endTime": null,
-} satisfies SideHolidayItem
+  "signalCode": null,
+} satisfies SideGuardTourSignalTypeItem
 
 console.log(example)
 
@@ -35,7 +29,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as SideHolidayItem
+const exampleParsed = JSON.parse(exampleJSON) as SideGuardTourSignalTypeItem
 console.log(exampleParsed)
 ```
 

@@ -23,6 +23,8 @@ Name | Type
 `releatedDealerId` | string
 `onCallServiceNumber` | string
 `geolocation` | string
+`enableSms` | boolean
+`enableEmail` | boolean
 
 ## Example
 
@@ -48,6 +50,8 @@ const example = {
   "releatedDealerId": null,
   "onCallServiceNumber": null,
   "geolocation": null,
+  "enableSms": null,
+  "enableEmail": null,
 } satisfies UpdateDealerRequest
 
 console.log(example)

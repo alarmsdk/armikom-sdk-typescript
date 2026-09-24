@@ -35,6 +35,7 @@ export * from './StatisticsApi';
 export * from './StreamingApi';
 export * from './SubscriberAgreementsApi';
 export * from './SubscriberControlsApi';
+export * from './SubscriberGuardToursApi';
 export * from './SubscriberHolidaysApi';
 export * from './SubscriberInvoicesApi';
 export * from './SubscriberMailsApi';

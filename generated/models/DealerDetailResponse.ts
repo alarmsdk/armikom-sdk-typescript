@@ -145,6 +145,18 @@ export interface DealerDetailResponse {
      * @memberof DealerDetailResponse
      */
     hasLogo?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DealerDetailResponse
+     */
+    enableSms?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DealerDetailResponse
+     */
+    enableEmail?: boolean;
 }
 
 /**
@@ -185,6 +197,8 @@ export function DealerDetailResponseFromJSONTyped(json: any, ignoreDiscriminator
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'hasLogo': json['hasLogo'] == null ? undefined : json['hasLogo'],
+        'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
+        'enableEmail': json['enableEmail'] == null ? undefined : json['enableEmail'],
     };
 }
 
@@ -220,6 +234,8 @@ export function DealerDetailResponseToJSONTyped(value?: DealerDetailResponse | n
         'geolocation': value['geolocation'],
         'monitoringCenterId': value['monitoringCenterId'],
         'hasLogo': value['hasLogo'],
+        'enableSms': value['enableSms'],
+        'enableEmail': value['enableEmail'],
     };
 }
 

@@ -18,6 +18,10 @@ import { mapValues } from '../runtime';
  * untouched; an empty list clears its side. Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TypeId follows the same
  * convention as every other nullable FK here — the empty guid clears it, which leaves the
  * rule behaving as REMOVE.
+ *             
+ * `ValidFrom` and `ValidTo` follow the same nullable-FK convention: sending
+ * `DateTime.MinValue` (`"0001-01-01T00:00:00"`) clears the column, which
+ * returns the rule to "always active".
  * @export
  * @interface UpdateSignalRelationRequest
  */
@@ -65,13 +69,13 @@ export interface UpdateSignalRelationRequest {
      */
     promptId?: string | null;
     /**
-     * When set, the rule applies only from this UTC date onward. DateTime.MinValue clears.
+     * When set, the rule applies only from this UTC date onward. `DateTime.MinValue` clears.
      * @type {Date}
      * @memberof UpdateSignalRelationRequest
      */
     validFrom?: Date | null;
     /**
-     * When set, the rule applies only until this UTC date. DateTime.MinValue clears.
+     * When set, the rule applies only until this UTC date. `DateTime.MinValue` clears.
      * @type {Date}
      * @memberof UpdateSignalRelationRequest
      */
@@ -146,8 +150,8 @@ export function UpdateSignalRelationRequestToJSONTyped(value?: UpdateSignalRelat
         'priority': value['priority'],
         'triggerCondition': value['triggerCondition'],
         'promptId': value['promptId'],
-        'validFrom': value['validFrom'] == null ? undefined : ((value['validFrom']).toISOString()),
-        'validTo': value['validTo'] == null ? undefined : ((value['validTo']).toISOString()),
+        'validFrom': value['validFrom'] == null ? value['validFrom'] : value['validFrom'].toISOString(),
+        'validTo': value['validTo'] == null ? value['validTo'] : value['validTo'].toISOString(),
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
         'sideIds': value['sideIds'],

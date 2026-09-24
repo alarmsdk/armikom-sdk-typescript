@@ -16,6 +16,7 @@ Name | Type
 `cloudAlarm` | boolean
 `isOnline` | boolean
 `gprs` | boolean
+`enableRemoteManagement` | boolean
 `lockUser` | string
 `address` | string
 `phone1` | string
@@ -88,6 +89,7 @@ const example = {
   "cloudAlarm": null,
   "isOnline": null,
   "gprs": null,
+  "enableRemoteManagement": null,
   "lockUser": null,
   "address": null,
   "phone1": null,

@@ -17,6 +17,8 @@ Name | Type
 `triggerCondition` | string
 `promptId` | string
 `promptName` | string
+`validFrom` | Date
+`validTo` | Date
 `sourceSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
 `sides` | [Array&lt;SideRef&gt;](SideRef.md)
@@ -38,6 +40,8 @@ const example = {
   "triggerCondition": null,
   "promptId": null,
   "promptName": null,
+  "validFrom": null,
+  "validTo": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,
   "sides": null,

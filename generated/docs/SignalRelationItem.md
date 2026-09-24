@@ -17,6 +17,8 @@ Name | Type
 `promptId` | string
 `promptName` | string
 `priority` | number
+`validFrom` | Date
+`validTo` | Date
 `sourceSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalRelationSignalTypeRef&gt;](SignalRelationSignalTypeRef.md)
 `sides` | [Array&lt;SignalRelationSideRef&gt;](SignalRelationSideRef.md)
@@ -38,6 +40,8 @@ const example = {
   "promptId": null,
   "promptName": null,
   "priority": null,
+  "validFrom": null,
+  "validTo": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,
   "sides": null,

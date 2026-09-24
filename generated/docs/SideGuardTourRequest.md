@@ -1,32 +1,37 @@
 
-# SideHolidayItem
+# SideGuardTourRequest
 
+Create and full-replace payload for a guard tour.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`id` | string
 `name` | string
-`startDate` | Date
-`recurring` | boolean
+`sideZoneId` | string
 `startTime` | string
 `endTime` | string
+`intervalMinutes` | number
+`active` | boolean
+`notes` | string
+`signalTypeIds` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { SideHolidayItem } from ''
+import type { SideGuardTourRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "id": null,
   "name": null,
-  "startDate": null,
-  "recurring": null,
+  "sideZoneId": null,
   "startTime": null,
   "endTime": null,
-} satisfies SideHolidayItem
+  "intervalMinutes": null,
+  "active": null,
+  "notes": null,
+  "signalTypeIds": null,
+} satisfies SideGuardTourRequest
 
 console.log(example)
 
@@ -35,7 +40,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as SideHolidayItem
+const exampleParsed = JSON.parse(exampleJSON) as SideGuardTourRequest
 console.log(exampleParsed)
 ```
 

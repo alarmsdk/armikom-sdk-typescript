@@ -9,6 +9,8 @@ Name | Type
 `name` | string
 `startDate` | Date
 `recurring` | boolean
+`startTime` | string
+`endTime` | string
 
 ## Example
 
@@ -20,6 +22,8 @@ const example = {
   "name": null,
   "startDate": null,
   "recurring": null,
+  "startTime": null,
+  "endTime": null,
 } satisfies UpdateHolidayRequest
 
 console.log(example)

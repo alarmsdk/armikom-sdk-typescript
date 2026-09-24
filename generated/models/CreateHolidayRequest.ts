@@ -37,6 +37,18 @@ export interface CreateHolidayRequest {
      * @memberof CreateHolidayRequest
      */
     recurring?: boolean;
+    /**
+     * When set, the holiday starts at this time (HH:mm, e.g. "12:00") instead of midnight.
+     * @type {string}
+     * @memberof CreateHolidayRequest
+     */
+    startTime?: string | null;
+    /**
+     * When set, the holiday ends at this time (HH:mm, e.g. "18:00") instead of end-of-day.
+     * @type {string}
+     * @memberof CreateHolidayRequest
+     */
+    endTime?: string | null;
 }
 
 /**
@@ -59,6 +71,8 @@ export function CreateHolidayRequestFromJSONTyped(json: any, ignoreDiscriminator
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'startDate': json['startDate'] === undefined ? undefined : json['startDate'] === null ? null : (new Date(json['startDate'])),
         'recurring': json['recurring'] == null ? undefined : json['recurring'],
+        'startTime': json['startTime'] === undefined ? undefined : json['startTime'] === null ? null : json['startTime'],
+        'endTime': json['endTime'] === undefined ? undefined : json['endTime'] === null ? null : json['endTime'],
     };
 }
 
@@ -76,6 +90,8 @@ export function CreateHolidayRequestToJSONTyped(value?: CreateHolidayRequest | n
         'name': value['name'],
         'startDate': value['startDate'] == null ? value['startDate'] : value['startDate'].toISOString(),
         'recurring': value['recurring'],
+        'startTime': value['startTime'],
+        'endTime': value['endTime'],
     };
 }
 

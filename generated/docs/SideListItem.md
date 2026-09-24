@@ -14,6 +14,7 @@ Name | Type
 `approved` | boolean
 `isOpen` | boolean
 `cloudAlarm` | boolean
+`enableRemoteManagement` | boolean
 `lockUser` | string
 `cityName` | string
 `districtName` | string
@@ -53,6 +54,7 @@ const example = {
   "approved": null,
   "isOpen": null,
   "cloudAlarm": null,
+  "enableRemoteManagement": null,
   "lockUser": null,
   "cityName": null,
   "districtName": null,
