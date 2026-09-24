@@ -1,11 +1,61 @@
 
 # SideExportRequest
 
+Exports what the subscriber list shows: the same free-text, status and dealer criteria, plus every advanced-search criterion of Armikom.Api.Contracts.Sides.SideSearchParams (city, panel, account type, ...), so a filtered screen produces an equally filtered file.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
+`cityId` | string
+`districtId` | string
+`regionId` | string
+`brandId` | string
+`modelId` | string
+`protocolId` | string
+`accountTypeId` | string
+`businessSectorId` | string
+`sideTypeId` | string
+`monitoringCenterId` | string
+`installerId` | string
+`customerId` | string
+`dealerIds` | string
+`cityIdNot` | string
+`districtIdNot` | string
+`regionIdNot` | string
+`brandIdNot` | string
+`modelIdNot` | string
+`protocolIdNot` | string
+`accountTypeIdNot` | string
+`businessSectorIdNot` | string
+`sideTypeIdNot` | string
+`monitoringCenterIdNot` | string
+`installerIdNot` | string
+`customerIdNot` | string
+`dealerIdNot` | string
+`name` | string
+`nameNot` | string
+`address` | string
+`addressNot` | string
+`serialNumber` | string
+`serialNumberNot` | string
+`comment` | string
+`commentNot` | string
+`phone` | string
+`phoneNot` | string
+`isOpen` | boolean
+`cloudAlarm` | boolean
+`neverSignalled` | boolean
+`sideNoFrom` | number
+`sideNoTo` | number
+`installDateFrom` | Date
+`installDateTo` | Date
+`startDateFrom` | Date
+`startDateTo` | Date
+`endDateFrom` | Date
+`endDateTo` | Date
+`lastSignalFrom` | Date
+`lastSignalTo` | Date
 `query` | string
 `active` | boolean
 `approved` | boolean
@@ -21,6 +71,55 @@ import type { SideExportRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "cityId": null,
+  "districtId": null,
+  "regionId": null,
+  "brandId": null,
+  "modelId": null,
+  "protocolId": null,
+  "accountTypeId": null,
+  "businessSectorId": null,
+  "sideTypeId": null,
+  "monitoringCenterId": null,
+  "installerId": null,
+  "customerId": null,
+  "dealerIds": null,
+  "cityIdNot": null,
+  "districtIdNot": null,
+  "regionIdNot": null,
+  "brandIdNot": null,
+  "modelIdNot": null,
+  "protocolIdNot": null,
+  "accountTypeIdNot": null,
+  "businessSectorIdNot": null,
+  "sideTypeIdNot": null,
+  "monitoringCenterIdNot": null,
+  "installerIdNot": null,
+  "customerIdNot": null,
+  "dealerIdNot": null,
+  "name": null,
+  "nameNot": null,
+  "address": null,
+  "addressNot": null,
+  "serialNumber": null,
+  "serialNumberNot": null,
+  "comment": null,
+  "commentNot": null,
+  "phone": null,
+  "phoneNot": null,
+  "isOpen": null,
+  "cloudAlarm": null,
+  "neverSignalled": null,
+  "sideNoFrom": null,
+  "sideNoTo": null,
+  "installDateFrom": null,
+  "installDateTo": null,
+  "startDateFrom": null,
+  "startDateTo": null,
+  "endDateFrom": null,
+  "endDateTo": null,
+  "lastSignalFrom": null,
+  "lastSignalTo": null,
   "query": null,
   "active": null,
   "approved": null,

@@ -25,6 +25,7 @@ Name | Type
 `geolocation` | string
 `enableSms` | boolean
 `enableEmail` | boolean
+`recordDateTime` | Date
 
 ## Example
 
@@ -52,6 +53,7 @@ const example = {
   "geolocation": null,
   "enableSms": null,
   "enableEmail": null,
+  "recordDateTime": null,
 } satisfies CreateDealerRequest
 
 console.log(example)

@@ -133,6 +133,12 @@ export interface UpdateDealerRequest {
      * @memberof UpdateDealerRequest
      */
     enableEmail?: boolean | null;
+    /**
+     * AR-8: corrects the dealer's registration date. Omitted leaves it unchanged.
+     * @type {Date}
+     * @memberof UpdateDealerRequest
+     */
+    recordDateTime?: Date | null;
 }
 
 /**
@@ -171,6 +177,7 @@ export function UpdateDealerRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
         'enableSms': json['enableSms'] === undefined ? undefined : json['enableSms'] === null ? null : json['enableSms'],
         'enableEmail': json['enableEmail'] === undefined ? undefined : json['enableEmail'] === null ? null : json['enableEmail'],
+        'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
     };
 }
 
@@ -204,6 +211,7 @@ export function UpdateDealerRequestToJSONTyped(value?: UpdateDealerRequest | nul
         'geolocation': value['geolocation'],
         'enableSms': value['enableSms'],
         'enableEmail': value['enableEmail'],
+        'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
     };
 }
 

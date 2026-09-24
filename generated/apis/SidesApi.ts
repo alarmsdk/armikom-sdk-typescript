@@ -33,6 +33,17 @@ import {
     SideExportRequestFromJSON,
     SideExportRequestToJSON,
 } from '../models/SideExportRequest';
+import {
+    type SideStatusReportRequest,
+    SideStatusReportRequestFromJSON,
+    SideStatusReportRequestToJSON,
+} from '../models/SideStatusReportRequest';
+
+export interface SidesApiExportSideStatusHistoryRequest {
+    sideStatusReportRequest: SideStatusReportRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
 
 export interface SidesApiExportSidesRequest {
     sideExportRequest: SideExportRequest;
@@ -60,6 +71,70 @@ export interface SidesApiGetNextSideNoRequest {
  * 
  */
 export class SidesApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for exportSideStatusHistory without sending the request
+     */
+    async exportSideStatusHistoryRequestOpts(requestParameters: SidesApiExportSideStatusHistoryRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideStatusReportRequest'] == null) {
+            throw new runtime.RequiredError(
+                'sideStatusReportRequest',
+                'Required parameter "sideStatusReportRequest" was null or undefined when calling exportSideStatusHistory().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/status-history/export`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SideStatusReportRequestToJSON(requestParameters['sideStatusReportRequest']),
+        };
+    }
+
+    /**
+     * Every activation and deactivation in the range, across the subscribers the caller can see: date, subscriber, dealer, direction, reason, comment and the operator who made the change. `from`/`to` are inclusive and optional. Maximum 50,000 rows.
+     * Export the active/passive history of subscribers to CSV or XLSX
+     */
+    async exportSideStatusHistoryRaw(requestParameters: SidesApiExportSideStatusHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exportSideStatusHistoryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Every activation and deactivation in the range, across the subscribers the caller can see: date, subscriber, dealer, direction, reason, comment and the operator who made the change. `from`/`to` are inclusive and optional. Maximum 50,000 rows.
+     * Export the active/passive history of subscribers to CSV or XLSX
+     */
+    async exportSideStatusHistory(requestParameters: SidesApiExportSideStatusHistoryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exportSideStatusHistoryRaw(requestParameters, initOverrides);
+    }
 
     /**
      * Creates request options for exportSides without sending the request

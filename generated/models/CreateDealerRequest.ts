@@ -133,6 +133,12 @@ export interface CreateDealerRequest {
      * @memberof CreateDealerRequest
      */
     enableEmail?: boolean;
+    /**
+     * AR-8: when the dealer was registered. Omitted means now.
+     * @type {Date}
+     * @memberof CreateDealerRequest
+     */
+    recordDateTime?: Date | null;
 }
 
 /**
@@ -171,6 +177,7 @@ export function CreateDealerRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
         'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
         'enableEmail': json['enableEmail'] == null ? undefined : json['enableEmail'],
+        'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
     };
 }
 
@@ -204,6 +211,7 @@ export function CreateDealerRequestToJSONTyped(value?: CreateDealerRequest | nul
         'geolocation': value['geolocation'],
         'enableSms': value['enableSms'],
         'enableEmail': value['enableEmail'],
+        'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
     };
 }
 

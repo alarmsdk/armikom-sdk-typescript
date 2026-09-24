@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { BulkSmsAlarmTarget } from './BulkSmsAlarmTarget';
+import {
+    BulkSmsAlarmTargetFromJSON,
+    BulkSmsAlarmTargetFromJSONTyped,
+    BulkSmsAlarmTargetToJSON,
+    BulkSmsAlarmTargetToJSONTyped,
+} from './BulkSmsAlarmTarget';
 import type { BulkSmsFilterRequest } from './BulkSmsFilterRequest';
 import {
     BulkSmsFilterRequestFromJSON,
@@ -58,6 +65,12 @@ export interface BulkSendSmsRequest {
      */
     filter?: BulkSmsFilterRequest;
     /**
+     * 
+     * @type {BulkSmsAlarmTarget}
+     * @memberof BulkSendSmsRequest
+     */
+    alarms?: BulkSmsAlarmTarget;
+    /**
      * The row count the operator confirmed. When it doesn't match, nothing is sent.
      * @type {number}
      * @memberof BulkSendSmsRequest
@@ -86,6 +99,7 @@ export function BulkSendSmsRequestFromJSONTyped(json: any, ignoreDiscriminator: 
         'recipients': json['recipients'] === undefined ? undefined : json['recipients'] === null ? null : json['recipients'],
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
         'filter': json['filter'] == null ? undefined : BulkSmsFilterRequestFromJSON(json['filter']),
+        'alarms': json['alarms'] == null ? undefined : BulkSmsAlarmTargetFromJSON(json['alarms']),
         'expectedCount': json['expectedCount'] === undefined ? undefined : json['expectedCount'] === null ? null : json['expectedCount'],
     };
 }
@@ -105,6 +119,7 @@ export function BulkSendSmsRequestToJSONTyped(value?: BulkSendSmsRequest | null,
         'recipients': value['recipients'],
         'sideIds': value['sideIds'],
         'filter': BulkSmsFilterRequestToJSON(value['filter']),
+        'alarms': BulkSmsAlarmTargetToJSON(value['alarms']),
         'expectedCount': value['expectedCount'],
     };
 }

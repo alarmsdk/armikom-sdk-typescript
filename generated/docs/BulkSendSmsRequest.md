@@ -11,6 +11,7 @@ Name | Type
 `recipients` | string
 `sideIds` | Array&lt;string&gt;
 `filter` | [BulkSmsFilterRequest](BulkSmsFilterRequest.md)
+`alarms` | [BulkSmsAlarmTarget](BulkSmsAlarmTarget.md)
 `expectedCount` | number
 
 ## Example
@@ -24,6 +25,7 @@ const example = {
   "recipients": null,
   "sideIds": null,
   "filter": null,
+  "alarms": null,
   "expectedCount": null,
 } satisfies BulkSendSmsRequest
 

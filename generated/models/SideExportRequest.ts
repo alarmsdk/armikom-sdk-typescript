@@ -14,11 +14,308 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Exports what the subscriber list shows: the same free-text, status and dealer criteria,
+ * plus every advanced-search criterion of Armikom.Api.Contracts.Sides.SideSearchParams (city, panel,
+ * account type, ...), so a filtered screen produces an equally filtered file.
  * @export
  * @interface SideExportRequest
  */
 export interface SideExportRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    cityId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    districtId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    regionId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    brandId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    modelId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    protocolId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    accountTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    businessSectorId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    sideTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    monitoringCenterId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    installerId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    customerId?: string | null;
+    /**
+     * Comma-separated dealer ids. The endpoint's long-standing single-valued
+     * `dealerId` parameter still works and is AND'ed with this one.
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    dealerIds?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    cityIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    districtIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    regionIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    brandIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    modelIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    protocolIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    accountTypeIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    businessSectorIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    sideTypeIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    monitoringCenterIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    installerIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    customerIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    dealerIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    nameNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    address?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    addressNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    serialNumber?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    serialNumberNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    comment?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    commentNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    phone?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideExportRequest
+     */
+    phoneNot?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SideExportRequest
+     */
+    isOpen?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SideExportRequest
+     */
+    cloudAlarm?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SideExportRequest
+     */
+    neverSignalled?: boolean | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SideExportRequest
+     */
+    sideNoFrom?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SideExportRequest
+     */
+    sideNoTo?: number | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    installDateFrom?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    installDateTo?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    startDateFrom?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    startDateTo?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    endDateFrom?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    endDateTo?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    lastSignalFrom?: Date | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof SideExportRequest
+     */
+    lastSignalTo?: Date | null;
     /**
      * 
      * @type {string}
@@ -81,6 +378,55 @@ export function SideExportRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
+        'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
+        'districtId': json['districtId'] === undefined ? undefined : json['districtId'] === null ? null : json['districtId'],
+        'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
+        'brandId': json['brandId'] === undefined ? undefined : json['brandId'] === null ? null : json['brandId'],
+        'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
+        'protocolId': json['protocolId'] === undefined ? undefined : json['protocolId'] === null ? null : json['protocolId'],
+        'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
+        'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'installerId': json['installerId'] === undefined ? undefined : json['installerId'] === null ? null : json['installerId'],
+        'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
+        'dealerIds': json['dealerIds'] === undefined ? undefined : json['dealerIds'] === null ? null : json['dealerIds'],
+        'cityIdNot': json['cityIdNot'] === undefined ? undefined : json['cityIdNot'] === null ? null : json['cityIdNot'],
+        'districtIdNot': json['districtIdNot'] === undefined ? undefined : json['districtIdNot'] === null ? null : json['districtIdNot'],
+        'regionIdNot': json['regionIdNot'] === undefined ? undefined : json['regionIdNot'] === null ? null : json['regionIdNot'],
+        'brandIdNot': json['brandIdNot'] === undefined ? undefined : json['brandIdNot'] === null ? null : json['brandIdNot'],
+        'modelIdNot': json['modelIdNot'] === undefined ? undefined : json['modelIdNot'] === null ? null : json['modelIdNot'],
+        'protocolIdNot': json['protocolIdNot'] === undefined ? undefined : json['protocolIdNot'] === null ? null : json['protocolIdNot'],
+        'accountTypeIdNot': json['accountTypeIdNot'] === undefined ? undefined : json['accountTypeIdNot'] === null ? null : json['accountTypeIdNot'],
+        'businessSectorIdNot': json['businessSectorIdNot'] === undefined ? undefined : json['businessSectorIdNot'] === null ? null : json['businessSectorIdNot'],
+        'sideTypeIdNot': json['sideTypeIdNot'] === undefined ? undefined : json['sideTypeIdNot'] === null ? null : json['sideTypeIdNot'],
+        'monitoringCenterIdNot': json['monitoringCenterIdNot'] === undefined ? undefined : json['monitoringCenterIdNot'] === null ? null : json['monitoringCenterIdNot'],
+        'installerIdNot': json['installerIdNot'] === undefined ? undefined : json['installerIdNot'] === null ? null : json['installerIdNot'],
+        'customerIdNot': json['customerIdNot'] === undefined ? undefined : json['customerIdNot'] === null ? null : json['customerIdNot'],
+        'dealerIdNot': json['dealerIdNot'] === undefined ? undefined : json['dealerIdNot'] === null ? null : json['dealerIdNot'],
+        'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
+        'nameNot': json['nameNot'] === undefined ? undefined : json['nameNot'] === null ? null : json['nameNot'],
+        'address': json['address'] === undefined ? undefined : json['address'] === null ? null : json['address'],
+        'addressNot': json['addressNot'] === undefined ? undefined : json['addressNot'] === null ? null : json['addressNot'],
+        'serialNumber': json['serialNumber'] === undefined ? undefined : json['serialNumber'] === null ? null : json['serialNumber'],
+        'serialNumberNot': json['serialNumberNot'] === undefined ? undefined : json['serialNumberNot'] === null ? null : json['serialNumberNot'],
+        'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
+        'commentNot': json['commentNot'] === undefined ? undefined : json['commentNot'] === null ? null : json['commentNot'],
+        'phone': json['phone'] === undefined ? undefined : json['phone'] === null ? null : json['phone'],
+        'phoneNot': json['phoneNot'] === undefined ? undefined : json['phoneNot'] === null ? null : json['phoneNot'],
+        'isOpen': json['isOpen'] === undefined ? undefined : json['isOpen'] === null ? null : json['isOpen'],
+        'cloudAlarm': json['cloudAlarm'] === undefined ? undefined : json['cloudAlarm'] === null ? null : json['cloudAlarm'],
+        'neverSignalled': json['neverSignalled'] === undefined ? undefined : json['neverSignalled'] === null ? null : json['neverSignalled'],
+        'sideNoFrom': json['sideNoFrom'] === undefined ? undefined : json['sideNoFrom'] === null ? null : json['sideNoFrom'],
+        'sideNoTo': json['sideNoTo'] === undefined ? undefined : json['sideNoTo'] === null ? null : json['sideNoTo'],
+        'installDateFrom': json['installDateFrom'] === undefined ? undefined : json['installDateFrom'] === null ? null : (new Date(json['installDateFrom'])),
+        'installDateTo': json['installDateTo'] === undefined ? undefined : json['installDateTo'] === null ? null : (new Date(json['installDateTo'])),
+        'startDateFrom': json['startDateFrom'] === undefined ? undefined : json['startDateFrom'] === null ? null : (new Date(json['startDateFrom'])),
+        'startDateTo': json['startDateTo'] === undefined ? undefined : json['startDateTo'] === null ? null : (new Date(json['startDateTo'])),
+        'endDateFrom': json['endDateFrom'] === undefined ? undefined : json['endDateFrom'] === null ? null : (new Date(json['endDateFrom'])),
+        'endDateTo': json['endDateTo'] === undefined ? undefined : json['endDateTo'] === null ? null : (new Date(json['endDateTo'])),
+        'lastSignalFrom': json['lastSignalFrom'] === undefined ? undefined : json['lastSignalFrom'] === null ? null : (new Date(json['lastSignalFrom'])),
+        'lastSignalTo': json['lastSignalTo'] === undefined ? undefined : json['lastSignalTo'] === null ? null : (new Date(json['lastSignalTo'])),
         'query': json['query'] === undefined ? undefined : json['query'] === null ? null : json['query'],
         'active': json['active'] === undefined ? undefined : json['active'] === null ? null : json['active'],
         'approved': json['approved'] === undefined ? undefined : json['approved'] === null ? null : json['approved'],
@@ -102,6 +448,55 @@ export function SideExportRequestToJSONTyped(value?: SideExportRequest | null, i
 
     return {
         
+        'cityId': value['cityId'],
+        'districtId': value['districtId'],
+        'regionId': value['regionId'],
+        'brandId': value['brandId'],
+        'modelId': value['modelId'],
+        'protocolId': value['protocolId'],
+        'accountTypeId': value['accountTypeId'],
+        'businessSectorId': value['businessSectorId'],
+        'sideTypeId': value['sideTypeId'],
+        'monitoringCenterId': value['monitoringCenterId'],
+        'installerId': value['installerId'],
+        'customerId': value['customerId'],
+        'dealerIds': value['dealerIds'],
+        'cityIdNot': value['cityIdNot'],
+        'districtIdNot': value['districtIdNot'],
+        'regionIdNot': value['regionIdNot'],
+        'brandIdNot': value['brandIdNot'],
+        'modelIdNot': value['modelIdNot'],
+        'protocolIdNot': value['protocolIdNot'],
+        'accountTypeIdNot': value['accountTypeIdNot'],
+        'businessSectorIdNot': value['businessSectorIdNot'],
+        'sideTypeIdNot': value['sideTypeIdNot'],
+        'monitoringCenterIdNot': value['monitoringCenterIdNot'],
+        'installerIdNot': value['installerIdNot'],
+        'customerIdNot': value['customerIdNot'],
+        'dealerIdNot': value['dealerIdNot'],
+        'name': value['name'],
+        'nameNot': value['nameNot'],
+        'address': value['address'],
+        'addressNot': value['addressNot'],
+        'serialNumber': value['serialNumber'],
+        'serialNumberNot': value['serialNumberNot'],
+        'comment': value['comment'],
+        'commentNot': value['commentNot'],
+        'phone': value['phone'],
+        'phoneNot': value['phoneNot'],
+        'isOpen': value['isOpen'],
+        'cloudAlarm': value['cloudAlarm'],
+        'neverSignalled': value['neverSignalled'],
+        'sideNoFrom': value['sideNoFrom'],
+        'sideNoTo': value['sideNoTo'],
+        'installDateFrom': value['installDateFrom'] == null ? value['installDateFrom'] : value['installDateFrom'].toISOString(),
+        'installDateTo': value['installDateTo'] == null ? value['installDateTo'] : value['installDateTo'].toISOString(),
+        'startDateFrom': value['startDateFrom'] == null ? value['startDateFrom'] : value['startDateFrom'].toISOString(),
+        'startDateTo': value['startDateTo'] == null ? value['startDateTo'] : value['startDateTo'].toISOString(),
+        'endDateFrom': value['endDateFrom'] == null ? value['endDateFrom'] : value['endDateFrom'].toISOString(),
+        'endDateTo': value['endDateTo'] == null ? value['endDateTo'] : value['endDateTo'].toISOString(),
+        'lastSignalFrom': value['lastSignalFrom'] == null ? value['lastSignalFrom'] : value['lastSignalFrom'].toISOString(),
+        'lastSignalTo': value['lastSignalTo'] == null ? value['lastSignalTo'] : value['lastSignalTo'].toISOString(),
         'query': value['query'],
         'active': value['active'],
         'approved': value['approved'],
