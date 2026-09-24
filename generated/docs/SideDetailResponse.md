@@ -49,6 +49,7 @@ Name | Type
 `brandName` | string
 `modelId` | string
 `modelName` | string
+`hasModelDescription` | boolean
 `protocolId` | string
 `protocolName` | string
 `cityId` | string
@@ -122,6 +123,7 @@ const example = {
   "brandName": null,
   "modelId": null,
   "modelName": null,
+  "hasModelDescription": null,
   "protocolId": null,
   "protocolName": null,
   "cityId": null,

@@ -353,7 +353,7 @@ example().catch(console.error);
 
 Per-operator alarm handling summary
 
-Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\&#39;s monitoring centre unless an explicit centre is supplied. Covers (a) of the operator report requirements.
+Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\&#39;s monitoring centre; monitoringCenterId narrows a cross-centre operator\&#39;s report to one centre. Covers (a) of the operator report requirements.
 
 ### Example
 

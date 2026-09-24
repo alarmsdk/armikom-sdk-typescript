@@ -1,30 +1,25 @@
 
-# CreateReferenceHolidayRequest
+# ModelDescriptionResponse
 
+HTML description of a panel model, fetched on demand.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`name` | string
-`date` | Date
-`holidayTypeId` | string
-`startTime` | string
-`endTime` | string
+`modelId` | string
+`descriptionHtml` | string
 
 ## Example
 
 ```typescript
-import type { CreateReferenceHolidayRequest } from ''
+import type { ModelDescriptionResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "name": null,
-  "date": null,
-  "holidayTypeId": null,
-  "startTime": null,
-  "endTime": null,
-} satisfies CreateReferenceHolidayRequest
+  "modelId": null,
+  "descriptionHtml": null,
+} satisfies ModelDescriptionResponse
 
 console.log(example)
 
@@ -33,7 +28,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as CreateReferenceHolidayRequest
+const exampleParsed = JSON.parse(exampleJSON) as ModelDescriptionResponse
 console.log(exampleParsed)
 ```
 

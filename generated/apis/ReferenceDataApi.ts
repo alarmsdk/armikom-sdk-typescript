@@ -204,6 +204,11 @@ import {
     MobileOperatorDetailToJSON,
 } from '../models/MobileOperatorDetail';
 import {
+    type ModelDescriptionResponse,
+    ModelDescriptionResponseFromJSON,
+    ModelDescriptionResponseToJSON,
+} from '../models/ModelDescriptionResponse';
+import {
     type ModelDetail,
     ModelDetailFromJSON,
     ModelDetailToJSON,
@@ -848,6 +853,11 @@ export interface ReferenceDataApiGetMobileOperatorsRequest {
 }
 
 export interface ReferenceDataApiGetModelByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetModelDescriptionRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -5642,6 +5652,65 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getModelById(requestParameters: ReferenceDataApiGetModelByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelDetail> {
         const response = await this.getModelByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getModelDescription without sending the request
+     */
+    async getModelDescriptionRequestOpts(requestParameters: ReferenceDataApiGetModelDescriptionRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getModelDescription().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/models/{id}/description`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the model\'s detail description as an HTML string. Fetched on demand — the list and detail endpoints only carry a boolean `hasModelDescription` flag to avoid bloating every response.
+     * Get the HTML description of a panel model
+     */
+    async getModelDescriptionRaw(requestParameters: ReferenceDataApiGetModelDescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelDescriptionResponse>> {
+        const requestOptions = await this.getModelDescriptionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelDescriptionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the model\'s detail description as an HTML string. Fetched on demand — the list and detail endpoints only carry a boolean `hasModelDescription` flag to avoid bloating every response.
+     * Get the HTML description of a panel model
+     */
+    async getModelDescription(requestParameters: ReferenceDataApiGetModelDescriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelDescriptionResponse> {
+        const response = await this.getModelDescriptionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

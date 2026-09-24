@@ -37,6 +37,18 @@ export interface UpdateReferenceHolidayRequest {
      * @memberof UpdateReferenceHolidayRequest
      */
     holidayTypeId?: string | null;
+    /**
+     * Partial-day start in HH:mm format. Null means midnight (full-day).
+     * @type {string}
+     * @memberof UpdateReferenceHolidayRequest
+     */
+    startTime?: string | null;
+    /**
+     * Partial-day end in HH:mm format. Null means end-of-day (full-day).
+     * @type {string}
+     * @memberof UpdateReferenceHolidayRequest
+     */
+    endTime?: string | null;
 }
 
 /**
@@ -59,6 +71,8 @@ export function UpdateReferenceHolidayRequestFromJSONTyped(json: any, ignoreDisc
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'date': json['date'] === undefined ? undefined : json['date'] === null ? null : (new Date(json['date'])),
         'holidayTypeId': json['holidayTypeId'] === undefined ? undefined : json['holidayTypeId'] === null ? null : json['holidayTypeId'],
+        'startTime': json['startTime'] === undefined ? undefined : json['startTime'] === null ? null : json['startTime'],
+        'endTime': json['endTime'] === undefined ? undefined : json['endTime'] === null ? null : json['endTime'],
     };
 }
 
@@ -76,6 +90,8 @@ export function UpdateReferenceHolidayRequestToJSONTyped(value?: UpdateReference
         'name': value['name'],
         'date': value['date'] == null ? value['date'] : value['date'].toISOString(),
         'holidayTypeId': value['holidayTypeId'],
+        'startTime': value['startTime'],
+        'endTime': value['endTime'],
     };
 }
 

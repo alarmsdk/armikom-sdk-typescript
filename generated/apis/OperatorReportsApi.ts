@@ -475,7 +475,7 @@ export class OperatorReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\'s monitoring centre unless an explicit centre is supplied. Covers (a) of the operator report requirements.
+     * Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\'s monitoring centre; monitoringCenterId narrows a cross-centre operator\'s report to one centre. Covers (a) of the operator report requirements.
      * Per-operator alarm handling summary
      */
     async getOperatorSignalSummaryRaw(requestParameters: OperatorReportsApiGetOperatorSignalSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OperatorSignalSummaryResponse>> {
@@ -486,7 +486,7 @@ export class OperatorReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\'s monitoring centre unless an explicit centre is supplied. Covers (a) of the operator report requirements.
+     * Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller\'s monitoring centre; monitoringCenterId narrows a cross-centre operator\'s report to one centre. Covers (a) of the operator report requirements.
      * Per-operator alarm handling summary
      */
     async getOperatorSignalSummary(requestParameters: OperatorReportsApiGetOperatorSignalSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperatorSignalSummaryResponse> {

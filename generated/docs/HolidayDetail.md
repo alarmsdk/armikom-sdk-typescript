@@ -10,6 +10,8 @@ Name | Type
 `name` | string
 `date` | Date
 `holidayTypeId` | string
+`startTime` | string
+`endTime` | string
 
 ## Example
 
@@ -22,6 +24,8 @@ const example = {
   "name": null,
   "date": null,
   "holidayTypeId": null,
+  "startTime": null,
+  "endTime": null,
 } satisfies HolidayDetail
 
 console.log(example)

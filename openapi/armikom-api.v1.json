@@ -23943,7 +23943,7 @@
           "Operator Reports"
         ],
         "summary": "Per-operator alarm handling summary",
-        "description": "Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller's monitoring centre unless an explicit centre is supplied. Covers (a) of the operator report requirements.",
+        "description": "Returns how many alarms each operator completed, quick-completed, batch-completed, and batch-delayed in the given date range. Scoped to the caller's monitoring centre; monitoringCenterId narrows a cross-centre operator's report to one centre. Covers (a) of the operator report requirements.",
         "operationId": "GetOperatorSignalSummary",
         "parameters": [
           {
@@ -31739,6 +31739,159 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/MonitoringCenterSideNoRangeItem"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/reference/models/{id}/description": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get the HTML description of a panel model",
+        "description": "Returns the model's detail description as an HTML string. Fetched on demand — the list and detail endpoints only carry a boolean `hasModelDescription` flag to avoid bloating every response.",
+        "operationId": "GetModelDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelDescriptionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
                   }
                 }
               }
@@ -91612,6 +91765,16 @@
             "type": "string",
             "format": "uuid",
             "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Partial-day start in HH:mm format. Null means midnight (full-day).",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Partial-day end in HH:mm format. Null means end-of-day (full-day).",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -93533,6 +93696,16 @@
             "type": "string",
             "format": "uuid",
             "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Partial-day start in HH:mm format. Null means full-day.",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Partial-day end in HH:mm format. Null means full-day.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -94180,6 +94353,22 @@
           }
         },
         "additionalProperties": false
+      },
+      "ModelDescriptionResponse": {
+        "type": "object",
+        "properties": {
+          "modelId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "descriptionHtml": {
+            "type": "string",
+            "description": "The model's detail/explanation as HTML.\nMigrated from MyAlarmSis panel_modelleri.DETAY (RTF → HTML).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "HTML description of a panel model, fetched on demand."
       },
       "ModelDetail": {
         "type": "object",
@@ -97264,6 +97453,10 @@
             "type": "string",
             "nullable": true
           },
+          "hasModelDescription": {
+            "type": "boolean",
+            "description": "True when the panel model has an HTML description available.\nFetch the content via `GET /v1/models/{id}/description`."
+          },
           "protocolId": {
             "type": "string",
             "format": "uuid",
@@ -99304,6 +99497,10 @@
           "modelName": {
             "type": "string",
             "nullable": true
+          },
+          "hasModelDescription": {
+            "type": "boolean",
+            "description": "True when the panel model has an HTML description available.\nFetch the content via `GET /v1/models/{id}/description`."
           },
           "protocolName": {
             "type": "string",
@@ -101713,6 +101910,16 @@
           "holidayTypeId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Partial-day start in HH:mm format. Null means midnight (full-day).",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Partial-day end in HH:mm format. Null means end-of-day (full-day).",
             "nullable": true
           }
         },

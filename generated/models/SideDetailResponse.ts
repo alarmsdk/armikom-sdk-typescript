@@ -279,6 +279,13 @@ export interface SideDetailResponse {
      */
     modelName?: string | null;
     /**
+     * True when the panel model has an HTML description available.
+     * Fetch the content via `GET /v1/models/{id}/description`.
+     * @type {boolean}
+     * @memberof SideDetailResponse
+     */
+    hasModelDescription?: boolean;
+    /**
      * 
      * @type {string}
      * @memberof SideDetailResponse
@@ -472,6 +479,7 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'brandName': json['brandName'] === undefined ? undefined : json['brandName'] === null ? null : json['brandName'],
         'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
         'modelName': json['modelName'] === undefined ? undefined : json['modelName'] === null ? null : json['modelName'],
+        'hasModelDescription': json['hasModelDescription'] == null ? undefined : json['hasModelDescription'],
         'protocolId': json['protocolId'] === undefined ? undefined : json['protocolId'] === null ? null : json['protocolId'],
         'protocolName': json['protocolName'] === undefined ? undefined : json['protocolName'] === null ? null : json['protocolName'],
         'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
@@ -551,6 +559,7 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'brandName': value['brandName'],
         'modelId': value['modelId'],
         'modelName': value['modelName'],
+        'hasModelDescription': value['hasModelDescription'],
         'protocolId': value['protocolId'],
         'protocolName': value['protocolName'],
         'cityId': value['cityId'],

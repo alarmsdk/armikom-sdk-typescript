@@ -24,8 +24,7 @@ permissions:
 env:
   # Must match Makefile OPENAPI_GENERATOR_VERSION and openapitools.json.
   OPENAPI_GENERATOR_VERSION: '7.24.0'
-  # Pinned by commit until the api-v1.36 tag (Armikom.Api 3a1674f) is published; swap back to the tag then.
-  FROZEN_TAG: 3a1674fb44e896872c757804fd5261a2e921cf99
+  FROZEN_TAG: api-v1.37
   FROZEN_PATH: openapi/armikom-api.v1.frozen.json
 
 jobs:
@@ -62,7 +61,7 @@ jobs:
         run: make test
 
   pin:
-    name: pinned spec matches api-v1.35
+    name: pinned spec matches api-v1.37
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

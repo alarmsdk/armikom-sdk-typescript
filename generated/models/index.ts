@@ -177,6 +177,7 @@ export * from './MobileUserDeviceSummary';
 export * from './MobileUserLinkedSide';
 export * from './MobileUserListItem';
 export * from './MobileUserListItemPagedResult';
+export * from './ModelDescriptionResponse';
 export * from './ModelDetail';
 export * from './ModelProtocolDetail';
 export * from './MonitoringCenterConfigItem';

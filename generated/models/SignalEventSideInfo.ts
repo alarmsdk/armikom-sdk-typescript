@@ -86,6 +86,13 @@ export interface SignalEventSideInfo {
      */
     modelName?: string | null;
     /**
+     * True when the panel model has an HTML description available.
+     * Fetch the content via `GET /v1/models/{id}/description`.
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    hasModelDescription?: boolean;
+    /**
      * 
      * @type {string}
      * @memberof SignalEventSideInfo
@@ -325,6 +332,7 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'brandName': json['brandName'] === undefined ? undefined : json['brandName'] === null ? null : json['brandName'],
         'modelName': json['modelName'] === undefined ? undefined : json['modelName'] === null ? null : json['modelName'],
+        'hasModelDescription': json['hasModelDescription'] == null ? undefined : json['hasModelDescription'],
         'protocolName': json['protocolName'] === undefined ? undefined : json['protocolName'] === null ? null : json['protocolName'],
         'lockUser': json['lockUser'] === undefined ? undefined : json['lockUser'] === null ? null : json['lockUser'],
         'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
@@ -385,6 +393,7 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'monitoringCenterName': value['monitoringCenterName'],
         'brandName': value['brandName'],
         'modelName': value['modelName'],
+        'hasModelDescription': value['hasModelDescription'],
         'protocolName': value['protocolName'],
         'lockUser': value['lockUser'],
         'cityName': value['cityName'],

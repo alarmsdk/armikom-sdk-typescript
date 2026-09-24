@@ -17,6 +17,7 @@ Name | Type
 `monitoringCenterName` | string
 `brandName` | string
 `modelName` | string
+`hasModelDescription` | boolean
 `protocolName` | string
 `lockUser` | string
 `cityName` | string
@@ -71,6 +72,7 @@ const example = {
   "monitoringCenterName": null,
   "brandName": null,
   "modelName": null,
+  "hasModelDescription": null,
   "protocolName": null,
   "lockUser": null,
   "cityName": null,
