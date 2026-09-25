@@ -74,6 +74,19 @@ export interface SignalEventSideInfo {
      */
     monitoringCenterName?: string | null;
     /**
+     * The side's monitoring centre. Per-centre options (the password mask among them) are
+     * resolved from it, so a view with only the name falls back to the operator's own centre.
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    monitoringCenterId?: string | null;
+    /**
+     * The side's city; the city's emergency contacts are listed beside the side's own.
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
+    cityId?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof SignalEventSideInfo
@@ -336,6 +349,8 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'customerName': json['customerName'] === undefined ? undefined : json['customerName'] === null ? null : json['customerName'],
         'installerName': json['installerName'] === undefined ? undefined : json['installerName'] === null ? null : json['installerName'],
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
         'brandName': json['brandName'] === undefined ? undefined : json['brandName'] === null ? null : json['brandName'],
         'modelId': json['modelId'] === undefined ? undefined : json['modelId'] === null ? null : json['modelId'],
         'modelName': json['modelName'] === undefined ? undefined : json['modelName'] === null ? null : json['modelName'],
@@ -398,6 +413,8 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'customerName': value['customerName'],
         'installerName': value['installerName'],
         'monitoringCenterName': value['monitoringCenterName'],
+        'monitoringCenterId': value['monitoringCenterId'],
+        'cityId': value['cityId'],
         'brandName': value['brandName'],
         'modelId': value['modelId'],
         'modelName': value['modelName'],

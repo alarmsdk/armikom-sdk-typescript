@@ -15,6 +15,8 @@ Name | Type
 `customerName` | string
 `installerName` | string
 `monitoringCenterName` | string
+`monitoringCenterId` | string
+`cityId` | string
 `brandName` | string
 `modelId` | string
 `modelName` | string
@@ -71,6 +73,8 @@ const example = {
   "customerName": null,
   "installerName": null,
   "monitoringCenterName": null,
+  "monitoringCenterId": null,
+  "cityId": null,
   "brandName": null,
   "modelId": null,
   "modelName": null,

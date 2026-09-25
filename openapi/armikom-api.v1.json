@@ -99730,6 +99730,18 @@
             "type": "string",
             "nullable": true
           },
+          "monitoringCenterId": {
+            "type": "string",
+            "description": "The side's monitoring centre. Per-centre options (the password mask among them) are\nresolved from it, so a view with only the name falls back to the operator's own centre.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "string",
+            "description": "The side's city; the city's emergency contacts are listed beside the side's own.",
+            "format": "uuid",
+            "nullable": true
+          },
           "brandName": {
             "type": "string",
             "nullable": true
