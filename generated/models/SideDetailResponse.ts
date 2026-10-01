@@ -134,11 +134,17 @@ export interface SideDetailResponse {
      */
     serialNumber?: string | null;
     /**
-     * 
+     * The side's verbal code. Null unless the caller holds `sides:secrets` (D76).
      * @type {string}
      * @memberof SideDetailResponse
      */
     safePassword?: string | null;
+    /**
+     * True when a safe password is stored, whether or not it is visible to the caller.
+     * @type {boolean}
+     * @memberof SideDetailResponse
+     */
+    hasSafePassword?: boolean;
     /**
      * 
      * @type {string}
@@ -456,6 +462,7 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
         'serialNumber': json['serialNumber'] === undefined ? undefined : json['serialNumber'] === null ? null : json['serialNumber'],
         'safePassword': json['safePassword'] === undefined ? undefined : json['safePassword'] === null ? null : json['safePassword'],
+        'hasSafePassword': json['hasSafePassword'] == null ? undefined : json['hasSafePassword'],
         'identityNo': json['identityNo'] === undefined ? undefined : json['identityNo'] === null ? null : json['identityNo'],
         'policeStationNo': json['policeStationNo'] === undefined ? undefined : json['policeStationNo'] === null ? null : json['policeStationNo'],
         'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
@@ -536,6 +543,7 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'comment': value['comment'],
         'serialNumber': value['serialNumber'],
         'safePassword': value['safePassword'],
+        'hasSafePassword': value['hasSafePassword'],
         'identityNo': value['identityNo'],
         'policeStationNo': value['policeStationNo'],
         'taxOffice': value['taxOffice'],

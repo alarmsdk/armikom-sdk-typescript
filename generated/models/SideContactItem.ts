@@ -56,11 +56,17 @@ export interface SideContactItem {
      */
     phone3?: string | null;
     /**
-     * 
+     * The contact's verbal code. Null unless the caller holds `sides:secrets` (D76).
      * @type {string}
      * @memberof SideContactItem
      */
     password?: string | null;
+    /**
+     * True when a password is stored, whether or not it is visible to the caller.
+     * @type {boolean}
+     * @memberof SideContactItem
+     */
+    hasPassword?: boolean;
     /**
      * 
      * @type {string}
@@ -93,6 +99,7 @@ export function SideContactItemFromJSONTyped(json: any, ignoreDiscriminator: boo
         'phone2': json['phone2'] === undefined ? undefined : json['phone2'] === null ? null : json['phone2'],
         'phone3': json['phone3'] === undefined ? undefined : json['phone3'] === null ? null : json['phone3'],
         'password': json['password'] === undefined ? undefined : json['password'] === null ? null : json['password'],
+        'hasPassword': json['hasPassword'] == null ? undefined : json['hasPassword'],
         'note': json['note'] === undefined ? undefined : json['note'] === null ? null : json['note'],
     };
 }
@@ -115,6 +122,7 @@ export function SideContactItemToJSONTyped(value?: SideContactItem | null, ignor
         'phone2': value['phone2'],
         'phone3': value['phone3'],
         'password': value['password'],
+        'hasPassword': value['hasPassword'],
         'note': value['note'],
     };
 }

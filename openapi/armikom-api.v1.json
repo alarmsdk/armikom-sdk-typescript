@@ -97391,7 +97391,12 @@
           },
           "password": {
             "type": "string",
+            "description": "The contact's verbal code. Null unless the caller holds `sides:secrets` (D76).",
             "nullable": true
+          },
+          "hasPassword": {
+            "type": "boolean",
+            "description": "True when a password is stored, whether or not it is visible to the caller."
           },
           "note": {
             "type": "string",
@@ -97589,7 +97594,12 @@
           },
           "safePassword": {
             "type": "string",
+            "description": "The side's verbal code. Null unless the caller holds `sides:secrets` (D76).",
             "nullable": true
+          },
+          "hasSafePassword": {
+            "type": "boolean",
+            "description": "True when a safe password is stored, whether or not it is visible to the caller."
           },
           "identityNo": {
             "type": "string",
@@ -99821,7 +99831,12 @@
           },
           "safePassword": {
             "type": "string",
+            "description": "The side's verbal code. Null unless the caller holds `sides:secrets` (D76).",
             "nullable": true
+          },
+          "hasSafePassword": {
+            "type": "boolean",
+            "description": "True when a safe password is stored, whether or not it is visible to the caller."
           },
           "comment": {
             "type": "string",
@@ -102244,27 +102259,23 @@
             "nullable": true
           },
           "phone1": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/StringOptional"
           },
           "phone2": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/StringOptional"
           },
           "phone3": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/StringOptional"
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/StringOptional"
           },
           "note": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/StringOptional"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Update body for a contact. `name` is required; every other field is a patch:\nleft out of the JSON it keeps its stored value, sent as `null` it is cleared. The\nconsole sends only the fields the operator changed."
       },
       "UpdateSideControlRequest": {
         "type": "object",

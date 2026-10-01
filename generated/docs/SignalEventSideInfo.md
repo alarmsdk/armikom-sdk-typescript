@@ -37,6 +37,7 @@ Name | Type
 `serialNumber` | string
 `identityNo` | string
 `safePassword` | string
+`hasSafePassword` | boolean
 `comment` | string
 `armType` | string
 `policeStationNo` | string
@@ -95,6 +96,7 @@ const example = {
   "serialNumber": null,
   "identityNo": null,
   "safePassword": null,
+  "hasSafePassword": null,
   "comment": null,
   "armType": null,
   "policeStationNo": null,

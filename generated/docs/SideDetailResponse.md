@@ -26,6 +26,7 @@ Name | Type
 `comment` | string
 `serialNumber` | string
 `safePassword` | string
+`hasSafePassword` | boolean
 `identityNo` | string
 `policeStationNo` | string
 `taxOffice` | string
@@ -100,6 +101,7 @@ const example = {
   "comment": null,
   "serialNumber": null,
   "safePassword": null,
+  "hasSafePassword": null,
   "identityNo": null,
   "policeStationNo": null,
   "taxOffice": null,

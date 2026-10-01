@@ -14,7 +14,9 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Update body for a contact. `name` is required; every other field is a patch:
+ * left out of the JSON it keeps its stored value, sent as `null` it is cleared. The
+ * console sends only the fields the operator changed.
  * @export
  * @interface UpdateSideContactRequest
  */

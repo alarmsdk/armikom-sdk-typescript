@@ -13,6 +13,7 @@ Name | Type
 `phone2` | string
 `phone3` | string
 `password` | string
+`hasPassword` | boolean
 `note` | string
 
 ## Example
@@ -29,6 +30,7 @@ const example = {
   "phone2": null,
   "phone3": null,
   "password": null,
+  "hasPassword": null,
   "note": null,
 } satisfies SideContactItem
 

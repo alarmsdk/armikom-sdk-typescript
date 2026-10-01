@@ -202,11 +202,17 @@ export interface SignalEventSideInfo {
      */
     identityNo?: string | null;
     /**
-     * 
+     * The side's verbal code. Null unless the caller holds `sides:secrets` (D76).
      * @type {string}
      * @memberof SignalEventSideInfo
      */
     safePassword?: string | null;
+    /**
+     * True when a safe password is stored, whether or not it is visible to the caller.
+     * @type {boolean}
+     * @memberof SignalEventSideInfo
+     */
+    hasSafePassword?: boolean;
     /**
      * 
      * @type {string}
@@ -371,6 +377,7 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'serialNumber': json['serialNumber'] === undefined ? undefined : json['serialNumber'] === null ? null : json['serialNumber'],
         'identityNo': json['identityNo'] === undefined ? undefined : json['identityNo'] === null ? null : json['identityNo'],
         'safePassword': json['safePassword'] === undefined ? undefined : json['safePassword'] === null ? null : json['safePassword'],
+        'hasSafePassword': json['hasSafePassword'] == null ? undefined : json['hasSafePassword'],
         'comment': json['comment'] === undefined ? undefined : json['comment'] === null ? null : json['comment'],
         'armType': json['armType'] === undefined ? undefined : json['armType'] === null ? null : json['armType'],
         'policeStationNo': json['policeStationNo'] === undefined ? undefined : json['policeStationNo'] === null ? null : json['policeStationNo'],
@@ -435,6 +442,7 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'serialNumber': value['serialNumber'],
         'identityNo': value['identityNo'],
         'safePassword': value['safePassword'],
+        'hasSafePassword': value['hasSafePassword'],
         'comment': value['comment'],
         'armType': value['armType'],
         'policeStationNo': value['policeStationNo'],
