@@ -1,7 +1,7 @@
 
 # SideExportRequest
 
-Exports what the subscriber list shows: the same free-text, status and dealer criteria, plus every advanced-search criterion of Armikom.Api.Contracts.Sides.SideSearchParams (city, panel, account type, ...), so a filtered screen produces an equally filtered file.
+Exports what the subscriber list shows: the same free-text, status and dealer criteria,  plus every advanced-search criterion of Armikom.Api.Contracts.Sides.SideSearchParams (city, panel,  account type, ...), so a filtered screen produces an equally filtered file.
 
 ## Properties
 

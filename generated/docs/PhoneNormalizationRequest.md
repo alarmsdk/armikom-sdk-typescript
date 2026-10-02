@@ -1,27 +1,23 @@
 
-# LocalizationBundleResponse
+# PhoneNormalizationRequest
 
-Full localisation bundle for a given culture.  Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
+Request body for batch phone normalization.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`culture` | string
-`supportedCultures` | Array&lt;string&gt;
-`keys` | { [key: string]: string | undefined; }
+`entities` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { LocalizationBundleResponse } from ''
+import type { PhoneNormalizationRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "culture": null,
-  "supportedCultures": null,
-  "keys": null,
-} satisfies LocalizationBundleResponse
+  "entities": null,
+} satisfies PhoneNormalizationRequest
 
 console.log(example)
 
@@ -30,7 +26,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LocalizationBundleResponse
+const exampleParsed = JSON.parse(exampleJSON) as PhoneNormalizationRequest
 console.log(exampleParsed)
 ```
 

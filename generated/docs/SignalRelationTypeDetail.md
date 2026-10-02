@@ -1,7 +1,7 @@
 
 # SignalRelationTypeDetail
 
-What a relation does. REMOVE and DELAY are seeded by the Engine and cannot be renamed or deleted — the pipeline dispatches on those names.
+What a relation does. REMOVE and DELAY are seeded by the Engine and cannot be renamed or  deleted — the pipeline dispatches on those names.
 
 ## Properties
 

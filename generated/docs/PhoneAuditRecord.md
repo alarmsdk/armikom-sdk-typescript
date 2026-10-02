@@ -1,27 +1,30 @@
 
-# LocalizationBundleResponse
+# PhoneAuditRecord
 
-Full localisation bundle for a given culture.  Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`culture` | string
-`supportedCultures` | Array&lt;string&gt;
-`keys` | { [key: string]: string | undefined; }
+`id` | string
+`field` | string
+`currentValue` | string
+`normalizedValue` | string
+`label` | string
 
 ## Example
 
 ```typescript
-import type { LocalizationBundleResponse } from ''
+import type { PhoneAuditRecord } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "culture": null,
-  "supportedCultures": null,
-  "keys": null,
-} satisfies LocalizationBundleResponse
+  "id": null,
+  "field": null,
+  "currentValue": null,
+  "normalizedValue": null,
+  "label": null,
+} satisfies PhoneAuditRecord
 
 console.log(example)
 
@@ -30,7 +33,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LocalizationBundleResponse
+const exampleParsed = JSON.parse(exampleJSON) as PhoneAuditRecord
 console.log(exampleParsed)
 ```
 

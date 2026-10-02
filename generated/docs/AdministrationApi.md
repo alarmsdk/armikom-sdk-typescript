@@ -35,6 +35,8 @@ All URIs are relative to *http://localhost*
 | [**getDeviceRegex**](AdministrationApi.md#getdeviceregex) | **GET** /v1/admin/device-regexes/{id} | Get a device parser |
 | [**getEmergencyPhone**](AdministrationApi.md#getemergencyphone) | **GET** /v1/admin/emergency-phones/{id} | Get an emergency contact |
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
+| [**getPhoneAuditEntityDetail**](AdministrationApi.md#getphoneauditentitydetail) | **GET** /v1/admin/phone-audit/detail/{entity} | List phone numbers needing normalisation for one entity |
+| [**getPhoneAuditSummary**](AdministrationApi.md#getphoneauditsummary) | **GET** /v1/admin/phone-audit/summary | Summary of phone numbers across all entities |
 | [**getPrompt**](AdministrationApi.md#getprompt) | **GET** /v1/admin/prompts/{id} | Get an AI prompt template |
 | [**getReceiverType**](AdministrationApi.md#getreceivertype) | **GET** /v1/admin/receiver-types/{id} | Get a receiver type |
 | [**getSidesWithDataIssues**](AdministrationApi.md#getsideswithdataissues) | **GET** /v1/admin/sides-data-issues | List subscribers with brand/model/protocol data issues |
@@ -51,6 +53,7 @@ All URIs are relative to *http://localhost*
 | [**listReceiverRules**](AdministrationApi.md#listreceiverrules) | **GET** /v1/admin/receivers/{receiverId}/rules | List the admission rules of a receiver |
 | [**listReceiverTypes**](AdministrationApi.md#listreceivertypes) | **GET** /v1/admin/receiver-types | List receiver types |
 | [**listSmsSettings**](AdministrationApi.md#listsmssettings) | **GET** /v1/admin/sms-settings | List SMS gateway profiles |
+| [**normalizePhones**](AdministrationApi.md#normalizephones) | **POST** /v1/admin/phone-audit/normalize | Batch-normalise phone numbers |
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
 | [**updateEmergencyPhone**](AdministrationApi.md#updateemergencyphone) | **PATCH** /v1/admin/emergency-phones/{id} | Update an emergency contact |
 | [**updateMailSetting**](AdministrationApi.md#updatemailsettingoperation) | **PATCH** /v1/admin/mail-settings/{id} | Update an SMTP profile |
@@ -2476,6 +2479,161 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getPhoneAuditEntityDetail
+
+> PhoneAuditEntityDetailResponse getPhoneAuditEntityDetail(entity, offset, limit, xCorrelationId)
+
+List phone numbers needing normalisation for one entity
+
+Returns individual records where the stored phone value differs from the normalised form. Paginated with offset/limit (default 0/200).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetPhoneAuditEntityDetailRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    entity: entity_example,
+    // number (optional)
+    offset: 56,
+    // number (optional)
+    limit: 56,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetPhoneAuditEntityDetailRequest;
+
+  try {
+    const data = await api.getPhoneAuditEntityDetail(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **entity** | `string` |  | [Defaults to `undefined`] |
+| **offset** | `number` |  | [Optional] [Defaults to `0`] |
+| **limit** | `number` |  | [Optional] [Defaults to `200`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**PhoneAuditEntityDetailResponse**](PhoneAuditEntityDetailResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getPhoneAuditSummary
+
+> PhoneAuditSummaryResponse getPhoneAuditSummary(xCorrelationId)
+
+Summary of phone numbers across all entities
+
+Returns per-entity counts of total phone fields, how many are already normalised (10-digit local form), how many need normalisation, and how many are short (&lt;10 digits, left as-is).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetPhoneAuditSummaryRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetPhoneAuditSummaryRequest;
+
+  try {
+    const data = await api.getPhoneAuditSummary(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**PhoneAuditSummaryResponse**](PhoneAuditSummaryResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getPrompt
 
 > PromptDetail getPrompt(id, xCorrelationId)
@@ -3645,6 +3803,88 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## normalizePhones
+
+> PhoneNormalizationResult normalizePhones(phoneNormalizationRequest, dryRun, xCorrelationId, idempotencyKey)
+
+Batch-normalise phone numbers
+
+Normalises all phone fields across the requested entities (or all when the list is empty). Numbers shorter than 10 digits are left untouched. Use dryRun&#x3D;true to preview without writing.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { NormalizePhonesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // PhoneNormalizationRequest
+    phoneNormalizationRequest: ...,
+    // boolean (optional)
+    dryRun: true,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies NormalizePhonesRequest;
+
+  try {
+    const data = await api.normalizePhones(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **phoneNormalizationRequest** | [PhoneNormalizationRequest](PhoneNormalizationRequest.md) |  | |
+| **dryRun** | `boolean` |  | [Optional] [Defaults to `true`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**PhoneNormalizationResult**](PhoneNormalizationResult.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

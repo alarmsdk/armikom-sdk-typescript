@@ -1,7 +1,7 @@
 
 # SideBatchUpdateResponse
 
-What a batch update actually did. Never a bare count: a batch where nine of four hundred rows were refused has to name those nine, or the operator\'s next move is to run the whole thing again.
+What a batch update actually did. Never a bare count: a batch where nine of four  hundred rows were refused has to name those nine, or the operator\'s next move is to  run the whole thing again.
 
 ## Properties
 

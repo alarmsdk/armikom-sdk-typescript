@@ -278,6 +278,13 @@ docs/OperatorUserListItemPagedResult.md
 docs/PassiveSignalListItem.md
 docs/PassiveSignalListItemPagedResult.md
 docs/PassiveSignalsApi.md
+docs/PhoneAuditEntityDetailResponse.md
+docs/PhoneAuditEntitySummary.md
+docs/PhoneAuditRecord.md
+docs/PhoneAuditSummaryResponse.md
+docs/PhoneNormalizationEntityResult.md
+docs/PhoneNormalizationRequest.md
+docs/PhoneNormalizationResult.md
 docs/PostActivity422Response.md
 docs/PostActivityRequest.md
 docs/ProblemDetails.md
@@ -731,6 +738,13 @@ models/OperatorUserListItem.ts
 models/OperatorUserListItemPagedResult.ts
 models/PassiveSignalListItem.ts
 models/PassiveSignalListItemPagedResult.ts
+models/PhoneAuditEntityDetailResponse.ts
+models/PhoneAuditEntitySummary.ts
+models/PhoneAuditRecord.ts
+models/PhoneAuditSummaryResponse.ts
+models/PhoneNormalizationEntityResult.ts
+models/PhoneNormalizationRequest.ts
+models/PhoneNormalizationResult.ts
 models/PostActivity422Response.ts
 models/PostActivityRequest.ts
 models/ProblemDetails.ts

@@ -1,7 +1,7 @@
 
 # SetRoleFieldPolicyRequest
 
-PUT body for a role\'s field policy. Replaces both lists. Unknown or non-lockable keys are refused with 400 rather than silently dropped.
+PUT body for a role\'s field policy. Replaces both lists. Unknown or non-lockable keys are  refused with 400 rather than silently dropped.
 
 ## Properties
 

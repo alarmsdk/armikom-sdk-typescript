@@ -1,7 +1,7 @@
 
 # AdvisoryDto
 
-One advisory run for a signal event: the AI summary, and the notes that attach to operator actions.
+One advisory run for a signal event: the AI summary, and the notes that attach to operator  actions.
 
 ## Properties
 

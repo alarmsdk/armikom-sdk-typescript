@@ -1,7 +1,7 @@
 
 # SideRef
 
-A subscriber a relation is scoped to, named the way the console lists them. Named `SideRef` rather than `SignalRelationSideRef` because the reference surface already owns that schema id, and OpenAPI has one flat schema namespace.
+A subscriber a relation is scoped to, named the way the console lists them.  Named `SideRef` rather than `SignalRelationSideRef` because the reference  surface already owns that schema id, and OpenAPI has one flat schema namespace.
 
 ## Properties
 

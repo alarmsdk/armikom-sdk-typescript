@@ -1,7 +1,7 @@
 
 # SideBatchUpdateRequest
 
-A batch field assignment over the subscribers a search found: \"these four hundred sides all move to protocol X\".
+A batch field assignment over the subscribers a search found: \"these four hundred  sides all move to protocol X\".
 
 ## Properties
 

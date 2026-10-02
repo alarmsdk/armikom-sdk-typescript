@@ -1,7 +1,7 @@
 
 # SideStatusReportRequest
 
-The active/passive history report (AR-29): every activation and deactivation in the range, with the operator who made it and the reason given.
+The active/passive history report (AR-29): every activation and deactivation in the range,  with the operator who made it and the reason given.
 
 ## Properties
 

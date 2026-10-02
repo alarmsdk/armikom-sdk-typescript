@@ -69,6 +69,26 @@ import {
     MonitoringCenterDetailToJSON,
 } from '../models/MonitoringCenterDetail';
 import {
+    type PhoneAuditEntityDetailResponse,
+    PhoneAuditEntityDetailResponseFromJSON,
+    PhoneAuditEntityDetailResponseToJSON,
+} from '../models/PhoneAuditEntityDetailResponse';
+import {
+    type PhoneAuditSummaryResponse,
+    PhoneAuditSummaryResponseFromJSON,
+    PhoneAuditSummaryResponseToJSON,
+} from '../models/PhoneAuditSummaryResponse';
+import {
+    type PhoneNormalizationRequest,
+    PhoneNormalizationRequestFromJSON,
+    PhoneNormalizationRequestToJSON,
+} from '../models/PhoneNormalizationRequest';
+import {
+    type PhoneNormalizationResult,
+    PhoneNormalizationResultFromJSON,
+    PhoneNormalizationResultToJSON,
+} from '../models/PhoneNormalizationResult';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -348,6 +368,17 @@ export interface AdministrationApiGetMailSettingRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetPhoneAuditEntityDetailRequest {
+    entity: string;
+    offset?: number;
+    limit?: number;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetPhoneAuditSummaryRequest {
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetPromptRequest {
     id: string;
     xCorrelationId?: string;
@@ -419,6 +450,13 @@ export interface AdministrationApiListReceiverTypesRequest {
 
 export interface AdministrationApiListSmsSettingsRequest {
     xCorrelationId?: string;
+}
+
+export interface AdministrationApiNormalizePhonesRequest {
+    phoneNormalizationRequest: PhoneNormalizationRequest;
+    dryRun?: boolean;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface AdministrationApiUpdateDeviceRegexRequest {
@@ -2387,6 +2425,124 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getPhoneAuditEntityDetail without sending the request
+     */
+    async getPhoneAuditEntityDetailRequestOpts(requestParameters: AdministrationApiGetPhoneAuditEntityDetailRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['entity'] == null) {
+            throw new runtime.RequiredError(
+                'entity',
+                'Required parameter "entity" was null or undefined when calling getPhoneAuditEntityDetail().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/phone-audit/detail/{entity}`;
+        urlPath = urlPath.replace('{entity}', encodeURIComponent(String(requestParameters['entity'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns individual records where the stored phone value differs from the normalised form. Paginated with offset/limit (default 0/200).
+     * List phone numbers needing normalisation for one entity
+     */
+    async getPhoneAuditEntityDetailRaw(requestParameters: AdministrationApiGetPhoneAuditEntityDetailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PhoneAuditEntityDetailResponse>> {
+        const requestOptions = await this.getPhoneAuditEntityDetailRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PhoneAuditEntityDetailResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns individual records where the stored phone value differs from the normalised form. Paginated with offset/limit (default 0/200).
+     * List phone numbers needing normalisation for one entity
+     */
+    async getPhoneAuditEntityDetail(requestParameters: AdministrationApiGetPhoneAuditEntityDetailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PhoneAuditEntityDetailResponse> {
+        const response = await this.getPhoneAuditEntityDetailRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getPhoneAuditSummary without sending the request
+     */
+    async getPhoneAuditSummaryRequestOpts(requestParameters: AdministrationApiGetPhoneAuditSummaryRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/phone-audit/summary`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns per-entity counts of total phone fields, how many are already normalised (10-digit local form), how many need normalisation, and how many are short (<10 digits, left as-is).
+     * Summary of phone numbers across all entities
+     */
+    async getPhoneAuditSummaryRaw(requestParameters: AdministrationApiGetPhoneAuditSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PhoneAuditSummaryResponse>> {
+        const requestOptions = await this.getPhoneAuditSummaryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PhoneAuditSummaryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns per-entity counts of total phone fields, how many are already normalised (10-digit local form), how many need normalisation, and how many are short (<10 digits, left as-is).
+     * Summary of phone numbers across all entities
+     */
+    async getPhoneAuditSummary(requestParameters: AdministrationApiGetPhoneAuditSummaryRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PhoneAuditSummaryResponse> {
+        const response = await this.getPhoneAuditSummaryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getPrompt without sending the request
      */
     async getPromptRequestOpts(requestParameters: AdministrationApiGetPromptRequest): Promise<runtime.RequestOpts> {
@@ -3233,6 +3389,75 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async listSmsSettings(requestParameters: AdministrationApiListSmsSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SmsSettingDetail>> {
         const response = await this.listSmsSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for normalizePhones without sending the request
+     */
+    async normalizePhonesRequestOpts(requestParameters: AdministrationApiNormalizePhonesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['phoneNormalizationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'phoneNormalizationRequest',
+                'Required parameter "phoneNormalizationRequest" was null or undefined when calling normalizePhones().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['dryRun'] != null) {
+            queryParameters['dryRun'] = requestParameters['dryRun'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/phone-audit/normalize`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PhoneNormalizationRequestToJSON(requestParameters['phoneNormalizationRequest']),
+        };
+    }
+
+    /**
+     * Normalises all phone fields across the requested entities (or all when the list is empty). Numbers shorter than 10 digits are left untouched. Use dryRun=true to preview without writing.
+     * Batch-normalise phone numbers
+     */
+    async normalizePhonesRaw(requestParameters: AdministrationApiNormalizePhonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PhoneNormalizationResult>> {
+        const requestOptions = await this.normalizePhonesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PhoneNormalizationResultFromJSON(jsonValue));
+    }
+
+    /**
+     * Normalises all phone fields across the requested entities (or all when the list is empty). Numbers shorter than 10 digits are left untouched. Use dryRun=true to preview without writing.
+     * Batch-normalise phone numbers
+     */
+    async normalizePhones(requestParameters: AdministrationApiNormalizePhonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PhoneNormalizationResult> {
+        const response = await this.normalizePhonesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

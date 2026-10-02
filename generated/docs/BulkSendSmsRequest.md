@@ -1,7 +1,7 @@
 
 # BulkSendSmsRequest
 
-Send the same SMS text to many subscribers at once. The target is named one of two ways (exactly like SideBatchUpdateRequest): SideIds for a ticked list, or Filter for \"everything this search matched\". Recipients per subscriber are resolved server-side: \"first-contact\" uses Phone1 of the first SideContact (by RowNo), \"sms-contacts\" uses all contacts defined in the subscriber\'s SideSms notification rules.
+Send the same SMS text to many subscribers at once. The target is named one of two ways  (exactly like SideBatchUpdateRequest): SideIds for a ticked list, or Filter for  \"everything this search matched\". Recipients per subscriber are resolved server-side:  \"first-contact\" uses Phone1 of the first SideContact (by RowNo), \"sms-contacts\" uses  all contacts defined in the subscriber\'s SideSms notification rules.
 
 ## Properties
 

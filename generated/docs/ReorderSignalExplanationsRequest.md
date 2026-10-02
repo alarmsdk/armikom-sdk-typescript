@@ -1,7 +1,7 @@
 
 # ReorderSignalExplanationsRequest
 
-Provide the full list of signal explanation IDs in the desired display order. The first entry will appear first in the operator\'s list.
+Provide the full list of signal explanation IDs in the desired display order.  The first entry will appear first in the operator\'s list.
 
 ## Properties
 

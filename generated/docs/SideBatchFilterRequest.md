@@ -1,7 +1,7 @@
 
 # SideBatchFilterRequest
 
-The same criteria the subscriber list takes on its query string, in a request body. Inherits the advanced half so the two can never drift apart — a batch that selected a different set from the grid the operator was reading is the whole risk here.
+The same criteria the subscriber list takes on its query string, in a request body.  Inherits the advanced half so the two can never drift apart — a batch that selected a  different set from the grid the operator was reading is the whole risk here.
 
 ## Properties
 

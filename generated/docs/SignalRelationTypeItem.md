@@ -1,7 +1,7 @@
 
 # SignalRelationTypeItem
 
-A relation type as the read surface exposes it. REMOVE and DELAY are seeded by the Engine on startup; Armikom.Api.Contracts.Reference.SignalRelationTypeItem.IsSystem marks them so the console can lock them.
+A relation type as the read surface exposes it. REMOVE and DELAY are seeded by the Engine  on startup; Armikom.Api.Contracts.Reference.SignalRelationTypeItem.IsSystem marks them so the console can lock them.
 
 ## Properties
 
