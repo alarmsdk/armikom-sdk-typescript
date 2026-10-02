@@ -119,6 +119,11 @@ import {
     CreateModelRequestToJSON,
 } from '../models/CreateModelRequest';
 import {
+    type CreateNoteExplanationRequest,
+    CreateNoteExplanationRequestFromJSON,
+    CreateNoteExplanationRequestToJSON,
+} from '../models/CreateNoteExplanationRequest';
+import {
     type CreateNoteTypeRequest,
     CreateNoteTypeRequestFromJSON,
     CreateNoteTypeRequestToJSON,
@@ -229,6 +234,11 @@ import {
     MonitoringCenterSideNoRangeItemToJSON,
 } from '../models/MonitoringCenterSideNoRangeItem';
 import {
+    type NoteExplanationDetail,
+    NoteExplanationDetailFromJSON,
+    NoteExplanationDetailToJSON,
+} from '../models/NoteExplanationDetail';
+import {
     type NoteTypeDetail,
     NoteTypeDetailFromJSON,
     NoteTypeDetailToJSON,
@@ -263,6 +273,11 @@ import {
     ReferenceWriteResponseFromJSON,
     ReferenceWriteResponseToJSON,
 } from '../models/ReferenceWriteResponse';
+import {
+    type ReorderNoteExplanationsRequest,
+    ReorderNoteExplanationsRequestFromJSON,
+    ReorderNoteExplanationsRequestToJSON,
+} from '../models/ReorderNoteExplanationsRequest';
 import {
     type ReorderSignalExplanationsRequest,
     ReorderSignalExplanationsRequestFromJSON,
@@ -393,6 +408,11 @@ import {
     UpdateModelRequestFromJSON,
     UpdateModelRequestToJSON,
 } from '../models/UpdateModelRequest';
+import {
+    type UpdateNoteExplanationRequest,
+    UpdateNoteExplanationRequestFromJSON,
+    UpdateNoteExplanationRequestToJSON,
+} from '../models/UpdateNoteExplanationRequest';
 import {
     type UpdateNoteTypeRequest,
     UpdateNoteTypeRequestFromJSON,
@@ -545,6 +565,12 @@ export interface ReferenceDataApiCreateModelProtocolOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateNoteExplanationOperationRequest {
+    createNoteExplanationRequest: CreateNoteExplanationRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateNoteTypeOperationRequest {
     createNoteTypeRequest: CreateNoteTypeRequest;
     xCorrelationId?: string;
@@ -689,6 +715,11 @@ export interface ReferenceDataApiDeleteModelRequest {
 }
 
 export interface ReferenceDataApiDeleteModelProtocolRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteNoteExplanationRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -876,6 +907,11 @@ export interface ReferenceDataApiGetMonitoringCentersRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetNoteExplanationByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetNoteTypeByIdRequest {
     id: string;
     xCorrelationId?: string;
@@ -1028,6 +1064,10 @@ export interface ReferenceDataApiListProductsRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiListReferenceNoteExplanationsRequest {
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiListReferenceSignalExplanationsRequest {
     xCorrelationId?: string;
 }
@@ -1056,6 +1096,11 @@ export interface ReferenceDataApiListSignalRelationsRequest {
 export interface ReferenceDataApiListTechnicalPeopleDetailedRequest {
     dealerId?: string;
     activeOnly?: boolean;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiReorderNoteExplanationsOperationRequest {
+    reorderNoteExplanationsRequest: ReorderNoteExplanationsRequest;
     xCorrelationId?: string;
 }
 
@@ -1146,6 +1191,12 @@ export interface ReferenceDataApiUpdateMobileOperatorRequest {
 export interface ReferenceDataApiUpdateModelOperationRequest {
     id: string;
     updateModelRequest: UpdateModelRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateNoteExplanationOperationRequest {
+    id: string;
+    updateNoteExplanationRequest: UpdateNoteExplanationRequest;
     xCorrelationId?: string;
 }
 
@@ -2176,6 +2227,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createModelProtocol(requestParameters: ReferenceDataApiCreateModelProtocolOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createModelProtocolRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createNoteExplanation without sending the request
+     */
+    async createNoteExplanationRequestOpts(requestParameters: ReferenceDataApiCreateNoteExplanationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createNoteExplanationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createNoteExplanationRequest',
+                'Required parameter "createNoteExplanationRequest" was null or undefined when calling createNoteExplanation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateNoteExplanationRequestToJSON(requestParameters['createNoteExplanationRequest']),
+        };
+    }
+
+    /**
+     * Create a note explanation
+     */
+    async createNoteExplanationRaw(requestParameters: ReferenceDataApiCreateNoteExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.createNoteExplanationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a note explanation
+     */
+    async createNoteExplanation(requestParameters: ReferenceDataApiCreateNoteExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.createNoteExplanationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -3783,6 +3897,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteModelProtocol(requestParameters: ReferenceDataApiDeleteModelProtocolRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteModelProtocolRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteNoteExplanation without sending the request
+     */
+    async deleteNoteExplanationRequestOpts(requestParameters: ReferenceDataApiDeleteNoteExplanationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteNoteExplanation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a note explanation
+     */
+    async deleteNoteExplanationRaw(requestParameters: ReferenceDataApiDeleteNoteExplanationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteNoteExplanationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a note explanation
+     */
+    async deleteNoteExplanation(requestParameters: ReferenceDataApiDeleteNoteExplanationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteNoteExplanationRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -5874,6 +6044,63 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getNoteExplanationById without sending the request
+     */
+    async getNoteExplanationByIdRequestOpts(requestParameters: ReferenceDataApiGetNoteExplanationByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getNoteExplanationById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get note explanation by id
+     */
+    async getNoteExplanationByIdRaw(requestParameters: ReferenceDataApiGetNoteExplanationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<NoteExplanationDetail>> {
+        const requestOptions = await this.getNoteExplanationByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => NoteExplanationDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get note explanation by id
+     */
+    async getNoteExplanationById(requestParameters: ReferenceDataApiGetNoteExplanationByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NoteExplanationDetail> {
+        const response = await this.getNoteExplanationByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getNoteTypeById without sending the request
      */
     async getNoteTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetNoteTypeByIdRequest): Promise<runtime.RequestOpts> {
@@ -7499,6 +7726,55 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for listReferenceNoteExplanations without sending the request
+     */
+    async listReferenceNoteExplanationsRequestOpts(requestParameters: ReferenceDataApiListReferenceNoteExplanationsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List note explanations (MC-scoped)
+     */
+    async listReferenceNoteExplanationsRaw(requestParameters: ReferenceDataApiListReferenceNoteExplanationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+        const requestOptions = await this.listReferenceNoteExplanationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+    }
+
+    /**
+     * List note explanations (MC-scoped)
+     */
+    async listReferenceNoteExplanations(requestParameters: ReferenceDataApiListReferenceNoteExplanationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+        const response = await this.listReferenceNoteExplanationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listReferenceSignalExplanations without sending the request
      */
     async listReferenceSignalExplanationsRequestOpts(requestParameters: ReferenceDataApiListReferenceSignalExplanationsRequest): Promise<runtime.RequestOpts> {
@@ -7758,6 +8034,66 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     async listTechnicalPeopleDetailed(requestParameters: ReferenceDataApiListTechnicalPeopleDetailedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TechnicalPersonDetail>> {
         const response = await this.listTechnicalPeopleDetailedRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Creates request options for reorderNoteExplanations without sending the request
+     */
+    async reorderNoteExplanationsRequestOpts(requestParameters: ReferenceDataApiReorderNoteExplanationsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['reorderNoteExplanationsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'reorderNoteExplanationsRequest',
+                'Required parameter "reorderNoteExplanationsRequest" was null or undefined when calling reorderNoteExplanations().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations/order`;
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReorderNoteExplanationsRequestToJSON(requestParameters['reorderNoteExplanationsRequest']),
+        };
+    }
+
+    /**
+     * Provide the full list of note explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+     * Reorder note explanations atomically
+     */
+    async reorderNoteExplanationsRaw(requestParameters: ReferenceDataApiReorderNoteExplanationsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.reorderNoteExplanationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Provide the full list of note explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+     * Reorder note explanations atomically
+     */
+    async reorderNoteExplanations(requestParameters: ReferenceDataApiReorderNoteExplanationsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.reorderNoteExplanationsRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -8763,6 +9099,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateModel(requestParameters: ReferenceDataApiUpdateModelOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateModelRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateNoteExplanation without sending the request
+     */
+    async updateNoteExplanationRequestOpts(requestParameters: ReferenceDataApiUpdateNoteExplanationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateNoteExplanation().'
+            );
+        }
+
+        if (requestParameters['updateNoteExplanationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateNoteExplanationRequest',
+                'Required parameter "updateNoteExplanationRequest" was null or undefined when calling updateNoteExplanation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/note-explanations/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateNoteExplanationRequestToJSON(requestParameters['updateNoteExplanationRequest']),
+        };
+    }
+
+    /**
+     * Update a note explanation
+     */
+    async updateNoteExplanationRaw(requestParameters: ReferenceDataApiUpdateNoteExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.updateNoteExplanationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a note explanation
+     */
+    async updateNoteExplanation(requestParameters: ReferenceDataApiUpdateNoteExplanationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.updateNoteExplanationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

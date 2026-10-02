@@ -19,6 +19,7 @@ export * from './IntegrationsAdminApi';
 export * from './InvoicesApi';
 export * from './LocalisationApi';
 export * from './MobileUsersApi';
+export * from './NoteExplanationsApi';
 export * from './OperatorReportsApi';
 export * from './PassiveSignalsApi';
 export * from './PushNotificationsApi';

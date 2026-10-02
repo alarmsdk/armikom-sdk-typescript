@@ -18,6 +18,7 @@ apis/IntegrationsApi.ts
 apis/InvoicesApi.ts
 apis/LocalisationApi.ts
 apis/MobileUsersApi.ts
+apis/NoteExplanationsApi.ts
 apis/OperatorReportsApi.ts
 apis/PassiveSignalsApi.ts
 apis/PushNotificationsApi.ts
@@ -158,6 +159,7 @@ docs/CreateMobileUserRequest.md
 docs/CreateModelProtocolRequest.md
 docs/CreateModelRequest.md
 docs/CreateMonitoringCenterRequest.md
+docs/CreateNoteExplanationRequest.md
 docs/CreateNoteTypeRequest.md
 docs/CreateOperatorUserRequest.md
 docs/CreatePartitionRequest.md
@@ -276,6 +278,9 @@ docs/MonitoringCenterDetail.md
 docs/MonitoringCenterItem.md
 docs/MonitoringCenterSideNoRangeItem.md
 docs/NextSideNoResponse.md
+docs/NoteExplanationDetail.md
+docs/NoteExplanationDto.md
+docs/NoteExplanationsApi.md
 docs/NoteTypeDetail.md
 docs/OperatorCallSummaryItem.md
 docs/OperatorCallSummaryResponse.md
@@ -328,6 +333,7 @@ docs/RefreshRequest.md
 docs/RefreshResponse.md
 docs/RenameRoleRequest.md
 docs/ReorderContactsRequest.md
+docs/ReorderNoteExplanationsRequest.md
 docs/ReorderSignalExplanationsRequest.md
 docs/ReplaceActionTextRequest.md
 docs/ReserveDealerSideNosRequest.md
@@ -507,6 +513,7 @@ docs/UpdateMailSettingRequest.md
 docs/UpdateMobileUserRequest.md
 docs/UpdateModelRequest.md
 docs/UpdateMonitoringCenterRequest.md
+docs/UpdateNoteExplanationRequest.md
 docs/UpdateNoteTypeRequest.md
 docs/UpdateOperatorUserRequest.md
 docs/UpdateProtocolRequest.md
@@ -643,6 +650,7 @@ models/CreateMobileUserRequest.ts
 models/CreateModelProtocolRequest.ts
 models/CreateModelRequest.ts
 models/CreateMonitoringCenterRequest.ts
+models/CreateNoteExplanationRequest.ts
 models/CreateNoteTypeRequest.ts
 models/CreateOperatorUserRequest.ts
 models/CreatePartitionRequest.ts
@@ -751,6 +759,8 @@ models/MonitoringCenterDetail.ts
 models/MonitoringCenterItem.ts
 models/MonitoringCenterSideNoRangeItem.ts
 models/NextSideNoResponse.ts
+models/NoteExplanationDetail.ts
+models/NoteExplanationDto.ts
 models/NoteTypeDetail.ts
 models/OperatorCallSummaryItem.ts
 models/OperatorCallSummaryResponse.ts
@@ -799,6 +809,7 @@ models/RefreshRequest.ts
 models/RefreshResponse.ts
 models/RenameRoleRequest.ts
 models/ReorderContactsRequest.ts
+models/ReorderNoteExplanationsRequest.ts
 models/ReorderSignalExplanationsRequest.ts
 models/ReplaceActionTextRequest.ts
 models/ReserveDealerSideNosRequest.ts
@@ -947,6 +958,7 @@ models/UpdateMailSettingRequest.ts
 models/UpdateMobileUserRequest.ts
 models/UpdateModelRequest.ts
 models/UpdateMonitoringCenterRequest.ts
+models/UpdateNoteExplanationRequest.ts
 models/UpdateNoteTypeRequest.ts
 models/UpdateOperatorUserRequest.ts
 models/UpdateProtocolRequest.ts

@@ -19,6 +19,7 @@ All URIs are relative to *http://localhost*
 | [**createMobileOperator**](ReferenceDataApi.md#createmobileoperator) | **POST** /v1/reference/mobile-operators | Create a GSM operator |
 | [**createModel**](ReferenceDataApi.md#createmodeloperation) | **POST** /v1/reference/models | Create a model |
 | [**createModelProtocol**](ReferenceDataApi.md#createmodelprotocoloperation) | **POST** /v1/reference/model-protocols | Create a model-protocol link |
+| [**createNoteExplanation**](ReferenceDataApi.md#createnoteexplanationoperation) | **POST** /v1/reference/note-explanations | Create a note explanation |
 | [**createNoteType**](ReferenceDataApi.md#createnotetypeoperation) | **POST** /v1/reference/note-types | Create a note type |
 | [**createProduct**](ReferenceDataApi.md#createproduct) | **POST** /v1/reference/products | Create a product |
 | [**createProtocol**](ReferenceDataApi.md#createprotocoloperation) | **POST** /v1/reference/protocols | Create a protocol |
@@ -46,6 +47,7 @@ All URIs are relative to *http://localhost*
 | [**deleteMobileOperator**](ReferenceDataApi.md#deletemobileoperator) | **DELETE** /v1/reference/mobile-operators/{id} | Delete a GSM operator |
 | [**deleteModel**](ReferenceDataApi.md#deletemodel) | **DELETE** /v1/reference/models/{id} | Delete a model |
 | [**deleteModelProtocol**](ReferenceDataApi.md#deletemodelprotocol) | **DELETE** /v1/reference/model-protocols/{id} | Delete a model-protocol link |
+| [**deleteNoteExplanation**](ReferenceDataApi.md#deletenoteexplanation) | **DELETE** /v1/reference/note-explanations/{id} | Delete a note explanation |
 | [**deleteNoteType**](ReferenceDataApi.md#deletenotetype) | **DELETE** /v1/reference/note-types/{id} | Delete a note type |
 | [**deleteProduct**](ReferenceDataApi.md#deleteproduct) | **DELETE** /v1/reference/products/{id} | Delete a product |
 | [**deleteProtocol**](ReferenceDataApi.md#deleteprotocol) | **DELETE** /v1/reference/protocols/{id} | Delete a protocol |
@@ -84,6 +86,7 @@ All URIs are relative to *http://localhost*
 | [**getModelProtocolById**](ReferenceDataApi.md#getmodelprotocolbyid) | **GET** /v1/reference/model-protocols/{id} | Get model-protocol link by id |
 | [**getModels**](ReferenceDataApi.md#getmodels) | **GET** /v1/reference/models | List panel models, optionally filtered by brand |
 | [**getMonitoringCenters**](ReferenceDataApi.md#getmonitoringcenters) | **GET** /v1/reference/monitoring-centers | List monitoring centers visible to the current user |
+| [**getNoteExplanationById**](ReferenceDataApi.md#getnoteexplanationbyid) | **GET** /v1/reference/note-explanations/{id} | Get note explanation by id |
 | [**getNoteTypeById**](ReferenceDataApi.md#getnotetypebyid) | **GET** /v1/reference/note-types/{id} | Get note type by id |
 | [**getProductById**](ReferenceDataApi.md#getproductbyid) | **GET** /v1/reference/products/{id} | Get a product |
 | [**getProtocolById**](ReferenceDataApi.md#getprotocolbyid) | **GET** /v1/reference/protocols/{id} | Get protocol by id |
@@ -113,10 +116,12 @@ All URIs are relative to *http://localhost*
 | [**listMonitoringCenterSideNoRanges**](ReferenceDataApi.md#listmonitoringcentersidenoranges) | **GET** /v1/reference/monitoring-center-side-no-ranges | List allocated side-number ranges per monitoring center (MC-filtered) |
 | [**listNoteTypes**](ReferenceDataApi.md#listnotetypes) | **GET** /v1/reference/note-types | List note types |
 | [**listProducts**](ReferenceDataApi.md#listproducts) | **GET** /v1/reference/products | List products |
+| [**listReferenceNoteExplanations**](ReferenceDataApi.md#listreferencenoteexplanations) | **GET** /v1/reference/note-explanations | List note explanations (MC-scoped) |
 | [**listReferenceSignalExplanations**](ReferenceDataApi.md#listreferencesignalexplanations) | **GET** /v1/reference/signal-explanations | List signal explanations (MC-scoped) |
 | [**listSignalRelationTypes**](ReferenceDataApi.md#listsignalrelationtypes) | **GET** /v1/reference/signal-relation-types | List the relation types a signal relation can carry |
 | [**listSignalRelations**](ReferenceDataApi.md#listsignalrelations) | **GET** /v1/reference/signal-relations | List signal relations with source and target signal types |
 | [**listTechnicalPeopleDetailed**](ReferenceDataApi.md#listtechnicalpeopledetailed) | **GET** /v1/reference/technical-people/detailed | List technicians with their contact details |
+| [**reorderNoteExplanations**](ReferenceDataApi.md#reordernoteexplanationsoperation) | **PUT** /v1/reference/note-explanations/order | Reorder note explanations atomically |
 | [**reorderSignalExplanations**](ReferenceDataApi.md#reordersignalexplanationsoperation) | **PUT** /v1/reference/signal-explanations/order | Reorder signal explanations atomically |
 | [**updateAccountItem**](ReferenceDataApi.md#updateaccountitemoperation) | **PATCH** /v1/reference/account-items/{id} | Update an account item |
 | [**updateAccountType**](ReferenceDataApi.md#updateaccounttypeoperation) | **PATCH** /v1/reference/account-types/{id} | Update an account type |
@@ -132,6 +137,7 @@ All URIs are relative to *http://localhost*
 | [**updateHolidayType**](ReferenceDataApi.md#updateholidaytypeoperation) | **PATCH** /v1/reference/holiday-types/{id} | Update a holiday type |
 | [**updateMobileOperator**](ReferenceDataApi.md#updatemobileoperator) | **PATCH** /v1/reference/mobile-operators/{id} | Rename a GSM operator |
 | [**updateModel**](ReferenceDataApi.md#updatemodeloperation) | **PATCH** /v1/reference/models/{id} | Update a model |
+| [**updateNoteExplanation**](ReferenceDataApi.md#updatenoteexplanationoperation) | **PATCH** /v1/reference/note-explanations/{id} | Update a note explanation |
 | [**updateNoteType**](ReferenceDataApi.md#updatenotetypeoperation) | **PATCH** /v1/reference/note-types/{id} | Update a note type |
 | [**updateProduct**](ReferenceDataApi.md#updateproduct) | **PATCH** /v1/reference/products/{id} | Update a product |
 | [**updateProtocol**](ReferenceDataApi.md#updateprotocoloperation) | **PATCH** /v1/reference/protocols/{id} | Update a protocol |
@@ -1306,6 +1312,85 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **createModelProtocolRequest** | [CreateModelProtocolRequest](CreateModelProtocolRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createNoteExplanation
+
+> ReferenceWriteResponse createNoteExplanation(createNoteExplanationRequest, xCorrelationId, idempotencyKey)
+
+Create a note explanation
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { CreateNoteExplanationOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // CreateNoteExplanationRequest
+    createNoteExplanationRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateNoteExplanationOperationRequest;
+
+  try {
+    const data = await api.createNoteExplanation(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createNoteExplanationRequest** | [CreateNoteExplanationRequest](CreateNoteExplanationRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 | **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
 
@@ -3383,6 +3468,82 @@ async function example() {
 
   try {
     const data = await api.deleteModelProtocol(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteNoteExplanation
+
+> deleteNoteExplanation(id, xCorrelationId)
+
+Delete a note explanation
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { DeleteNoteExplanationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteNoteExplanationRequest;
+
+  try {
+    const data = await api.deleteNoteExplanation(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -6262,6 +6423,81 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getNoteExplanationById
+
+> NoteExplanationDetail getNoteExplanationById(id, xCorrelationId)
+
+Get note explanation by id
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetNoteExplanationByIdRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetNoteExplanationByIdRequest;
+
+  try {
+    const data = await api.getNoteExplanationById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**NoteExplanationDetail**](NoteExplanationDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getNoteTypeById
 
 > NoteTypeDetail getNoteTypeById(id, xCorrelationId)
@@ -8451,6 +8687,77 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## listReferenceNoteExplanations
+
+> Array&lt;LookupItem&gt; listReferenceNoteExplanations(xCorrelationId)
+
+List note explanations (MC-scoped)
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ListReferenceNoteExplanationsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListReferenceNoteExplanationsRequest;
+
+  try {
+    const data = await api.listReferenceNoteExplanations(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;LookupItem&gt;**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## listReferenceSignalExplanations
 
 > Array&lt;LookupItem&gt; listReferenceSignalExplanations(xCorrelationId)
@@ -8780,6 +9087,83 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## reorderNoteExplanations
+
+> reorderNoteExplanations(reorderNoteExplanationsRequest, xCorrelationId)
+
+Reorder note explanations atomically
+
+Provide the full list of note explanation IDs in the desired display order. Priorities are reassigned in steps of 10.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ReorderNoteExplanationsOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // ReorderNoteExplanationsRequest
+    reorderNoteExplanationsRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ReorderNoteExplanationsOperationRequest;
+
+  try {
+    const data = await api.reorderNoteExplanations(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **reorderNoteExplanationsRequest** | [ReorderNoteExplanationsRequest](ReorderNoteExplanationsRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -9956,6 +10340,86 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
 | **updateModelRequest** | [UpdateModelRequest](UpdateModelRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateNoteExplanation
+
+> ReferenceWriteResponse updateNoteExplanation(id, updateNoteExplanationRequest, xCorrelationId)
+
+Update a note explanation
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { UpdateNoteExplanationOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateNoteExplanationRequest
+    updateNoteExplanationRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateNoteExplanationOperationRequest;
+
+  try {
+    const data = await api.updateNoteExplanation(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **updateNoteExplanationRequest** | [UpdateNoteExplanationRequest](UpdateNoteExplanationRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
