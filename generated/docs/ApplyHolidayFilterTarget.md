@@ -1,7 +1,7 @@
 
 # ApplyHolidayFilterTarget
 
-The same criteria the subscriber list takes on its query string, in a request body —  identical to Armikom.Api.Contracts.Sides.SideBatchFilterRequest and Armikom.Api.Contracts.Messaging.BulkSmsFilterRequest.
+The same criteria the subscriber list takes on its query string, in a request body — identical to Armikom.Api.Contracts.Sides.SideBatchFilterRequest and Armikom.Api.Contracts.Messaging.BulkSmsFilterRequest.
 
 ## Properties
 

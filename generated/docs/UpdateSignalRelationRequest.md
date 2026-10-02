@@ -1,7 +1,7 @@
 
 # UpdateSignalRelationRequest
 
-PATCH body. A property left null is not written and a membership list left null is  untouched; an empty list clears its side. Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TypeId follows the same  convention as every other nullable FK here — the empty guid clears it, which leaves the  rule behaving as REMOVE.                `ValidFrom` and `ValidTo` follow the same nullable-FK convention: sending  `DateTime.MinValue` (`\"0001-01-01T00:00:00\"`) clears the column, which  returns the rule to \"always active\".
+PATCH body. A property left null is not written and a membership list left null is untouched; an empty list clears its side. Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TypeId follows the same convention as every other nullable FK here — the empty guid clears it, which leaves the rule behaving as REMOVE.              `ValidFrom` and `ValidTo` follow the same nullable-FK convention: sending `DateTime.MinValue` (`\"0001-01-01T00:00:00\"`) clears the column, which returns the rule to \"always active\".
 
 ## Properties
 

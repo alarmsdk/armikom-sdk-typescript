@@ -163,6 +163,7 @@ docs/CreateProtocolRequest.md
 docs/CreateReceiverRequest.md
 docs/CreateReferenceHolidayRequest.md
 docs/CreateRegionRequest.md
+docs/CreateRoleRequest.md
 docs/CreateServiceDetailRequest.md
 docs/CreateServiceTypeRequest.md
 docs/CreateSideContactRequest.md
@@ -310,6 +311,7 @@ docs/ReferenceDataApi.md
 docs/ReferenceWriteResponse.md
 docs/RefreshRequest.md
 docs/RefreshResponse.md
+docs/RenameRoleRequest.md
 docs/ReorderContactsRequest.md
 docs/ReorderSignalExplanationsRequest.md
 docs/ReplaceActionTextRequest.md
@@ -633,6 +635,7 @@ models/CreateProtocolRequest.ts
 models/CreateReceiverRequest.ts
 models/CreateReferenceHolidayRequest.ts
 models/CreateRegionRequest.ts
+models/CreateRoleRequest.ts
 models/CreateServiceDetailRequest.ts
 models/CreateServiceTypeRequest.ts
 models/CreateSideContactRequest.ts
@@ -768,6 +771,7 @@ models/ReferenceBundleResponse.ts
 models/ReferenceWriteResponse.ts
 models/RefreshRequest.ts
 models/RefreshResponse.ts
+models/RenameRoleRequest.ts
 models/ReorderContactsRequest.ts
 models/ReorderSignalExplanationsRequest.ts
 models/ReplaceActionTextRequest.ts

@@ -1,7 +1,7 @@
 
 # BatchLinkSidesRequest
 
-Body for `POST /v1/mobile-users/{id}/sides/batch-link`: attach one user to many  subscribers in a single call.
+Body for `POST /v1/mobile-users/{id}/sides/batch-link`: attach one user to many subscribers in a single call.
 
 ## Properties
 

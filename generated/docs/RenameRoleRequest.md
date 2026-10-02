@@ -1,27 +1,23 @@
 
-# LocalizationBundleResponse
+# RenameRoleRequest
 
-Full localisation bundle for a given culture. Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
+D78: renames a role.
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`culture` | string
-`supportedCultures` | Array&lt;string&gt;
-`keys` | { [key: string]: string | undefined; }
+`name` | string
 
 ## Example
 
 ```typescript
-import type { LocalizationBundleResponse } from ''
+import type { RenameRoleRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "culture": null,
-  "supportedCultures": null,
-  "keys": null,
-} satisfies LocalizationBundleResponse
+  "name": null,
+} satisfies RenameRoleRequest
 
 console.log(example)
 
@@ -30,7 +26,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LocalizationBundleResponse
+const exampleParsed = JSON.parse(exampleJSON) as RenameRoleRequest
 console.log(exampleParsed)
 ```
 

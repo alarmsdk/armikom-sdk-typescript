@@ -1,7 +1,7 @@
 
 # SignalRelationDetail
 
-One rule: when a signal of any source type arrives, do what Armikom.Api.Contracts.Admin.SignalRelationDetail.TypeName says  to the open alarms of every target type.
+One rule: when a signal of any source type arrives, do what Armikom.Api.Contracts.Admin.SignalRelationDetail.TypeName says to the open alarms of every target type.
 
 ## Properties
 

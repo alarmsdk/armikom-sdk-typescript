@@ -1,7 +1,7 @@
 
 # SignalRelationItem
 
-One relation rule as the read surface exposes it: what triggers it, what it acts on, what  it does and who it applies to.
+One relation rule as the read surface exposes it: what triggers it, what it acts on, what it does and who it applies to.
 
 ## Properties
 

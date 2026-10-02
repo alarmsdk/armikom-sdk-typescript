@@ -1,27 +1,27 @@
 
-# LocalizationBundleResponse
+# CreateRoleRequest
 
-Full localisation bundle for a given culture. Clients cache this response keyed by ETag; subsequent requests use If-None-Match.
+D78: creates an operator role from the web. The role starts with the given scopes, or a copy of another role\'s scopes, or none. It has no XAF permission rows (XAF is no longer used).
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`culture` | string
-`supportedCultures` | Array&lt;string&gt;
-`keys` | { [key: string]: string | undefined; }
+`name` | string
+`scopes` | Array&lt;string&gt;
+`copyScopesFromRoleId` | string
 
 ## Example
 
 ```typescript
-import type { LocalizationBundleResponse } from ''
+import type { CreateRoleRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "culture": null,
-  "supportedCultures": null,
-  "keys": null,
-} satisfies LocalizationBundleResponse
+  "name": null,
+  "scopes": null,
+  "copyScopesFromRoleId": null,
+} satisfies CreateRoleRequest
 
 console.log(example)
 
@@ -30,7 +30,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as LocalizationBundleResponse
+const exampleParsed = JSON.parse(exampleJSON) as CreateRoleRequest
 console.log(exampleParsed)
 ```
 

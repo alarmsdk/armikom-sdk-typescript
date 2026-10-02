@@ -1,7 +1,7 @@
 
 # BulkSmsAlarmTarget
 
-Open alarms to take the subscribers from: the signal types ticked on the batch screen, its  panel (brand/model) filter and, optionally, one dealer.
+Open alarms to take the subscribers from: the signal types ticked on the batch screen, its panel (brand/model) filter and, optionally, one dealer.
 
 ## Properties
 

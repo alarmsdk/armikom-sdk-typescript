@@ -1,7 +1,7 @@
 
 # SideGuardTourItem
 
-Guard tour (bekçi takip) definition. Between Armikom.Api.Contracts.Sides.SideGuardTourItem.StartTime and Armikom.Api.Contracts.Sides.SideGuardTourItem.EndTime  (subscriber wall clock, \"HH:mm\"; an end not after the start crosses midnight) a signal of one  of Armikom.Api.Contracts.Sides.SideGuardTourItem.SignalTypeIds must arrive from the zone every Armikom.Api.Contracts.Sides.SideGuardTourItem.IntervalMinutes,  otherwise the Engine raises the system signal GTM.
+Guard tour (bekçi takip) definition. Between Armikom.Api.Contracts.Sides.SideGuardTourItem.StartTime and Armikom.Api.Contracts.Sides.SideGuardTourItem.EndTime (subscriber wall clock, \"HH:mm\"; an end not after the start crosses midnight) a signal of one of Armikom.Api.Contracts.Sides.SideGuardTourItem.SignalTypeIds must arrive from the zone every Armikom.Api.Contracts.Sides.SideGuardTourItem.IntervalMinutes, otherwise the Engine raises the system signal GTM.
 
 ## Properties
 

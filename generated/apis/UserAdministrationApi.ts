@@ -24,6 +24,11 @@ import {
     CreateOperatorUserRequestToJSON,
 } from '../models/CreateOperatorUserRequest';
 import {
+    type CreateRoleRequest,
+    CreateRoleRequestFromJSON,
+    CreateRoleRequestToJSON,
+} from '../models/CreateRoleRequest';
+import {
     type FieldCatalogEntry,
     FieldCatalogEntryFromJSON,
     FieldCatalogEntryToJSON,
@@ -48,6 +53,11 @@ import {
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+import {
+    type RenameRoleRequest,
+    RenameRoleRequestFromJSON,
+    RenameRoleRequestToJSON,
+} from '../models/RenameRoleRequest';
 import {
     type ResetPasswordRequest,
     ResetPasswordRequestFromJSON,
@@ -106,7 +116,18 @@ export interface UserAdministrationApiCreateOperatorUserOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface UserAdministrationApiCreateRoleOperationRequest {
+    createRoleRequest: CreateRoleRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface UserAdministrationApiDeleteOperatorUserRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiDeleteRoleRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -142,6 +163,12 @@ export interface UserAdministrationApiListOperatorUsersRequest {
 }
 
 export interface UserAdministrationApiListRolesRequest {
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiRenameRoleOperationRequest {
+    id: string;
+    renameRoleRequest: RenameRoleRequest;
     xCorrelationId?: string;
 }
 
@@ -324,6 +351,71 @@ export class UserAdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for createRole without sending the request
+     */
+    async createRoleRequestOpts(requestParameters: UserAdministrationApiCreateRoleOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createRoleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createRoleRequest',
+                'Required parameter "createRoleRequest" was null or undefined when calling createRole().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/roles`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateRoleRequestToJSON(requestParameters['createRoleRequest']),
+        };
+    }
+
+    /**
+     * Creates a plain (non-administrative) role with the given scopes, or a copy of another role\'s scopes (`copyScopesFromRoleId`), or none. No XAF permission rows are created. Assign users with `PUT /v1/auth/users/{id}/roles`; restrict fields with `PUT /v1/auth/roles/{id}/field-policy`.
+     * Create an operator role (D78)
+     */
+    async createRoleRaw(requestParameters: UserAdministrationApiCreateRoleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RoleListItem>> {
+        const requestOptions = await this.createRoleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleListItemFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates a plain (non-administrative) role with the given scopes, or a copy of another role\'s scopes (`copyScopesFromRoleId`), or none. No XAF permission rows are created. Assign users with `PUT /v1/auth/users/{id}/roles`; restrict fields with `PUT /v1/auth/roles/{id}/field-policy`.
+     * Create an operator role (D78)
+     */
+    async createRole(requestParameters: UserAdministrationApiCreateRoleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoleListItem> {
+        const response = await this.createRoleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for deleteOperatorUser without sending the request
      */
     async deleteOperatorUserRequestOpts(requestParameters: UserAdministrationApiDeleteOperatorUserRequest): Promise<runtime.RequestOpts> {
@@ -377,6 +469,64 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async deleteOperatorUser(requestParameters: UserAdministrationApiDeleteOperatorUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteOperatorUserRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteRole without sending the request
+     */
+    async deleteRoleRequestOpts(requestParameters: UserAdministrationApiDeleteRoleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteRole().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/roles/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Refused with 409 `AUTH.ROLE_IN_USE` while users hold the role and with 409 `AUTH.ROLE_ADMINISTRATIVE` for an administrative role. Removes the role\'s scope mapping and field policy with it.
+     * Delete an operator role nobody holds (D78)
+     */
+    async deleteRoleRaw(requestParameters: UserAdministrationApiDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteRoleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Refused with 409 `AUTH.ROLE_IN_USE` while users hold the role and with 409 `AUTH.ROLE_ADMINISTRATIVE` for an administrative role. Removes the role\'s scope mapping and field policy with it.
+     * Delete an operator role nobody holds (D78)
+     */
+    async deleteRole(requestParameters: UserAdministrationApiDeleteRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteRoleRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -720,6 +870,73 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async listRoles(requestParameters: UserAdministrationApiListRolesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RoleListItem>> {
         const response = await this.listRolesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for renameRole without sending the request
+     */
+    async renameRoleRequestOpts(requestParameters: UserAdministrationApiRenameRoleOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling renameRole().'
+            );
+        }
+
+        if (requestParameters['renameRoleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'renameRoleRequest',
+                'Required parameter "renameRoleRequest" was null or undefined when calling renameRole().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/roles/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RenameRoleRequestToJSON(requestParameters['renameRoleRequest']),
+        };
+    }
+
+    /**
+     * Rename an operator role (D78)
+     */
+    async renameRoleRaw(requestParameters: UserAdministrationApiRenameRoleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RoleListItem>> {
+        const requestOptions = await this.renameRoleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleListItemFromJSON(jsonValue));
+    }
+
+    /**
+     * Rename an operator role (D78)
+     */
+    async renameRole(requestParameters: UserAdministrationApiRenameRoleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoleListItem> {
+        const response = await this.renameRoleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

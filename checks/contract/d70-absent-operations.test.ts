@@ -56,7 +56,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 431 -> 433: model description endpoint, holiday partial times, side status report.
   // Re-pinned deliberately.
   // 433 -> 437: field policy (D77) — field catalog, field-policy subjects, role field policy get/put.
-  assert.equal(ids.size, 437, 'operation count moved off the pinned contract');
+  // 437 -> 443: phone audit (summary, detail, normalize) and role create/rename/delete (D78).
+  assert.equal(ids.size, 443, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

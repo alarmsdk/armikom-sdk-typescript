@@ -1,7 +1,7 @@
 
 # UpdateMonitoringCenterRequest
 
-PATCH body. A property left null is not written — so omitting a password keeps  the stored one. Sending an empty string clears the stored secret.
+PATCH body. A property left null is not written — so omitting a password keeps the stored one. Sending an empty string clears the stored secret.
 
 ## Properties
 

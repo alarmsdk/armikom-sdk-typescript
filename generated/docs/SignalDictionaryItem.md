@@ -1,7 +1,7 @@
 
 # SignalDictionaryItem
 
-A row in the signal dictionary: the (protocol, event code) pair the Engine  matches an incoming packet against, plus the classification it currently  resolves to (or none, if unmapped).
+A row in the signal dictionary: the (protocol, event code) pair the Engine matches an incoming packet against, plus the classification it currently resolves to (or none, if unmapped).
 
 ## Properties
 

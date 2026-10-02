@@ -1,7 +1,7 @@
 
 # UpdateSignalRequest
 
-PATCH body. A property left null is not written. Nullable value types cannot  express \"explicitly null\", so a nullable FK is cleared by sending the empty guid.
+PATCH body. A property left null is not written. Nullable value types cannot express \"explicitly null\", so a nullable FK is cleared by sending the empty guid.
 
 ## Properties
 

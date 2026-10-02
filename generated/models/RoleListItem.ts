@@ -43,6 +43,12 @@ export interface RoleListItem {
      * @memberof RoleListItem
      */
     scopes?: Array<string> | null;
+    /**
+     * Users holding the role (D78). A role in use cannot be deleted.
+     * @type {number}
+     * @memberof RoleListItem
+     */
+    userCount?: number;
 }
 
 /**
@@ -66,6 +72,7 @@ export function RoleListItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'isAdministrative': json['isAdministrative'] == null ? undefined : json['isAdministrative'],
         'scopes': json['scopes'] === undefined ? undefined : json['scopes'] === null ? null : json['scopes'],
+        'userCount': json['userCount'] == null ? undefined : json['userCount'],
     };
 }
 
@@ -84,6 +91,7 @@ export function RoleListItemToJSONTyped(value?: RoleListItem | null, ignoreDiscr
         'name': value['name'],
         'isAdministrative': value['isAdministrative'],
         'scopes': value['scopes'],
+        'userCount': value['userCount'],
     };
 }
 

@@ -1,7 +1,7 @@
 
 # TechnicalPersonDetail
 
-A field technician belonging to a dealer. The password is never returned —  Armikom.Api.Contracts.Admin.TechnicalPersonDetail.HasPassword reports whether one is stored.
+A field technician belonging to a dealer. The password is never returned — Armikom.Api.Contracts.Admin.TechnicalPersonDetail.HasPassword reports whether one is stored.
 
 ## Properties
 

@@ -1,7 +1,7 @@
 
 # SideBatchUpdateChanges
 
-The assignable fields. Each is tri-state: absent leaves the column alone, a value sets  it, an explicit `null` clears it.
+The assignable fields. Each is tri-state: absent leaves the column alone, a value sets it, an explicit `null` clears it.
 
 ## Properties
 

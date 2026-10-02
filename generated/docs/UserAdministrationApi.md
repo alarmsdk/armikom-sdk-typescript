@@ -6,13 +6,16 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 | [**changeOwnPassword**](UserAdministrationApi.md#changeownpasswordoperation) | **POST** /v1/auth/me/password | Change own password |
 | [**createOperatorUser**](UserAdministrationApi.md#createoperatoruseroperation) | **POST** /v1/auth/users | Create an operator user |
+| [**createRole**](UserAdministrationApi.md#createroleoperation) | **POST** /v1/auth/roles | Create an operator role (D78) |
 | [**deleteOperatorUser**](UserAdministrationApi.md#deleteoperatoruser) | **DELETE** /v1/auth/users/{id} | Delete an operator user |
+| [**deleteRole**](UserAdministrationApi.md#deleterole) | **DELETE** /v1/auth/roles/{id} | Delete an operator role nobody holds (D78) |
 | [**getFieldCatalog**](UserAdministrationApi.md#getfieldcatalog) | **GET** /v1/auth/field-catalog | List the fields a role\&#39;s field policy can hide or make read-only |
 | [**getOperatorUser**](UserAdministrationApi.md#getoperatoruser) | **GET** /v1/auth/users/{id} | Get a single operator user |
 | [**getRoleFieldPolicy**](UserAdministrationApi.md#getrolefieldpolicy) | **GET** /v1/auth/roles/{id}/field-policy | Get a role\&#39;s field policy |
 | [**listFieldPolicySubjects**](UserAdministrationApi.md#listfieldpolicysubjects) | **GET** /v1/auth/field-policy-subjects | List what a field policy can be set for: operator roles, all dealers, all mobile users |
 | [**listOperatorUsers**](UserAdministrationApi.md#listoperatorusers) | **GET** /v1/auth/users | List operator users |
 | [**listRoles**](UserAdministrationApi.md#listroles) | **GET** /v1/auth/roles | List all roles with their scope mappings |
+| [**renameRole**](UserAdministrationApi.md#renameroleoperation) | **PUT** /v1/auth/roles/{id} | Rename an operator role (D78) |
 | [**resetOperatorPassword**](UserAdministrationApi.md#resetoperatorpassword) | **POST** /v1/auth/users/{id}/password | Reset an operator\&#39;s password |
 | [**setRoleFieldPolicy**](UserAdministrationApi.md#setrolefieldpolicyoperation) | **PUT** /v1/auth/roles/{id}/field-policy | Replace a role\&#39;s field policy |
 | [**setRoleScopes**](UserAdministrationApi.md#setrolescopesoperation) | **PUT** /v1/auth/roles/{id}/scopes | Set scope mapping for a role |
@@ -181,6 +184,88 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## createRole
+
+> RoleListItem createRole(createRoleRequest, xCorrelationId, idempotencyKey)
+
+Create an operator role (D78)
+
+Creates a plain (non-administrative) role with the given scopes, or a copy of another role\&#39;s scopes (&#x60;copyScopesFromRoleId&#x60;), or none. No XAF permission rows are created. Assign users with &#x60;PUT /v1/auth/users/{id}/roles&#x60;; restrict fields with &#x60;PUT /v1/auth/roles/{id}/field-policy&#x60;.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { CreateRoleOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // CreateRoleRequest
+    createRoleRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateRoleOperationRequest;
+
+  try {
+    const data = await api.createRole(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createRoleRequest** | [CreateRoleRequest](CreateRoleRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**RoleListItem**](RoleListItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## deleteOperatorUser
 
 > deleteOperatorUser(id, xCorrelationId)
@@ -252,6 +337,84 @@ example().catch(console.error);
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteRole
+
+> deleteRole(id, xCorrelationId)
+
+Delete an operator role nobody holds (D78)
+
+Refused with 409 &#x60;AUTH.ROLE_IN_USE&#x60; while users hold the role and with 409 &#x60;AUTH.ROLE_ADMINISTRATIVE&#x60; for an administrative role. Removes the role\&#39;s scope mapping and field policy with it.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { DeleteRoleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteRoleRequest;
+
+  try {
+    const data = await api.deleteRole(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -712,6 +875,86 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## renameRole
+
+> RoleListItem renameRole(id, renameRoleRequest, xCorrelationId)
+
+Rename an operator role (D78)
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { RenameRoleOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // RenameRoleRequest
+    renameRoleRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies RenameRoleOperationRequest;
+
+  try {
+    const data = await api.renameRole(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **renameRoleRequest** | [RenameRoleRequest](RenameRoleRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**RoleListItem**](RoleListItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

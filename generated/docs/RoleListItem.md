@@ -10,6 +10,7 @@ Name | Type
 `name` | string
 `isAdministrative` | boolean
 `scopes` | Array&lt;string&gt;
+`userCount` | number
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "name": null,
   "isAdministrative": null,
   "scopes": null,
+  "userCount": null,
 } satisfies RoleListItem
 
 console.log(example)

@@ -1,7 +1,7 @@
 
 # CopilotProposedOperationDto
 
-The console operation being proposed. The name is not validated against a vocabulary  here — the console runs the ones it knows and renders the rest as text, so a new  operation ships without an API release and an older console cannot be told to run  something it does not understand.
+The console operation being proposed. The name is not validated against a vocabulary here — the console runs the ones it knows and renders the rest as text, so a new operation ships without an API release and an older console cannot be told to run something it does not understand.
 
 ## Properties
 

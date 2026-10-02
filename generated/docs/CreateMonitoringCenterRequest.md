@@ -1,7 +1,7 @@
 
 # CreateMonitoringCenterRequest
 
-Create body. Secret fields are write-only — they are accepted here and never  echoed back by any read.
+Create body. Secret fields are write-only — they are accepted here and never echoed back by any read.
 
 ## Properties
 
