@@ -7,10 +7,14 @@ All URIs are relative to *http://localhost*
 | [**changeOwnPassword**](UserAdministrationApi.md#changeownpasswordoperation) | **POST** /v1/auth/me/password | Change own password |
 | [**createOperatorUser**](UserAdministrationApi.md#createoperatoruseroperation) | **POST** /v1/auth/users | Create an operator user |
 | [**deleteOperatorUser**](UserAdministrationApi.md#deleteoperatoruser) | **DELETE** /v1/auth/users/{id} | Delete an operator user |
+| [**getFieldCatalog**](UserAdministrationApi.md#getfieldcatalog) | **GET** /v1/auth/field-catalog | List the fields a role\&#39;s field policy can hide or make read-only |
 | [**getOperatorUser**](UserAdministrationApi.md#getoperatoruser) | **GET** /v1/auth/users/{id} | Get a single operator user |
+| [**getRoleFieldPolicy**](UserAdministrationApi.md#getrolefieldpolicy) | **GET** /v1/auth/roles/{id}/field-policy | Get a role\&#39;s field policy |
+| [**listFieldPolicySubjects**](UserAdministrationApi.md#listfieldpolicysubjects) | **GET** /v1/auth/field-policy-subjects | List what a field policy can be set for: operator roles, all dealers, all mobile users |
 | [**listOperatorUsers**](UserAdministrationApi.md#listoperatorusers) | **GET** /v1/auth/users | List operator users |
 | [**listRoles**](UserAdministrationApi.md#listroles) | **GET** /v1/auth/roles | List all roles with their scope mappings |
 | [**resetOperatorPassword**](UserAdministrationApi.md#resetoperatorpassword) | **POST** /v1/auth/users/{id}/password | Reset an operator\&#39;s password |
+| [**setRoleFieldPolicy**](UserAdministrationApi.md#setrolefieldpolicyoperation) | **PUT** /v1/auth/roles/{id}/field-policy | Replace a role\&#39;s field policy |
 | [**setRoleScopes**](UserAdministrationApi.md#setrolescopesoperation) | **PUT** /v1/auth/roles/{id}/scopes | Set scope mapping for a role |
 | [**setUserAlarmCategories**](UserAdministrationApi.md#setuseralarmcategoriesoperation) | **PUT** /v1/auth/users/{id}/alarm-categories | Set alarm category assignments for a user |
 | [**setUserRoles**](UserAdministrationApi.md#setuserrolesoperation) | **PUT** /v1/auth/users/{id}/roles | Set role assignments for a user |
@@ -253,6 +257,77 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getFieldCatalog
+
+> Array&lt;FieldCatalogEntry&gt; getFieldCatalog(xCorrelationId)
+
+List the fields a role\&#39;s field policy can hide or make read-only
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { GetFieldCatalogRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetFieldCatalogRequest;
+
+  try {
+    const data = await api.getFieldCatalog(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;FieldCatalogEntry&gt;**](FieldCatalogEntry.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getOperatorUser
 
 > OperatorUserDetailResponse getOperatorUser(id, xCorrelationId)
@@ -323,6 +398,154 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getRoleFieldPolicy
+
+> RoleFieldPolicyResponse getRoleFieldPolicy(id, xCorrelationId)
+
+Get a role\&#39;s field policy
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { GetRoleFieldPolicyRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetRoleFieldPolicyRequest;
+
+  try {
+    const data = await api.getRoleFieldPolicy(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**RoleFieldPolicyResponse**](RoleFieldPolicyResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listFieldPolicySubjects
+
+> Array&lt;FieldPolicySubject&gt; listFieldPolicySubjects(xCorrelationId)
+
+List what a field policy can be set for: operator roles, all dealers, all mobile users
+
+Operator roles plus two virtual roles (&#x60;kind&#x60; &#x3D; &#x60;dealer&#x60; / &#x60;mobile&#x60;) whose ids are fixed (&#x60;FieldPolicySubjects&#x60;). Administrative roles are &#x60;exempt&#x60;: field policy never applies to them.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { ListFieldPolicySubjectsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListFieldPolicySubjectsRequest;
+
+  try {
+    const data = await api.listFieldPolicySubjects(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;FieldPolicySubject&gt;**](FieldPolicySubject.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -571,6 +794,86 @@ example().catch(console.error);
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## setRoleFieldPolicy
+
+> RoleFieldPolicyResponse setRoleFieldPolicy(id, setRoleFieldPolicyRequest, xCorrelationId)
+
+Replace a role\&#39;s field policy
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { SetRoleFieldPolicyOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SetRoleFieldPolicyRequest
+    setRoleFieldPolicyRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SetRoleFieldPolicyOperationRequest;
+
+  try {
+    const data = await api.setRoleFieldPolicy(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **setRoleFieldPolicyRequest** | [SetRoleFieldPolicyRequest](SetRoleFieldPolicyRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**RoleFieldPolicyResponse**](RoleFieldPolicyResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

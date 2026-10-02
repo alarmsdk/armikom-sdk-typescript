@@ -216,6 +216,8 @@ docs/EmergencyPhoneDetail.md
 docs/EventRawListItem.md
 docs/EventRawListItemPagedResult.md
 docs/EventRawsApi.md
+docs/FieldCatalogEntry.md
+docs/FieldPolicySubject.md
 docs/FilesApi.md
 docs/GeocodeCandidate.md
 docs/GeocodeSearchResponse.md
@@ -308,6 +310,7 @@ docs/ReserveDealerSideNosRequest.md
 docs/ResetMobileUserPasswordRequest.md
 docs/ResetPasswordRequest.md
 docs/ResponseTimeAggregates.md
+docs/RoleFieldPolicyResponse.md
 docs/RoleInfo.md
 docs/RoleListItem.md
 docs/SMSApi.md
@@ -339,6 +342,7 @@ docs/ServicesApi.md
 docs/SetActiveTemplateRequest.md
 docs/SetLocationRequest.md
 docs/SetLocationResponse.md
+docs/SetRoleFieldPolicyRequest.md
 docs/SetRoleScopesRequest.md
 docs/SetUserAlarmCategoriesRequest.md
 docs/SetUserRolesRequest.md
@@ -672,6 +676,8 @@ models/EmailMetrics.ts
 models/EmergencyPhoneDetail.ts
 models/EventRawListItem.ts
 models/EventRawListItemPagedResult.ts
+models/FieldCatalogEntry.ts
+models/FieldPolicySubject.ts
 models/GeocodeCandidate.ts
 models/GeocodeSearchResponse.ts
 models/GeocodeSideRequest.ts
@@ -755,6 +761,7 @@ models/ReserveDealerSideNosRequest.ts
 models/ResetMobileUserPasswordRequest.ts
 models/ResetPasswordRequest.ts
 models/ResponseTimeAggregates.ts
+models/RoleFieldPolicyResponse.ts
 models/RoleInfo.ts
 models/RoleListItem.ts
 models/SaveCityEmergencyContactRequest.ts
@@ -780,6 +787,7 @@ models/ServicePhotoItem.ts
 models/SetActiveTemplateRequest.ts
 models/SetLocationRequest.ts
 models/SetLocationResponse.ts
+models/SetRoleFieldPolicyRequest.ts
 models/SetRoleScopesRequest.ts
 models/SetUserAlarmCategoriesRequest.ts
 models/SetUserRolesRequest.ts

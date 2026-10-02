@@ -24,6 +24,16 @@ import {
     CreateOperatorUserRequestToJSON,
 } from '../models/CreateOperatorUserRequest';
 import {
+    type FieldCatalogEntry,
+    FieldCatalogEntryFromJSON,
+    FieldCatalogEntryToJSON,
+} from '../models/FieldCatalogEntry';
+import {
+    type FieldPolicySubject,
+    FieldPolicySubjectFromJSON,
+    FieldPolicySubjectToJSON,
+} from '../models/FieldPolicySubject';
+import {
     type OperatorUserDetailResponse,
     OperatorUserDetailResponseFromJSON,
     OperatorUserDetailResponseToJSON,
@@ -44,10 +54,20 @@ import {
     ResetPasswordRequestToJSON,
 } from '../models/ResetPasswordRequest';
 import {
+    type RoleFieldPolicyResponse,
+    RoleFieldPolicyResponseFromJSON,
+    RoleFieldPolicyResponseToJSON,
+} from '../models/RoleFieldPolicyResponse';
+import {
     type RoleListItem,
     RoleListItemFromJSON,
     RoleListItemToJSON,
 } from '../models/RoleListItem';
+import {
+    type SetRoleFieldPolicyRequest,
+    SetRoleFieldPolicyRequestFromJSON,
+    SetRoleFieldPolicyRequestToJSON,
+} from '../models/SetRoleFieldPolicyRequest';
 import {
     type SetRoleScopesRequest,
     SetRoleScopesRequestFromJSON,
@@ -91,8 +111,21 @@ export interface UserAdministrationApiDeleteOperatorUserRequest {
     xCorrelationId?: string;
 }
 
+export interface UserAdministrationApiGetFieldCatalogRequest {
+    xCorrelationId?: string;
+}
+
 export interface UserAdministrationApiGetOperatorUserRequest {
     id: string;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiGetRoleFieldPolicyRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiListFieldPolicySubjectsRequest {
     xCorrelationId?: string;
 }
 
@@ -117,6 +150,12 @@ export interface UserAdministrationApiResetOperatorPasswordRequest {
     resetPasswordRequest: ResetPasswordRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface UserAdministrationApiSetRoleFieldPolicyOperationRequest {
+    id: string;
+    setRoleFieldPolicyRequest: SetRoleFieldPolicyRequest;
+    xCorrelationId?: string;
 }
 
 export interface UserAdministrationApiSetRoleScopesOperationRequest {
@@ -341,6 +380,55 @@ export class UserAdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getFieldCatalog without sending the request
+     */
+    async getFieldCatalogRequestOpts(requestParameters: UserAdministrationApiGetFieldCatalogRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/field-catalog`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the fields a role\'s field policy can hide or make read-only
+     */
+    async getFieldCatalogRaw(requestParameters: UserAdministrationApiGetFieldCatalogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<FieldCatalogEntry>>> {
+        const requestOptions = await this.getFieldCatalogRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(FieldCatalogEntryFromJSON));
+    }
+
+    /**
+     * List the fields a role\'s field policy can hide or make read-only
+     */
+    async getFieldCatalog(requestParameters: UserAdministrationApiGetFieldCatalogRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<FieldCatalogEntry>> {
+        const response = await this.getFieldCatalogRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getOperatorUser without sending the request
      */
     async getOperatorUserRequestOpts(requestParameters: UserAdministrationApiGetOperatorUserRequest): Promise<runtime.RequestOpts> {
@@ -394,6 +482,114 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async getOperatorUser(requestParameters: UserAdministrationApiGetOperatorUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperatorUserDetailResponse> {
         const response = await this.getOperatorUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getRoleFieldPolicy without sending the request
+     */
+    async getRoleFieldPolicyRequestOpts(requestParameters: UserAdministrationApiGetRoleFieldPolicyRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getRoleFieldPolicy().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/roles/{id}/field-policy`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a role\'s field policy
+     */
+    async getRoleFieldPolicyRaw(requestParameters: UserAdministrationApiGetRoleFieldPolicyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RoleFieldPolicyResponse>> {
+        const requestOptions = await this.getRoleFieldPolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleFieldPolicyResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a role\'s field policy
+     */
+    async getRoleFieldPolicy(requestParameters: UserAdministrationApiGetRoleFieldPolicyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoleFieldPolicyResponse> {
+        const response = await this.getRoleFieldPolicyRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listFieldPolicySubjects without sending the request
+     */
+    async listFieldPolicySubjectsRequestOpts(requestParameters: UserAdministrationApiListFieldPolicySubjectsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/field-policy-subjects`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Operator roles plus two virtual roles (`kind` = `dealer` / `mobile`) whose ids are fixed (`FieldPolicySubjects`). Administrative roles are `exempt`: field policy never applies to them.
+     * List what a field policy can be set for: operator roles, all dealers, all mobile users
+     */
+    async listFieldPolicySubjectsRaw(requestParameters: UserAdministrationApiListFieldPolicySubjectsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<FieldPolicySubject>>> {
+        const requestOptions = await this.listFieldPolicySubjectsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(FieldPolicySubjectFromJSON));
+    }
+
+    /**
+     * Operator roles plus two virtual roles (`kind` = `dealer` / `mobile`) whose ids are fixed (`FieldPolicySubjects`). Administrative roles are `exempt`: field policy never applies to them.
+     * List what a field policy can be set for: operator roles, all dealers, all mobile users
+     */
+    async listFieldPolicySubjects(requestParameters: UserAdministrationApiListFieldPolicySubjectsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<FieldPolicySubject>> {
+        const response = await this.listFieldPolicySubjectsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -595,6 +791,73 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async resetOperatorPassword(requestParameters: UserAdministrationApiResetOperatorPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.resetOperatorPasswordRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for setRoleFieldPolicy without sending the request
+     */
+    async setRoleFieldPolicyRequestOpts(requestParameters: UserAdministrationApiSetRoleFieldPolicyOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling setRoleFieldPolicy().'
+            );
+        }
+
+        if (requestParameters['setRoleFieldPolicyRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setRoleFieldPolicyRequest',
+                'Required parameter "setRoleFieldPolicyRequest" was null or undefined when calling setRoleFieldPolicy().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/roles/{id}/field-policy`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetRoleFieldPolicyRequestToJSON(requestParameters['setRoleFieldPolicyRequest']),
+        };
+    }
+
+    /**
+     * Replace a role\'s field policy
+     */
+    async setRoleFieldPolicyRaw(requestParameters: UserAdministrationApiSetRoleFieldPolicyOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RoleFieldPolicyResponse>> {
+        const requestOptions = await this.setRoleFieldPolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RoleFieldPolicyResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Replace a role\'s field policy
+     */
+    async setRoleFieldPolicy(requestParameters: UserAdministrationApiSetRoleFieldPolicyOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoleFieldPolicyResponse> {
+        const response = await this.setRoleFieldPolicyRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

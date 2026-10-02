@@ -87,6 +87,18 @@ export interface UserInfoResponse {
      * @memberof UserInfoResponse
      */
     allowedAlarmCategories?: Array<AlarmCategoryAssignment> | null;
+    /**
+     * Field keys left out of responses for this user (D77), e.g. `side.address`.
+     * @type {Array<string>}
+     * @memberof UserInfoResponse
+     */
+    hiddenFields?: Array<string> | null;
+    /**
+     * Field keys this user may not set or change (D77).
+     * @type {Array<string>}
+     * @memberof UserInfoResponse
+     */
+    readOnlyFields?: Array<string> | null;
 }
 
 /**
@@ -116,6 +128,8 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'extension': json['extension'] === undefined ? undefined : json['extension'] === null ? null : json['extension'],
         'scopes': json['scopes'] === undefined ? undefined : json['scopes'] === null ? null : json['scopes'],
         'allowedAlarmCategories': json['allowedAlarmCategories'] === undefined ? undefined : json['allowedAlarmCategories'] === null ? null : ((json['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentFromJSON)),
+        'hiddenFields': json['hiddenFields'] === undefined ? undefined : json['hiddenFields'] === null ? null : json['hiddenFields'],
+        'readOnlyFields': json['readOnlyFields'] === undefined ? undefined : json['readOnlyFields'] === null ? null : json['readOnlyFields'],
     };
 }
 
@@ -140,6 +154,8 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'extension': value['extension'],
         'scopes': value['scopes'],
         'allowedAlarmCategories': value['allowedAlarmCategories'] == null ? undefined : ((value['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentToJSON)),
+        'hiddenFields': value['hiddenFields'],
+        'readOnlyFields': value['readOnlyFields'],
     };
 }
 
