@@ -14,6 +14,8 @@ export * from './DealersApi';
 export * from './EventRawsApi';
 export * from './FilesApi';
 export * from './GeocodingApi';
+export * from './IntegrationsApi';
+export * from './IntegrationsAdminApi';
 export * from './InvoicesApi';
 export * from './LocalisationApi';
 export * from './MobileUsersApi';
