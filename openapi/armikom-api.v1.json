@@ -53478,6 +53478,7 @@
           "Reference Data"
         ],
         "summary": "List the monitoring center's signal rules",
+        "description": "A center's rules plus the global ones (flagged global), which apply to every center. A caller without a center, naming none, gets only the global rules.",
         "operationId": "ListSignalRules",
         "parameters": [
           {
@@ -108114,6 +108115,10 @@
             "type": "string",
             "format": "uuid"
           },
+          "global": {
+            "type": "boolean",
+            "description": "True for a global rule, evaluated for every monitoring center."
+          },
           "code": {
             "type": "string",
             "nullable": true
@@ -108242,6 +108247,10 @@
           "id": {
             "type": "string",
             "format": "uuid"
+          },
+          "global": {
+            "type": "boolean",
+            "description": "True for a global rule: it belongs to no monitoring center and is evaluated for every\ncenter, after or before the center's own rules by Armikom.Api.Contracts.Admin.SignalRuleItem.Priority. Only a system\nadministrator may change one."
           },
           "code": {
             "type": "string",

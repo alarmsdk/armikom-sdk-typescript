@@ -8,6 +8,7 @@ A rule with its body.
 Name | Type
 ------------ | -------------
 `id` | string
+`global` | boolean
 `code` | string
 `name` | string
 `description` | string
@@ -34,6 +35,7 @@ import type { SignalRuleDetail } from ''
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
+  "global": null,
   "code": null,
   "name": null,
   "description": null,

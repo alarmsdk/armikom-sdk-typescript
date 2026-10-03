@@ -8328,6 +8328,7 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * A center\'s rules plus the global ones (flagged global), which apply to every center. A caller without a center, naming none, gets only the global rules.
      * List the monitoring center\'s signal rules
      */
     async listSignalRulesRaw(requestParameters: ReferenceDataApiListSignalRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SignalRuleItem>>> {
@@ -8338,6 +8339,7 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * A center\'s rules plus the global ones (flagged global), which apply to every center. A caller without a center, naming none, gets only the global rules.
      * List the monitoring center\'s signal rules
      */
     async listSignalRules(requestParameters: ReferenceDataApiListSignalRulesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SignalRuleItem>> {

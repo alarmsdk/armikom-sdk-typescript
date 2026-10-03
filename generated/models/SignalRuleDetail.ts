@@ -41,6 +41,12 @@ export interface SignalRuleDetail {
      */
     id?: string;
     /**
+     * True for a global rule, evaluated for every monitoring center.
+     * @type {boolean}
+     * @memberof SignalRuleDetail
+     */
+    global?: boolean;
+    /**
      * 
      * @type {string}
      * @memberof SignalRuleDetail
@@ -164,6 +170,7 @@ export function SignalRuleDetailFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
+        'global': json['global'] == null ? undefined : json['global'],
         'code': json['code'] === undefined ? undefined : json['code'] === null ? null : json['code'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
@@ -196,6 +203,7 @@ export function SignalRuleDetailToJSONTyped(value?: SignalRuleDetail | null, ign
     return {
         
         'id': value['id'],
+        'global': value['global'],
         'code': value['code'],
         'name': value['name'],
         'description': value['description'],

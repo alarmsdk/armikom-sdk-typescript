@@ -28,6 +28,14 @@ export interface SignalRuleItem {
      */
     id?: string;
     /**
+     * True for a global rule: it belongs to no monitoring center and is evaluated for every
+     * center, after or before the center's own rules by Armikom.Api.Contracts.Admin.SignalRuleItem.Priority. Only a system
+     * administrator may change one.
+     * @type {boolean}
+     * @memberof SignalRuleItem
+     */
+    global?: boolean;
+    /**
      * Unique within the monitoring center. Never renamed: hits are recorded against it.
      * @type {string}
      * @memberof SignalRuleItem
@@ -126,6 +134,7 @@ export function SignalRuleItemFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
+        'global': json['global'] == null ? undefined : json['global'],
         'code': json['code'] === undefined ? undefined : json['code'] === null ? null : json['code'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
@@ -154,6 +163,7 @@ export function SignalRuleItemToJSONTyped(value?: SignalRuleItem | null, ignoreD
     return {
         
         'id': value['id'],
+        'global': value['global'],
         'code': value['code'],
         'name': value['name'],
         'description': value['description'],

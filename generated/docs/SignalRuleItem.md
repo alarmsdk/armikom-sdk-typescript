@@ -8,6 +8,7 @@ One monitoring-center signal rule as the console lists it: <i>when</i> the facts
 Name | Type
 ------------ | -------------
 `id` | string
+`global` | boolean
 `code` | string
 `name` | string
 `description` | string
@@ -30,6 +31,7 @@ import type { SignalRuleItem } from ''
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
+  "global": null,
   "code": null,
   "name": null,
   "description": null,

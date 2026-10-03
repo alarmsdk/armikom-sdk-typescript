@@ -9347,6 +9347,8 @@ example().catch(console.error);
 
 List the monitoring center\&#39;s signal rules
 
+A center\&#39;s rules plus the global ones (flagged global), which apply to every center. A caller without a center, naming none, gets only the global rules.
+
 ### Example
 
 ```ts
