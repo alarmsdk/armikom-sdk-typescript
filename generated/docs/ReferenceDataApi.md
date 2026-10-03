@@ -30,6 +30,7 @@ All URIs are relative to *http://localhost*
 | [**createSignalExplanation**](ReferenceDataApi.md#createsignalexplanationoperation) | **POST** /v1/reference/signal-explanations | Create a signal explanation |
 | [**createSignalRelation**](ReferenceDataApi.md#createsignalrelationoperation) | **POST** /v1/reference/signal-relations | Create a signal relation |
 | [**createSignalRelationType**](ReferenceDataApi.md#createsignalrelationtypeoperation) | **POST** /v1/reference/signal-relation-types | Create a signal relation type |
+| [**createSignalRule**](ReferenceDataApi.md#createsignalrule) | **POST** /v1/reference/signal-rules | Create a signal rule |
 | [**createSignalType**](ReferenceDataApi.md#createsignaltypeoperation) | **POST** /v1/reference/signal-types | Create a signal type |
 | [**createTechnicalPerson**](ReferenceDataApi.md#createtechnicalpersonoperation) | **POST** /v1/reference/technical-people | Create a technician |
 | [**deleteAccountItem**](ReferenceDataApi.md#deleteaccountitem) | **DELETE** /v1/reference/account-items/{id} | Delete an account item |
@@ -58,6 +59,7 @@ All URIs are relative to *http://localhost*
 | [**deleteSignalExplanation**](ReferenceDataApi.md#deletesignalexplanation) | **DELETE** /v1/reference/signal-explanations/{id} | Delete a signal explanation |
 | [**deleteSignalRelation**](ReferenceDataApi.md#deletesignalrelation) | **DELETE** /v1/reference/signal-relations/{id} | Delete a signal relation |
 | [**deleteSignalRelationType**](ReferenceDataApi.md#deletesignalrelationtype) | **DELETE** /v1/reference/signal-relation-types/{id} | Delete a signal relation type |
+| [**deleteSignalRule**](ReferenceDataApi.md#deletesignalrule) | **DELETE** /v1/reference/signal-rules/{id} | Delete a signal rule |
 | [**deleteSignalType**](ReferenceDataApi.md#deletesignaltype) | **DELETE** /v1/reference/signal-types/{id} | Delete a signal type |
 | [**deleteTechnicalPerson**](ReferenceDataApi.md#deletetechnicalperson) | **DELETE** /v1/reference/technical-people/{id} | Delete a technician |
 | [**getAccountItemById**](ReferenceDataApi.md#getaccountitembyid) | **GET** /v1/reference/account-items/{id} | Get account item by id |
@@ -103,6 +105,8 @@ All URIs are relative to *http://localhost*
 | [**getSignalExplanationById**](ReferenceDataApi.md#getsignalexplanationbyid) | **GET** /v1/reference/signal-explanations/{id} | Get signal explanation by id |
 | [**getSignalRelationById**](ReferenceDataApi.md#getsignalrelationbyid) | **GET** /v1/reference/signal-relations/{id} | Get a signal relation by id |
 | [**getSignalRelationTypeById**](ReferenceDataApi.md#getsignalrelationtypebyid) | **GET** /v1/reference/signal-relation-types/{id} | Get a signal relation type by id |
+| [**getSignalRuleById**](ReferenceDataApi.md#getsignalrulebyid) | **GET** /v1/reference/signal-rules/{id} | Get a signal rule with its body |
+| [**getSignalRuleCatalog**](ReferenceDataApi.md#getsignalrulecatalog) | **GET** /v1/reference/signal-rules/catalog | Facts, operators and actions a signal rule may use |
 | [**getSignalTypeById**](ReferenceDataApi.md#getsignaltypebyid) | **GET** /v1/reference/signal-types/{id} | Get a signal type by id |
 | [**getSignalTypes**](ReferenceDataApi.md#getsignaltypes) | **GET** /v1/reference/signal-types | List signal types with alert/priority/color metadata |
 | [**getSignals**](ReferenceDataApi.md#getsignals) | **GET** /v1/reference/signals | List signals, optionally filtered by protocol, signal type, alarm category, or mapping status |
@@ -120,6 +124,7 @@ All URIs are relative to *http://localhost*
 | [**listReferenceSignalExplanations**](ReferenceDataApi.md#listreferencesignalexplanations) | **GET** /v1/reference/signal-explanations | List signal explanations (MC-scoped) |
 | [**listSignalRelationTypes**](ReferenceDataApi.md#listsignalrelationtypes) | **GET** /v1/reference/signal-relation-types | List the relation types a signal relation can carry |
 | [**listSignalRelations**](ReferenceDataApi.md#listsignalrelations) | **GET** /v1/reference/signal-relations | List signal relations with source and target signal types |
+| [**listSignalRules**](ReferenceDataApi.md#listsignalrules) | **GET** /v1/reference/signal-rules | List the monitoring center\&#39;s signal rules |
 | [**listTechnicalPeopleDetailed**](ReferenceDataApi.md#listtechnicalpeopledetailed) | **GET** /v1/reference/technical-people/detailed | List technicians with their contact details |
 | [**reorderNoteExplanations**](ReferenceDataApi.md#reordernoteexplanationsoperation) | **PUT** /v1/reference/note-explanations/order | Reorder note explanations atomically |
 | [**reorderSignalExplanations**](ReferenceDataApi.md#reordersignalexplanationsoperation) | **PUT** /v1/reference/signal-explanations/order | Reorder signal explanations atomically |
@@ -148,8 +153,10 @@ All URIs are relative to *http://localhost*
 | [**updateSignalExplanation**](ReferenceDataApi.md#updatesignalexplanationoperation) | **PATCH** /v1/reference/signal-explanations/{id} | Update a signal explanation |
 | [**updateSignalRelation**](ReferenceDataApi.md#updatesignalrelationoperation) | **PATCH** /v1/reference/signal-relations/{id} | Update a signal relation |
 | [**updateSignalRelationType**](ReferenceDataApi.md#updatesignalrelationtypeoperation) | **PATCH** /v1/reference/signal-relation-types/{id} | Update a signal relation type |
+| [**updateSignalRule**](ReferenceDataApi.md#updatesignalrule) | **PUT** /v1/reference/signal-rules/{id} | Replace a signal rule |
 | [**updateSignalType**](ReferenceDataApi.md#updatesignaltypeoperation) | **PATCH** /v1/reference/signal-types/{id} | Update a signal type |
 | [**updateTechnicalPerson**](ReferenceDataApi.md#updatetechnicalpersonoperation) | **PATCH** /v1/reference/technical-people/{id} | Update a technician |
+| [**validateSignalRule**](ReferenceDataApi.md#validatesignalrule) | **POST** /v1/reference/signal-rules/validate | Validate a signal rule without saving it |
 
 
 
@@ -2183,6 +2190,90 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **createSignalRelationTypeRequest** | [CreateSignalRelationTypeRequest](CreateSignalRelationTypeRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createSignalRule
+
+> AdminWriteResponse createSignalRule(signalRuleWriteRequest, monitoringCenterId, xCorrelationId, idempotencyKey)
+
+Create a signal rule
+
+A rule without a mode starts in Shadow: evaluated and recorded, nothing changed.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { CreateSignalRuleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // SignalRuleWriteRequest
+    signalRuleWriteRequest: ...,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateSignalRuleRequest;
+
+  try {
+    const data = await api.createSignalRule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **signalRuleWriteRequest** | [SignalRuleWriteRequest](SignalRuleWriteRequest.md) |  | |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 | **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
 
@@ -4321,6 +4412,87 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteSignalRule
+
+> deleteSignalRule(id, monitoringCenterId, xCorrelationId)
+
+Delete a signal rule
+
+Refused for a rule managed as code and for a rule with recorded matches; disable those instead.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { DeleteSignalRuleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteSignalRuleRequest;
+
+  try {
+    const data = await api.deleteSignalRule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type
@@ -7680,6 +7852,161 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getSignalRuleById
+
+> SignalRuleDetail getSignalRuleById(id, monitoringCenterId, xCorrelationId)
+
+Get a signal rule with its body
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetSignalRuleByIdRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSignalRuleByIdRequest;
+
+  try {
+    const data = await api.getSignalRuleById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SignalRuleDetail**](SignalRuleDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSignalRuleCatalog
+
+> SignalRuleCatalog getSignalRuleCatalog(monitoringCenterId, xCorrelationId)
+
+Facts, operators and actions a signal rule may use
+
+Built from the pipeline\&#39;s rule catalog and the center\&#39;s active metadata definitions, so a fact or action added to the pipeline appears here without a client release.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetSignalRuleCatalogRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSignalRuleCatalogRequest;
+
+  try {
+    const data = await api.getSignalRuleCatalog(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SignalRuleCatalog**](SignalRuleCatalog.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getSignalTypeById
 
 > SignalTypeDetail getSignalTypeById(id, xCorrelationId)
@@ -9010,6 +9337,81 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listSignalRules
+
+> Array&lt;SignalRuleItem&gt; listSignalRules(monitoringCenterId, xCorrelationId)
+
+List the monitoring center\&#39;s signal rules
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ListSignalRulesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListSignalRulesRequest;
+
+  try {
+    const data = await api.listSignalRules(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;SignalRuleItem&gt;**](SignalRuleItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -11251,6 +11653,91 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## updateSignalRule
+
+> AdminWriteResponse updateSignalRule(id, signalRuleWriteRequest, monitoringCenterId, xCorrelationId)
+
+Replace a signal rule
+
+Every field is written; the code is not changed. Refused for a rule managed as code.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { UpdateSignalRuleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SignalRuleWriteRequest
+    signalRuleWriteRequest: ...,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateSignalRuleRequest;
+
+  try {
+    const data = await api.updateSignalRule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **signalRuleWriteRequest** | [SignalRuleWriteRequest](SignalRuleWriteRequest.md) |  | |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## updateSignalType
 
 > AdminWriteResponse updateSignalType(id, updateSignalTypeRequest, xCorrelationId)
@@ -11409,6 +11896,89 @@ example().catch(console.error);
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## validateSignalRule
+
+> SignalRuleValidationResponse validateSignalRule(signalRuleWriteRequest, monitoringCenterId, xCorrelationId, idempotencyKey)
+
+Validate a signal rule without saving it
+
+Runs every check a save would, with the pipeline\&#39;s own compiler. Writes nothing.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { ValidateSignalRuleRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // SignalRuleWriteRequest
+    signalRuleWriteRequest: ...,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ValidateSignalRuleRequest;
+
+  try {
+    const data = await api.validateSignalRule(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **signalRuleWriteRequest** | [SignalRuleWriteRequest](SignalRuleWriteRequest.md) |  | |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SignalRuleValidationResponse**](SignalRuleValidationResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

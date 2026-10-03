@@ -45,7 +45,7 @@ test('D69: listSignalRelations returns a paged envelope', async () => {
 
 const PAGINATED_OPS = new Set(['GetSignals', 'GetSignalTypes', 'ListSignalRelations']);
 
-test('D69: 28 bare-array + 3 paginated reference lists in generated/', () => {
+test('D69: 29 bare-array + 3 paginated reference lists in generated/', () => {
   const root = repoRoot();
   const spec = JSON.parse(
     readFileSync(join(root, 'openapi/armikom-api.v1.json'), 'utf8'),
@@ -65,7 +65,7 @@ test('D69: 28 bare-array + 3 paginated reference lists in generated/', () => {
     }
   }
 
-  assert.equal(bare.length, 28, `expected 28 bare-array reference lists, got ${bare.length}`);
+  assert.equal(bare.length, 29, `expected 29 bare-array reference lists, got ${bare.length}`);
 
   for (const op of PAGINATED_OPS) {
     assert.ok(paged.includes(op), `${op} should be a paginated endpoint`);

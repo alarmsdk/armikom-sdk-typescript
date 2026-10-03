@@ -334,6 +334,31 @@ import {
     SignalRelationTypeItemPagedResultToJSON,
 } from '../models/SignalRelationTypeItemPagedResult';
 import {
+    type SignalRuleCatalog,
+    SignalRuleCatalogFromJSON,
+    SignalRuleCatalogToJSON,
+} from '../models/SignalRuleCatalog';
+import {
+    type SignalRuleDetail,
+    SignalRuleDetailFromJSON,
+    SignalRuleDetailToJSON,
+} from '../models/SignalRuleDetail';
+import {
+    type SignalRuleItem,
+    SignalRuleItemFromJSON,
+    SignalRuleItemToJSON,
+} from '../models/SignalRuleItem';
+import {
+    type SignalRuleValidationResponse,
+    SignalRuleValidationResponseFromJSON,
+    SignalRuleValidationResponseToJSON,
+} from '../models/SignalRuleValidationResponse';
+import {
+    type SignalRuleWriteRequest,
+    SignalRuleWriteRequestFromJSON,
+    SignalRuleWriteRequestToJSON,
+} from '../models/SignalRuleWriteRequest';
+import {
     type SignalTypeDetail,
     SignalTypeDetailFromJSON,
     SignalTypeDetailToJSON,
@@ -631,6 +656,13 @@ export interface ReferenceDataApiCreateSignalRelationTypeOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateSignalRuleRequest {
+    signalRuleWriteRequest: SignalRuleWriteRequest;
+    monitoringCenterId?: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateSignalTypeOperationRequest {
     createSignalTypeRequest: CreateSignalTypeRequest;
     xCorrelationId?: string;
@@ -771,6 +803,12 @@ export interface ReferenceDataApiDeleteSignalRelationRequest {
 
 export interface ReferenceDataApiDeleteSignalRelationTypeRequest {
     id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteSignalRuleRequest {
+    id: string;
+    monitoringCenterId?: string;
     xCorrelationId?: string;
 }
 
@@ -987,6 +1025,17 @@ export interface ReferenceDataApiGetSignalRelationTypeByIdRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiGetSignalRuleByIdRequest {
+    id: string;
+    monitoringCenterId?: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetSignalRuleCatalogRequest {
+    monitoringCenterId?: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiGetSignalTypeByIdRequest {
     id: string;
     xCorrelationId?: string;
@@ -1090,6 +1139,11 @@ export interface ReferenceDataApiListSignalRelationsRequest {
     page?: number;
     pageSize?: number;
     offset?: number;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiListSignalRulesRequest {
+    monitoringCenterId?: string;
     xCorrelationId?: string;
 }
 
@@ -1260,6 +1314,13 @@ export interface ReferenceDataApiUpdateSignalRelationTypeOperationRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiUpdateSignalRuleRequest {
+    id: string;
+    signalRuleWriteRequest: SignalRuleWriteRequest;
+    monitoringCenterId?: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiUpdateSignalTypeOperationRequest {
     id: string;
     updateSignalTypeRequest: UpdateSignalTypeRequest;
@@ -1270,6 +1331,13 @@ export interface ReferenceDataApiUpdateTechnicalPersonOperationRequest {
     id: string;
     updateTechnicalPersonRequest: UpdateTechnicalPersonRequest;
     xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiValidateSignalRuleRequest {
+    signalRuleWriteRequest: SignalRuleWriteRequest;
+    monitoringCenterId?: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 /**
@@ -2926,6 +2994,75 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for createSignalRule without sending the request
+     */
+    async createSignalRuleRequestOpts(requestParameters: ReferenceDataApiCreateSignalRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['signalRuleWriteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'signalRuleWriteRequest',
+                'Required parameter "signalRuleWriteRequest" was null or undefined when calling createSignalRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SignalRuleWriteRequestToJSON(requestParameters['signalRuleWriteRequest']),
+        };
+    }
+
+    /**
+     * A rule without a mode starts in Shadow: evaluated and recorded, nothing changed.
+     * Create a signal rule
+     */
+    async createSignalRuleRaw(requestParameters: ReferenceDataApiCreateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createSignalRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A rule without a mode starts in Shadow: evaluated and recorded, nothing changed.
+     * Create a signal rule
+     */
+    async createSignalRule(requestParameters: ReferenceDataApiCreateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createSignalRuleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for createSignalType without sending the request
      */
     async createSignalTypeRequestOpts(requestParameters: ReferenceDataApiCreateSignalTypeOperationRequest): Promise<runtime.RequestOpts> {
@@ -4515,6 +4652,68 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteSignalRelationType(requestParameters: ReferenceDataApiDeleteSignalRelationTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSignalRelationTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSignalRule without sending the request
+     */
+    async deleteSignalRuleRequestOpts(requestParameters: ReferenceDataApiDeleteSignalRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSignalRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Refused for a rule managed as code and for a rule with recorded matches; disable those instead.
+     * Delete a signal rule
+     */
+    async deleteSignalRuleRaw(requestParameters: ReferenceDataApiDeleteSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSignalRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Refused for a rule managed as code and for a rule with recorded matches; disable those instead.
+     * Delete a signal rule
+     */
+    async deleteSignalRule(requestParameters: ReferenceDataApiDeleteSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSignalRuleRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -6971,6 +7170,122 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getSignalRuleById without sending the request
+     */
+    async getSignalRuleByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalRuleByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSignalRuleById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a signal rule with its body
+     */
+    async getSignalRuleByIdRaw(requestParameters: ReferenceDataApiGetSignalRuleByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRuleDetail>> {
+        const requestOptions = await this.getSignalRuleByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRuleDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a signal rule with its body
+     */
+    async getSignalRuleById(requestParameters: ReferenceDataApiGetSignalRuleByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRuleDetail> {
+        const response = await this.getSignalRuleByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSignalRuleCatalog without sending the request
+     */
+    async getSignalRuleCatalogRequestOpts(requestParameters: ReferenceDataApiGetSignalRuleCatalogRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules/catalog`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Built from the pipeline\'s rule catalog and the center\'s active metadata definitions, so a fact or action added to the pipeline appears here without a client release.
+     * Facts, operators and actions a signal rule may use
+     */
+    async getSignalRuleCatalogRaw(requestParameters: ReferenceDataApiGetSignalRuleCatalogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRuleCatalog>> {
+        const requestOptions = await this.getSignalRuleCatalogRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRuleCatalogFromJSON(jsonValue));
+    }
+
+    /**
+     * Built from the pipeline\'s rule catalog and the center\'s active metadata definitions, so a fact or action added to the pipeline appears here without a client release.
+     * Facts, operators and actions a signal rule may use
+     */
+    async getSignalRuleCatalog(requestParameters: ReferenceDataApiGetSignalRuleCatalogRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRuleCatalog> {
+        const response = await this.getSignalRuleCatalogRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getSignalTypeById without sending the request
      */
     async getSignalTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetSignalTypeByIdRequest): Promise<runtime.RequestOpts> {
@@ -7974,6 +8289,59 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async listSignalRelations(requestParameters: ReferenceDataApiListSignalRelationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRelationItemPagedResult> {
         const response = await this.listSignalRelationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listSignalRules without sending the request
+     */
+    async listSignalRulesRequestOpts(requestParameters: ReferenceDataApiListSignalRulesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the monitoring center\'s signal rules
+     */
+    async listSignalRulesRaw(requestParameters: ReferenceDataApiListSignalRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SignalRuleItem>>> {
+        const requestOptions = await this.listSignalRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SignalRuleItemFromJSON));
+    }
+
+    /**
+     * List the monitoring center\'s signal rules
+     */
+    async listSignalRules(requestParameters: ReferenceDataApiListSignalRulesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SignalRuleItem>> {
+        const response = await this.listSignalRulesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -9842,6 +10210,79 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for updateSignalRule without sending the request
+     */
+    async updateSignalRuleRequestOpts(requestParameters: ReferenceDataApiUpdateSignalRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSignalRule().'
+            );
+        }
+
+        if (requestParameters['signalRuleWriteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'signalRuleWriteRequest',
+                'Required parameter "signalRuleWriteRequest" was null or undefined when calling updateSignalRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SignalRuleWriteRequestToJSON(requestParameters['signalRuleWriteRequest']),
+        };
+    }
+
+    /**
+     * Every field is written; the code is not changed. Refused for a rule managed as code.
+     * Replace a signal rule
+     */
+    async updateSignalRuleRaw(requestParameters: ReferenceDataApiUpdateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateSignalRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Every field is written; the code is not changed. Refused for a rule managed as code.
+     * Replace a signal rule
+     */
+    async updateSignalRule(requestParameters: ReferenceDataApiUpdateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateSignalRuleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for updateSignalType without sending the request
      */
     async updateSignalTypeRequestOpts(requestParameters: ReferenceDataApiUpdateSignalTypeOperationRequest): Promise<runtime.RequestOpts> {
@@ -9974,6 +10415,75 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateTechnicalPerson(requestParameters: ReferenceDataApiUpdateTechnicalPersonOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.updateTechnicalPersonRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for validateSignalRule without sending the request
+     */
+    async validateSignalRuleRequestOpts(requestParameters: ReferenceDataApiValidateSignalRuleRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['signalRuleWriteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'signalRuleWriteRequest',
+                'Required parameter "signalRuleWriteRequest" was null or undefined when calling validateSignalRule().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/signal-rules/validate`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SignalRuleWriteRequestToJSON(requestParameters['signalRuleWriteRequest']),
+        };
+    }
+
+    /**
+     * Runs every check a save would, with the pipeline\'s own compiler. Writes nothing.
+     * Validate a signal rule without saving it
+     */
+    async validateSignalRuleRaw(requestParameters: ReferenceDataApiValidateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalRuleValidationResponse>> {
+        const requestOptions = await this.validateSignalRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SignalRuleValidationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Runs every check a save would, with the pipeline\'s own compiler. Writes nothing.
+     * Validate a signal rule without saving it
+     */
+    async validateSignalRule(requestParameters: ReferenceDataApiValidateSignalRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalRuleValidationResponse> {
+        const response = await this.validateSignalRuleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
