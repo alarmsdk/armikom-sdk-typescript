@@ -24,6 +24,8 @@ export * from './OperatorReportsApi';
 export * from './PassiveSignalsApi';
 export * from './PushNotificationsApi';
 export * from './ReferenceDataApi';
+export * from './ReportAssistantApi';
+export * from './ReportsApi';
 export * from './SMSApi';
 export * from './SMSLogApi';
 export * from './SearchApi';
