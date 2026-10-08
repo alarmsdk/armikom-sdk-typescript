@@ -20,8 +20,7 @@ import { mapValues } from '../runtime';
  */
 export interface MyAlarmSisFieldDifferenceCount {
     /**
-     * `alarm`, `signalType`, `signalName`, `priority`, `alarmCategory`,
-     *             `monitoringCenter`, `receiverNo`, `lineNo`, `partNo`.
+     * `alarm`, `signalType`, `signalName`, `priority`, `alarmCategory`.
      * @type {string}
      * @memberof MyAlarmSisFieldDifferenceCount
      */

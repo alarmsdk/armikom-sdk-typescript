@@ -57,7 +57,9 @@ import {
 } from './MyAlarmSisReasonCount';
 
 /**
- * Result of a MyAlarmSis ↔ Armikom signal comparison.
+ * Result of a MyAlarmSis ↔ Armikom signal comparison. Only results are compared: what
+ * MyAlarmSis made of a signal (`mesajlar`) against the `SignalEvent` Armikom made of
+ * the same signal forwarded by the Agent poller.
  * @export
  * @interface MyAlarmSisComparisonResponse
  */

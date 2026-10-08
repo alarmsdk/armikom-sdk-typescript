@@ -38,14 +38,6 @@ export interface MyAlarmSisComparisonRequest {
      */
     excludedSignalTypeCodes?: Array<string> | null;
     /**
-     * When true (default), leave out what each system generates by itself: on the MyAlarmSis side
-     * the rows the Agent poller filters (software codes, `BOLGE` containing "Program"), on the
-     * Armikom side events the Engine produced without a panel signal (`RealSignal = false`).
-     * @type {boolean}
-     * @memberof MyAlarmSisComparisonRequest
-     */
-    excludeSoftwareGenerated?: boolean | null;
-    /**
      * Largest clock difference, in seconds, for two rows to count as the same signal. 0–900, default 120.
      * @type {number}
      * @memberof MyAlarmSisComparisonRequest
@@ -93,7 +85,6 @@ export function MyAlarmSisComparisonRequestFromJSONTyped(json: any, ignoreDiscri
         'from': json['from'] == null ? undefined : (new Date(json['from'])),
         'to': json['to'] == null ? undefined : (new Date(json['to'])),
         'excludedSignalTypeCodes': json['excludedSignalTypeCodes'] === undefined ? undefined : json['excludedSignalTypeCodes'] === null ? null : json['excludedSignalTypeCodes'],
-        'excludeSoftwareGenerated': json['excludeSoftwareGenerated'] === undefined ? undefined : json['excludeSoftwareGenerated'] === null ? null : json['excludeSoftwareGenerated'],
         'toleranceSeconds': json['toleranceSeconds'] === undefined ? undefined : json['toleranceSeconds'] === null ? null : json['toleranceSeconds'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'rowKinds': json['rowKinds'] === undefined ? undefined : json['rowKinds'] === null ? null : json['rowKinds'],
@@ -115,7 +106,6 @@ export function MyAlarmSisComparisonRequestToJSONTyped(value?: MyAlarmSisCompari
         'from': value['from'] == null ? value['from'] : value['from'].toISOString(),
         'to': value['to'] == null ? value['to'] : value['to'].toISOString(),
         'excludedSignalTypeCodes': value['excludedSignalTypeCodes'],
-        'excludeSoftwareGenerated': value['excludeSoftwareGenerated'],
         'toleranceSeconds': value['toleranceSeconds'],
         'monitoringCenterId': value['monitoringCenterId'],
         'rowKinds': value['rowKinds'],

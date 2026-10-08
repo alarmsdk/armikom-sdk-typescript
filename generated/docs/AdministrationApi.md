@@ -156,7 +156,7 @@ example().catch(console.error);
 
 Compare MyAlarmSis signals with Armikom signal events in a time window
 
-Pairs MyAlarmSis &#x60;mesajlar&#x60; rows with Armikom signal events by subscriber number, panel event code and time (within &#x60;toleranceSeconds&#x60;), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as &#x60;missing&#x60; (MyAlarmSis only) or &#x60;extra&#x60; (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\&#39;s monitoring centre unless the caller sees every centre.
+Compares results only: for each signal MyAlarmSis recorded (&#x60;mesajlar&#x60;), the alarm flag, signal type, text, priority and alarm category against the signal event Armikom made of the same signal (events of the MyAlarmSis poller receiver &#x60;00&#x60;). Signals are identified as the migration tool maps them: centre, &#x60;ParseAccountCode(F_KODU)&#x60;, &#x60;ParseAccountCode(PARTNO)&#x60;, event code and time (within &#x60;toleranceSeconds&#x60;). Rows found on only one side are &#x60;missing&#x60; (MyAlarmSis only, with the likely reason) or &#x60;extra&#x60; (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\&#39;s monitoring centre unless the caller sees every centre.
 
 ### Example
 

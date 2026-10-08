@@ -53,7 +53,7 @@ export interface MyAlarmSisSignalTypeItem {
     armikomAlarm?: boolean | null;
     /**
      * True for codes the Agent poller never forwards because MyAlarmSis generates them itself
-     * (AOF, SPD, HCL, CLL, OPL, PNM, KPO, IAS). The console pre-selects these for exclusion.
+     * (AOF, SPD, HCL, CLL, OPL, PNM, KPO, IAS). Such rows have no Armikom result and are never compared.
      * @type {boolean}
      * @memberof MyAlarmSisSignalTypeItem
      */

@@ -12209,7 +12209,7 @@
           "Administration"
         ],
         "summary": "Compare MyAlarmSis signals with Armikom signal events in a time window",
-        "description": "Pairs MyAlarmSis `mesajlar` rows with Armikom signal events by subscriber number, panel event code and time (within `toleranceSeconds`), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as `missing` (MyAlarmSis only) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller's monitoring centre unless the caller sees every centre.",
+        "description": "Compares results only: for each signal MyAlarmSis recorded (`mesajlar`), the alarm flag, signal type, text, priority and alarm category against the signal event Armikom made of the same signal (events of the MyAlarmSis poller receiver `00`). Signals are identified as the migration tool maps them: centre, `ParseAccountCode(F_KODU)`, `ParseAccountCode(PARTNO)`, event code and time (within `toleranceSeconds`). Rows found on only one side are `missing` (MyAlarmSis only, with the likely reason) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller's monitoring centre unless the caller sees every centre.",
         "operationId": "CompareMyAlarmSisSignals",
         "parameters": [
           {
@@ -105764,11 +105764,6 @@
             "description": "Signal type codes left out on both sides (case-insensitive).",
             "nullable": true
           },
-          "excludeSoftwareGenerated": {
-            "type": "boolean",
-            "description": "When true (default), leave out what each system generates by itself: on the MyAlarmSis side\nthe rows the Agent poller filters (software codes, `BOLGE` containing \"Program\"), on the\nArmikom side events the Engine produced without a panel signal (`RealSignal = false`).",
-            "nullable": true
-          },
           "toleranceSeconds": {
             "type": "integer",
             "description": "Largest clock difference, in seconds, for two rows to count as the same signal. 0–900, default 120.",
@@ -105867,7 +105862,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Result of a MyAlarmSis ↔ Armikom signal comparison."
+        "description": "Result of a MyAlarmSis ↔ Armikom signal comparison. Only results are compared: what\nMyAlarmSis made of a signal (`mesajlar`) against the `SignalEvent` Armikom made of\nthe same signal forwarded by the Agent poller."
       },
       "MyAlarmSisComparisonRow": {
         "type": "object",
@@ -105882,7 +105877,7 @@
             "items": {
               "type": "string"
             },
-            "description": "Compared fields that disagree. Empty unless Armikom.Api.Contracts.Admin.MyAlarmSisComparisonRow.Kind is `different`.",
+            "description": "Results that disagree. Empty unless Armikom.Api.Contracts.Admin.MyAlarmSisComparisonRow.Kind is `different`.",
             "nullable": true
           },
           "timeDeltaSeconds": {
@@ -105911,16 +105906,22 @@
         "properties": {
           "myAlarmSisTotal": {
             "type": "integer",
-            "description": "MyAlarmSis rows in the window (and in scope), before exclusions.",
+            "description": "MyAlarmSis rows in the window (and in scope).",
+            "format": "int32"
+          },
+          "myAlarmSisNotForwarded": {
+            "type": "integer",
+            "description": "Rows the Agent poller does not forward (MyAlarmSis' own events: AOF, SPD, HCL, CLL, OPL,\nPNM, KPO, IAS, `BOLGE` \"Program Üretti\"). They have no Armikom result; not compared.",
             "format": "int32"
           },
           "myAlarmSisExcluded": {
             "type": "integer",
+            "description": "Forwarded rows left out by the selected signal types.",
             "format": "int32"
           },
           "armikomTotal": {
             "type": "integer",
-            "description": "Armikom signal events in the window (and in scope), before exclusions.",
+            "description": "Armikom signal events in the window (and in scope) that came from the MyAlarmSis poller\n(receiver `00`). Events the Engine generates by itself are not part of the comparison.",
             "format": "int32"
           },
           "armikomExcluded": {
@@ -105965,7 +105966,7 @@
         "properties": {
           "field": {
             "type": "string",
-            "description": "`alarm`, `signalType`, `signalName`, `priority`, `alarmCategory`,\n            `monitoringCenter`, `receiverNo`, `lineNo`, `partNo`.",
+            "description": "`alarm`, `signalType`, `signalName`, `priority`, `alarmCategory`.",
             "nullable": true
           },
           "count": {
@@ -106007,12 +106008,13 @@
           },
           "sideNo": {
             "type": "integer",
-            "description": "`F_KODU` without its alphabetic prefix, as the Agent poller sends it.",
+            "description": "`ParseAccountCode(F_KODU)` as in the migration (`UC0740` → 740).",
             "format": "int32",
             "nullable": true
           },
           "partNo": {
             "type": "integer",
+            "description": "`ParseAccountCode(PARTNO)`.",
             "format": "int32",
             "nullable": true
           },
@@ -106149,7 +106151,7 @@
           },
           "softwareGenerated": {
             "type": "boolean",
-            "description": "True for codes the Agent poller never forwards because MyAlarmSis generates them itself\n(AOF, SPD, HCL, CLL, OPL, PNM, KPO, IAS). The console pre-selects these for exclusion."
+            "description": "True for codes the Agent poller never forwards because MyAlarmSis generates them itself\n(AOF, SPD, HCL, CLL, OPL, PNM, KPO, IAS). Such rows have no Armikom result and are never compared."
           }
         },
         "additionalProperties": false,

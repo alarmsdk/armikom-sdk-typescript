@@ -668,7 +668,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Pairs MyAlarmSis `mesajlar` rows with Armikom signal events by subscriber number, panel event code and time (within `toleranceSeconds`), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as `missing` (MyAlarmSis only) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
+     * Compares results only: for each signal MyAlarmSis recorded (`mesajlar`), the alarm flag, signal type, text, priority and alarm category against the signal event Armikom made of the same signal (events of the MyAlarmSis poller receiver `00`). Signals are identified as the migration tool maps them: centre, `ParseAccountCode(F_KODU)`, `ParseAccountCode(PARTNO)`, event code and time (within `toleranceSeconds`). Rows found on only one side are `missing` (MyAlarmSis only, with the likely reason) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
      * Compare MyAlarmSis signals with Armikom signal events in a time window
      */
     async compareMyAlarmSisSignalsRaw(requestParameters: AdministrationApiCompareMyAlarmSisSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MyAlarmSisComparisonResponse>> {
@@ -679,7 +679,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Pairs MyAlarmSis `mesajlar` rows with Armikom signal events by subscriber number, panel event code and time (within `toleranceSeconds`), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as `missing` (MyAlarmSis only) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
+     * Compares results only: for each signal MyAlarmSis recorded (`mesajlar`), the alarm flag, signal type, text, priority and alarm category against the signal event Armikom made of the same signal (events of the MyAlarmSis poller receiver `00`). Signals are identified as the migration tool maps them: centre, `ParseAccountCode(F_KODU)`, `ParseAccountCode(PARTNO)`, event code and time (within `toleranceSeconds`). Rows found on only one side are `missing` (MyAlarmSis only, with the likely reason) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
      * Compare MyAlarmSis signals with Armikom signal events in a time window
      */
     async compareMyAlarmSisSignals(requestParameters: AdministrationApiCompareMyAlarmSisSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MyAlarmSisComparisonResponse> {

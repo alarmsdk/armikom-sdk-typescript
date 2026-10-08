@@ -41,7 +41,7 @@ export interface MyAlarmSisComparisonRow {
      */
     kind?: string | null;
     /**
-     * Compared fields that disagree. Empty unless Armikom.Api.Contracts.Admin.MyAlarmSisComparisonRow.Kind is `different`.
+     * Results that disagree. Empty unless Armikom.Api.Contracts.Admin.MyAlarmSisComparisonRow.Kind is `different`.
      * @type {Array<string>}
      * @memberof MyAlarmSisComparisonRow
      */

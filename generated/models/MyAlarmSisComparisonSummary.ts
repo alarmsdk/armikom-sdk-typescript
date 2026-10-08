@@ -20,19 +20,27 @@ import { mapValues } from '../runtime';
  */
 export interface MyAlarmSisComparisonSummary {
     /**
-     * MyAlarmSis rows in the window (and in scope), before exclusions.
+     * MyAlarmSis rows in the window (and in scope).
      * @type {number}
      * @memberof MyAlarmSisComparisonSummary
      */
     myAlarmSisTotal?: number;
     /**
-     * 
+     * Rows the Agent poller does not forward (MyAlarmSis' own events: AOF, SPD, HCL, CLL, OPL,
+     * PNM, KPO, IAS, `BOLGE` "Program Üretti"). They have no Armikom result; not compared.
+     * @type {number}
+     * @memberof MyAlarmSisComparisonSummary
+     */
+    myAlarmSisNotForwarded?: number;
+    /**
+     * Forwarded rows left out by the selected signal types.
      * @type {number}
      * @memberof MyAlarmSisComparisonSummary
      */
     myAlarmSisExcluded?: number;
     /**
-     * Armikom signal events in the window (and in scope), before exclusions.
+     * Armikom signal events in the window (and in scope) that came from the MyAlarmSis poller
+     * (receiver `00`). Events the Engine generates by itself are not part of the comparison.
      * @type {number}
      * @memberof MyAlarmSisComparisonSummary
      */
@@ -99,6 +107,7 @@ export function MyAlarmSisComparisonSummaryFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'myAlarmSisTotal': json['myAlarmSisTotal'] == null ? undefined : json['myAlarmSisTotal'],
+        'myAlarmSisNotForwarded': json['myAlarmSisNotForwarded'] == null ? undefined : json['myAlarmSisNotForwarded'],
         'myAlarmSisExcluded': json['myAlarmSisExcluded'] == null ? undefined : json['myAlarmSisExcluded'],
         'armikomTotal': json['armikomTotal'] == null ? undefined : json['armikomTotal'],
         'armikomExcluded': json['armikomExcluded'] == null ? undefined : json['armikomExcluded'],
@@ -123,6 +132,7 @@ export function MyAlarmSisComparisonSummaryToJSONTyped(value?: MyAlarmSisCompari
     return {
         
         'myAlarmSisTotal': value['myAlarmSisTotal'],
+        'myAlarmSisNotForwarded': value['myAlarmSisNotForwarded'],
         'myAlarmSisExcluded': value['myAlarmSisExcluded'],
         'armikomTotal': value['armikomTotal'],
         'armikomExcluded': value['armikomExcluded'],

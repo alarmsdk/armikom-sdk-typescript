@@ -10,7 +10,6 @@ Name | Type
 `from` | Date
 `to` | Date
 `excludedSignalTypeCodes` | Array&lt;string&gt;
-`excludeSoftwareGenerated` | boolean
 `toleranceSeconds` | number
 `monitoringCenterId` | string
 `rowKinds` | Array&lt;string&gt;
@@ -26,7 +25,6 @@ const example = {
   "from": null,
   "to": null,
   "excludedSignalTypeCodes": null,
-  "excludeSoftwareGenerated": null,
   "toleranceSeconds": null,
   "monitoringCenterId": null,
   "rowKinds": null,

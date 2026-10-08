@@ -38,13 +38,13 @@ export interface MyAlarmSisSignalSnapshot {
      */
     accountCode?: string | null;
     /**
-     * `F_KODU` without its alphabetic prefix, as the Agent poller sends it.
+     * `ParseAccountCode(F_KODU)` as in the migration (`UC0740` → 740).
      * @type {number}
      * @memberof MyAlarmSisSignalSnapshot
      */
     sideNo?: number | null;
     /**
-     * 
+     * `ParseAccountCode(PARTNO)`.
      * @type {number}
      * @memberof MyAlarmSisSignalSnapshot
      */

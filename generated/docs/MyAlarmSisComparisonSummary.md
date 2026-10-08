@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `myAlarmSisTotal` | number
+`myAlarmSisNotForwarded` | number
 `myAlarmSisExcluded` | number
 `armikomTotal` | number
 `armikomExcluded` | number
@@ -25,6 +26,7 @@ import type { MyAlarmSisComparisonSummary } from ''
 // TODO: Update the object below with actual values
 const example = {
   "myAlarmSisTotal": null,
+  "myAlarmSisNotForwarded": null,
   "myAlarmSisExcluded": null,
   "armikomTotal": null,
   "armikomExcluded": null,
