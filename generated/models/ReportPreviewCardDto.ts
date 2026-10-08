@@ -47,7 +47,7 @@ export interface ReportPreviewCardDto {
      */
     title?: string | null;
     /**
-     * 
+     * Server side only: responses always carry an empty string. Report SQL is never shown to users.
      * @type {string}
      * @memberof ReportPreviewCardDto
      */

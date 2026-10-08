@@ -286,7 +286,7 @@ export class ReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The caller\'s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\'s centre (`tenantAware`). SQL is included for `reports:author` holders only.
+     * The caller\'s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\'s centre (`tenantAware`). SQL is never returned.
      * List the saved reports the caller can run
      */
     async listReportDefinitionsRaw(requestParameters: ReportsApiListReportDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ReportDefinitionDto>>> {
@@ -297,7 +297,7 @@ export class ReportsApi extends runtime.BaseAPI {
     }
 
     /**
-     * The caller\'s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\'s centre (`tenantAware`). SQL is included for `reports:author` holders only.
+     * The caller\'s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\'s centre (`tenantAware`). SQL is never returned.
      * List the saved reports the caller can run
      */
     async listReportDefinitions(requestParameters: ReportsApiListReportDefinitionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ReportDefinitionDto>> {

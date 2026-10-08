@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**bulkHashPasswords**](AdministrationApi.md#bulkhashpasswords) | **POST** /v1/admin/password-bulk-hash | Bulk-hash all remaining plaintext passwords |
+| [**compareMyAlarmSisSignals**](AdministrationApi.md#comparemyalarmsissignals) | **POST** /v1/admin/myalarmsis/signal-comparison | Compare MyAlarmSis signals with Armikom signal events in a time window |
 | [**createDeviceRegex**](AdministrationApi.md#createdeviceregex) | **POST** /v1/admin/device-regexes | Create a device parser |
 | [**createEmergencyPhone**](AdministrationApi.md#createemergencyphone) | **POST** /v1/admin/emergency-phones | Create an emergency contact |
 | [**createMailSetting**](AdministrationApi.md#createmailsettingoperation) | **POST** /v1/admin/mail-settings | Create an SMTP profile |
@@ -46,6 +47,7 @@ All URIs are relative to *http://localhost*
 | [**listDeviceRegexes**](AdministrationApi.md#listdeviceregexes) | **GET** /v1/admin/device-regexes | List device parsers |
 | [**listEmergencyPhones**](AdministrationApi.md#listemergencyphones) | **GET** /v1/admin/emergency-phones | List emergency contacts |
 | [**listMailSettings**](AdministrationApi.md#listmailsettings) | **GET** /v1/admin/mail-settings | List SMTP profiles |
+| [**listMyAlarmSisSignalTypes**](AdministrationApi.md#listmyalarmsissignaltypes) | **GET** /v1/admin/myalarmsis/signal-types | Signal type codes known to MyAlarmSis and/or Armikom |
 | [**listPanelCommands**](AdministrationApi.md#listpanelcommands) | **GET** /v1/admin/panel-commands | List queued panel commands |
 | [**listPrompts**](AdministrationApi.md#listprompts) | **GET** /v1/admin/prompts | List AI prompt templates |
 | [**listReceiverLineTypes**](AdministrationApi.md#listreceiverlinetypes) | **GET** /v1/admin/receivers/{receiverId}/line-types | List the line-type assignments of a receiver |
@@ -143,6 +145,87 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## compareMyAlarmSisSignals
+
+> MyAlarmSisComparisonResponse compareMyAlarmSisSignals(myAlarmSisComparisonRequest, xCorrelationId, idempotencyKey)
+
+Compare MyAlarmSis signals with Armikom signal events in a time window
+
+Pairs MyAlarmSis &#x60;mesajlar&#x60; rows with Armikom signal events by subscriber number, panel event code and time (within &#x60;toleranceSeconds&#x60;), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as &#x60;missing&#x60; (MyAlarmSis only) or &#x60;extra&#x60; (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\&#39;s monitoring centre unless the caller sees every centre.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { CompareMyAlarmSisSignalsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // MyAlarmSisComparisonRequest
+    myAlarmSisComparisonRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CompareMyAlarmSisSignalsRequest;
+
+  try {
+    const data = await api.compareMyAlarmSisSignals(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **myAlarmSisComparisonRequest** | [MyAlarmSisComparisonRequest](MyAlarmSisComparisonRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MyAlarmSisComparisonResponse**](MyAlarmSisComparisonResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -3285,6 +3368,80 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listMyAlarmSisSignalTypes
+
+> Array&lt;MyAlarmSisSignalTypeItem&gt; listMyAlarmSisSignalTypes(xCorrelationId)
+
+Signal type codes known to MyAlarmSis and/or Armikom
+
+Union of MyAlarmSis &#x60;sinyalturleri&#x60; and Armikom &#x60;SignalType&#x60; by code, with each side\&#39;s name and default alarm flag. &#x60;softwareGenerated&#x60; marks the codes the Agent poller never forwards. 503 MYALARMSIS.NOT_CONFIGURED when this deployment has no MyAlarmSis database.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { ListMyAlarmSisSignalTypesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListMyAlarmSisSignalTypesRequest;
+
+  try {
+    const data = await api.listMyAlarmSisSignalTypes(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;MyAlarmSisSignalTypeItem&gt;**](MyAlarmSisSignalTypeItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

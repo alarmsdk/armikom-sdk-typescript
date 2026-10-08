@@ -69,6 +69,21 @@ import {
     MonitoringCenterDetailToJSON,
 } from '../models/MonitoringCenterDetail';
 import {
+    type MyAlarmSisComparisonRequest,
+    MyAlarmSisComparisonRequestFromJSON,
+    MyAlarmSisComparisonRequestToJSON,
+} from '../models/MyAlarmSisComparisonRequest';
+import {
+    type MyAlarmSisComparisonResponse,
+    MyAlarmSisComparisonResponseFromJSON,
+    MyAlarmSisComparisonResponseToJSON,
+} from '../models/MyAlarmSisComparisonResponse';
+import {
+    type MyAlarmSisSignalTypeItem,
+    MyAlarmSisSignalTypeItemFromJSON,
+    MyAlarmSisSignalTypeItemToJSON,
+} from '../models/MyAlarmSisSignalTypeItem';
+import {
     type PhoneAuditEntityDetailResponse,
     PhoneAuditEntityDetailResponseFromJSON,
     PhoneAuditEntityDetailResponseToJSON,
@@ -196,6 +211,12 @@ import {
 
 export interface AdministrationApiBulkHashPasswordsRequest {
     dryRun?: boolean;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCompareMyAlarmSisSignalsRequest {
+    myAlarmSisComparisonRequest: MyAlarmSisComparisonRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -418,6 +439,10 @@ export interface AdministrationApiListMailSettingsRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiListMyAlarmSisSignalTypesRequest {
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiListPanelCommandsRequest {
     sideId?: string;
     pendingOnly?: boolean;
@@ -594,6 +619,71 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async bulkHashPasswords(requestParameters: AdministrationApiBulkHashPasswordsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BulkHashResult> {
         const response = await this.bulkHashPasswordsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for compareMyAlarmSisSignals without sending the request
+     */
+    async compareMyAlarmSisSignalsRequestOpts(requestParameters: AdministrationApiCompareMyAlarmSisSignalsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['myAlarmSisComparisonRequest'] == null) {
+            throw new runtime.RequiredError(
+                'myAlarmSisComparisonRequest',
+                'Required parameter "myAlarmSisComparisonRequest" was null or undefined when calling compareMyAlarmSisSignals().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/myalarmsis/signal-comparison`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MyAlarmSisComparisonRequestToJSON(requestParameters['myAlarmSisComparisonRequest']),
+        };
+    }
+
+    /**
+     * Pairs MyAlarmSis `mesajlar` rows with Armikom signal events by subscriber number, panel event code and time (within `toleranceSeconds`), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as `missing` (MyAlarmSis only) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
+     * Compare MyAlarmSis signals with Armikom signal events in a time window
+     */
+    async compareMyAlarmSisSignalsRaw(requestParameters: AdministrationApiCompareMyAlarmSisSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MyAlarmSisComparisonResponse>> {
+        const requestOptions = await this.compareMyAlarmSisSignalsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MyAlarmSisComparisonResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Pairs MyAlarmSis `mesajlar` rows with Armikom signal events by subscriber number, panel event code and time (within `toleranceSeconds`), then reports per pair which of alarm flag, signal type, signal text, priority, alarm category, monitoring centre, receiver, line and partition differ. Rows found on only one side are reported as `missing` (MyAlarmSis only) or `extra` (Armikom only). The window spans at most 24 hours. Read-only on both databases. Scoped to the caller\'s monitoring centre unless the caller sees every centre.
+     * Compare MyAlarmSis signals with Armikom signal events in a time window
+     */
+    async compareMyAlarmSisSignals(requestParameters: AdministrationApiCompareMyAlarmSisSignalsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MyAlarmSisComparisonResponse> {
+        const response = await this.compareMyAlarmSisSignalsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -3008,6 +3098,57 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async listMailSettings(requestParameters: AdministrationApiListMailSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MailSettingDetail>> {
         const response = await this.listMailSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listMyAlarmSisSignalTypes without sending the request
+     */
+    async listMyAlarmSisSignalTypesRequestOpts(requestParameters: AdministrationApiListMyAlarmSisSignalTypesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/myalarmsis/signal-types`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Union of MyAlarmSis `sinyalturleri` and Armikom `SignalType` by code, with each side\'s name and default alarm flag. `softwareGenerated` marks the codes the Agent poller never forwards. 503 MYALARMSIS.NOT_CONFIGURED when this deployment has no MyAlarmSis database.
+     * Signal type codes known to MyAlarmSis and/or Armikom
+     */
+    async listMyAlarmSisSignalTypesRaw(requestParameters: AdministrationApiListMyAlarmSisSignalTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MyAlarmSisSignalTypeItem>>> {
+        const requestOptions = await this.listMyAlarmSisSignalTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MyAlarmSisSignalTypeItemFromJSON));
+    }
+
+    /**
+     * Union of MyAlarmSis `sinyalturleri` and Armikom `SignalType` by code, with each side\'s name and default alarm flag. `softwareGenerated` marks the codes the Agent poller never forwards. 503 MYALARMSIS.NOT_CONFIGURED when this deployment has no MyAlarmSis database.
+     * Signal type codes known to MyAlarmSis and/or Armikom
+     */
+    async listMyAlarmSisSignalTypes(requestParameters: AdministrationApiListMyAlarmSisSignalTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MyAlarmSisSignalTypeItem>> {
+        const response = await this.listMyAlarmSisSignalTypesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

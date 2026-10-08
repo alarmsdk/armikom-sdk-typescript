@@ -251,7 +251,7 @@ example().catch(console.error);
 
 List the saved reports the caller can run
 
-The caller\&#39;s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\&#39;s centre (&#x60;tenantAware&#x60;). SQL is included for &#x60;reports:author&#x60; holders only.
+The caller\&#39;s own reports plus shared ones. A user restricted to one monitoring centre sees only shared reports whose SQL filters on the caller\&#39;s centre (&#x60;tenantAware&#x60;). SQL is never returned.
 
 ### Example
 

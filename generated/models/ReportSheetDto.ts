@@ -34,7 +34,7 @@ export interface ReportSheetDto {
      */
     name?: string | null;
     /**
-     * The query. Returned only to callers holding `reports:author`.
+     * Server side only: responses always carry `null`. Report SQL is never shown to users.
      * @type {string}
      * @memberof ReportSheetDto
      */
