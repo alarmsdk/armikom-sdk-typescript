@@ -139,6 +139,13 @@ export interface CreateDealerRequest {
      * @memberof CreateDealerRequest
      */
     recordDateTime?: Date | null;
+    /**
+     * Required when the caller is a system admin (no MC in the token).
+     * Ignored for MC-scoped operators — the token's MC is always used.
+     * @type {string}
+     * @memberof CreateDealerRequest
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -178,6 +185,7 @@ export function CreateDealerRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
         'enableEmail': json['enableEmail'] == null ? undefined : json['enableEmail'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -212,6 +220,7 @@ export function CreateDealerRequestToJSONTyped(value?: CreateDealerRequest | nul
         'enableSms': value['enableSms'],
         'enableEmail': value['enableEmail'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 

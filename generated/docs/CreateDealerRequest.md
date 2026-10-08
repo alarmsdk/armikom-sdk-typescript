@@ -26,6 +26,7 @@ Name | Type
 `enableSms` | boolean
 `enableEmail` | boolean
 `recordDateTime` | Date
+`monitoringCenterId` | string
 
 ## Example
 
@@ -54,6 +55,7 @@ const example = {
   "enableSms": null,
   "enableEmail": null,
   "recordDateTime": null,
+  "monitoringCenterId": null,
 } satisfies CreateDealerRequest
 
 console.log(example)
