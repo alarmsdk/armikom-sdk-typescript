@@ -31,6 +31,12 @@ export interface UpdateProtocolRequest {
      * @memberof UpdateProtocolRequest
      */
     protocolType?: number | null;
+    /**
+     * The Engine looks up event codes here for every side when they are missing from the side's own and model protocols.
+     * @type {boolean}
+     * @memberof UpdateProtocolRequest
+     */
+    isGlobalFallback?: boolean | null;
 }
 
 /**
@@ -52,6 +58,7 @@ export function UpdateProtocolRequestFromJSONTyped(json: any, ignoreDiscriminato
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'protocolType': json['protocolType'] === undefined ? undefined : json['protocolType'] === null ? null : json['protocolType'],
+        'isGlobalFallback': json['isGlobalFallback'] === undefined ? undefined : json['isGlobalFallback'] === null ? null : json['isGlobalFallback'],
     };
 }
 
@@ -68,6 +75,7 @@ export function UpdateProtocolRequestToJSONTyped(value?: UpdateProtocolRequest |
         
         'name': value['name'],
         'protocolType': value['protocolType'],
+        'isGlobalFallback': value['isGlobalFallback'],
     };
 }
 

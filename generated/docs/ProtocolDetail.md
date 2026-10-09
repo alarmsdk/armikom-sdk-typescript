@@ -9,6 +9,7 @@ Name | Type
 `id` | string
 `name` | string
 `protocolType` | number
+`isGlobalFallback` | boolean
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "id": null,
   "name": null,
   "protocolType": null,
+  "isGlobalFallback": null,
 } satisfies ProtocolDetail
 
 console.log(example)

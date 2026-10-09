@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `name` | string
 `protocolType` | number
+`isGlobalFallback` | boolean
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { UpdateProtocolRequest } from ''
 const example = {
   "name": null,
   "protocolType": null,
+  "isGlobalFallback": null,
 } satisfies UpdateProtocolRequest
 
 console.log(example)
