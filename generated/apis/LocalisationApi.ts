@@ -23,6 +23,27 @@ import {
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+import {
+    type SetTranslationOverrideRequest,
+    SetTranslationOverrideRequestFromJSON,
+    SetTranslationOverrideRequestToJSON,
+} from '../models/SetTranslationOverrideRequest';
+import {
+    type TranslationOverrideItem,
+    TranslationOverrideItemFromJSON,
+    TranslationOverrideItemToJSON,
+} from '../models/TranslationOverrideItem';
+import {
+    type TranslationOverridesResponse,
+    TranslationOverridesResponseFromJSON,
+    TranslationOverridesResponseToJSON,
+} from '../models/TranslationOverridesResponse';
+
+export interface LocalisationApiDeleteTranslationOverrideRequest {
+    culture: string;
+    key: string;
+    xCorrelationId?: string;
+}
 
 export interface LocalisationApiGetLocalizationBundleRequest {
     culture: string;
@@ -33,10 +54,89 @@ export interface LocalisationApiGetSupportedCulturesRequest {
     xCorrelationId?: string;
 }
 
+export interface LocalisationApiGetTranslationOverridesRequest {
+    xCorrelationId?: string;
+}
+
+export interface LocalisationApiListTranslationOverridesRequest {
+    xCorrelationId?: string;
+}
+
+export interface LocalisationApiSetTranslationOverrideOperationRequest {
+    culture: string;
+    key: string;
+    setTranslationOverrideRequest: SetTranslationOverrideRequest;
+    xCorrelationId?: string;
+}
+
 /**
  * 
  */
 export class LocalisationApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for deleteTranslationOverride without sending the request
+     */
+    async deleteTranslationOverrideRequestOpts(requestParameters: LocalisationApiDeleteTranslationOverrideRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['culture'] == null) {
+            throw new runtime.RequiredError(
+                'culture',
+                'Required parameter "culture" was null or undefined when calling deleteTranslationOverride().'
+            );
+        }
+
+        if (requestParameters['key'] == null) {
+            throw new runtime.RequiredError(
+                'key',
+                'Required parameter "key" was null or undefined when calling deleteTranslationOverride().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/translation-overrides/{culture}/{key}`;
+        urlPath = urlPath.replace('{culture}', encodeURIComponent(String(requestParameters['culture'])));
+        urlPath = urlPath.replace('{key}', encodeURIComponent(String(requestParameters['key'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove an override; the console returns to its shipped text
+     */
+    async deleteTranslationOverrideRaw(requestParameters: LocalisationApiDeleteTranslationOverrideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteTranslationOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove an override; the console returns to its shipped text
+     */
+    async deleteTranslationOverride(requestParameters: LocalisationApiDeleteTranslationOverrideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTranslationOverrideRaw(requestParameters, initOverrides);
+    }
 
     /**
      * Creates request options for getLocalizationBundle without sending the request
@@ -129,6 +229,173 @@ export class LocalisationApi extends runtime.BaseAPI {
      */
     async getSupportedCultures(requestParameters: LocalisationApiGetSupportedCulturesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
         const response = await this.getSupportedCulturesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getTranslationOverrides without sending the request
+     */
+    async getTranslationOverridesRequestOpts(requestParameters: LocalisationApiGetTranslationOverridesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+
+        let urlPath = `/v1/i18n/overrides`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Culture → key → text, applied by the console over its shipped catalogue. Anonymous so the login screen uses them too; carries no editor names. Empty when the tenant has none or has not applied the migration. Supports If-None-Match.
+     * Get the tenant\'s console text overrides
+     */
+    async getTranslationOverridesRaw(requestParameters: LocalisationApiGetTranslationOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationOverridesResponse>> {
+        const requestOptions = await this.getTranslationOverridesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TranslationOverridesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Culture → key → text, applied by the console over its shipped catalogue. Anonymous so the login screen uses them too; carries no editor names. Empty when the tenant has none or has not applied the migration. Supports If-None-Match.
+     * Get the tenant\'s console text overrides
+     */
+    async getTranslationOverrides(requestParameters: LocalisationApiGetTranslationOverridesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationOverridesResponse> {
+        const response = await this.getTranslationOverridesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listTranslationOverrides without sending the request
+     */
+    async listTranslationOverridesRequestOpts(requestParameters: LocalisationApiListTranslationOverridesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/translation-overrides`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List translation overrides with who changed them last
+     */
+    async listTranslationOverridesRaw(requestParameters: LocalisationApiListTranslationOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TranslationOverrideItem>>> {
+        const requestOptions = await this.listTranslationOverridesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TranslationOverrideItemFromJSON));
+    }
+
+    /**
+     * List translation overrides with who changed them last
+     */
+    async listTranslationOverrides(requestParameters: LocalisationApiListTranslationOverridesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TranslationOverrideItem>> {
+        const response = await this.listTranslationOverridesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for setTranslationOverride without sending the request
+     */
+    async setTranslationOverrideRequestOpts(requestParameters: LocalisationApiSetTranslationOverrideOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['culture'] == null) {
+            throw new runtime.RequiredError(
+                'culture',
+                'Required parameter "culture" was null or undefined when calling setTranslationOverride().'
+            );
+        }
+
+        if (requestParameters['key'] == null) {
+            throw new runtime.RequiredError(
+                'key',
+                'Required parameter "key" was null or undefined when calling setTranslationOverride().'
+            );
+        }
+
+        if (requestParameters['setTranslationOverrideRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setTranslationOverrideRequest',
+                'Required parameter "setTranslationOverrideRequest" was null or undefined when calling setTranslationOverride().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/translation-overrides/{culture}/{key}`;
+        urlPath = urlPath.replace('{culture}', encodeURIComponent(String(requestParameters['culture'])));
+        urlPath = urlPath.replace('{key}', encodeURIComponent(String(requestParameters['key'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetTranslationOverrideRequestToJSON(requestParameters['setTranslationOverrideRequest']),
+        };
+    }
+
+    /**
+     * Create or replace the override of one console text in one culture
+     */
+    async setTranslationOverrideRaw(requestParameters: LocalisationApiSetTranslationOverrideOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationOverrideItem>> {
+        const requestOptions = await this.setTranslationOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TranslationOverrideItemFromJSON(jsonValue));
+    }
+
+    /**
+     * Create or replace the override of one console text in one culture
+     */
+    async setTranslationOverride(requestParameters: LocalisationApiSetTranslationOverrideOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationOverrideItem> {
+        const response = await this.setTranslationOverrideRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

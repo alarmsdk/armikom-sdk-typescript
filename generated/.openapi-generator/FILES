@@ -409,6 +409,7 @@ docs/SetLocationRequest.md
 docs/SetLocationResponse.md
 docs/SetRoleFieldPolicyRequest.md
 docs/SetRoleScopesRequest.md
+docs/SetTranslationOverrideRequest.md
 docs/SetUserAlarmCategoriesRequest.md
 docs/SetUserRolesRequest.md
 docs/SideAgreementItem.md
@@ -534,6 +535,8 @@ docs/TechnicalWorkStatusResponse.md
 docs/TelephonyApi.md
 docs/TimeTableItem.md
 docs/TimeTableWriteItem.md
+docs/TranslationOverrideItem.md
+docs/TranslationOverridesResponse.md
 docs/UILayoutTemplatesApi.md
 docs/UILayoutsApi.md
 docs/UiLayoutActiveTemplateResponse.md
@@ -921,6 +924,7 @@ models/SetLocationRequest.ts
 models/SetLocationResponse.ts
 models/SetRoleFieldPolicyRequest.ts
 models/SetRoleScopesRequest.ts
+models/SetTranslationOverrideRequest.ts
 models/SetUserAlarmCategoriesRequest.ts
 models/SetUserRolesRequest.ts
 models/SideAgreementItem.ts
@@ -1023,6 +1027,8 @@ models/TechnicalWorkResponse.ts
 models/TechnicalWorkStatusResponse.ts
 models/TimeTableItem.ts
 models/TimeTableWriteItem.ts
+models/TranslationOverrideItem.ts
+models/TranslationOverridesResponse.ts
 models/UiLayoutActiveTemplateResponse.ts
 models/UiLayoutResponse.ts
 models/UiLayoutTemplateItem.ts
