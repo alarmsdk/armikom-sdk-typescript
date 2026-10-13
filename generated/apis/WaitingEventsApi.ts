@@ -24,6 +24,16 @@ import {
     BulkCancelResponseToJSON,
 } from '../models/BulkCancelResponse';
 import {
+    type BulkReleaseRequest,
+    BulkReleaseRequestFromJSON,
+    BulkReleaseRequestToJSON,
+} from '../models/BulkReleaseRequest';
+import {
+    type BulkReleaseResponse,
+    BulkReleaseResponseFromJSON,
+    BulkReleaseResponseToJSON,
+} from '../models/BulkReleaseResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -55,6 +65,18 @@ export interface WaitingEventsApiListWaitingEventsRequest {
     page?: number;
     pageSize?: number;
     xCorrelationId?: string;
+}
+
+export interface WaitingEventsApiReleaseWaitingEventRequest {
+    id: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface WaitingEventsApiReleaseWaitingEventsBulkRequest {
+    bulkReleaseRequest: BulkReleaseRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 /**
@@ -265,6 +287,133 @@ export class WaitingEventsApi extends runtime.BaseAPI {
      */
     async listWaitingEvents(requestParameters: WaitingEventsApiListWaitingEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WaitingEventListItemPagedResult> {
         const response = await this.listWaitingEventsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for releaseWaitingEvent without sending the request
+     */
+    async releaseWaitingEventRequestOpts(requestParameters: WaitingEventsApiReleaseWaitingEventRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling releaseWaitingEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/waiting-events/{id}/release`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Brings the WaitingEvent\'s DelayTime forward to now, so Engine\'s WaitingEventJob re-creates the alarm on its next cycle. The opposite of DELETE /v1/waiting-events/{id}, which drops the alarm.
+     * End a delay early — the alarm returns to the queue
+     */
+    async releaseWaitingEventRaw(requestParameters: WaitingEventsApiReleaseWaitingEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.releaseWaitingEventRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Brings the WaitingEvent\'s DelayTime forward to now, so Engine\'s WaitingEventJob re-creates the alarm on its next cycle. The opposite of DELETE /v1/waiting-events/{id}, which drops the alarm.
+     * End a delay early — the alarm returns to the queue
+     */
+    async releaseWaitingEvent(requestParameters: WaitingEventsApiReleaseWaitingEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.releaseWaitingEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for releaseWaitingEventsBulk without sending the request
+     */
+    async releaseWaitingEventsBulkRequestOpts(requestParameters: WaitingEventsApiReleaseWaitingEventsBulkRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['bulkReleaseRequest'] == null) {
+            throw new runtime.RequiredError(
+                'bulkReleaseRequest',
+                'Required parameter "bulkReleaseRequest" was null or undefined when calling releaseWaitingEventsBulk().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/waiting-events/release-bulk`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BulkReleaseRequestToJSON(requestParameters['bulkReleaseRequest']),
+        };
+    }
+
+    /**
+     * Brings DelayTime forward to now for every listed WaitingEvent. Returns the count actually released (rows Engine already re-queued are no longer there).
+     * Return multiple delayed signals to the alarm queue in one call
+     */
+    async releaseWaitingEventsBulkRaw(requestParameters: WaitingEventsApiReleaseWaitingEventsBulkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BulkReleaseResponse>> {
+        const requestOptions = await this.releaseWaitingEventsBulkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BulkReleaseResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Brings DelayTime forward to now for every listed WaitingEvent. Returns the count actually released (rows Engine already re-queued are no longer there).
+     * Return multiple delayed signals to the alarm queue in one call
+     */
+    async releaseWaitingEventsBulk(requestParameters: WaitingEventsApiReleaseWaitingEventsBulkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BulkReleaseResponse> {
+        const response = await this.releaseWaitingEventsBulkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

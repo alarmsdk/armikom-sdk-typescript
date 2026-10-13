@@ -60,7 +60,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 457 -> 464: signal rules CRUD + catalog + validate (277 paths).
   // 464 -> 477: report assistant + saved reports (D79, 286 paths).
   // 477 -> 479: MyAlarmSis signal comparison (288 paths).
-  assert.equal(ids.size, 479, 'operation count moved off the pinned contract');
+  // 479 -> 481: release a delayed alarm back to the queue (290 paths).
+  assert.equal(ids.size, 481, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

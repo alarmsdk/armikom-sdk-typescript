@@ -102,6 +102,8 @@ docs/BulkCreateResponse.md
 docs/BulkCreateSideZoneRequest.md
 docs/BulkHashResult.md
 docs/BulkHolidayRequest.md
+docs/BulkReleaseRequest.md
+docs/BulkReleaseResponse.md
 docs/BulkSendSmsRequest.md
 docs/BulkSendSmsResponse.md
 docs/BulkSideSignalTypeOverride.md
@@ -640,6 +642,8 @@ models/BulkCreateResponse.ts
 models/BulkCreateSideZoneRequest.ts
 models/BulkHashResult.ts
 models/BulkHolidayRequest.ts
+models/BulkReleaseRequest.ts
+models/BulkReleaseResponse.ts
 models/BulkSendSmsRequest.ts
 models/BulkSendSmsResponse.ts
 models/BulkSideSignalTypeOverride.ts

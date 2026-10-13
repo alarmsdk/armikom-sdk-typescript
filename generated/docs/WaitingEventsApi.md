@@ -7,6 +7,8 @@ All URIs are relative to *http://localhost*
 | [**cancelWaitingEvent**](WaitingEventsApi.md#cancelwaitingevent) | **DELETE** /v1/waiting-events/{id} | Cancel a delayed signal — the alarm will NOT resurface |
 | [**cancelWaitingEventsBulk**](WaitingEventsApi.md#cancelwaitingeventsbulk) | **POST** /v1/waiting-events/cancel-bulk | Cancel multiple delayed signals in one call |
 | [**listWaitingEvents**](WaitingEventsApi.md#listwaitingevents) | **GET** /v1/waiting-events | List delayed signals (waiting events) visible to the caller\&#39;s monitoring centre |
+| [**releaseWaitingEvent**](WaitingEventsApi.md#releasewaitingevent) | **POST** /v1/waiting-events/{id}/release | End a delay early — the alarm returns to the queue |
+| [**releaseWaitingEventsBulk**](WaitingEventsApi.md#releasewaitingeventsbulk) | **POST** /v1/waiting-events/release-bulk | Return multiple delayed signals to the alarm queue in one call |
 
 
 
@@ -259,6 +261,166 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Unauthorized |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## releaseWaitingEvent
+
+> releaseWaitingEvent(id, xCorrelationId, idempotencyKey)
+
+End a delay early — the alarm returns to the queue
+
+Brings the WaitingEvent\&#39;s DelayTime forward to now, so Engine\&#39;s WaitingEventJob re-creates the alarm on its next cycle. The opposite of DELETE /v1/waiting-events/{id}, which drops the alarm.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  WaitingEventsApi,
+} from '';
+import type { ReleaseWaitingEventRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new WaitingEventsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ReleaseWaitingEventRequest;
+
+  try {
+    const data = await api.releaseWaitingEvent(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## releaseWaitingEventsBulk
+
+> BulkReleaseResponse releaseWaitingEventsBulk(bulkReleaseRequest, xCorrelationId, idempotencyKey)
+
+Return multiple delayed signals to the alarm queue in one call
+
+Brings DelayTime forward to now for every listed WaitingEvent. Returns the count actually released (rows Engine already re-queued are no longer there).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  WaitingEventsApi,
+} from '';
+import type { ReleaseWaitingEventsBulkRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new WaitingEventsApi(config);
+
+  const body = {
+    // BulkReleaseRequest
+    bulkReleaseRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ReleaseWaitingEventsBulkRequest;
+
+  try {
+    const data = await api.releaseWaitingEventsBulk(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **bulkReleaseRequest** | [BulkReleaseRequest](BulkReleaseRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**BulkReleaseResponse**](BulkReleaseResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

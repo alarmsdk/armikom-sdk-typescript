@@ -38,6 +38,8 @@ export * from './BulkCreateResponse';
 export * from './BulkCreateSideZoneRequest';
 export * from './BulkHashResult';
 export * from './BulkHolidayRequest';
+export * from './BulkReleaseRequest';
+export * from './BulkReleaseResponse';
 export * from './BulkSendSmsRequest';
 export * from './BulkSendSmsResponse';
 export * from './BulkSideSignalTypeOverride';
