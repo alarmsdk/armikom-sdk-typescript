@@ -112788,6 +112788,12 @@
             "type": "string",
             "nullable": true
           },
+          "sourceEventId": {
+            "type": "string",
+            "description": "Set on an Engine-generated `DLY` signal (a delayed alarm brought back as its own\nsignal): the original signal it stands for. Completing the DLY alarm completes the\noriginal too.",
+            "format": "uuid",
+            "nullable": true
+          },
           "side": {
             "$ref": "#/components/schemas/SignalEventSideInfo"
           },

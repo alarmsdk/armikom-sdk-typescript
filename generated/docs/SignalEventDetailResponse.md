@@ -21,6 +21,7 @@ Name | Type
 `signalFrontColor` | string
 `signalBackColor` | string
 `rawData` | string
+`sourceEventId` | string
 `side` | [SignalEventSideInfo](SignalEventSideInfo.md)
 `contacts` | [Array&lt;SideContactItem&gt;](SideContactItem.md)
 `notes` | [Array&lt;SideNoteItem&gt;](SideNoteItem.md)
@@ -50,6 +51,7 @@ const example = {
   "signalFrontColor": null,
   "signalBackColor": null,
   "rawData": null,
+  "sourceEventId": null,
   "side": null,
   "contacts": null,
   "notes": null,

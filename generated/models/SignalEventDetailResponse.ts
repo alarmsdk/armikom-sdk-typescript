@@ -153,6 +153,14 @@ export interface SignalEventDetailResponse {
      */
     rawData?: string | null;
     /**
+     * Set on an Engine-generated `DLY` signal (a delayed alarm brought back as its own
+     * signal): the original signal it stands for. Completing the DLY alarm completes the
+     * original too.
+     * @type {string}
+     * @memberof SignalEventDetailResponse
+     */
+    sourceEventId?: string | null;
+    /**
      * 
      * @type {SignalEventSideInfo}
      * @memberof SignalEventDetailResponse
@@ -222,6 +230,7 @@ export function SignalEventDetailResponseFromJSONTyped(json: any, ignoreDiscrimi
         'signalFrontColor': json['signalFrontColor'] === undefined ? undefined : json['signalFrontColor'] === null ? null : json['signalFrontColor'],
         'signalBackColor': json['signalBackColor'] === undefined ? undefined : json['signalBackColor'] === null ? null : json['signalBackColor'],
         'rawData': json['rawData'] === undefined ? undefined : json['rawData'] === null ? null : json['rawData'],
+        'sourceEventId': json['sourceEventId'] === undefined ? undefined : json['sourceEventId'] === null ? null : json['sourceEventId'],
         'side': json['side'] == null ? undefined : SignalEventSideInfoFromJSON(json['side']),
         'contacts': json['contacts'] === undefined ? undefined : json['contacts'] === null ? null : ((json['contacts'] as Array<any>).map(SideContactItemFromJSON)),
         'notes': json['notes'] === undefined ? undefined : json['notes'] === null ? null : ((json['notes'] as Array<any>).map(SideNoteItemFromJSON)),
@@ -257,6 +266,7 @@ export function SignalEventDetailResponseToJSONTyped(value?: SignalEventDetailRe
         'signalFrontColor': value['signalFrontColor'],
         'signalBackColor': value['signalBackColor'],
         'rawData': value['rawData'],
+        'sourceEventId': value['sourceEventId'],
         'side': SignalEventSideInfoToJSON(value['side']),
         'contacts': value['contacts'] == null ? undefined : ((value['contacts'] as Array<any>).map(SideContactItemToJSON)),
         'notes': value['notes'] == null ? undefined : ((value['notes'] as Array<any>).map(SideNoteItemToJSON)),
