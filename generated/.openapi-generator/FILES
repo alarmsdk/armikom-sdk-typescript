@@ -218,6 +218,10 @@ docs/DealerSidesByStatusResponse.md
 docs/DealerStatisticsResponse.md
 docs/DealersApi.md
 docs/DeleteMobileUserResponse.md
+docs/DeletePreviewCountItem.md
+docs/DeletePreviewResponse.md
+docs/DeletedSideListItem.md
+docs/DeletedSideListItemPagedResult.md
 docs/DeviceRegexDetail.md
 docs/DialRequest.md
 docs/DialResponse.md
@@ -754,6 +758,10 @@ models/DealerSideNoReserveResponse.ts
 models/DealerSidesByStatusResponse.ts
 models/DealerStatisticsResponse.ts
 models/DeleteMobileUserResponse.ts
+models/DeletePreviewCountItem.ts
+models/DeletePreviewResponse.ts
+models/DeletedSideListItem.ts
+models/DeletedSideListItemPagedResult.ts
 models/DeviceRegexDetail.ts
 models/DialRequest.ts
 models/DialResponse.ts

@@ -15,6 +15,7 @@ All URIs are relative to *http://localhost*
 | [**deleteSideSmsConfig**](SubscriberSubResourcesApi.md#deletesidesmsconfig) | **DELETE** /v1/sides/{sideId}/sms-config/{id} | Delete an SMS notification rule |
 | [**deleteSideUser**](SubscriberSubResourcesApi.md#deletesideuser) | **DELETE** /v1/sides/{sideId}/users/{id} | Delete a user |
 | [**deleteSideZone**](SubscriberSubResourcesApi.md#deletesidezone) | **DELETE** /v1/sides/{sideId}/zones/{id} | Delete a zone |
+| [**getSideContactDeletePreview**](SubscriberSubResourcesApi.md#getsidecontactdeletepreview) | **GET** /v1/sides/{sideId}/contacts/{id}/delete-preview | Preview what deleting a contact affects |
 | [**reorderSideContacts**](SubscriberSubResourcesApi.md#reordersidecontacts) | **PUT** /v1/sides/{sideId}/contacts/order | Reorder contacts atomically |
 | [**updateSideContact**](SubscriberSubResourcesApi.md#updatesidecontactoperation) | **PUT** /v1/sides/{sideId}/contacts/{id} | Update a contact |
 | [**updateSideSmsConfig**](SubscriberSubResourcesApi.md#updatesidesmsconfigoperation) | **PUT** /v1/sides/{sideId}/sms-config/{id} | Update an SMS notification rule |
@@ -534,7 +535,7 @@ example().catch(console.error);
 
 Delete a contact
 
-Fails if the contact is referenced by an SMS configuration.
+Soft-deletes the contact: SMS, call and service-request history keep pointing at it. SMS configuration rows (sms-config) for the contact are removed. Use GET .../delete-preview to show what is affected before confirming.
 
 ### Example
 
@@ -603,7 +604,6 @@ example().catch(console.error);
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
-| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -917,6 +917,86 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSideContactDeletePreview
+
+> DeletePreviewResponse getSideContactDeletePreview(sideId, id, xCorrelationId)
+
+Preview what deleting a contact affects
+
+Read-only. willDelete: the contact\&#39;s SMS configuration rows, removed with it. kept: SMS, call and service-request history that keeps pointing at the contact.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscriberSubResourcesApi,
+} from '';
+import type { GetSideContactDeletePreviewRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscriberSubResourcesApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSideContactDeletePreviewRequest;
+
+  try {
+    const data = await api.getSideContactDeletePreview(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**DeletePreviewResponse**](DeletePreviewResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

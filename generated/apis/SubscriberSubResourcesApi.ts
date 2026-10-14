@@ -44,6 +44,11 @@ import {
     CreateSideZoneRequestToJSON,
 } from '../models/CreateSideZoneRequest';
 import {
+    type DeletePreviewResponse,
+    DeletePreviewResponseFromJSON,
+    DeletePreviewResponseToJSON,
+} from '../models/DeletePreviewResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -147,6 +152,12 @@ export interface SubscriberSubResourcesApiDeleteSideUserRequest {
 }
 
 export interface SubscriberSubResourcesApiDeleteSideZoneRequest {
+    sideId: string;
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface SubscriberSubResourcesApiGetSideContactDeletePreviewRequest {
     sideId: string;
     id: string;
     xCorrelationId?: string;
@@ -693,7 +704,7 @@ export class SubscriberSubResourcesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fails if the contact is referenced by an SMS configuration.
+     * Soft-deletes the contact: SMS, call and service-request history keep pointing at it. SMS configuration rows (sms-config) for the contact are removed. Use GET .../delete-preview to show what is affected before confirming.
      * Delete a contact
      */
     async deleteSideContactRaw(requestParameters: SubscriberSubResourcesApiDeleteSideContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -704,7 +715,7 @@ export class SubscriberSubResourcesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fails if the contact is referenced by an SMS configuration.
+     * Soft-deletes the contact: SMS, call and service-request history keep pointing at it. SMS configuration rows (sms-config) for the contact are removed. Use GET .../delete-preview to show what is affected before confirming.
      * Delete a contact
      */
     async deleteSideContact(requestParameters: SubscriberSubResourcesApiDeleteSideContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -965,6 +976,73 @@ export class SubscriberSubResourcesApi extends runtime.BaseAPI {
      */
     async deleteSideZone(requestParameters: SubscriberSubResourcesApiDeleteSideZoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSideZoneRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getSideContactDeletePreview without sending the request
+     */
+    async getSideContactDeletePreviewRequestOpts(requestParameters: SubscriberSubResourcesApiGetSideContactDeletePreviewRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling getSideContactDeletePreview().'
+            );
+        }
+
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSideContactDeletePreview().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/contacts/{id}/delete-preview`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Read-only. willDelete: the contact\'s SMS configuration rows, removed with it. kept: SMS, call and service-request history that keeps pointing at the contact.
+     * Preview what deleting a contact affects
+     */
+    async getSideContactDeletePreviewRaw(requestParameters: SubscriberSubResourcesApiGetSideContactDeletePreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeletePreviewResponse>> {
+        const requestOptions = await this.getSideContactDeletePreviewRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeletePreviewResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Read-only. willDelete: the contact\'s SMS configuration rows, removed with it. kept: SMS, call and service-request history that keeps pointing at the contact.
+     * Preview what deleting a contact affects
+     */
+    async getSideContactDeletePreview(requestParameters: SubscriberSubResourcesApiGetSideContactDeletePreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeletePreviewResponse> {
+        const response = await this.getSideContactDeletePreviewRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

@@ -11,11 +11,12 @@ All URIs are relative to *http://localhost*
 | [**createPartition**](SubscribersApi.md#createpartitionoperation) | **POST** /v1/sides/{sideId}/partitions | Create a partition of a subscriber |
 | [**createSide**](SubscribersApi.md#createsideoperation) | **POST** /v1/sides | Create a new subscriber |
 | [**deactivateSide**](SubscribersApi.md#deactivatesideoperation) | **POST** /v1/sides/{sideId}/deactivate | Set a subscriber to passive |
-| [**deleteSide**](SubscribersApi.md#deleteside) | **DELETE** /v1/sides/{sideId} | Delete a passive subscriber |
+| [**deleteSide**](SubscribersApi.md#deleteside) | **DELETE** /v1/sides/{sideId} | Delete (soft) a passive subscriber |
 | [**getSideAgreements**](SubscribersApi.md#getsideagreements) | **GET** /v1/sides/{sideId}/agreements | List agreements for a subscriber |
 | [**getSideById**](SubscribersApi.md#getsidebyid) | **GET** /v1/sides/{sideId} | Get subscriber detail by ID |
 | [**getSideContacts**](SubscribersApi.md#getsidecontacts) | **GET** /v1/sides/{sideId}/contacts | List contacts for a subscriber |
 | [**getSideControls**](SubscribersApi.md#getsidecontrols) | **GET** /v1/sides/{sideId}/controls | List control records for a subscriber |
+| [**getSideDeletePreview**](SubscribersApi.md#getsidedeletepreview) | **GET** /v1/sides/{sideId}/delete-preview | Preview what deleting a subscriber affects |
 | [**getSideDocuments**](SubscribersApi.md#getsidedocuments) | **GET** /v1/sides/{sideId}/documents | List document metadata for a subscriber |
 | [**getSideHolidays**](SubscribersApi.md#getsideholidays) | **GET** /v1/sides/{sideId}/holidays | List holidays for a subscriber |
 | [**getSideMails**](SubscribersApi.md#getsidemails) | **GET** /v1/sides/{sideId}/mails | List e-mail notification rules for a subscriber |
@@ -29,6 +30,8 @@ All URIs are relative to *http://localhost*
 | [**getSideZones**](SubscribersApi.md#getsidezones) | **GET** /v1/sides/{sideId}/zones | List zones for a subscriber |
 | [**getSides**](SubscribersApi.md#getsides) | **GET** /v1/sides | List subscribers with filtering, sorting and pagination |
 | [**getUnapprovedSides**](SubscribersApi.md#getunapprovedsides) | **GET** /v1/sides/unapproved | List unapproved active subscribers |
+| [**listDeletedSides**](SubscribersApi.md#listdeletedsides) | **GET** /v1/sides/deleted | List deleted subscribers |
+| [**restoreSide**](SubscribersApi.md#restoreside) | **POST** /v1/sides/{sideId}/restore | Restore a deleted subscriber |
 | [**updateSide**](SubscribersApi.md#updatesideoperation) | **PUT** /v1/sides/{sideId} | Update an existing subscriber |
 
 
@@ -623,9 +626,9 @@ example().catch(console.error);
 
 > deleteSide(sideId, xCorrelationId)
 
-Delete a passive subscriber
+Delete (soft) a passive subscriber
 
-Permanently deletes a subscriber. The subscriber must be passive (Active&#x3D;false). CloudAlarm subscribers cannot be deleted.
+Soft-deletes a subscriber: it disappears everywhere, its history (signals, calls, SMS) is kept, and it can be restored with POST /v1/sides/{sideId}/restore. Its number becomes free for a new subscriber. The subscriber must be passive (Active&#x3D;false). CloudAlarm subscribers cannot be deleted. GET /v1/sides/{sideId}/delete-preview shows what is linked before confirming.
 
 ### Example
 
@@ -992,6 +995,83 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSideDeletePreview
+
+> DeletePreviewResponse getSideDeletePreview(sideId, xCorrelationId)
+
+Preview what deleting a subscriber affects
+
+Read-only. Lists the rows linked to the subscriber that stay as history after the delete (signals, calls, SMS, contacts, ...) and any blockers (subscriber still active, CloudAlarm). The delete is soft, so the subscriber can be restored.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { GetSideDeletePreviewRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSideDeletePreviewRequest;
+
+  try {
+    const data = await api.getSideDeletePreview(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**DeletePreviewResponse**](DeletePreviewResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -2167,6 +2247,172 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listDeletedSides
+
+> DeletedSideListItemPagedResult listDeletedSides(q, cursor, limit, offset, xCorrelationId)
+
+List deleted subscribers
+
+Soft-deleted subscribers visible to the caller, newest deletion first. &#x60;q&#x60; matches the subscriber number exactly or the name partially.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { ListDeletedSidesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string (optional)
+    q: q_example,
+    // string (optional)
+    cursor: cursor_example,
+    // number (optional)
+    limit: 56,
+    // number (optional)
+    offset: 56,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListDeletedSidesRequest;
+
+  try {
+    const data = await api.listDeletedSides(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**DeletedSideListItemPagedResult**](DeletedSideListItemPagedResult.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## restoreSide
+
+> restoreSide(sideId, xCorrelationId, idempotencyKey)
+
+Restore a deleted subscriber
+
+Brings a soft-deleted subscriber back (still passive), together with its customer when that was deleted too. 409 SIDE.SIDE_NO_DUPLICATE when another subscriber took its number meanwhile.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { RestoreSideRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies RestoreSideRequest;
+
+  try {
+    const data = await api.restoreSide(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

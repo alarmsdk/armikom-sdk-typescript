@@ -44,6 +44,16 @@ import {
     DeactivateSideRequestToJSON,
 } from '../models/DeactivateSideRequest';
 import {
+    type DeletePreviewResponse,
+    DeletePreviewResponseFromJSON,
+    DeletePreviewResponseToJSON,
+} from '../models/DeletePreviewResponse';
+import {
+    type DeletedSideListItemPagedResult,
+    DeletedSideListItemPagedResultFromJSON,
+    DeletedSideListItemPagedResultToJSON,
+} from '../models/DeletedSideListItemPagedResult';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -231,6 +241,11 @@ export interface SubscribersApiGetSideControlsRequest {
     xCorrelationId?: string;
 }
 
+export interface SubscribersApiGetSideDeletePreviewRequest {
+    sideId: string;
+    xCorrelationId?: string;
+}
+
 export interface SubscribersApiGetSideDocumentsRequest {
     sideId: string;
     xCorrelationId?: string;
@@ -359,6 +374,20 @@ export interface SubscribersApiGetUnapprovedSidesRequest {
     pageSize?: number;
     offset?: number;
     xCorrelationId?: string;
+}
+
+export interface SubscribersApiListDeletedSidesRequest {
+    q?: string;
+    cursor?: string;
+    limit?: number;
+    offset?: number;
+    xCorrelationId?: string;
+}
+
+export interface SubscribersApiRestoreSideRequest {
+    sideId: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface SubscribersApiUpdateSideOperationRequest {
@@ -893,8 +922,8 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Permanently deletes a subscriber. The subscriber must be passive (Active=false). CloudAlarm subscribers cannot be deleted.
-     * Delete a passive subscriber
+     * Soft-deletes a subscriber: it disappears everywhere, its history (signals, calls, SMS) is kept, and it can be restored with POST /v1/sides/{sideId}/restore. Its number becomes free for a new subscriber. The subscriber must be passive (Active=false). CloudAlarm subscribers cannot be deleted. GET /v1/sides/{sideId}/delete-preview shows what is linked before confirming.
+     * Delete (soft) a passive subscriber
      */
     async deleteSideRaw(requestParameters: SubscribersApiDeleteSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const requestOptions = await this.deleteSideRequestOpts(requestParameters);
@@ -904,8 +933,8 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Permanently deletes a subscriber. The subscriber must be passive (Active=false). CloudAlarm subscribers cannot be deleted.
-     * Delete a passive subscriber
+     * Soft-deletes a subscriber: it disappears everywhere, its history (signals, calls, SMS) is kept, and it can be restored with POST /v1/sides/{sideId}/restore. Its number becomes free for a new subscriber. The subscriber must be passive (Active=false). CloudAlarm subscribers cannot be deleted. GET /v1/sides/{sideId}/delete-preview shows what is linked before confirming.
+     * Delete (soft) a passive subscriber
      */
     async deleteSide(requestParameters: SubscribersApiDeleteSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteSideRaw(requestParameters, initOverrides);
@@ -1140,6 +1169,65 @@ export class SubscribersApi extends runtime.BaseAPI {
      */
     async getSideControls(requestParameters: SubscribersApiGetSideControlsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SideControlItem>> {
         const response = await this.getSideControlsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSideDeletePreview without sending the request
+     */
+    async getSideDeletePreviewRequestOpts(requestParameters: SubscribersApiGetSideDeletePreviewRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling getSideDeletePreview().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/delete-preview`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Read-only. Lists the rows linked to the subscriber that stay as history after the delete (signals, calls, SMS, contacts, ...) and any blockers (subscriber still active, CloudAlarm). The delete is soft, so the subscriber can be restored.
+     * Preview what deleting a subscriber affects
+     */
+    async getSideDeletePreviewRaw(requestParameters: SubscribersApiGetSideDeletePreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeletePreviewResponse>> {
+        const requestOptions = await this.getSideDeletePreviewRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeletePreviewResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Read-only. Lists the rows linked to the subscriber that stay as history after the delete (signals, calls, SMS, contacts, ...) and any blockers (subscriber still active, CloudAlarm). The delete is soft, so the subscriber can be restored.
+     * Preview what deleting a subscriber affects
+     */
+    async getSideDeletePreview(requestParameters: SubscribersApiGetSideDeletePreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeletePreviewResponse> {
+        const response = await this.getSideDeletePreviewRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -2152,6 +2240,135 @@ export class SubscribersApi extends runtime.BaseAPI {
     async getUnapprovedSides(requestParameters: SubscribersApiGetUnapprovedSidesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideListItemPagedResult> {
         const response = await this.getUnapprovedSidesRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Creates request options for listDeletedSides without sending the request
+     */
+    async listDeletedSidesRequestOpts(requestParameters: SubscribersApiListDeletedSidesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/deleted`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Soft-deleted subscribers visible to the caller, newest deletion first. `q` matches the subscriber number exactly or the name partially.
+     * List deleted subscribers
+     */
+    async listDeletedSidesRaw(requestParameters: SubscribersApiListDeletedSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeletedSideListItemPagedResult>> {
+        const requestOptions = await this.listDeletedSidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DeletedSideListItemPagedResultFromJSON(jsonValue));
+    }
+
+    /**
+     * Soft-deleted subscribers visible to the caller, newest deletion first. `q` matches the subscriber number exactly or the name partially.
+     * List deleted subscribers
+     */
+    async listDeletedSides(requestParameters: SubscribersApiListDeletedSidesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeletedSideListItemPagedResult> {
+        const response = await this.listDeletedSidesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for restoreSide without sending the request
+     */
+    async restoreSideRequestOpts(requestParameters: SubscribersApiRestoreSideRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling restoreSide().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/restore`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Brings a soft-deleted subscriber back (still passive), together with its customer when that was deleted too. 409 SIDE.SIDE_NO_DUPLICATE when another subscriber took its number meanwhile.
+     * Restore a deleted subscriber
+     */
+    async restoreSideRaw(requestParameters: SubscribersApiRestoreSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.restoreSideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Brings a soft-deleted subscriber back (still passive), together with its customer when that was deleted too. 409 SIDE.SIDE_NO_DUPLICATE when another subscriber took its number meanwhile.
+     * Restore a deleted subscriber
+     */
+    async restoreSide(requestParameters: SubscribersApiRestoreSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.restoreSideRaw(requestParameters, initOverrides);
     }
 
     /**

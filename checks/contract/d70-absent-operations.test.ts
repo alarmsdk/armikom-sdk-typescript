@@ -62,7 +62,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 477 -> 479: MyAlarmSis signal comparison (288 paths).
   // 479 -> 481: release a delayed alarm back to the queue (290 paths).
   // 481 -> 485: tenant translation overrides, D82 (293 paths).
-  assert.equal(ids.size, 485, 'operation count moved off the pinned contract');
+  // 485 -> 489: soft delete — side/contact delete previews, deleted sides, restore (297 paths).
+  assert.equal(ids.size, 489, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }
