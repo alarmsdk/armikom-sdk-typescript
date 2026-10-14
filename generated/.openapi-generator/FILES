@@ -341,9 +341,11 @@ docs/QuickCompleteAlarmResponse.md
 docs/ReceiverBlockRequest.md
 docs/ReceiverBlockResponse.md
 docs/ReceiverDetail.md
+docs/ReceiverFallbackMonitoringCenterItem.md
 docs/ReceiverItem.md
 docs/ReceiverLineDetail.md
 docs/ReceiverLineTypeDetail.md
+docs/ReceiverMcFallbackDetail.md
 docs/ReceiverRuleDetail.md
 docs/ReceiverTypeDetail.md
 docs/ReferenceBundleResponse.md
@@ -390,6 +392,7 @@ docs/SaveProductRequest.md
 docs/SavePromptRequest.md
 docs/SaveReceiverLineRequest.md
 docs/SaveReceiverLineTypeRequest.md
+docs/SaveReceiverMcFallbackRequest.md
 docs/SaveReceiverRuleRequest.md
 docs/SaveReceiverTypeRequest.md
 docs/SaveReportProposalRequest.md
@@ -869,9 +872,11 @@ models/QuickCompleteAlarmResponse.ts
 models/ReceiverBlockRequest.ts
 models/ReceiverBlockResponse.ts
 models/ReceiverDetail.ts
+models/ReceiverFallbackMonitoringCenterItem.ts
 models/ReceiverItem.ts
 models/ReceiverLineDetail.ts
 models/ReceiverLineTypeDetail.ts
+models/ReceiverMcFallbackDetail.ts
 models/ReceiverRuleDetail.ts
 models/ReceiverTypeDetail.ts
 models/ReferenceBundleResponse.ts
@@ -913,6 +918,7 @@ models/SaveProductRequest.ts
 models/SavePromptRequest.ts
 models/SaveReceiverLineRequest.ts
 models/SaveReceiverLineTypeRequest.ts
+models/SaveReceiverMcFallbackRequest.ts
 models/SaveReceiverRuleRequest.ts
 models/SaveReceiverTypeRequest.ts
 models/SaveReportProposalRequest.ts

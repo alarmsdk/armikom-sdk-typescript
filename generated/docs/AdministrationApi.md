@@ -39,6 +39,7 @@ All URIs are relative to *http://localhost*
 | [**getPhoneAuditEntityDetail**](AdministrationApi.md#getphoneauditentitydetail) | **GET** /v1/admin/phone-audit/detail/{entity} | List phone numbers needing normalisation for one entity |
 | [**getPhoneAuditSummary**](AdministrationApi.md#getphoneauditsummary) | **GET** /v1/admin/phone-audit/summary | Summary of phone numbers across all entities |
 | [**getPrompt**](AdministrationApi.md#getprompt) | **GET** /v1/admin/prompts/{id} | Get an AI prompt template |
+| [**getReceiverMcFallback**](AdministrationApi.md#getreceivermcfallback) | **GET** /v1/admin/receivers/{receiverId}/mc-fallback | Get a receiver\&#39;s monitoring centre fallback |
 | [**getReceiverType**](AdministrationApi.md#getreceivertype) | **GET** /v1/admin/receiver-types/{id} | Get a receiver type |
 | [**getSidesWithDataIssues**](AdministrationApi.md#getsideswithdataissues) | **GET** /v1/admin/sides-data-issues | List subscribers with brand/model/protocol data issues |
 | [**getSmsSetting**](AdministrationApi.md#getsmssetting) | **GET** /v1/admin/sms-settings/{id} | Get an SMS gateway profile |
@@ -56,6 +57,7 @@ All URIs are relative to *http://localhost*
 | [**listReceiverTypes**](AdministrationApi.md#listreceivertypes) | **GET** /v1/admin/receiver-types | List receiver types |
 | [**listSmsSettings**](AdministrationApi.md#listsmssettings) | **GET** /v1/admin/sms-settings | List SMS gateway profiles |
 | [**normalizePhones**](AdministrationApi.md#normalizephones) | **POST** /v1/admin/phone-audit/normalize | Batch-normalise phone numbers |
+| [**saveReceiverMcFallback**](AdministrationApi.md#savereceivermcfallbackoperation) | **PUT** /v1/admin/receivers/{receiverId}/mc-fallback | Replace a receiver\&#39;s monitoring centre fallback |
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
 | [**updateEmergencyPhone**](AdministrationApi.md#updateemergencyphone) | **PATCH** /v1/admin/emergency-phones/{id} | Update an emergency contact |
 | [**updateMailSetting**](AdministrationApi.md#updatemailsettingoperation) | **PATCH** /v1/admin/mail-settings/{id} | Update an SMTP profile |
@@ -2792,6 +2794,83 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getReceiverMcFallback
+
+> ReceiverMcFallbackDetail getReceiverMcFallback(receiverId, xCorrelationId)
+
+Get a receiver\&#39;s monitoring centre fallback
+
+Where the Engine looks for a subscriber missing from the receiver\&#39;s own centre: the listed centres in order, then every centre when crossMcSideLookup (or, when null, the Engine setting) is on.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetReceiverMcFallbackRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    receiverId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetReceiverMcFallbackRequest;
+
+  try {
+    const data = await api.getReceiverMcFallback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **receiverId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReceiverMcFallbackDetail**](ReceiverMcFallbackDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getReceiverType
 
 > ReceiverTypeDetail getReceiverType(id, xCorrelationId)
@@ -4044,6 +4123,87 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## saveReceiverMcFallback
+
+> AdminWriteResponse saveReceiverMcFallback(receiverId, saveReceiverMcFallbackRequest, xCorrelationId)
+
+Replace a receiver\&#39;s monitoring centre fallback
+
+monitoringCenterIds is the search order and may not include the receiver\&#39;s own centre. crossMcSideLookup null follows the Engine setting; true or false overrides it. Cross-centre operators only.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { SaveReceiverMcFallbackOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    receiverId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SaveReceiverMcFallbackRequest
+    saveReceiverMcFallbackRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SaveReceiverMcFallbackOperationRequest;
+
+  try {
+    const data = await api.saveReceiverMcFallback(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **receiverId** | `string` |  | [Defaults to `undefined`] |
+| **saveReceiverMcFallbackRequest** | [SaveReceiverMcFallbackRequest](SaveReceiverMcFallbackRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

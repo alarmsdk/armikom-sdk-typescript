@@ -134,6 +134,11 @@ import {
     ReceiverLineTypeDetailToJSON,
 } from '../models/ReceiverLineTypeDetail';
 import {
+    type ReceiverMcFallbackDetail,
+    ReceiverMcFallbackDetailFromJSON,
+    ReceiverMcFallbackDetailToJSON,
+} from '../models/ReceiverMcFallbackDetail';
+import {
     type ReceiverRuleDetail,
     ReceiverRuleDetailFromJSON,
     ReceiverRuleDetailToJSON,
@@ -168,6 +173,11 @@ import {
     SaveReceiverLineTypeRequestFromJSON,
     SaveReceiverLineTypeRequestToJSON,
 } from '../models/SaveReceiverLineTypeRequest';
+import {
+    type SaveReceiverMcFallbackRequest,
+    SaveReceiverMcFallbackRequestFromJSON,
+    SaveReceiverMcFallbackRequestToJSON,
+} from '../models/SaveReceiverMcFallbackRequest';
 import {
     type SaveReceiverRuleRequest,
     SaveReceiverRuleRequestFromJSON,
@@ -405,6 +415,11 @@ export interface AdministrationApiGetPromptRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetReceiverMcFallbackRequest {
+    receiverId: string;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetReceiverTypeRequest {
     id: string;
     xCorrelationId?: string;
@@ -482,6 +497,12 @@ export interface AdministrationApiNormalizePhonesRequest {
     dryRun?: boolean;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface AdministrationApiSaveReceiverMcFallbackOperationRequest {
+    receiverId: string;
+    saveReceiverMcFallbackRequest: SaveReceiverMcFallbackRequest;
+    xCorrelationId?: string;
 }
 
 export interface AdministrationApiUpdateDeviceRegexRequest {
@@ -2690,6 +2711,65 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getReceiverMcFallback without sending the request
+     */
+    async getReceiverMcFallbackRequestOpts(requestParameters: AdministrationApiGetReceiverMcFallbackRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling getReceiverMcFallback().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/mc-fallback`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Where the Engine looks for a subscriber missing from the receiver\'s own centre: the listed centres in order, then every centre when crossMcSideLookup (or, when null, the Engine setting) is on.
+     * Get a receiver\'s monitoring centre fallback
+     */
+    async getReceiverMcFallbackRaw(requestParameters: AdministrationApiGetReceiverMcFallbackRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReceiverMcFallbackDetail>> {
+        const requestOptions = await this.getReceiverMcFallbackRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReceiverMcFallbackDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Where the Engine looks for a subscriber missing from the receiver\'s own centre: the listed centres in order, then every centre when crossMcSideLookup (or, when null, the Engine setting) is on.
+     * Get a receiver\'s monitoring centre fallback
+     */
+    async getReceiverMcFallback(requestParameters: AdministrationApiGetReceiverMcFallbackRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReceiverMcFallbackDetail> {
+        const response = await this.getReceiverMcFallbackRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getReceiverType without sending the request
      */
     async getReceiverTypeRequestOpts(requestParameters: AdministrationApiGetReceiverTypeRequest): Promise<runtime.RequestOpts> {
@@ -3599,6 +3679,75 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async normalizePhones(requestParameters: AdministrationApiNormalizePhonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PhoneNormalizationResult> {
         const response = await this.normalizePhonesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for saveReceiverMcFallback without sending the request
+     */
+    async saveReceiverMcFallbackRequestOpts(requestParameters: AdministrationApiSaveReceiverMcFallbackOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['receiverId'] == null) {
+            throw new runtime.RequiredError(
+                'receiverId',
+                'Required parameter "receiverId" was null or undefined when calling saveReceiverMcFallback().'
+            );
+        }
+
+        if (requestParameters['saveReceiverMcFallbackRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveReceiverMcFallbackRequest',
+                'Required parameter "saveReceiverMcFallbackRequest" was null or undefined when calling saveReceiverMcFallback().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/receivers/{receiverId}/mc-fallback`;
+        urlPath = urlPath.replace('{receiverId}', encodeURIComponent(String(requestParameters['receiverId'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveReceiverMcFallbackRequestToJSON(requestParameters['saveReceiverMcFallbackRequest']),
+        };
+    }
+
+    /**
+     * monitoringCenterIds is the search order and may not include the receiver\'s own centre. crossMcSideLookup null follows the Engine setting; true or false overrides it. Cross-centre operators only.
+     * Replace a receiver\'s monitoring centre fallback
+     */
+    async saveReceiverMcFallbackRaw(requestParameters: AdministrationApiSaveReceiverMcFallbackOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.saveReceiverMcFallbackRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * monitoringCenterIds is the search order and may not include the receiver\'s own centre. crossMcSideLookup null follows the Engine setting; true or false overrides it. Cross-centre operators only.
+     * Replace a receiver\'s monitoring centre fallback
+     */
+    async saveReceiverMcFallback(requestParameters: AdministrationApiSaveReceiverMcFallbackOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.saveReceiverMcFallbackRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
