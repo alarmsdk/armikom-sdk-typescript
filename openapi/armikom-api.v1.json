@@ -66778,7 +66778,7 @@
           "Signal Events"
         ],
         "summary": "Delay a signal event by creating a WaitingEvent",
-        "description": "Postpones an alarm by moving it into the WaitingEvent table. Engine's WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. The originating AlarmEvent is NOT deleted — matching the existing Blazor and XAF behaviour. Accepts Minute, Hour, and Day time units.",
+        "description": "Postpones an alarm by moving it into the WaitingEvent table. Engine's WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. Any open AlarmEvent of the signal is removed from the queue (alarm-list-updated is published), so the alarm comes back only once, when the delay expires. Accepts Minute, Hour, and Day time units.",
         "operationId": "DelaySignal",
         "parameters": [
           {
@@ -101300,6 +101300,20 @@
         },
         "additionalProperties": false
       },
+      "AlarmCategoryRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AlarmEventDetailResponse": {
         "type": "object",
         "properties": {
@@ -105232,6 +105246,24 @@
             },
             "nullable": true
           },
+          "sourceAlarmCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.CreateSignalRelationRequest.SourceSignalTypeIds.",
+            "nullable": true
+          },
+          "targetAlarmCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.CreateSignalRelationRequest.TargetSignalTypeIds.",
+            "nullable": true
+          },
           "sideIds": {
             "type": "array",
             "items": {
@@ -105242,7 +105274,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "Create body. The three membership lists are replace-all sets of ids."
+        "description": "Create body. The membership lists are replace-all sets of ids. Alarm categories are\naccepted on REMOVE and DELAY rules only."
       },
       "CreateSignalRelationTypeRequest": {
         "type": "object",
@@ -114485,6 +114517,20 @@
         },
         "additionalProperties": false
       },
+      "SignalRelationAlarmCategoryRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SignalRelationDetail": {
         "type": "object",
         "properties": {
@@ -114560,6 +114606,22 @@
             "items": {
               "$ref": "#/components/schemas/SignalTypeRef"
             },
+            "nullable": true
+          },
+          "sourceAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmCategoryRef"
+            },
+            "description": "REMOVE and DELAY only: alarm categories that also trigger the rule, ORed with the source types.",
+            "nullable": true
+          },
+          "targetAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlarmCategoryRef"
+            },
+            "description": "REMOVE and DELAY only: alarm categories whose open alarms are also cleared or delayed, ORed with the target types.",
             "nullable": true
           },
           "sides": {
@@ -114649,6 +114711,22 @@
             "items": {
               "$ref": "#/components/schemas/SignalRelationSignalTypeRef"
             },
+            "nullable": true
+          },
+          "sourceAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SignalRelationAlarmCategoryRef"
+            },
+            "description": "REMOVE and DELAY only: alarm categories that also trigger the rule, ORed with\nArmikom.Api.Contracts.Reference.SignalRelationItem.SourceSignalTypes.",
+            "nullable": true
+          },
+          "targetAlarmCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SignalRelationAlarmCategoryRef"
+            },
+            "description": "REMOVE and DELAY only: alarm categories whose open alarms are also cleared or delayed, ORed with\nArmikom.Api.Contracts.Reference.SignalRelationItem.TargetSignalTypes.",
             "nullable": true
           },
           "sides": {
@@ -117736,6 +117814,24 @@
               "type": "string",
               "format": "uuid"
             },
+            "nullable": true
+          },
+          "sourceAlarmCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.SourceSignalTypeIds.",
+            "nullable": true
+          },
+          "targetAlarmCategoryIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TargetSignalTypeIds.",
             "nullable": true
           },
           "sideIds": {

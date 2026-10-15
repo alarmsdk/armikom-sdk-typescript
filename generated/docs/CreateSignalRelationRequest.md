@@ -1,7 +1,7 @@
 
 # CreateSignalRelationRequest
 
-Create body. The three membership lists are replace-all sets of ids.
+Create body. The membership lists are replace-all sets of ids. Alarm categories are accepted on REMOVE and DELAY rules only.
 
 ## Properties
 
@@ -18,6 +18,8 @@ Name | Type
 `validTo` | Date
 `sourceSignalTypeIds` | Array&lt;string&gt;
 `targetSignalTypeIds` | Array&lt;string&gt;
+`sourceAlarmCategoryIds` | Array&lt;string&gt;
+`targetAlarmCategoryIds` | Array&lt;string&gt;
 `sideIds` | Array&lt;string&gt;
 
 ## Example
@@ -38,6 +40,8 @@ const example = {
   "validTo": null,
   "sourceSignalTypeIds": null,
   "targetSignalTypeIds": null,
+  "sourceAlarmCategoryIds": null,
+  "targetAlarmCategoryIds": null,
   "sideIds": null,
 } satisfies CreateSignalRelationRequest
 

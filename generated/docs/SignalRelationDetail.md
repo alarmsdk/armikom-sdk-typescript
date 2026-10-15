@@ -21,6 +21,8 @@ Name | Type
 `validTo` | Date
 `sourceSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
 `targetSignalTypes` | [Array&lt;SignalTypeRef&gt;](SignalTypeRef.md)
+`sourceAlarmCategories` | [Array&lt;AlarmCategoryRef&gt;](AlarmCategoryRef.md)
+`targetAlarmCategories` | [Array&lt;AlarmCategoryRef&gt;](AlarmCategoryRef.md)
 `sides` | [Array&lt;SideRef&gt;](SideRef.md)
 
 ## Example
@@ -44,6 +46,8 @@ const example = {
   "validTo": null,
   "sourceSignalTypes": null,
   "targetSignalTypes": null,
+  "sourceAlarmCategories": null,
+  "targetAlarmCategories": null,
   "sides": null,
 } satisfies SignalRelationDetail
 

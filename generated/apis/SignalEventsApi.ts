@@ -445,7 +445,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Postpones an alarm by moving it into the WaitingEvent table. Engine\'s WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. The originating AlarmEvent is NOT deleted — matching the existing Blazor and XAF behaviour. Accepts Minute, Hour, and Day time units.
+     * Postpones an alarm by moving it into the WaitingEvent table. Engine\'s WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. Any open AlarmEvent of the signal is removed from the queue (alarm-list-updated is published), so the alarm comes back only once, when the delay expires. Accepts Minute, Hour, and Day time units.
      * Delay a signal event by creating a WaitingEvent
      */
     async delaySignalRaw(requestParameters: SignalEventsApiDelaySignalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SignalDelayResponse>> {
@@ -456,7 +456,7 @@ export class SignalEventsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Postpones an alarm by moving it into the WaitingEvent table. Engine\'s WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. The originating AlarmEvent is NOT deleted — matching the existing Blazor and XAF behaviour. Accepts Minute, Hour, and Day time units.
+     * Postpones an alarm by moving it into the WaitingEvent table. Engine\'s WaitingEventJob resurfaces it as an AlarmEvent once the delay expires. Any open AlarmEvent of the signal is removed from the queue (alarm-list-updated is published), so the alarm comes back only once, when the delay expires. Accepts Minute, Hour, and Day time units.
      * Delay a signal event by creating a WaitingEvent
      */
     async delaySignal(requestParameters: SignalEventsApiDelaySignalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SignalDelayResponse> {

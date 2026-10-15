@@ -73,6 +73,7 @@ docs/AdvisoryDto.md
 docs/AdvisoryNoteDto.md
 docs/AlarmCategoryAssignment.md
 docs/AlarmCategoryDetail.md
+docs/AlarmCategoryRef.md
 docs/AlarmEventDetailResponse.md
 docs/AlarmEventListItem.md
 docs/AlarmEventSortBy.md
@@ -479,6 +480,7 @@ docs/SignalExplanationDetail.md
 docs/SignalExplanationDto.md
 docs/SignalExplanationsApi.md
 docs/SignalExportRequest.md
+docs/SignalRelationAlarmCategoryRef.md
 docs/SignalRelationDetail.md
 docs/SignalRelationItem.md
 docs/SignalRelationItemPagedResult.md
@@ -625,6 +627,7 @@ models/AdvisoryDto.ts
 models/AdvisoryNoteDto.ts
 models/AlarmCategoryAssignment.ts
 models/AlarmCategoryDetail.ts
+models/AlarmCategoryRef.ts
 models/AlarmEventDetailResponse.ts
 models/AlarmEventListItem.ts
 models/AlarmEventSortBy.ts
@@ -997,6 +1000,7 @@ models/SignalEventSideInfo.ts
 models/SignalExplanationDetail.ts
 models/SignalExplanationDto.ts
 models/SignalExportRequest.ts
+models/SignalRelationAlarmCategoryRef.ts
 models/SignalRelationDetail.ts
 models/SignalRelationItem.ts
 models/SignalRelationItemPagedResult.ts

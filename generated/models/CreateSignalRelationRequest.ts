@@ -14,7 +14,8 @@
 
 import { mapValues } from '../runtime';
 /**
- * Create body. The three membership lists are replace-all sets of ids.
+ * Create body. The membership lists are replace-all sets of ids. Alarm categories are
+ * accepted on REMOVE and DELAY rules only.
  * @export
  * @interface CreateSignalRelationRequest
  */
@@ -86,6 +87,18 @@ export interface CreateSignalRelationRequest {
      */
     targetSignalTypeIds?: Array<string> | null;
     /**
+     * REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.CreateSignalRelationRequest.SourceSignalTypeIds.
+     * @type {Array<string>}
+     * @memberof CreateSignalRelationRequest
+     */
+    sourceAlarmCategoryIds?: Array<string> | null;
+    /**
+     * REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.CreateSignalRelationRequest.TargetSignalTypeIds.
+     * @type {Array<string>}
+     * @memberof CreateSignalRelationRequest
+     */
+    targetAlarmCategoryIds?: Array<string> | null;
+    /**
      * 
      * @type {Array<string>}
      * @memberof CreateSignalRelationRequest
@@ -121,6 +134,8 @@ export function CreateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
         'validTo': json['validTo'] === undefined ? undefined : json['validTo'] === null ? null : (new Date(json['validTo'])),
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
+        'sourceAlarmCategoryIds': json['sourceAlarmCategoryIds'] === undefined ? undefined : json['sourceAlarmCategoryIds'] === null ? null : json['sourceAlarmCategoryIds'],
+        'targetAlarmCategoryIds': json['targetAlarmCategoryIds'] === undefined ? undefined : json['targetAlarmCategoryIds'] === null ? null : json['targetAlarmCategoryIds'],
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
     };
 }
@@ -147,6 +162,8 @@ export function CreateSignalRelationRequestToJSONTyped(value?: CreateSignalRelat
         'validTo': value['validTo'] == null ? value['validTo'] : value['validTo'].toISOString(),
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
+        'sourceAlarmCategoryIds': value['sourceAlarmCategoryIds'],
+        'targetAlarmCategoryIds': value['targetAlarmCategoryIds'],
         'sideIds': value['sideIds'],
     };
 }

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { AlarmCategoryRef } from './AlarmCategoryRef';
+import {
+    AlarmCategoryRefFromJSON,
+    AlarmCategoryRefFromJSONTyped,
+    AlarmCategoryRefToJSON,
+    AlarmCategoryRefToJSONTyped,
+} from './AlarmCategoryRef';
 import type { SignalTypeRef } from './SignalTypeRef';
 import {
     SignalTypeRefFromJSON,
@@ -123,6 +130,18 @@ export interface SignalRelationDetail {
      */
     targetSignalTypes?: Array<SignalTypeRef> | null;
     /**
+     * REMOVE and DELAY only: alarm categories that also trigger the rule, ORed with the source types.
+     * @type {Array<AlarmCategoryRef>}
+     * @memberof SignalRelationDetail
+     */
+    sourceAlarmCategories?: Array<AlarmCategoryRef> | null;
+    /**
+     * REMOVE and DELAY only: alarm categories whose open alarms are also cleared or delayed, ORed with the target types.
+     * @type {Array<AlarmCategoryRef>}
+     * @memberof SignalRelationDetail
+     */
+    targetAlarmCategories?: Array<AlarmCategoryRef> | null;
+    /**
      * The subscribers this rule is scoped to when Armikom.Api.Contracts.Admin.SignalRelationDetail.Global is false.
      * @type {Array<SideRef>}
      * @memberof SignalRelationDetail
@@ -161,6 +180,8 @@ export function SignalRelationDetailFromJSONTyped(json: any, ignoreDiscriminator
         'validTo': json['validTo'] === undefined ? undefined : json['validTo'] === null ? null : (new Date(json['validTo'])),
         'sourceSignalTypes': json['sourceSignalTypes'] === undefined ? undefined : json['sourceSignalTypes'] === null ? null : ((json['sourceSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
         'targetSignalTypes': json['targetSignalTypes'] === undefined ? undefined : json['targetSignalTypes'] === null ? null : ((json['targetSignalTypes'] as Array<any>).map(SignalTypeRefFromJSON)),
+        'sourceAlarmCategories': json['sourceAlarmCategories'] === undefined ? undefined : json['sourceAlarmCategories'] === null ? null : ((json['sourceAlarmCategories'] as Array<any>).map(AlarmCategoryRefFromJSON)),
+        'targetAlarmCategories': json['targetAlarmCategories'] === undefined ? undefined : json['targetAlarmCategories'] === null ? null : ((json['targetAlarmCategories'] as Array<any>).map(AlarmCategoryRefFromJSON)),
         'sides': json['sides'] === undefined ? undefined : json['sides'] === null ? null : ((json['sides'] as Array<any>).map(SideRefFromJSON)),
     };
 }
@@ -190,6 +211,8 @@ export function SignalRelationDetailToJSONTyped(value?: SignalRelationDetail | n
         'validTo': value['validTo'] == null ? value['validTo'] : value['validTo'].toISOString(),
         'sourceSignalTypes': value['sourceSignalTypes'] == null ? undefined : ((value['sourceSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
         'targetSignalTypes': value['targetSignalTypes'] == null ? undefined : ((value['targetSignalTypes'] as Array<any>).map(SignalTypeRefToJSON)),
+        'sourceAlarmCategories': value['sourceAlarmCategories'] == null ? undefined : ((value['sourceAlarmCategories'] as Array<any>).map(AlarmCategoryRefToJSON)),
+        'targetAlarmCategories': value['targetAlarmCategories'] == null ? undefined : ((value['targetAlarmCategories'] as Array<any>).map(AlarmCategoryRefToJSON)),
         'sides': value['sides'] == null ? undefined : ((value['sides'] as Array<any>).map(SideRefToJSON)),
     };
 }

@@ -93,6 +93,18 @@ export interface UpdateSignalRelationRequest {
      */
     targetSignalTypeIds?: Array<string> | null;
     /**
+     * REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.SourceSignalTypeIds.
+     * @type {Array<string>}
+     * @memberof UpdateSignalRelationRequest
+     */
+    sourceAlarmCategoryIds?: Array<string> | null;
+    /**
+     * REMOVE and DELAY only. ORed with Armikom.Api.Contracts.Admin.UpdateSignalRelationRequest.TargetSignalTypeIds.
+     * @type {Array<string>}
+     * @memberof UpdateSignalRelationRequest
+     */
+    targetAlarmCategoryIds?: Array<string> | null;
+    /**
      * 
      * @type {Array<string>}
      * @memberof UpdateSignalRelationRequest
@@ -128,6 +140,8 @@ export function UpdateSignalRelationRequestFromJSONTyped(json: any, ignoreDiscri
         'validTo': json['validTo'] === undefined ? undefined : json['validTo'] === null ? null : (new Date(json['validTo'])),
         'sourceSignalTypeIds': json['sourceSignalTypeIds'] === undefined ? undefined : json['sourceSignalTypeIds'] === null ? null : json['sourceSignalTypeIds'],
         'targetSignalTypeIds': json['targetSignalTypeIds'] === undefined ? undefined : json['targetSignalTypeIds'] === null ? null : json['targetSignalTypeIds'],
+        'sourceAlarmCategoryIds': json['sourceAlarmCategoryIds'] === undefined ? undefined : json['sourceAlarmCategoryIds'] === null ? null : json['sourceAlarmCategoryIds'],
+        'targetAlarmCategoryIds': json['targetAlarmCategoryIds'] === undefined ? undefined : json['targetAlarmCategoryIds'] === null ? null : json['targetAlarmCategoryIds'],
         'sideIds': json['sideIds'] === undefined ? undefined : json['sideIds'] === null ? null : json['sideIds'],
     };
 }
@@ -154,6 +168,8 @@ export function UpdateSignalRelationRequestToJSONTyped(value?: UpdateSignalRelat
         'validTo': value['validTo'] == null ? value['validTo'] : value['validTo'].toISOString(),
         'sourceSignalTypeIds': value['sourceSignalTypeIds'],
         'targetSignalTypeIds': value['targetSignalTypeIds'],
+        'sourceAlarmCategoryIds': value['sourceAlarmCategoryIds'],
+        'targetAlarmCategoryIds': value['targetAlarmCategoryIds'],
         'sideIds': value['sideIds'],
     };
 }
