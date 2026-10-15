@@ -161,6 +161,7 @@ docs/CreateHolidayRequest.md
 docs/CreateHolidayTypeRequest.md
 docs/CreateIntegrationClientRequest.md
 docs/CreateMailSettingRequest.md
+docs/CreateMobileAgreementRequest.md
 docs/CreateMobileUserRequest.md
 docs/CreateModelProtocolRequest.md
 docs/CreateModelRequest.md
@@ -272,6 +273,8 @@ docs/LoginRequest.md
 docs/LoginResponse.md
 docs/LookupItem.md
 docs/MailSettingDetail.md
+docs/MobileAgreementConsentItem.md
+docs/MobileAgreementDetail.md
 docs/MobileMessageItem.md
 docs/MobileMessageItemPagedResult.md
 docs/MobileOperatorDetail.md
@@ -567,6 +570,7 @@ docs/UpdateDistrictRequest.md
 docs/UpdateHolidayRequest.md
 docs/UpdateHolidayTypeRequest.md
 docs/UpdateMailSettingRequest.md
+docs/UpdateMobileAgreementRequest.md
 docs/UpdateMobileUserRequest.md
 docs/UpdateModelRequest.md
 docs/UpdateMonitoringCenterRequest.md
@@ -708,6 +712,7 @@ models/CreateHolidayRequest.ts
 models/CreateHolidayTypeRequest.ts
 models/CreateIntegrationClientRequest.ts
 models/CreateMailSettingRequest.ts
+models/CreateMobileAgreementRequest.ts
 models/CreateMobileUserRequest.ts
 models/CreateModelProtocolRequest.ts
 models/CreateModelRequest.ts
@@ -810,6 +815,8 @@ models/LoginRequest.ts
 models/LoginResponse.ts
 models/LookupItem.ts
 models/MailSettingDetail.ts
+models/MobileAgreementConsentItem.ts
+models/MobileAgreementDetail.ts
 models/MobileMessageItem.ts
 models/MobileMessageItemPagedResult.ts
 models/MobileOperatorDetail.ts
@@ -1066,6 +1073,7 @@ models/UpdateDistrictRequest.ts
 models/UpdateHolidayRequest.ts
 models/UpdateHolidayTypeRequest.ts
 models/UpdateMailSettingRequest.ts
+models/UpdateMobileAgreementRequest.ts
 models/UpdateMobileUserRequest.ts
 models/UpdateModelRequest.ts
 models/UpdateMonitoringCenterRequest.ts

@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**createDeviceRegex**](AdministrationApi.md#createdeviceregex) | **POST** /v1/admin/device-regexes | Create a device parser |
 | [**createEmergencyPhone**](AdministrationApi.md#createemergencyphone) | **POST** /v1/admin/emergency-phones | Create an emergency contact |
 | [**createMailSetting**](AdministrationApi.md#createmailsettingoperation) | **POST** /v1/admin/mail-settings | Create an SMTP profile |
+| [**createMobileAgreement**](AdministrationApi.md#createmobileagreementoperation) | **POST** /v1/admin/mobile-agreements | Create a mobile agreement |
 | [**createMonitoringCenter**](AdministrationApi.md#createmonitoringcenteroperation) | **POST** /v1/admin/monitoring-centers | Create a monitoring center |
 | [**createPanelCommand**](AdministrationApi.md#createpanelcommand) | **POST** /v1/admin/panel-commands | Queue a panel command |
 | [**createPrompt**](AdministrationApi.md#createprompt) | **POST** /v1/admin/prompts | Create an AI prompt template |
@@ -21,6 +22,7 @@ All URIs are relative to *http://localhost*
 | [**deleteDeviceRegex**](AdministrationApi.md#deletedeviceregex) | **DELETE** /v1/admin/device-regexes/{id} | Delete a device parser |
 | [**deleteEmergencyPhone**](AdministrationApi.md#deleteemergencyphone) | **DELETE** /v1/admin/emergency-phones/{id} | Delete an emergency contact |
 | [**deleteMailSetting**](AdministrationApi.md#deletemailsetting) | **DELETE** /v1/admin/mail-settings/{id} | Delete an SMTP profile |
+| [**deleteMobileAgreement**](AdministrationApi.md#deletemobileagreement) | **DELETE** /v1/admin/mobile-agreements/{id} | Delete a mobile agreement |
 | [**deleteMonitoringCenter**](AdministrationApi.md#deletemonitoringcenter) | **DELETE** /v1/admin/monitoring-centers/{id} | Delete a monitoring center |
 | [**deleteMonitoringCenterAlarmSound**](AdministrationApi.md#deletemonitoringcenteralarmsound) | **DELETE** /v1/admin/monitoring-centers/{id}/alarm-sound | Remove the alarm sound from a monitoring center |
 | [**deletePanelCommand**](AdministrationApi.md#deletepanelcommand) | **DELETE** /v1/admin/panel-commands/{id} | Cancel a queued panel command |
@@ -36,6 +38,7 @@ All URIs are relative to *http://localhost*
 | [**getDeviceRegex**](AdministrationApi.md#getdeviceregex) | **GET** /v1/admin/device-regexes/{id} | Get a device parser |
 | [**getEmergencyPhone**](AdministrationApi.md#getemergencyphone) | **GET** /v1/admin/emergency-phones/{id} | Get an emergency contact |
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
+| [**getMobileAgreement**](AdministrationApi.md#getmobileagreement) | **GET** /v1/admin/mobile-agreements/{id} | Get a mobile agreement |
 | [**getPhoneAuditEntityDetail**](AdministrationApi.md#getphoneauditentitydetail) | **GET** /v1/admin/phone-audit/detail/{entity} | List phone numbers needing normalisation for one entity |
 | [**getPhoneAuditSummary**](AdministrationApi.md#getphoneauditsummary) | **GET** /v1/admin/phone-audit/summary | Summary of phone numbers across all entities |
 | [**getPrompt**](AdministrationApi.md#getprompt) | **GET** /v1/admin/prompts/{id} | Get an AI prompt template |
@@ -48,6 +51,8 @@ All URIs are relative to *http://localhost*
 | [**listDeviceRegexes**](AdministrationApi.md#listdeviceregexes) | **GET** /v1/admin/device-regexes | List device parsers |
 | [**listEmergencyPhones**](AdministrationApi.md#listemergencyphones) | **GET** /v1/admin/emergency-phones | List emergency contacts |
 | [**listMailSettings**](AdministrationApi.md#listmailsettings) | **GET** /v1/admin/mail-settings | List SMTP profiles |
+| [**listMobileAgreementConsents**](AdministrationApi.md#listmobileagreementconsents) | **GET** /v1/admin/mobile-agreements/{id}/consents | List users\&#39; answers to a mobile agreement |
+| [**listMobileAgreements**](AdministrationApi.md#listmobileagreements) | **GET** /v1/admin/mobile-agreements | List the agreements customer-app users are asked to accept |
 | [**listMyAlarmSisSignalTypes**](AdministrationApi.md#listmyalarmsissignaltypes) | **GET** /v1/admin/myalarmsis/signal-types | Signal type codes known to MyAlarmSis and/or Armikom |
 | [**listPanelCommands**](AdministrationApi.md#listpanelcommands) | **GET** /v1/admin/panel-commands | List queued panel commands |
 | [**listPrompts**](AdministrationApi.md#listprompts) | **GET** /v1/admin/prompts | List AI prompt templates |
@@ -61,6 +66,7 @@ All URIs are relative to *http://localhost*
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
 | [**updateEmergencyPhone**](AdministrationApi.md#updateemergencyphone) | **PATCH** /v1/admin/emergency-phones/{id} | Update an emergency contact |
 | [**updateMailSetting**](AdministrationApi.md#updatemailsettingoperation) | **PATCH** /v1/admin/mail-settings/{id} | Update an SMTP profile |
+| [**updateMobileAgreement**](AdministrationApi.md#updatemobileagreementoperation) | **PATCH** /v1/admin/mobile-agreements/{id} | Update a mobile agreement |
 | [**updateMonitoringCenter**](AdministrationApi.md#updatemonitoringcenteroperation) | **PATCH** /v1/admin/monitoring-centers/{id} | Update a monitoring center |
 | [**updatePrompt**](AdministrationApi.md#updateprompt) | **PATCH** /v1/admin/prompts/{id} | Update an AI prompt template |
 | [**updateReceiver**](AdministrationApi.md#updatereceiveroperation) | **PATCH** /v1/admin/receivers/{id} | Update a receiver |
@@ -465,6 +471,86 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createMobileAgreement
+
+> AdminWriteResponse createMobileAgreement(createMobileAgreementRequest, xCorrelationId, idempotencyKey)
+
+Create a mobile agreement
+
+Needs a title and content or url. A centre operator always creates in their own centre; a cross-centre operator must name monitoringCenterId.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { CreateMobileAgreementOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // CreateMobileAgreementRequest
+    createMobileAgreementRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateMobileAgreementOperationRequest;
+
+  try {
+    const data = await api.createMobileAgreement(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createMobileAgreementRequest** | [CreateMobileAgreementRequest](CreateMobileAgreementRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
@@ -1420,6 +1506,84 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteMobileAgreement
+
+> deleteMobileAgreement(id, xCorrelationId)
+
+Delete a mobile agreement
+
+Only an agreement nobody has answered can be deleted (409 otherwise); set isActive&#x3D;false to retire one.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { DeleteMobileAgreementRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteMobileAgreementRequest;
+
+  try {
+    const data = await api.deleteMobileAgreement(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -2564,6 +2728,81 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getMobileAgreement
+
+> MobileAgreementDetail getMobileAgreement(id, xCorrelationId)
+
+Get a mobile agreement
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetMobileAgreementRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetMobileAgreementRequest;
+
+  try {
+    const data = await api.getMobileAgreement(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MobileAgreementDetail**](MobileAgreementDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getPhoneAuditEntityDetail
 
 > PhoneAuditEntityDetailResponse getPhoneAuditEntityDetail(entity, offset, limit, xCorrelationId)
@@ -3430,6 +3669,156 @@ example().catch(console.error);
 ### Return type
 
 [**Array&lt;MailSettingDetail&gt;**](MailSettingDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listMobileAgreementConsents
+
+> Array&lt;MobileAgreementConsentItem&gt; listMobileAgreementConsents(id, xCorrelationId)
+
+List users\&#39; answers to a mobile agreement
+
+All versions, newest first, at most 1000 rows.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { ListMobileAgreementConsentsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListMobileAgreementConsentsRequest;
+
+  try {
+    const data = await api.listMobileAgreementConsents(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;MobileAgreementConsentItem&gt;**](MobileAgreementConsentItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listMobileAgreements
+
+> Array&lt;MobileAgreementDetail&gt; listMobileAgreements(xCorrelationId)
+
+List the agreements customer-app users are asked to accept
+
+Confined to the caller\&#39;s monitoring centre. acceptedCount/declinedCount count answers to the current version.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { ListMobileAgreementsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListMobileAgreementsRequest;
+
+  try {
+    const data = await api.listMobileAgreements(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;MobileAgreementDetail&gt;**](MobileAgreementDetail.md)
 
 ### Authorization
 
@@ -4441,6 +4830,87 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateMobileAgreement
+
+> AdminWriteResponse updateMobileAgreement(id, updateMobileAgreementRequest, xCorrelationId)
+
+Update a mobile agreement
+
+Omitted fields keep their value. requireReacceptance&#x3D;true bumps the version so every user is asked again.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { UpdateMobileAgreementOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateMobileAgreementRequest
+    updateMobileAgreementRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateMobileAgreementOperationRequest;
+
+  try {
+    const data = await api.updateMobileAgreement(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **updateMobileAgreementRequest** | [UpdateMobileAgreementRequest](UpdateMobileAgreementRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

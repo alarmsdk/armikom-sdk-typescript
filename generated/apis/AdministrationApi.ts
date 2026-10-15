@@ -29,6 +29,11 @@ import {
     CreateMailSettingRequestToJSON,
 } from '../models/CreateMailSettingRequest';
 import {
+    type CreateMobileAgreementRequest,
+    CreateMobileAgreementRequestFromJSON,
+    CreateMobileAgreementRequestToJSON,
+} from '../models/CreateMobileAgreementRequest';
+import {
     type CreateMonitoringCenterRequest,
     CreateMonitoringCenterRequestFromJSON,
     CreateMonitoringCenterRequestToJSON,
@@ -63,6 +68,16 @@ import {
     MailSettingDetailFromJSON,
     MailSettingDetailToJSON,
 } from '../models/MailSettingDetail';
+import {
+    type MobileAgreementConsentItem,
+    MobileAgreementConsentItemFromJSON,
+    MobileAgreementConsentItemToJSON,
+} from '../models/MobileAgreementConsentItem';
+import {
+    type MobileAgreementDetail,
+    MobileAgreementDetailFromJSON,
+    MobileAgreementDetailToJSON,
+} from '../models/MobileAgreementDetail';
 import {
     type MonitoringCenterDetail,
     MonitoringCenterDetailFromJSON,
@@ -204,6 +219,11 @@ import {
     UpdateMailSettingRequestToJSON,
 } from '../models/UpdateMailSettingRequest';
 import {
+    type UpdateMobileAgreementRequest,
+    UpdateMobileAgreementRequestFromJSON,
+    UpdateMobileAgreementRequestToJSON,
+} from '../models/UpdateMobileAgreementRequest';
+import {
     type UpdateMonitoringCenterRequest,
     UpdateMonitoringCenterRequestFromJSON,
     UpdateMonitoringCenterRequestToJSON,
@@ -245,6 +265,12 @@ export interface AdministrationApiCreateEmergencyPhoneRequest {
 
 export interface AdministrationApiCreateMailSettingOperationRequest {
     createMailSettingRequest: CreateMailSettingRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateMobileAgreementOperationRequest {
+    createMobileAgreementRequest: CreateMobileAgreementRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -317,6 +343,11 @@ export interface AdministrationApiDeleteEmergencyPhoneRequest {
 }
 
 export interface AdministrationApiDeleteMailSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteMobileAgreementRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -399,6 +430,11 @@ export interface AdministrationApiGetMailSettingRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetMobileAgreementRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetPhoneAuditEntityDetailRequest {
     entity: string;
     offset?: number;
@@ -451,6 +487,15 @@ export interface AdministrationApiListEmergencyPhonesRequest {
 }
 
 export interface AdministrationApiListMailSettingsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListMobileAgreementConsentsRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListMobileAgreementsRequest {
     xCorrelationId?: string;
 }
 
@@ -520,6 +565,12 @@ export interface AdministrationApiUpdateEmergencyPhoneRequest {
 export interface AdministrationApiUpdateMailSettingOperationRequest {
     id: string;
     updateMailSettingRequest: UpdateMailSettingRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateMobileAgreementOperationRequest {
+    id: string;
+    updateMobileAgreementRequest: UpdateMobileAgreementRequest;
     xCorrelationId?: string;
 }
 
@@ -896,6 +947,71 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async createMailSetting(requestParameters: AdministrationApiCreateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.createMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createMobileAgreement without sending the request
+     */
+    async createMobileAgreementRequestOpts(requestParameters: AdministrationApiCreateMobileAgreementOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createMobileAgreementRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createMobileAgreementRequest',
+                'Required parameter "createMobileAgreementRequest" was null or undefined when calling createMobileAgreement().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMobileAgreementRequestToJSON(requestParameters['createMobileAgreementRequest']),
+        };
+    }
+
+    /**
+     * Needs a title and content or url. A centre operator always creates in their own centre; a cross-centre operator must name monitoringCenterId.
+     * Create a mobile agreement
+     */
+    async createMobileAgreementRaw(requestParameters: AdministrationApiCreateMobileAgreementOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createMobileAgreementRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Needs a title and content or url. A centre operator always creates in their own centre; a cross-centre operator must name monitoringCenterId.
+     * Create a mobile agreement
+     */
+    async createMobileAgreement(requestParameters: AdministrationApiCreateMobileAgreementOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createMobileAgreementRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1664,6 +1780,64 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async deleteMailSetting(requestParameters: AdministrationApiDeleteMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteMailSettingRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteMobileAgreement without sending the request
+     */
+    async deleteMobileAgreementRequestOpts(requestParameters: AdministrationApiDeleteMobileAgreementRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMobileAgreement().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Only an agreement nobody has answered can be deleted (409 otherwise); set isActive=false to retire one.
+     * Delete a mobile agreement
+     */
+    async deleteMobileAgreementRaw(requestParameters: AdministrationApiDeleteMobileAgreementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMobileAgreementRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Only an agreement nobody has answered can be deleted (409 otherwise); set isActive=false to retire one.
+     * Delete a mobile agreement
+     */
+    async deleteMobileAgreement(requestParameters: AdministrationApiDeleteMobileAgreementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMobileAgreementRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -2536,6 +2710,63 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getMobileAgreement without sending the request
+     */
+    async getMobileAgreementRequestOpts(requestParameters: AdministrationApiGetMobileAgreementRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getMobileAgreement().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a mobile agreement
+     */
+    async getMobileAgreementRaw(requestParameters: AdministrationApiGetMobileAgreementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileAgreementDetail>> {
+        const requestOptions = await this.getMobileAgreementRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MobileAgreementDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a mobile agreement
+     */
+    async getMobileAgreement(requestParameters: AdministrationApiGetMobileAgreementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileAgreementDetail> {
+        const response = await this.getMobileAgreementRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getPhoneAuditEntityDetail without sending the request
      */
     async getPhoneAuditEntityDetailRequestOpts(requestParameters: AdministrationApiGetPhoneAuditEntityDetailRequest): Promise<runtime.RequestOpts> {
@@ -3178,6 +3409,116 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async listMailSettings(requestParameters: AdministrationApiListMailSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MailSettingDetail>> {
         const response = await this.listMailSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listMobileAgreementConsents without sending the request
+     */
+    async listMobileAgreementConsentsRequestOpts(requestParameters: AdministrationApiListMobileAgreementConsentsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling listMobileAgreementConsents().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements/{id}/consents`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * All versions, newest first, at most 1000 rows.
+     * List users\' answers to a mobile agreement
+     */
+    async listMobileAgreementConsentsRaw(requestParameters: AdministrationApiListMobileAgreementConsentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MobileAgreementConsentItem>>> {
+        const requestOptions = await this.listMobileAgreementConsentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MobileAgreementConsentItemFromJSON));
+    }
+
+    /**
+     * All versions, newest first, at most 1000 rows.
+     * List users\' answers to a mobile agreement
+     */
+    async listMobileAgreementConsents(requestParameters: AdministrationApiListMobileAgreementConsentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MobileAgreementConsentItem>> {
+        const response = await this.listMobileAgreementConsentsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listMobileAgreements without sending the request
+     */
+    async listMobileAgreementsRequestOpts(requestParameters: AdministrationApiListMobileAgreementsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Confined to the caller\'s monitoring centre. acceptedCount/declinedCount count answers to the current version.
+     * List the agreements customer-app users are asked to accept
+     */
+    async listMobileAgreementsRaw(requestParameters: AdministrationApiListMobileAgreementsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MobileAgreementDetail>>> {
+        const requestOptions = await this.listMobileAgreementsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MobileAgreementDetailFromJSON));
+    }
+
+    /**
+     * Confined to the caller\'s monitoring centre. acceptedCount/declinedCount count answers to the current version.
+     * List the agreements customer-app users are asked to accept
+     */
+    async listMobileAgreements(requestParameters: AdministrationApiListMobileAgreementsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MobileAgreementDetail>> {
+        const response = await this.listMobileAgreementsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -3949,6 +4290,75 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async updateMailSetting(requestParameters: AdministrationApiUpdateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.updateMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateMobileAgreement without sending the request
+     */
+    async updateMobileAgreementRequestOpts(requestParameters: AdministrationApiUpdateMobileAgreementOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateMobileAgreement().'
+            );
+        }
+
+        if (requestParameters['updateMobileAgreementRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateMobileAgreementRequest',
+                'Required parameter "updateMobileAgreementRequest" was null or undefined when calling updateMobileAgreement().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/mobile-agreements/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateMobileAgreementRequestToJSON(requestParameters['updateMobileAgreementRequest']),
+        };
+    }
+
+    /**
+     * Omitted fields keep their value. requireReacceptance=true bumps the version so every user is asked again.
+     * Update a mobile agreement
+     */
+    async updateMobileAgreementRaw(requestParameters: AdministrationApiUpdateMobileAgreementOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateMobileAgreementRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Omitted fields keep their value. requireReacceptance=true bumps the version so every user is asked again.
+     * Update a mobile agreement
+     */
+    async updateMobileAgreement(requestParameters: AdministrationApiUpdateMobileAgreementOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateMobileAgreementRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
