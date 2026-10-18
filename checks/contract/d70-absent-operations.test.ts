@@ -64,7 +64,7 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 481 -> 485: tenant translation overrides, D82 (293 paths).
   // 485 -> 489: soft delete — side/contact delete previews, deleted sides, restore (297 paths).
   // 489 -> 491: receiver monitoring-centre fallback get/replace (298 paths).
-  // 491 -> 497: mobile agreements CRUD + consents (301 paths).
+  // 491 -> 497: mobile agreement admin endpoints (301 paths).
   assert.equal(ids.size, 497, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);

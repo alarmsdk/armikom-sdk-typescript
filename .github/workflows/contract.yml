@@ -61,7 +61,7 @@ jobs:
         run: make test
 
   pin:
-    name: pinned spec matches api-v1.50
+    name: pinned spec matches api-v1.57
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
