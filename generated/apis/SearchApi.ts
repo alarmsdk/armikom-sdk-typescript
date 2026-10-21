@@ -14,6 +14,11 @@
 
 import * as runtime from '../runtime';
 import {
+    type SearchCountsResponse,
+    SearchCountsResponseFromJSON,
+    SearchCountsResponseToJSON,
+} from '../models/SearchCountsResponse';
+import {
     type SearchResponse,
     SearchResponseFromJSON,
     SearchResponseToJSON,
@@ -24,6 +29,13 @@ export interface SearchApiGlobalSearchRequest {
     entityType?: string;
     limit?: number;
     skip?: number;
+    includeCount?: boolean;
+    xCorrelationId?: string;
+}
+
+export interface SearchApiGlobalSearchCountsRequest {
+    q?: string;
+    entityType?: string;
     xCorrelationId?: string;
 }
 
@@ -54,6 +66,10 @@ export class SearchApi extends runtime.BaseAPI {
             queryParameters['skip'] = requestParameters['skip'];
         }
 
+        if (requestParameters['includeCount'] != null) {
+            queryParameters['includeCount'] = requestParameters['includeCount'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (requestParameters['xCorrelationId'] != null) {
@@ -80,7 +96,7 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section, limit to control page size (max 50), and skip for offset-based pagination. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section, limit to control page size (max 50), and skip for offset-based pagination. includeCount=false skips the per-section counts (isCounted is false and totalCount 0; hasMore is still set) so the list returns sooner; fetch the counts afterwards from /v1/search/counts. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
      * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearchRaw(requestParameters: SearchApiGlobalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchResponse>> {
@@ -91,11 +107,70 @@ export class SearchApi extends runtime.BaseAPI {
     }
 
     /**
-     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section, limit to control page size (max 50), and skip for offset-based pagination. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
+     * Searches across five entity types (Side, SideContact, SideUser, MobileUser, Customer) using ILIKE pattern matching. Returns up to 5 results per section by default, ordered Side → SideContact → SideUser → MobileUser → Customer. Each section includes totalCount for the full match set. Use entityType to filter to a single section, limit to control page size (max 50), and skip for offset-based pagination. includeCount=false skips the per-section counts (isCounted is false and totalCount 0; hasMore is still set) so the list returns sooner; fetch the counts afterwards from /v1/search/counts. Contact, key holder and mobile user results navigate to their parent subscriber. Query must be at least 2 characters.
      * Global search across subscribers, contacts, key holders, mobile users and customers
      */
     async globalSearch(requestParameters: SearchApiGlobalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchResponse> {
         const response = await this.globalSearchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for globalSearchCounts without sending the request
+     */
+    async globalSearchCountsRequestOpts(requestParameters: SearchApiGlobalSearchCountsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['entityType'] != null) {
+            queryParameters['entityType'] = requestParameters['entityType'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/search/counts`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The deferred half of GET /v1/search?includeCount=false: the same matching, counts only. Sections with no matches are omitted. entityType narrows to one section.
+     * Per-section match counts for a global search query
+     */
+    async globalSearchCountsRaw(requestParameters: SearchApiGlobalSearchCountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchCountsResponse>> {
+        const requestOptions = await this.globalSearchCountsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchCountsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The deferred half of GET /v1/search?includeCount=false: the same matching, counts only. Sections with no matches are omitted. entityType narrows to one section.
+     * Per-section match counts for a global search query
+     */
+    async globalSearchCounts(requestParameters: SearchApiGlobalSearchCountsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchCountsResponse> {
+        const response = await this.globalSearchCountsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

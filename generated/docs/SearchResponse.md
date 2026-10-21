@@ -9,6 +9,7 @@ Name | Type
 `query` | string
 `sections` | [Array&lt;SearchResultSection&gt;](SearchResultSection.md)
 `totalCount` | number
+`isCounted` | boolean
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "query": null,
   "sections": null,
   "totalCount": null,
+  "isCounted": null,
 } satisfies SearchResponse
 
 console.log(example)

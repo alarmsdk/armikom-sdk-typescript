@@ -403,9 +403,11 @@ docs/SaveReceiverTypeRequest.md
 docs/SaveReportProposalRequest.md
 docs/SaveUiLayoutRequest.md
 docs/SearchApi.md
+docs/SearchCountsResponse.md
 docs/SearchResponse.md
 docs/SearchResultItem.md
 docs/SearchResultSection.md
+docs/SearchSectionCount.md
 docs/SendPushRequest.md
 docs/SendPushResponse.md
 docs/SendReportAgentMessageRequest.md
@@ -935,9 +937,11 @@ models/SaveReceiverRuleRequest.ts
 models/SaveReceiverTypeRequest.ts
 models/SaveReportProposalRequest.ts
 models/SaveUiLayoutRequest.ts
+models/SearchCountsResponse.ts
 models/SearchResponse.ts
 models/SearchResultItem.ts
 models/SearchResultSection.ts
+models/SearchSectionCount.ts
 models/SendPushRequest.ts
 models/SendPushResponse.ts
 models/SendReportAgentMessageRequest.ts

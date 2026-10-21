@@ -46,11 +46,25 @@ export interface SearchResultSection {
      */
     count?: number;
     /**
-     * Total matching records for this entity type across the full dataset.
+     * Total matching records for this entity type across the full dataset; 0 when
+     * Armikom.Api.Contracts.Search.SearchResultSection.IsCounted is false (fetch it from `/v1/search/counts`).
      * @type {number}
      * @memberof SearchResultSection
      */
     totalCount?: number;
+    /**
+     * False when the request asked for `includeCount=false`. TotalCount stays a non-nullable
+     * int: the v1 contract is frozen and a response property becoming nullable is a breaking change.
+     * @type {boolean}
+     * @memberof SearchResultSection
+     */
+    isCounted?: boolean;
+    /**
+     * True when more matches exist beyond this page. Always set, with or without counts.
+     * @type {boolean}
+     * @memberof SearchResultSection
+     */
+    hasMore?: boolean;
 }
 
 /**
@@ -74,6 +88,8 @@ export function SearchResultSectionFromJSONTyped(json: any, ignoreDiscriminator:
         'items': json['items'] === undefined ? undefined : json['items'] === null ? null : ((json['items'] as Array<any>).map(SearchResultItemFromJSON)),
         'count': json['count'] == null ? undefined : json['count'],
         'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
+        'isCounted': json['isCounted'] == null ? undefined : json['isCounted'],
+        'hasMore': json['hasMore'] == null ? undefined : json['hasMore'],
     };
 }
 
@@ -92,6 +108,8 @@ export function SearchResultSectionToJSONTyped(value?: SearchResultSection | nul
         'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(SearchResultItemToJSON)),
         'count': value['count'],
         'totalCount': value['totalCount'],
+        'isCounted': value['isCounted'],
+        'hasMore': value['hasMore'],
     };
 }
 

@@ -10,6 +10,8 @@ Name | Type
 `items` | [Array&lt;SearchResultItem&gt;](SearchResultItem.md)
 `count` | number
 `totalCount` | number
+`isCounted` | boolean
+`hasMore` | boolean
 
 ## Example
 
@@ -22,6 +24,8 @@ const example = {
   "items": null,
   "count": null,
   "totalCount": null,
+  "isCounted": null,
+  "hasMore": null,
 } satisfies SearchResultSection
 
 console.log(example)

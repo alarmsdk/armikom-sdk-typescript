@@ -40,11 +40,17 @@ export interface SearchResponse {
      */
     sections?: Array<SearchResultSection> | null;
     /**
-     * 
+     * Sum of the section totals; 0 when Armikom.Api.Contracts.Search.SearchResponse.IsCounted is false.
      * @type {number}
      * @memberof SearchResponse
      */
     totalCount?: number;
+    /**
+     * False when the request asked for `includeCount=false`: the totals are not filled in.
+     * @type {boolean}
+     * @memberof SearchResponse
+     */
+    isCounted?: boolean;
 }
 
 /**
@@ -67,6 +73,7 @@ export function SearchResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
         'query': json['query'] === undefined ? undefined : json['query'] === null ? null : json['query'],
         'sections': json['sections'] === undefined ? undefined : json['sections'] === null ? null : ((json['sections'] as Array<any>).map(SearchResultSectionFromJSON)),
         'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
+        'isCounted': json['isCounted'] == null ? undefined : json['isCounted'],
     };
 }
 
@@ -84,6 +91,7 @@ export function SearchResponseToJSONTyped(value?: SearchResponse | null, ignoreD
         'query': value['query'],
         'sections': value['sections'] == null ? undefined : ((value['sections'] as Array<any>).map(SearchResultSectionToJSON)),
         'totalCount': value['totalCount'],
+        'isCounted': value['isCounted'],
     };
 }
 
