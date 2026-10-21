@@ -24,6 +24,11 @@ import {
     ApproveSideRequestToJSON,
 } from '../models/ApproveSideRequest';
 import {
+    type ChangeSideNoRequest,
+    ChangeSideNoRequestFromJSON,
+    ChangeSideNoRequestToJSON,
+} from '../models/ChangeSideNoRequest';
+import {
     type CloneSideRequest,
     CloneSideRequestFromJSON,
     CloneSideRequestToJSON,
@@ -185,6 +190,13 @@ export interface SubscribersApiApproveSideOperationRequest {
 
 export interface SubscribersApiBatchUpdateSidesRequest {
     sideBatchUpdateRequest: SideBatchUpdateRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface SubscribersApiChangeSideNoOperationRequest {
+    sideId: string;
+    changeSideNoRequest: ChangeSideNoRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -595,6 +607,79 @@ export class SubscribersApi extends runtime.BaseAPI {
      */
     async batchUpdateSides(requestParameters: SubscribersApiBatchUpdateSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideBatchUpdateResponse> {
         const response = await this.batchUpdateSidesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for changeSideNo without sending the request
+     */
+    async changeSideNoRequestOpts(requestParameters: SubscribersApiChangeSideNoOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling changeSideNo().'
+            );
+        }
+
+        if (requestParameters['changeSideNoRequest'] == null) {
+            throw new runtime.RequiredError(
+                'changeSideNoRequest',
+                'Required parameter "changeSideNoRequest" was null or undefined when calling changeSideNo().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/change-side-no`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ChangeSideNoRequestToJSON(requestParameters['changeSideNoRequest']),
+        };
+    }
+
+    /**
+     * Gives the subscriber (and every partition sharing its number) a new SideNo. The new number must be unused in the monitoring center and not reserved by a dealer. Past signals, alarms and calls keep the number they were recorded under; signals from the panel only match once its account number is reprogrammed to the new one. CloudAlarm subscribers cannot be moved.
+     * Move a subscriber to a free number
+     */
+    async changeSideNoRaw(requestParameters: SubscribersApiChangeSideNoOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideWriteResponse>> {
+        const requestOptions = await this.changeSideNoRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SideWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Gives the subscriber (and every partition sharing its number) a new SideNo. The new number must be unused in the monitoring center and not reserved by a dealer. Past signals, alarms and calls keep the number they were recorded under; signals from the panel only match once its account number is reprogrammed to the new one. CloudAlarm subscribers cannot be moved.
+     * Move a subscriber to a free number
+     */
+    async changeSideNo(requestParameters: SubscribersApiChangeSideNoOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideWriteResponse> {
+        const response = await this.changeSideNoRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

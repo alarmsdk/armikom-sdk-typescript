@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**activateSide**](SubscribersApi.md#activatesideoperation) | **POST** /v1/sides/{sideId}/activate | Set a subscriber to active |
 | [**approveSide**](SubscribersApi.md#approvesideoperation) | **POST** /v1/sides/{sideId}/approve | Approve a subscriber |
 | [**batchUpdateSides**](SubscribersApi.md#batchupdatesides) | **POST** /v1/sides/batch-update | Set the same field values on many subscribers at once |
+| [**changeSideNo**](SubscribersApi.md#changesidenooperation) | **POST** /v1/sides/{sideId}/change-side-no | Move a subscriber to a free number |
 | [**cloneSide**](SubscribersApi.md#clonesideoperation) | **POST** /v1/sides/{sideId}/clone | Clone a subscriber |
 | [**createPartition**](SubscribersApi.md#createpartitionoperation) | **POST** /v1/sides/{sideId}/partitions | Create a partition of a subscriber |
 | [**createSide**](SubscribersApi.md#createsideoperation) | **POST** /v1/sides | Create a new subscriber |
@@ -279,6 +280,91 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## changeSideNo
+
+> SideWriteResponse changeSideNo(sideId, changeSideNoRequest, xCorrelationId, idempotencyKey)
+
+Move a subscriber to a free number
+
+Gives the subscriber (and every partition sharing its number) a new SideNo. The new number must be unused in the monitoring center and not reserved by a dealer. Past signals, alarms and calls keep the number they were recorded under; signals from the panel only match once its account number is reprogrammed to the new one. CloudAlarm subscribers cannot be moved.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { ChangeSideNoOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // ChangeSideNoRequest
+    changeSideNoRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ChangeSideNoOperationRequest;
+
+  try {
+    const data = await api.changeSideNo(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **changeSideNoRequest** | [ChangeSideNoRequest](ChangeSideNoRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SideWriteResponse**](SideWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

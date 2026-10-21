@@ -119,6 +119,7 @@ docs/CallListItem.md
 docs/CallListItemPagedResult.md
 docs/CancelSideServiceRequest.md
 docs/ChangeOwnPasswordRequest.md
+docs/ChangeSideNoRequest.md
 docs/CityDetail.md
 docs/CityEmergencyContactDetail.md
 docs/ClientConfigResponse.md
@@ -674,6 +675,7 @@ models/CallListItem.ts
 models/CallListItemPagedResult.ts
 models/CancelSideServiceRequest.ts
 models/ChangeOwnPasswordRequest.ts
+models/ChangeSideNoRequest.ts
 models/CityDetail.ts
 models/CityEmergencyContactDetail.ts
 models/ClientConfigResponse.ts

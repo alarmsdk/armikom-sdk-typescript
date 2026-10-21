@@ -54,6 +54,7 @@ export * from './CallListItem';
 export * from './CallListItemPagedResult';
 export * from './CancelSideServiceRequest';
 export * from './ChangeOwnPasswordRequest';
+export * from './ChangeSideNoRequest';
 export * from './CityDetail';
 export * from './CityEmergencyContactDetail';
 export * from './ClientConfigResponse';
