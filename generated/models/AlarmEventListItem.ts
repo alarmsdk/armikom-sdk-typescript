@@ -110,6 +110,12 @@ export interface AlarmEventListItem {
      */
     receiverName?: string | null;
     /**
+     * Monitoring center the alarm belongs to; an operator without a center plays this center's alarm sound.
+     * @type {string}
+     * @memberof AlarmEventListItem
+     */
+    monitoringCenterId?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof AlarmEventListItem
@@ -197,6 +203,7 @@ export function AlarmEventListItemFromJSONTyped(json: any, ignoreDiscriminator: 
         'signalName': json['signalName'] === undefined ? undefined : json['signalName'] === null ? null : json['signalName'],
         'zone': json['zone'] === undefined ? undefined : json['zone'] === null ? null : json['zone'],
         'receiverName': json['receiverName'] === undefined ? undefined : json['receiverName'] === null ? null : json['receiverName'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
         'signalTypePriority': json['signalTypePriority'] === undefined ? undefined : json['signalTypePriority'] === null ? null : json['signalTypePriority'],
         'signalTypeSoundAlert': json['signalTypeSoundAlert'] == null ? undefined : json['signalTypeSoundAlert'],
@@ -235,6 +242,7 @@ export function AlarmEventListItemToJSONTyped(value?: AlarmEventListItem | null,
         'signalName': value['signalName'],
         'zone': value['zone'],
         'receiverName': value['receiverName'],
+        'monitoringCenterId': value['monitoringCenterId'],
         'monitoringCenterName': value['monitoringCenterName'],
         'signalTypePriority': value['signalTypePriority'],
         'signalTypeSoundAlert': value['signalTypeSoundAlert'],

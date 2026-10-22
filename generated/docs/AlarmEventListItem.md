@@ -21,6 +21,7 @@ Name | Type
 `signalName` | string
 `zone` | string
 `receiverName` | string
+`monitoringCenterId` | string
 `monitoringCenterName` | string
 `signalTypePriority` | number
 `signalTypeSoundAlert` | boolean
@@ -53,6 +54,7 @@ const example = {
   "signalName": null,
   "zone": null,
   "receiverName": null,
+  "monitoringCenterId": null,
   "monitoringCenterName": null,
   "signalTypePriority": null,
   "signalTypeSoundAlert": null,
