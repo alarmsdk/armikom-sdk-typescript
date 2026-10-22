@@ -24,8 +24,14 @@ import {
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
 
+export interface ClosingDelaysApiCancelClosingDelayRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ClosingDelaysApiListClosingDelaysRequest {
     sideId?: string;
+    activeOnly?: boolean;
     cursor?: string;
     limit?: number;
     offset?: number;
@@ -40,6 +46,64 @@ export interface ClosingDelaysApiListClosingDelaysRequest {
 export class ClosingDelaysApi extends runtime.BaseAPI {
 
     /**
+     * Creates request options for cancelClosingDelay without sending the request
+     */
+    async cancelClosingDelayRequestOpts(requestParameters: ClosingDelaysApiCancelClosingDelayRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling cancelClosingDelay().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/closing-delays/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes the ClosingDelay row. An active delay (ProcessedAt null) stops suppressing the \'did not close on time\' alarm (CLL) on Engine\'s next OpeningClosingCheckJob run, and ClosingPostponeJob will no longer raise a CLL for it. A processed row can also be deleted to clear history; that has no effect on Engine.
+     * Cancel (delete) a closing delay
+     */
+    async cancelClosingDelayRaw(requestParameters: ClosingDelaysApiCancelClosingDelayRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.cancelClosingDelayRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Deletes the ClosingDelay row. An active delay (ProcessedAt null) stops suppressing the \'did not close on time\' alarm (CLL) on Engine\'s next OpeningClosingCheckJob run, and ClosingPostponeJob will no longer raise a CLL for it. A processed row can also be deleted to clear history; that has no effect on Engine.
+     * Cancel (delete) a closing delay
+     */
+    async cancelClosingDelay(requestParameters: ClosingDelaysApiCancelClosingDelayRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.cancelClosingDelayRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Creates request options for listClosingDelays without sending the request
      */
     async listClosingDelaysRequestOpts(requestParameters: ClosingDelaysApiListClosingDelaysRequest): Promise<runtime.RequestOpts> {
@@ -47,6 +111,10 @@ export class ClosingDelaysApi extends runtime.BaseAPI {
 
         if (requestParameters['sideId'] != null) {
             queryParameters['sideId'] = requestParameters['sideId'];
+        }
+
+        if (requestParameters['activeOnly'] != null) {
+            queryParameters['activeOnly'] = requestParameters['activeOnly'];
         }
 
         if (requestParameters['cursor'] != null) {
@@ -95,7 +163,7 @@ export class ClosingDelaysApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns ClosingDelay rows — deferred closing-time entries created by operators. Filter by ?sideId= to narrow to a specific subscriber. ProcessedAt indicates whether Engine has consumed the delay.
+     * Returns ClosingDelay rows — deferred closing-time entries created by operators. Filter by ?sideId= to narrow to a specific subscriber. ProcessedAt indicates whether Engine has consumed the delay. By default only active delays (ProcessedAt null) are returned; pass ?activeOnly=false to include processed history.
      * List closing delays visible to the caller\'s monitoring centre
      */
     async listClosingDelaysRaw(requestParameters: ClosingDelaysApiListClosingDelaysRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClosingDelayListItemPagedResult>> {
@@ -106,7 +174,7 @@ export class ClosingDelaysApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns ClosingDelay rows — deferred closing-time entries created by operators. Filter by ?sideId= to narrow to a specific subscriber. ProcessedAt indicates whether Engine has consumed the delay.
+     * Returns ClosingDelay rows — deferred closing-time entries created by operators. Filter by ?sideId= to narrow to a specific subscriber. ProcessedAt indicates whether Engine has consumed the delay. By default only active delays (ProcessedAt null) are returned; pass ?activeOnly=false to include processed history.
      * List closing delays visible to the caller\'s monitoring centre
      */
     async listClosingDelays(requestParameters: ClosingDelaysApiListClosingDelaysRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClosingDelayListItemPagedResult> {
