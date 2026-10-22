@@ -9420,7 +9420,7 @@ example().catch(console.error);
 
 ## listTechnicalPeopleDetailed
 
-> Array&lt;TechnicalPersonDetail&gt; listTechnicalPeopleDetailed(dealerId, activeOnly, xCorrelationId)
+> Array&lt;TechnicalPersonDetail&gt; listTechnicalPeopleDetailed(dealerId, activeOnly, monitoringCenterId, xCorrelationId)
 
 List technicians with their contact details
 
@@ -9448,6 +9448,8 @@ async function example() {
     dealerId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // boolean (optional)
     activeOnly: true,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
     xCorrelationId: xCorrelationId_example,
   } satisfies ListTechnicalPeopleDetailedRequest;
@@ -9471,6 +9473,7 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **dealerId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **activeOnly** | `boolean` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

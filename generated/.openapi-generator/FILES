@@ -97,6 +97,9 @@ docs/BatchDelayResponse.md
 docs/BatchLinkSideFailure.md
 docs/BatchLinkSidesRequest.md
 docs/BatchLinkSidesResponse.md
+docs/BatchResetMobileUserPasswordFailure.md
+docs/BatchResetMobileUserPasswordsRequest.md
+docs/BatchResetMobileUserPasswordsResponse.md
 docs/BulkCancelRequest.md
 docs/BulkCancelResponse.md
 docs/BulkCreateResponse.md
@@ -279,6 +282,7 @@ docs/MobileAgreementDetail.md
 docs/MobileMessageItem.md
 docs/MobileMessageItemPagedResult.md
 docs/MobileOperatorDetail.md
+docs/MobileUserBatchFilter.md
 docs/MobileUserDetailResponse.md
 docs/MobileUserDeviceSummary.md
 docs/MobileUserLinkedSide.md
@@ -656,6 +660,9 @@ models/BatchDelayResponse.ts
 models/BatchLinkSideFailure.ts
 models/BatchLinkSidesRequest.ts
 models/BatchLinkSidesResponse.ts
+models/BatchResetMobileUserPasswordFailure.ts
+models/BatchResetMobileUserPasswordsRequest.ts
+models/BatchResetMobileUserPasswordsResponse.ts
 models/BulkCancelRequest.ts
 models/BulkCancelResponse.ts
 models/BulkCreateResponse.ts
@@ -824,6 +831,7 @@ models/MobileAgreementDetail.ts
 models/MobileMessageItem.ts
 models/MobileMessageItemPagedResult.ts
 models/MobileOperatorDetail.ts
+models/MobileUserBatchFilter.ts
 models/MobileUserDetailResponse.ts
 models/MobileUserDeviceSummary.ts
 models/MobileUserLinkedSide.ts

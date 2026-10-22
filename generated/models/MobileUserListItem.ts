@@ -49,6 +49,12 @@ export interface MobileUserListItem {
      * @memberof MobileUserListItem
      */
     deviceCount?: number;
+    /**
+     * Distinct monitoring centers of the subscribers this user is linked to.
+     * @type {Array<string>}
+     * @memberof MobileUserListItem
+     */
+    monitoringCenterIds?: Array<string> | null;
 }
 
 /**
@@ -73,6 +79,7 @@ export function MobileUserListItemFromJSONTyped(json: any, ignoreDiscriminator: 
         'phone': json['phone'] === undefined ? undefined : json['phone'] === null ? null : json['phone'],
         'linkedSideCount': json['linkedSideCount'] == null ? undefined : json['linkedSideCount'],
         'deviceCount': json['deviceCount'] == null ? undefined : json['deviceCount'],
+        'monitoringCenterIds': json['monitoringCenterIds'] === undefined ? undefined : json['monitoringCenterIds'] === null ? null : json['monitoringCenterIds'],
     };
 }
 
@@ -92,6 +99,7 @@ export function MobileUserListItemToJSONTyped(value?: MobileUserListItem | null,
         'phone': value['phone'],
         'linkedSideCount': value['linkedSideCount'],
         'deviceCount': value['deviceCount'],
+        'monitoringCenterIds': value['monitoringCenterIds'],
     };
 }
 

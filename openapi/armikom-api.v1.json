@@ -19296,6 +19296,14 @@
             }
           },
           {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
             "name": "cursor",
             "in": "query",
             "schema": {
@@ -26623,7 +26631,7 @@
           "MobileUsers"
         ],
         "summary": "List mobile users with filtering, sorting and pagination",
-        "description": "Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).",
+        "description": "Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`). `monitoringCenterId` keeps users linked to a subscriber in that centre; a centre-scoped operator naming another centre gets an empty page.",
         "operationId": "ListMobileUsers",
         "parameters": [
           {
@@ -26631,6 +26639,14 @@
             "in": "query",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -27742,6 +27758,254 @@
           },
           "404": {
             "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/mobile-users/batch-password-reset": {
+      "post": {
+        "tags": [
+          "MobileUsers"
+        ],
+        "summary": "Give many mobile users a new generated password each and text it to them",
+        "description": "Name the users by `mobileUserIds` (ticked rows) or by `filter` (the same `q` and `monitoringCenterId` the list takes), not both. At most 500 users per call. Pass `expectedCount` with the count the operator confirmed; when the resolved set is a different size nothing is written and 409 MOBILE_USER.RESET_COUNT_MISMATCH comes back. The server generates an 8-character password per user (lower-case letters and digits without look-alikes), stores only its hash and queues one SMS per user with `smsText`, where `{password}` (required), `{phone}` and `{name}` are filled in. The password is never returned. The SMS goes out through the monitoring center of one of the user's subscribers — the requested centre when the user has one there. A user who cannot be texted (no subscriber, no phone, SMS over 250 characters) is reported in `failures[]` and keeps their old password. Password changes and SMS rows are written in one transaction.",
+        "operationId": "BatchResetMobileUserPasswords",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchResetMobileUserPasswordsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchResetMobileUserPasswordsResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
             "headers": {
               "X-Correlation-Id": {
                 "description": "The correlation identifier for this request (echoed or generated).",
@@ -60431,6 +60695,14 @@
             "in": "query",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "name": "monitoringCenterId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -103887,6 +104159,99 @@
         },
         "additionalProperties": false
       },
+      "BatchResetMobileUserPasswordFailure": {
+        "type": "object",
+        "properties": {
+          "mobileUserId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "A machine code, so the UI can localise it.",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BatchResetMobileUserPasswordsRequest": {
+        "type": "object",
+        "properties": {
+          "mobileUserIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The users to reset. Repeated ids are collapsed. Mutually exclusive with Filter.",
+            "nullable": true
+          },
+          "filter": {
+            "$ref": "#/components/schemas/MobileUserBatchFilter"
+          },
+          "expectedCount": {
+            "type": "integer",
+            "description": "The count the operator confirmed. When the resolved set is a different size nothing is\nwritten and `409 MOBILE_USER.RESET_COUNT_MISMATCH` comes back.",
+            "format": "int32",
+            "nullable": true
+          },
+          "smsText": {
+            "type": "string",
+            "description": "The SMS body, at most 250 characters once filled in. Must contain `{password}`;\n`{phone}` (the login) and `{name}` are filled in per user too.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Body for `POST /v1/mobile-users/batch-password-reset`: give many mobile users a new,\nserver-generated password each and text it to them. Name the users either by\nArmikom.Api.Contracts.MobileUsers.BatchResetMobileUserPasswordsRequest.MobileUserIds (ticked rows) or by Armikom.Api.Contracts.MobileUsers.BatchResetMobileUserPasswordsRequest.Filter (the whole list search)."
+      },
+      "BatchResetMobileUserPasswordsResponse": {
+        "type": "object",
+        "properties": {
+          "requestedCount": {
+            "type": "integer",
+            "description": "Distinct users the request resolved to.",
+            "format": "int32"
+          },
+          "resetCount": {
+            "type": "integer",
+            "description": "Users whose password changed; one SMS was queued for each.",
+            "format": "int32"
+          },
+          "skippedCount": {
+            "type": "integer",
+            "description": "Users left alone — the length of Armikom.Api.Contracts.MobileUsers.BatchResetMobileUserPasswordsResponse.Failures.",
+            "format": "int32"
+          },
+          "failures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BatchResetMobileUserPasswordFailure"
+            },
+            "description": "Users left alone, and why. Their passwords did not change.",
+            "nullable": true
+          },
+          "sideEffects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "BulkCancelRequest": {
         "type": "object",
         "properties": {
@@ -109460,6 +109825,22 @@
         "additionalProperties": false,
         "description": "A GSM operator, used to classify SIM cards."
       },
+      "MobileUserBatchFilter": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The same criteria `GET /v1/mobile-users` takes."
+      },
       "MobileUserDetailResponse": {
         "type": "object",
         "properties": {
@@ -109559,6 +109940,15 @@
           "deviceCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "monitoringCenterIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Distinct monitoring centers of the subscribers this user is linked to.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -117903,6 +118293,12 @@
           },
           "dealerName": {
             "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "description": "The dealer's monitoring center — a technician belongs to one through its dealer.",
+            "format": "uuid",
             "nullable": true
           },
           "hasPassword": {

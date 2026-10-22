@@ -17,6 +17,7 @@ Name | Type
 `specialization` | string
 `dealerId` | string
 `dealerName` | string
+`monitoringCenterId` | string
 `hasPassword` | boolean
 
 ## Example
@@ -36,6 +37,7 @@ const example = {
   "specialization": null,
   "dealerId": null,
   "dealerName": null,
+  "monitoringCenterId": null,
   "hasPassword": null,
 } satisfies TechnicalPersonDetail
 

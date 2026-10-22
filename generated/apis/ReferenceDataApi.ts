@@ -1150,6 +1150,7 @@ export interface ReferenceDataApiListSignalRulesRequest {
 export interface ReferenceDataApiListTechnicalPeopleDetailedRequest {
     dealerId?: string;
     activeOnly?: boolean;
+    monitoringCenterId?: string;
     xCorrelationId?: string;
 }
 
@@ -8359,6 +8360,10 @@ export class ReferenceDataApi extends runtime.BaseAPI {
 
         if (requestParameters['activeOnly'] != null) {
             queryParameters['activeOnly'] = requestParameters['activeOnly'];
+        }
+
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

@@ -81,6 +81,12 @@ export interface TechnicalPersonDetail {
      */
     dealerName?: string | null;
     /**
+     * The dealer's monitoring center — a technician belongs to one through its dealer.
+     * @type {string}
+     * @memberof TechnicalPersonDetail
+     */
+    monitoringCenterId?: string | null;
+    /**
      * 
      * @type {boolean}
      * @memberof TechnicalPersonDetail
@@ -115,6 +121,7 @@ export function TechnicalPersonDetailFromJSONTyped(json: any, ignoreDiscriminato
         'specialization': json['specialization'] === undefined ? undefined : json['specialization'] === null ? null : json['specialization'],
         'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
         'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'hasPassword': json['hasPassword'] == null ? undefined : json['hasPassword'],
     };
 }
@@ -140,6 +147,7 @@ export function TechnicalPersonDetailToJSONTyped(value?: TechnicalPersonDetail |
         'specialization': value['specialization'],
         'dealerId': value['dealerId'],
         'dealerName': value['dealerName'],
+        'monitoringCenterId': value['monitoringCenterId'],
         'hasPassword': value['hasPassword'],
     };
 }

@@ -66,7 +66,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 489 -> 491: receiver monitoring-centre fallback get/replace (298 paths).
   // 491 -> 497: mobile agreement admin endpoints (301 paths).
   // 497 -> 499: ChangeSideNo, GlobalSearchCounts (303 paths, api-v1.58).
-  assert.equal(ids.size, 499, 'operation count moved off the pinned contract');
+  // 499 -> 500: BatchResetMobileUserPasswords; directory MC filter fields (304 paths, api-v1.59).
+  assert.equal(ids.size, 500, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

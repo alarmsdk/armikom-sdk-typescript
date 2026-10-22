@@ -11,6 +11,7 @@ Name | Type
 `phone` | string
 `linkedSideCount` | number
 `deviceCount` | number
+`monitoringCenterIds` | Array&lt;string&gt;
 
 ## Example
 
@@ -24,6 +25,7 @@ const example = {
   "phone": null,
   "linkedSideCount": null,
   "deviceCount": null,
+  "monitoringCenterIds": null,
 } satisfies MobileUserListItem
 
 console.log(example)

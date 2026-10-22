@@ -24,6 +24,16 @@ import {
     BatchLinkSidesResponseToJSON,
 } from '../models/BatchLinkSidesResponse';
 import {
+    type BatchResetMobileUserPasswordsRequest,
+    BatchResetMobileUserPasswordsRequestFromJSON,
+    BatchResetMobileUserPasswordsRequestToJSON,
+} from '../models/BatchResetMobileUserPasswordsRequest';
+import {
+    type BatchResetMobileUserPasswordsResponse,
+    BatchResetMobileUserPasswordsResponseFromJSON,
+    BatchResetMobileUserPasswordsResponseToJSON,
+} from '../models/BatchResetMobileUserPasswordsResponse';
+import {
     type CreateMobileUserRequest,
     CreateMobileUserRequestFromJSON,
     CreateMobileUserRequestToJSON,
@@ -81,6 +91,12 @@ export interface MobileUsersApiBatchLinkMobileUserToSidesRequest {
     idempotencyKey?: string;
 }
 
+export interface MobileUsersApiBatchResetMobileUserPasswordsOperationRequest {
+    batchResetMobileUserPasswordsRequest: BatchResetMobileUserPasswordsRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface MobileUsersApiCreateMobileUserOperationRequest {
     createMobileUserRequest: CreateMobileUserRequest;
     xCorrelationId?: string;
@@ -106,6 +122,7 @@ export interface MobileUsersApiLinkMobileUserToSideRequest {
 
 export interface MobileUsersApiListMobileUsersRequest {
     q?: string;
+    monitoringCenterId?: string;
     cursor?: string;
     limit?: number;
     offset?: number;
@@ -214,6 +231,71 @@ export class MobileUsersApi extends runtime.BaseAPI {
      */
     async batchLinkMobileUserToSides(requestParameters: MobileUsersApiBatchLinkMobileUserToSidesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchLinkSidesResponse> {
         const response = await this.batchLinkMobileUserToSidesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for batchResetMobileUserPasswords without sending the request
+     */
+    async batchResetMobileUserPasswordsRequestOpts(requestParameters: MobileUsersApiBatchResetMobileUserPasswordsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['batchResetMobileUserPasswordsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'batchResetMobileUserPasswordsRequest',
+                'Required parameter "batchResetMobileUserPasswordsRequest" was null or undefined when calling batchResetMobileUserPasswords().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/mobile-users/batch-password-reset`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BatchResetMobileUserPasswordsRequestToJSON(requestParameters['batchResetMobileUserPasswordsRequest']),
+        };
+    }
+
+    /**
+     * Name the users by `mobileUserIds` (ticked rows) or by `filter` (the same `q` and `monitoringCenterId` the list takes), not both. At most 500 users per call. Pass `expectedCount` with the count the operator confirmed; when the resolved set is a different size nothing is written and 409 MOBILE_USER.RESET_COUNT_MISMATCH comes back. The server generates an 8-character password per user (lower-case letters and digits without look-alikes), stores only its hash and queues one SMS per user with `smsText`, where `{password}` (required), `{phone}` and `{name}` are filled in. The password is never returned. The SMS goes out through the monitoring center of one of the user\'s subscribers — the requested centre when the user has one there. A user who cannot be texted (no subscriber, no phone, SMS over 250 characters) is reported in `failures[]` and keeps their old password. Password changes and SMS rows are written in one transaction.
+     * Give many mobile users a new generated password each and text it to them
+     */
+    async batchResetMobileUserPasswordsRaw(requestParameters: MobileUsersApiBatchResetMobileUserPasswordsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchResetMobileUserPasswordsResponse>> {
+        const requestOptions = await this.batchResetMobileUserPasswordsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BatchResetMobileUserPasswordsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Name the users by `mobileUserIds` (ticked rows) or by `filter` (the same `q` and `monitoringCenterId` the list takes), not both. At most 500 users per call. Pass `expectedCount` with the count the operator confirmed; when the resolved set is a different size nothing is written and 409 MOBILE_USER.RESET_COUNT_MISMATCH comes back. The server generates an 8-character password per user (lower-case letters and digits without look-alikes), stores only its hash and queues one SMS per user with `smsText`, where `{password}` (required), `{phone}` and `{name}` are filled in. The password is never returned. The SMS goes out through the monitoring center of one of the user\'s subscribers — the requested centre when the user has one there. A user who cannot be texted (no subscriber, no phone, SMS over 250 characters) is reported in `failures[]` and keeps their old password. Password changes and SMS rows are written in one transaction.
+     * Give many mobile users a new generated password each and text it to them
+     */
+    async batchResetMobileUserPasswords(requestParameters: MobileUsersApiBatchResetMobileUserPasswordsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchResetMobileUserPasswordsResponse> {
+        const response = await this.batchResetMobileUserPasswordsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -475,6 +557,10 @@ export class MobileUsersApi extends runtime.BaseAPI {
             queryParameters['q'] = requestParameters['q'];
         }
 
+        if (requestParameters['monitoringCenterId'] != null) {
+            queryParameters['monitoringCenterId'] = requestParameters['monitoringCenterId'];
+        }
+
         if (requestParameters['cursor'] != null) {
             queryParameters['cursor'] = requestParameters['cursor'];
         }
@@ -525,7 +611,7 @@ export class MobileUsersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).
+     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`). `monitoringCenterId` keeps users linked to a subscriber in that centre; a centre-scoped operator naming another centre gets an empty page.
      * List mobile users with filtering, sorting and pagination
      */
     async listMobileUsersRaw(requestParameters: MobileUsersApiListMobileUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileUserListItemPagedResult>> {
@@ -536,7 +622,7 @@ export class MobileUsersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`).
+     * Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via `sort` parameter (e.g. `-name,phone`). `monitoringCenterId` keeps users linked to a subscriber in that centre; a centre-scoped operator naming another centre gets an empty page.
      * List mobile users with filtering, sorting and pagination
      */
     async listMobileUsers(requestParameters: MobileUsersApiListMobileUsersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileUserListItemPagedResult> {

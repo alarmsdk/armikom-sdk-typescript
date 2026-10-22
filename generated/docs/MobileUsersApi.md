@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**batchLinkMobileUserToSides**](MobileUsersApi.md#batchlinkmobileusertosides) | **POST** /v1/mobile-users/{id}/sides/batch-link | Link one mobile user to many subscribers in a single call |
+| [**batchResetMobileUserPasswords**](MobileUsersApi.md#batchresetmobileuserpasswordsoperation) | **POST** /v1/mobile-users/batch-password-reset | Give many mobile users a new generated password each and text it to them |
 | [**createMobileUser**](MobileUsersApi.md#createmobileuseroperation) | **POST** /v1/mobile-users | Create a mobile user linked to a subscriber — password is hashed before storage |
 | [**deleteMobileUser**](MobileUsersApi.md#deletemobileuser) | **DELETE** /v1/mobile-users/{id} | Delete a mobile user — nulls delivery history FKs, cascades devices, reports removed links |
 | [**getMobileUserById**](MobileUsersApi.md#getmobileuserbyid) | **GET** /v1/mobile-users/{id} | Get a mobile user by ID (includes linked sides and devices) |
@@ -94,6 +95,87 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## batchResetMobileUserPasswords
+
+> BatchResetMobileUserPasswordsResponse batchResetMobileUserPasswords(batchResetMobileUserPasswordsRequest, xCorrelationId, idempotencyKey)
+
+Give many mobile users a new generated password each and text it to them
+
+Name the users by &#x60;mobileUserIds&#x60; (ticked rows) or by &#x60;filter&#x60; (the same &#x60;q&#x60; and &#x60;monitoringCenterId&#x60; the list takes), not both. At most 500 users per call. Pass &#x60;expectedCount&#x60; with the count the operator confirmed; when the resolved set is a different size nothing is written and 409 MOBILE_USER.RESET_COUNT_MISMATCH comes back. The server generates an 8-character password per user (lower-case letters and digits without look-alikes), stores only its hash and queues one SMS per user with &#x60;smsText&#x60;, where &#x60;{password}&#x60; (required), &#x60;{phone}&#x60; and &#x60;{name}&#x60; are filled in. The password is never returned. The SMS goes out through the monitoring center of one of the user\&#39;s subscribers — the requested centre when the user has one there. A user who cannot be texted (no subscriber, no phone, SMS over 250 characters) is reported in &#x60;failures[]&#x60; and keeps their old password. Password changes and SMS rows are written in one transaction.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  MobileUsersApi,
+} from '';
+import type { BatchResetMobileUserPasswordsOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new MobileUsersApi(config);
+
+  const body = {
+    // BatchResetMobileUserPasswordsRequest
+    batchResetMobileUserPasswordsRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies BatchResetMobileUserPasswordsOperationRequest;
+
+  try {
+    const data = await api.batchResetMobileUserPasswords(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **batchResetMobileUserPasswordsRequest** | [BatchResetMobileUserPasswordsRequest](BatchResetMobileUserPasswordsRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**BatchResetMobileUserPasswordsResponse**](BatchResetMobileUserPasswordsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
@@ -418,11 +500,11 @@ example().catch(console.error);
 
 ## listMobileUsers
 
-> MobileUserListItemPagedResult listMobileUsers(q, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
+> MobileUserListItemPagedResult listMobileUsers(q, monitoringCenterId, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
 
 List mobile users with filtering, sorting and pagination
 
-Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-name,phone&#x60;).
+Returns a paginated list of mobile users. Default sort is by name ascending. Supports multi-field sort via &#x60;sort&#x60; parameter (e.g. &#x60;-name,phone&#x60;). &#x60;monitoringCenterId&#x60; keeps users linked to a subscriber in that centre; a centre-scoped operator naming another centre gets an empty page.
 
 ### Example
 
@@ -444,6 +526,8 @@ async function example() {
   const body = {
     // string (optional)
     q: q_example,
+    // string (optional)
+    monitoringCenterId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string (optional)
     cursor: cursor_example,
     // number (optional)
@@ -478,6 +562,7 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
 | **offset** | `number` |  | [Optional] [Defaults to `undefined`] |
