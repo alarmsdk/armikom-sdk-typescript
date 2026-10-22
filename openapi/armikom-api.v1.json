@@ -106754,6 +106754,16 @@
           "statement": {
             "type": "string",
             "nullable": true
+          },
+          "notifySubscriberSms": {
+            "type": "boolean",
+            "description": "SMS the subscriber's contacts that a service was opened. Default true.",
+            "nullable": true
+          },
+          "notifyDealerEmail": {
+            "type": "boolean",
+            "description": "E-mail the dealer (service company) about the new service. Default true.",
+            "nullable": true
           }
         },
         "additionalProperties": false

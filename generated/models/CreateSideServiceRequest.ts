@@ -67,6 +67,18 @@ export interface CreateSideServiceRequest {
      * @memberof CreateSideServiceRequest
      */
     statement?: string | null;
+    /**
+     * SMS the subscriber's contacts that a service was opened. Default true.
+     * @type {boolean}
+     * @memberof CreateSideServiceRequest
+     */
+    notifySubscriberSms?: boolean | null;
+    /**
+     * E-mail the dealer (service company) about the new service. Default true.
+     * @type {boolean}
+     * @memberof CreateSideServiceRequest
+     */
+    notifyDealerEmail?: boolean | null;
 }
 
 /**
@@ -94,6 +106,8 @@ export function CreateSideServiceRequestFromJSONTyped(json: any, ignoreDiscrimin
         'plannedDate': json['plannedDate'] === undefined ? undefined : json['plannedDate'] === null ? null : (new Date(json['plannedDate'])),
         'estimatedDurationMinutes': json['estimatedDurationMinutes'] === undefined ? undefined : json['estimatedDurationMinutes'] === null ? null : json['estimatedDurationMinutes'],
         'statement': json['statement'] === undefined ? undefined : json['statement'] === null ? null : json['statement'],
+        'notifySubscriberSms': json['notifySubscriberSms'] === undefined ? undefined : json['notifySubscriberSms'] === null ? null : json['notifySubscriberSms'],
+        'notifyDealerEmail': json['notifyDealerEmail'] === undefined ? undefined : json['notifyDealerEmail'] === null ? null : json['notifyDealerEmail'],
     };
 }
 
@@ -116,6 +130,8 @@ export function CreateSideServiceRequestToJSONTyped(value?: CreateSideServiceReq
         'plannedDate': value['plannedDate'] == null ? value['plannedDate'] : value['plannedDate'].toISOString(),
         'estimatedDurationMinutes': value['estimatedDurationMinutes'],
         'statement': value['statement'],
+        'notifySubscriberSms': value['notifySubscriberSms'],
+        'notifyDealerEmail': value['notifyDealerEmail'],
     };
 }
 

@@ -14,6 +14,8 @@ Name | Type
 `plannedDate` | Date
 `estimatedDurationMinutes` | number
 `statement` | string
+`notifySubscriberSms` | boolean
+`notifyDealerEmail` | boolean
 
 ## Example
 
@@ -30,6 +32,8 @@ const example = {
   "plannedDate": null,
   "estimatedDurationMinutes": null,
   "statement": null,
+  "notifySubscriberSms": null,
+  "notifyDealerEmail": null,
 } satisfies CreateSideServiceRequest
 
 console.log(example)
