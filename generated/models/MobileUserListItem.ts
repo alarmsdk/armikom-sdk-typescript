@@ -38,6 +38,12 @@ export interface MobileUserListItem {
      */
     phone?: string | null;
     /**
+     * False when the user is disabled: no login, every issued token refused.
+     * @type {boolean}
+     * @memberof MobileUserListItem
+     */
+    isActive?: boolean;
+    /**
      * 
      * @type {number}
      * @memberof MobileUserListItem
@@ -77,6 +83,7 @@ export function MobileUserListItemFromJSONTyped(json: any, ignoreDiscriminator: 
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'phone': json['phone'] === undefined ? undefined : json['phone'] === null ? null : json['phone'],
+        'isActive': json['isActive'] == null ? undefined : json['isActive'],
         'linkedSideCount': json['linkedSideCount'] == null ? undefined : json['linkedSideCount'],
         'deviceCount': json['deviceCount'] == null ? undefined : json['deviceCount'],
         'monitoringCenterIds': json['monitoringCenterIds'] === undefined ? undefined : json['monitoringCenterIds'] === null ? null : json['monitoringCenterIds'],
@@ -97,6 +104,7 @@ export function MobileUserListItemToJSONTyped(value?: MobileUserListItem | null,
         'id': value['id'],
         'name': value['name'],
         'phone': value['phone'],
+        'isActive': value['isActive'],
         'linkedSideCount': value['linkedSideCount'],
         'deviceCount': value['deviceCount'],
         'monitoringCenterIds': value['monitoringCenterIds'],

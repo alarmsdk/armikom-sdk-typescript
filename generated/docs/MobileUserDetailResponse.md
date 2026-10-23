@@ -9,6 +9,8 @@ Name | Type
 `id` | string
 `name` | string
 `phone` | string
+`isActive` | boolean
+`tokensValidAfter` | Date
 `linkedSides` | [Array&lt;MobileUserLinkedSide&gt;](MobileUserLinkedSide.md)
 `devices` | [Array&lt;MobileUserDeviceSummary&gt;](MobileUserDeviceSummary.md)
 
@@ -22,6 +24,8 @@ const example = {
   "id": null,
   "name": null,
   "phone": null,
+  "isActive": null,
+  "tokensValidAfter": null,
   "linkedSides": null,
   "devices": null,
 } satisfies MobileUserDetailResponse

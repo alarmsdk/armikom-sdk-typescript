@@ -9,6 +9,7 @@ Name | Type
 `id` | string
 `name` | string
 `phone` | string
+`isActive` | boolean
 `linkedSideCount` | number
 `deviceCount` | number
 `monitoringCenterIds` | Array&lt;string&gt;
@@ -23,6 +24,7 @@ const example = {
   "id": null,
   "name": null,
   "phone": null,
+  "isActive": null,
   "linkedSideCount": null,
   "deviceCount": null,
   "monitoringCenterIds": null,

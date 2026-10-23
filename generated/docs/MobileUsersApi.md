@@ -8,10 +8,13 @@ All URIs are relative to *http://localhost*
 | [**batchResetMobileUserPasswords**](MobileUsersApi.md#batchresetmobileuserpasswordsoperation) | **POST** /v1/mobile-users/batch-password-reset | Give many mobile users a new generated password each and text it to them |
 | [**createMobileUser**](MobileUsersApi.md#createmobileuseroperation) | **POST** /v1/mobile-users | Create a mobile user linked to a subscriber — password is hashed before storage |
 | [**deleteMobileUser**](MobileUsersApi.md#deletemobileuser) | **DELETE** /v1/mobile-users/{id} | Delete a mobile user — nulls delivery history FKs, cascades devices, reports removed links |
+| [**disableMobileUser**](MobileUsersApi.md#disablemobileuser) | **POST** /v1/mobile-users/{id}/disable | Disable a mobile user |
+| [**enableMobileUser**](MobileUsersApi.md#enablemobileuser) | **POST** /v1/mobile-users/{id}/enable | Re-enable a disabled mobile user |
 | [**getMobileUserById**](MobileUsersApi.md#getmobileuserbyid) | **GET** /v1/mobile-users/{id} | Get a mobile user by ID (includes linked sides and devices) |
 | [**linkMobileUserToSide**](MobileUsersApi.md#linkmobileusertoside) | **POST** /v1/sides/{sideId}/mobile-users | Link an existing user or create-and-link atomically |
 | [**listMobileUsers**](MobileUsersApi.md#listmobileusers) | **GET** /v1/mobile-users | List mobile users with filtering, sorting and pagination |
 | [**listMobileUsersForSide**](MobileUsersApi.md#listmobileusersforside) | **GET** /v1/sides/{sideId}/mobile-users | List mobile users linked to a subscriber |
+| [**logoutMobileUserDevices**](MobileUsersApi.md#logoutmobileuserdevices) | **POST** /v1/mobile-users/{id}/logout-all | Log a mobile user out of every device |
 | [**resetMobileUserPassword**](MobileUsersApi.md#resetmobileuserpasswordoperation) | **POST** /v1/mobile-users/{id}/password | Reset a mobile user\&#39;s password |
 | [**unlinkMobileUserFromSide**](MobileUsersApi.md#unlinkmobileuserfromside) | **DELETE** /v1/sides/{sideId}/mobile-users/{userId} | Unlink a mobile user from a subscriber |
 | [**updateMobileUser**](MobileUsersApi.md#updatemobileuseroperation) | **PATCH** /v1/mobile-users/{id} | Update a mobile user (name/phone only — not password) |
@@ -332,6 +335,166 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## disableMobileUser
+
+> MobileUserDetailResponse disableMobileUser(id, xCorrelationId, idempotencyKey)
+
+Disable a mobile user
+
+The user can no longer log in to the customer app, and every token already issued is refused within about 30 seconds. All devices are logged out and stop receiving push; the Firebase (realtime) session is revoked within about a minute and ends when its current ID token expires (at most 1 hour). Disabling a disabled user changes nothing.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  MobileUsersApi,
+} from '';
+import type { DisableMobileUserRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new MobileUsersApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DisableMobileUserRequest;
+
+  try {
+    const data = await api.disableMobileUser(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MobileUserDetailResponse**](MobileUserDetailResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## enableMobileUser
+
+> MobileUserDetailResponse enableMobileUser(id, xCorrelationId, idempotencyKey)
+
+Re-enable a disabled mobile user
+
+The user can log in again. Sessions ended by the disable stay ended: the user has to log in on each device.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  MobileUsersApi,
+} from '';
+import type { EnableMobileUserRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new MobileUsersApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies EnableMobileUserRequest;
+
+  try {
+    const data = await api.enableMobileUser(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MobileUserDetailResponse**](MobileUserDetailResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
@@ -663,6 +826,86 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## logoutMobileUserDevices
+
+> MobileUserDetailResponse logoutMobileUserDevices(id, xCorrelationId, idempotencyKey)
+
+Log a mobile user out of every device
+
+Tokens issued until now are refused and devices stop receiving push until they log in again. The account stays enabled, so the user can log back in (e.g. after a lost phone and a password reset).
+
+### Example
+
+```ts
+import {
+  Configuration,
+  MobileUsersApi,
+} from '';
+import type { LogoutMobileUserDevicesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new MobileUsersApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies LogoutMobileUserDevicesRequest;
+
+  try {
+    const data = await api.logoutMobileUserDevices(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MobileUserDetailResponse**](MobileUserDetailResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

@@ -108,6 +108,18 @@ export interface MobileUsersApiDeleteMobileUserRequest {
     xCorrelationId?: string;
 }
 
+export interface MobileUsersApiDisableMobileUserRequest {
+    id: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface MobileUsersApiEnableMobileUserRequest {
+    id: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface MobileUsersApiGetMobileUserByIdRequest {
     id: string;
     xCorrelationId?: string;
@@ -135,6 +147,12 @@ export interface MobileUsersApiListMobileUsersRequest {
 export interface MobileUsersApiListMobileUsersForSideRequest {
     sideId: string;
     xCorrelationId?: string;
+}
+
+export interface MobileUsersApiLogoutMobileUserDevicesRequest {
+    id: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface MobileUsersApiResetMobileUserPasswordOperationRequest {
@@ -420,6 +438,132 @@ export class MobileUsersApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for disableMobileUser without sending the request
+     */
+    async disableMobileUserRequestOpts(requestParameters: MobileUsersApiDisableMobileUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling disableMobileUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/mobile-users/{id}/disable`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The user can no longer log in to the customer app, and every token already issued is refused within about 30 seconds. All devices are logged out and stop receiving push; the Firebase (realtime) session is revoked within about a minute and ends when its current ID token expires (at most 1 hour). Disabling a disabled user changes nothing.
+     * Disable a mobile user
+     */
+    async disableMobileUserRaw(requestParameters: MobileUsersApiDisableMobileUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileUserDetailResponse>> {
+        const requestOptions = await this.disableMobileUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MobileUserDetailResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The user can no longer log in to the customer app, and every token already issued is refused within about 30 seconds. All devices are logged out and stop receiving push; the Firebase (realtime) session is revoked within about a minute and ends when its current ID token expires (at most 1 hour). Disabling a disabled user changes nothing.
+     * Disable a mobile user
+     */
+    async disableMobileUser(requestParameters: MobileUsersApiDisableMobileUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileUserDetailResponse> {
+        const response = await this.disableMobileUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for enableMobileUser without sending the request
+     */
+    async enableMobileUserRequestOpts(requestParameters: MobileUsersApiEnableMobileUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling enableMobileUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/mobile-users/{id}/enable`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The user can log in again. Sessions ended by the disable stay ended: the user has to log in on each device.
+     * Re-enable a disabled mobile user
+     */
+    async enableMobileUserRaw(requestParameters: MobileUsersApiEnableMobileUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileUserDetailResponse>> {
+        const requestOptions = await this.enableMobileUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MobileUserDetailResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The user can log in again. Sessions ended by the disable stay ended: the user has to log in on each device.
+     * Re-enable a disabled mobile user
+     */
+    async enableMobileUser(requestParameters: MobileUsersApiEnableMobileUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileUserDetailResponse> {
+        const response = await this.enableMobileUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getMobileUserById without sending the request
      */
     async getMobileUserByIdRequestOpts(requestParameters: MobileUsersApiGetMobileUserByIdRequest): Promise<runtime.RequestOpts> {
@@ -684,6 +828,69 @@ export class MobileUsersApi extends runtime.BaseAPI {
      */
     async listMobileUsersForSide(requestParameters: MobileUsersApiListMobileUsersForSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<SideMobileUserListItem>> {
         const response = await this.listMobileUsersForSideRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for logoutMobileUserDevices without sending the request
+     */
+    async logoutMobileUserDevicesRequestOpts(requestParameters: MobileUsersApiLogoutMobileUserDevicesRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling logoutMobileUserDevices().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/mobile-users/{id}/logout-all`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Tokens issued until now are refused and devices stop receiving push until they log in again. The account stays enabled, so the user can log back in (e.g. after a lost phone and a password reset).
+     * Log a mobile user out of every device
+     */
+    async logoutMobileUserDevicesRaw(requestParameters: MobileUsersApiLogoutMobileUserDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MobileUserDetailResponse>> {
+        const requestOptions = await this.logoutMobileUserDevicesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MobileUserDetailResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Tokens issued until now are refused and devices stop receiving push until they log in again. The account stays enabled, so the user can log back in (e.g. after a lost phone and a password reset).
+     * Log a mobile user out of every device
+     */
+    async logoutMobileUserDevices(requestParameters: MobileUsersApiLogoutMobileUserDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MobileUserDetailResponse> {
+        const response = await this.logoutMobileUserDevicesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -9,6 +9,7 @@ Name | Type
 `id` | string
 `name` | string
 `phone` | string
+`isActive` | boolean
 `deviceCount` | number
 
 ## Example
@@ -21,6 +22,7 @@ const example = {
   "id": null,
   "name": null,
   "phone": null,
+  "isActive": null,
   "deviceCount": null,
 } satisfies SideMobileUserListItem
 

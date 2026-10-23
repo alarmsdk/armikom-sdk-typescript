@@ -39,6 +39,12 @@ export interface SideMobileUserListItem {
     phone?: string | null;
     /**
      * 
+     * @type {boolean}
+     * @memberof SideMobileUserListItem
+     */
+    isActive?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof SideMobileUserListItem
      */
@@ -65,6 +71,7 @@ export function SideMobileUserListItemFromJSONTyped(json: any, ignoreDiscriminat
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'phone': json['phone'] === undefined ? undefined : json['phone'] === null ? null : json['phone'],
+        'isActive': json['isActive'] == null ? undefined : json['isActive'],
         'deviceCount': json['deviceCount'] == null ? undefined : json['deviceCount'],
     };
 }
@@ -83,6 +90,7 @@ export function SideMobileUserListItemToJSONTyped(value?: SideMobileUserListItem
         'id': value['id'],
         'name': value['name'],
         'phone': value['phone'],
+        'isActive': value['isActive'],
         'deviceCount': value['deviceCount'],
     };
 }

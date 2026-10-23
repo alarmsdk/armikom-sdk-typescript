@@ -53,6 +53,18 @@ export interface MobileUserDetailResponse {
      */
     phone?: string | null;
     /**
+     * False when the user is disabled: no login, every issued token refused.
+     * @type {boolean}
+     * @memberof MobileUserDetailResponse
+     */
+    isActive?: boolean;
+    /**
+     * Last "log out all devices" (UTC); tokens issued before it are refused. Null if never.
+     * @type {Date}
+     * @memberof MobileUserDetailResponse
+     */
+    tokensValidAfter?: Date | null;
+    /**
      * 
      * @type {Array<MobileUserLinkedSide>}
      * @memberof MobileUserDetailResponse
@@ -86,6 +98,8 @@ export function MobileUserDetailResponseFromJSONTyped(json: any, ignoreDiscrimin
         'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'phone': json['phone'] === undefined ? undefined : json['phone'] === null ? null : json['phone'],
+        'isActive': json['isActive'] == null ? undefined : json['isActive'],
+        'tokensValidAfter': json['tokensValidAfter'] === undefined ? undefined : json['tokensValidAfter'] === null ? null : (new Date(json['tokensValidAfter'])),
         'linkedSides': json['linkedSides'] === undefined ? undefined : json['linkedSides'] === null ? null : ((json['linkedSides'] as Array<any>).map(MobileUserLinkedSideFromJSON)),
         'devices': json['devices'] === undefined ? undefined : json['devices'] === null ? null : ((json['devices'] as Array<any>).map(MobileUserDeviceSummaryFromJSON)),
     };
@@ -105,6 +119,8 @@ export function MobileUserDetailResponseToJSONTyped(value?: MobileUserDetailResp
         'id': value['id'],
         'name': value['name'],
         'phone': value['phone'],
+        'isActive': value['isActive'],
+        'tokensValidAfter': value['tokensValidAfter'] == null ? value['tokensValidAfter'] : value['tokensValidAfter'].toISOString(),
         'linkedSides': value['linkedSides'] == null ? undefined : ((value['linkedSides'] as Array<any>).map(MobileUserLinkedSideToJSON)),
         'devices': value['devices'] == null ? undefined : ((value['devices'] as Array<any>).map(MobileUserDeviceSummaryToJSON)),
     };
