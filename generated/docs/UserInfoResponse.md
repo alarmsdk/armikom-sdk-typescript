@@ -16,6 +16,7 @@ Name | Type
 `extension` | string
 `scopes` | Array&lt;string&gt;
 `allowedAlarmCategories` | [Array&lt;AlarmCategoryAssignment&gt;](AlarmCategoryAssignment.md)
+`soundAlertEnabled` | boolean
 `hiddenFields` | Array&lt;string&gt;
 `readOnlyFields` | Array&lt;string&gt;
 
@@ -36,6 +37,7 @@ const example = {
   "extension": null,
   "scopes": null,
   "allowedAlarmCategories": null,
+  "soundAlertEnabled": null,
   "hiddenFields": null,
   "readOnlyFields": null,
 } satisfies UserInfoResponse

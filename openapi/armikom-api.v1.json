@@ -121272,6 +121272,11 @@
             },
             "nullable": true
           },
+          "soundAlertEnabled": {
+            "type": "boolean",
+            "description": "Whether the console rings the alarm sound for this operator. Null for principals that are\nnot operators (dealers, mobile users, service keys).",
+            "nullable": true
+          },
           "hiddenFields": {
             "type": "array",
             "items": {

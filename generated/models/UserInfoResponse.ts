@@ -88,6 +88,13 @@ export interface UserInfoResponse {
      */
     allowedAlarmCategories?: Array<AlarmCategoryAssignment> | null;
     /**
+     * Whether the console rings the alarm sound for this operator. Null for principals that are
+     * not operators (dealers, mobile users, service keys).
+     * @type {boolean}
+     * @memberof UserInfoResponse
+     */
+    soundAlertEnabled?: boolean | null;
+    /**
      * Field keys left out of responses for this user (D77), e.g. `side.address`.
      * @type {Array<string>}
      * @memberof UserInfoResponse
@@ -128,6 +135,7 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'extension': json['extension'] === undefined ? undefined : json['extension'] === null ? null : json['extension'],
         'scopes': json['scopes'] === undefined ? undefined : json['scopes'] === null ? null : json['scopes'],
         'allowedAlarmCategories': json['allowedAlarmCategories'] === undefined ? undefined : json['allowedAlarmCategories'] === null ? null : ((json['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentFromJSON)),
+        'soundAlertEnabled': json['soundAlertEnabled'] === undefined ? undefined : json['soundAlertEnabled'] === null ? null : json['soundAlertEnabled'],
         'hiddenFields': json['hiddenFields'] === undefined ? undefined : json['hiddenFields'] === null ? null : json['hiddenFields'],
         'readOnlyFields': json['readOnlyFields'] === undefined ? undefined : json['readOnlyFields'] === null ? null : json['readOnlyFields'],
     };
@@ -154,6 +162,7 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'extension': value['extension'],
         'scopes': value['scopes'],
         'allowedAlarmCategories': value['allowedAlarmCategories'] == null ? undefined : ((value['allowedAlarmCategories'] as Array<any>).map(AlarmCategoryAssignmentToJSON)),
+        'soundAlertEnabled': value['soundAlertEnabled'],
         'hiddenFields': value['hiddenFields'],
         'readOnlyFields': value['readOnlyFields'],
     };
