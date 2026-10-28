@@ -32,6 +32,48 @@ export interface SideServiceResponse {
      */
     sideId?: string;
     /**
+     * Subscriber number of the service's subscriber.
+     * @type {number}
+     * @memberof SideServiceResponse
+     */
+    sideNo?: number | null;
+    /**
+     * Partition number of the service's subscriber.
+     * @type {number}
+     * @memberof SideServiceResponse
+     */
+    partNo?: number | null;
+    /**
+     * Name of the service's subscriber.
+     * @type {string}
+     * @memberof SideServiceResponse
+     */
+    sideName?: string | null;
+    /**
+     * Dealer the subscriber belongs to.
+     * @type {string}
+     * @memberof SideServiceResponse
+     */
+    dealerId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideServiceResponse
+     */
+    dealerName?: string | null;
+    /**
+     * Customer the subscriber belongs to.
+     * @type {string}
+     * @memberof SideServiceResponse
+     */
+    customerId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideServiceResponse
+     */
+    customerName?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof SideServiceResponse
@@ -178,6 +220,13 @@ export function SideServiceResponseFromJSONTyped(json: any, ignoreDiscriminator:
         
         'id': json['id'] == null ? undefined : json['id'],
         'sideId': json['sideId'] == null ? undefined : json['sideId'],
+        'sideNo': json['sideNo'] === undefined ? undefined : json['sideNo'] === null ? null : json['sideNo'],
+        'partNo': json['partNo'] === undefined ? undefined : json['partNo'] === null ? null : json['partNo'],
+        'sideName': json['sideName'] === undefined ? undefined : json['sideName'] === null ? null : json['sideName'],
+        'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
+        'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
+        'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
+        'customerName': json['customerName'] === undefined ? undefined : json['customerName'] === null ? null : json['customerName'],
         'serviceTypeId': json['serviceTypeId'] === undefined ? undefined : json['serviceTypeId'] === null ? null : json['serviceTypeId'],
         'serviceCompanyId': json['serviceCompanyId'] === undefined ? undefined : json['serviceCompanyId'] === null ? null : json['serviceCompanyId'],
         'servicePersonId': json['servicePersonId'] === undefined ? undefined : json['servicePersonId'] === null ? null : json['servicePersonId'],
@@ -215,6 +264,13 @@ export function SideServiceResponseToJSONTyped(value?: SideServiceResponse | nul
         
         'id': value['id'],
         'sideId': value['sideId'],
+        'sideNo': value['sideNo'],
+        'partNo': value['partNo'],
+        'sideName': value['sideName'],
+        'dealerId': value['dealerId'],
+        'dealerName': value['dealerName'],
+        'customerId': value['customerId'],
+        'customerName': value['customerName'],
         'serviceTypeId': value['serviceTypeId'],
         'serviceCompanyId': value['serviceCompanyId'],
         'servicePersonId': value['servicePersonId'],

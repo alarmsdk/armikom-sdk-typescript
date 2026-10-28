@@ -8,6 +8,13 @@ Name | Type
 ------------ | -------------
 `id` | string
 `sideId` | string
+`sideNo` | number
+`partNo` | number
+`sideName` | string
+`dealerId` | string
+`dealerName` | string
+`customerId` | string
+`customerName` | string
 `serviceTypeId` | string
 `serviceCompanyId` | string
 `servicePersonId` | string
@@ -39,6 +46,13 @@ import type { SideServiceResponse } from ''
 const example = {
   "id": null,
   "sideId": null,
+  "sideNo": null,
+  "partNo": null,
+  "sideName": null,
+  "dealerId": null,
+  "dealerName": null,
+  "customerId": null,
+  "customerName": null,
   "serviceTypeId": null,
   "serviceCompanyId": null,
   "servicePersonId": null,

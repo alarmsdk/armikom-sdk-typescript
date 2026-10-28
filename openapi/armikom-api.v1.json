@@ -116789,6 +116789,43 @@
             "type": "string",
             "format": "uuid"
           },
+          "sideNo": {
+            "type": "integer",
+            "description": "Subscriber number of the service's subscriber.",
+            "format": "int32",
+            "nullable": true
+          },
+          "partNo": {
+            "type": "integer",
+            "description": "Partition number of the service's subscriber.",
+            "format": "int32",
+            "nullable": true
+          },
+          "sideName": {
+            "type": "string",
+            "description": "Name of the service's subscriber.",
+            "nullable": true
+          },
+          "dealerId": {
+            "type": "string",
+            "description": "Dealer the subscriber belongs to.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "dealerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Customer the subscriber belongs to.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
           "serviceTypeId": {
             "type": "string",
             "format": "uuid",
