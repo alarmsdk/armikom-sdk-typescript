@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { OperatorCustomerAssignment } from './OperatorCustomerAssignment';
+import {
+    OperatorCustomerAssignmentFromJSON,
+    OperatorCustomerAssignmentFromJSONTyped,
+    OperatorCustomerAssignmentToJSON,
+    OperatorCustomerAssignmentToJSONTyped,
+} from './OperatorCustomerAssignment';
 import type { AlarmCategoryAssignment } from './AlarmCategoryAssignment';
 import {
     AlarmCategoryAssignmentFromJSON,
@@ -106,6 +113,13 @@ export interface UserInfoResponse {
      * @memberof UserInfoResponse
      */
     readOnlyFields?: Array<string> | null;
+    /**
+     * D86: the customers this operator is limited to, or null when not limited. A limited operator
+     * sees only these customers and their subscribers, cannot create customers and cannot use reports.
+     * @type {Array<OperatorCustomerAssignment>}
+     * @memberof UserInfoResponse
+     */
+    customerScope?: Array<OperatorCustomerAssignment> | null;
 }
 
 /**
@@ -138,6 +152,7 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'soundAlertEnabled': json['soundAlertEnabled'] === undefined ? undefined : json['soundAlertEnabled'] === null ? null : json['soundAlertEnabled'],
         'hiddenFields': json['hiddenFields'] === undefined ? undefined : json['hiddenFields'] === null ? null : json['hiddenFields'],
         'readOnlyFields': json['readOnlyFields'] === undefined ? undefined : json['readOnlyFields'] === null ? null : json['readOnlyFields'],
+        'customerScope': json['customerScope'] === undefined ? undefined : json['customerScope'] === null ? null : ((json['customerScope'] as Array<any>).map(OperatorCustomerAssignmentFromJSON)),
     };
 }
 
@@ -165,6 +180,7 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'soundAlertEnabled': value['soundAlertEnabled'],
         'hiddenFields': value['hiddenFields'],
         'readOnlyFields': value['readOnlyFields'],
+        'customerScope': value['customerScope'] == null ? undefined : ((value['customerScope'] as Array<any>).map(OperatorCustomerAssignmentToJSON)),
     };
 }
 

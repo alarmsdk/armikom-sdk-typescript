@@ -89,6 +89,11 @@ import {
     SetUserAlarmCategoriesRequestToJSON,
 } from '../models/SetUserAlarmCategoriesRequest';
 import {
+    type SetUserCustomersRequest,
+    SetUserCustomersRequestFromJSON,
+    SetUserCustomersRequestToJSON,
+} from '../models/SetUserCustomersRequest';
+import {
     type SetUserRolesRequest,
     SetUserRolesRequestFromJSON,
     SetUserRolesRequestToJSON,
@@ -103,6 +108,11 @@ import {
     UpdateSelfRequestFromJSON,
     UpdateSelfRequestToJSON,
 } from '../models/UpdateSelfRequest';
+import {
+    type UserCustomersResponse,
+    UserCustomersResponseFromJSON,
+    UserCustomersResponseToJSON,
+} from '../models/UserCustomersResponse';
 
 export interface UserAdministrationApiChangeOwnPasswordOperationRequest {
     changeOwnPasswordRequest: ChangeOwnPasswordRequest;
@@ -142,6 +152,11 @@ export interface UserAdministrationApiGetOperatorUserRequest {
 }
 
 export interface UserAdministrationApiGetRoleFieldPolicyRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiGetUserCustomersRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -194,6 +209,12 @@ export interface UserAdministrationApiSetRoleScopesOperationRequest {
 export interface UserAdministrationApiSetUserAlarmCategoriesOperationRequest {
     id: string;
     setUserAlarmCategoriesRequest: SetUserAlarmCategoriesRequest;
+    xCorrelationId?: string;
+}
+
+export interface UserAdministrationApiSetUserCustomersOperationRequest {
+    id: string;
+    setUserCustomersRequest: SetUserCustomersRequest;
     xCorrelationId?: string;
 }
 
@@ -689,6 +710,65 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async getRoleFieldPolicy(requestParameters: UserAdministrationApiGetRoleFieldPolicyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RoleFieldPolicyResponse> {
         const response = await this.getRoleFieldPolicyRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getUserCustomers without sending the request
+     */
+    async getUserCustomersRequestOpts(requestParameters: UserAdministrationApiGetUserCustomersRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getUserCustomers().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/users/{id}/customers`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Empty `customers` = not limited. A limited operator sees only these customers and their subscribers (and their signals, alarms, services …), cannot create customers and cannot use reports. System administrators are never limited.
+     * Customers an operator is limited to (D86)
+     */
+    async getUserCustomersRaw(requestParameters: UserAdministrationApiGetUserCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserCustomersResponse>> {
+        const requestOptions = await this.getUserCustomersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserCustomersResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Empty `customers` = not limited. A limited operator sees only these customers and their subscribers (and their signals, alarms, services …), cannot create customers and cannot use reports. System administrators are never limited.
+     * Customers an operator is limited to (D86)
+     */
+    async getUserCustomers(requestParameters: UserAdministrationApiGetUserCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserCustomersResponse> {
+        const response = await this.getUserCustomersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1207,6 +1287,74 @@ export class UserAdministrationApi extends runtime.BaseAPI {
      */
     async setUserAlarmCategories(requestParameters: UserAdministrationApiSetUserAlarmCategoriesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.setUserAlarmCategoriesRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for setUserCustomers without sending the request
+     */
+    async setUserCustomersRequestOpts(requestParameters: UserAdministrationApiSetUserCustomersOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling setUserCustomers().'
+            );
+        }
+
+        if (requestParameters['setUserCustomersRequest'] == null) {
+            throw new runtime.RequiredError(
+                'setUserCustomersRequest',
+                'Required parameter "setUserCustomersRequest" was null or undefined when calling setUserCustomers().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/users/{id}/customers`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SetUserCustomersRequestToJSON(requestParameters['setUserCustomersRequest']),
+        };
+    }
+
+    /**
+     * Replaces the operator\'s customer list; an empty list lifts the limit. Takes effect within a minute, without a new login. Refused (403 `AUTH.CUSTOMER_LIMITED`) when the caller is limited themselves; 422 `AUTH.CUSTOMER_SCOPE_INVALID` for an unknown customer; 503 `AUTH.CUSTOMER_SCOPE_UNAVAILABLE` when the tenant has not applied the migration.
+     * Limit an operator to customers (D86)
+     */
+    async setUserCustomersRaw(requestParameters: UserAdministrationApiSetUserCustomersOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.setUserCustomersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Replaces the operator\'s customer list; an empty list lifts the limit. Takes effect within a minute, without a new login. Refused (403 `AUTH.CUSTOMER_LIMITED`) when the caller is limited themselves; 422 `AUTH.CUSTOMER_SCOPE_INVALID` for an unknown customer; 503 `AUTH.CUSTOMER_SCOPE_UNAVAILABLE` when the tenant has not applied the migration.
+     * Limit an operator to customers (D86)
+     */
+    async setUserCustomers(requestParameters: UserAdministrationApiSetUserCustomersOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.setUserCustomersRaw(requestParameters, initOverrides);
     }
 
     /**

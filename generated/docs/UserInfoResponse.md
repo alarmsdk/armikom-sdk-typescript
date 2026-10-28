@@ -19,6 +19,7 @@ Name | Type
 `soundAlertEnabled` | boolean
 `hiddenFields` | Array&lt;string&gt;
 `readOnlyFields` | Array&lt;string&gt;
+`customerScope` | [Array&lt;OperatorCustomerAssignment&gt;](OperatorCustomerAssignment.md)
 
 ## Example
 
@@ -40,6 +41,7 @@ const example = {
   "soundAlertEnabled": null,
   "hiddenFields": null,
   "readOnlyFields": null,
+  "customerScope": null,
 } satisfies UserInfoResponse
 
 console.log(example)

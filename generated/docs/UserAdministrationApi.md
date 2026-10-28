@@ -12,6 +12,7 @@ All URIs are relative to *http://localhost*
 | [**getFieldCatalog**](UserAdministrationApi.md#getfieldcatalog) | **GET** /v1/auth/field-catalog | List the fields a role\&#39;s field policy can hide or make read-only |
 | [**getOperatorUser**](UserAdministrationApi.md#getoperatoruser) | **GET** /v1/auth/users/{id} | Get a single operator user |
 | [**getRoleFieldPolicy**](UserAdministrationApi.md#getrolefieldpolicy) | **GET** /v1/auth/roles/{id}/field-policy | Get a role\&#39;s field policy |
+| [**getUserCustomers**](UserAdministrationApi.md#getusercustomers) | **GET** /v1/auth/users/{id}/customers | Customers an operator is limited to (D86) |
 | [**listFieldPolicySubjects**](UserAdministrationApi.md#listfieldpolicysubjects) | **GET** /v1/auth/field-policy-subjects | List what a field policy can be set for: operator roles, all dealers, all mobile users |
 | [**listOperatorUsers**](UserAdministrationApi.md#listoperatorusers) | **GET** /v1/auth/users | List operator users |
 | [**listRoles**](UserAdministrationApi.md#listroles) | **GET** /v1/auth/roles | List all roles with their scope mappings |
@@ -20,6 +21,7 @@ All URIs are relative to *http://localhost*
 | [**setRoleFieldPolicy**](UserAdministrationApi.md#setrolefieldpolicyoperation) | **PUT** /v1/auth/roles/{id}/field-policy | Replace a role\&#39;s field policy |
 | [**setRoleScopes**](UserAdministrationApi.md#setrolescopesoperation) | **PUT** /v1/auth/roles/{id}/scopes | Set scope mapping for a role |
 | [**setUserAlarmCategories**](UserAdministrationApi.md#setuseralarmcategoriesoperation) | **PUT** /v1/auth/users/{id}/alarm-categories | Set alarm category assignments for a user |
+| [**setUserCustomers**](UserAdministrationApi.md#setusercustomersoperation) | **PUT** /v1/auth/users/{id}/customers | Limit an operator to customers (D86) |
 | [**setUserRoles**](UserAdministrationApi.md#setuserrolesoperation) | **PUT** /v1/auth/users/{id}/roles | Set role assignments for a user |
 | [**unlockUser**](UserAdministrationApi.md#unlockuser) | **POST** /v1/auth/users/{id}/unlock | Unlock an operator account |
 | [**updateOperatorUser**](UserAdministrationApi.md#updateoperatoruseroperation) | **PUT** /v1/auth/users/{id} | Update an operator user |
@@ -619,6 +621,83 @@ example().catch(console.error);
 ### Return type
 
 [**RoleFieldPolicyResponse**](RoleFieldPolicyResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getUserCustomers
+
+> UserCustomersResponse getUserCustomers(id, xCorrelationId)
+
+Customers an operator is limited to (D86)
+
+Empty &#x60;customers&#x60; &#x3D; not limited. A limited operator sees only these customers and their subscribers (and their signals, alarms, services …), cannot create customers and cannot use reports. System administrators are never limited.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { GetUserCustomersRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetUserCustomersRequest;
+
+  try {
+    const data = await api.getUserCustomers(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**UserCustomersResponse**](UserCustomersResponse.md)
 
 ### Authorization
 
@@ -1273,6 +1352,88 @@ example().catch(console.error);
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## setUserCustomers
+
+> setUserCustomers(id, setUserCustomersRequest, xCorrelationId)
+
+Limit an operator to customers (D86)
+
+Replaces the operator\&#39;s customer list; an empty list lifts the limit. Takes effect within a minute, without a new login. Refused (403 &#x60;AUTH.CUSTOMER_LIMITED&#x60;) when the caller is limited themselves; 422 &#x60;AUTH.CUSTOMER_SCOPE_INVALID&#x60; for an unknown customer; 503 &#x60;AUTH.CUSTOMER_SCOPE_UNAVAILABLE&#x60; when the tenant has not applied the migration.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UserAdministrationApi,
+} from '';
+import type { SetUserCustomersOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UserAdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SetUserCustomersRequest
+    setUserCustomersRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SetUserCustomersOperationRequest;
+
+  try {
+    const data = await api.setUserCustomers(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **setUserCustomersRequest** | [SetUserCustomersRequest](SetUserCustomersRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

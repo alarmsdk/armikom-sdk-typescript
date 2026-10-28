@@ -317,6 +317,7 @@ docs/OperatorCallSummaryItem.md
 docs/OperatorCallSummaryResponse.md
 docs/OperatorComparisonItem.md
 docs/OperatorComparisonResponse.md
+docs/OperatorCustomerAssignment.md
 docs/OperatorDataEntryItem.md
 docs/OperatorDataEntrySummaryResponse.md
 docs/OperatorReportsApi.md
@@ -432,6 +433,7 @@ docs/SetRoleFieldPolicyRequest.md
 docs/SetRoleScopesRequest.md
 docs/SetTranslationOverrideRequest.md
 docs/SetUserAlarmCategoriesRequest.md
+docs/SetUserCustomersRequest.md
 docs/SetUserRolesRequest.md
 docs/SideAgreementItem.md
 docs/SideApprovalResponse.md
@@ -619,6 +621,7 @@ docs/UpdateTechnicalPersonRequest.md
 docs/UpdateWorkScheduleRequest.md
 docs/UpsertTimeTableRequest.md
 docs/UserAdministrationApi.md
+docs/UserCustomersResponse.md
 docs/UserInfo.md
 docs/UserInfoResponse.md
 docs/WaitingEventListItem.md
@@ -867,6 +870,7 @@ models/OperatorCallSummaryItem.ts
 models/OperatorCallSummaryResponse.ts
 models/OperatorComparisonItem.ts
 models/OperatorComparisonResponse.ts
+models/OperatorCustomerAssignment.ts
 models/OperatorDataEntryItem.ts
 models/OperatorDataEntrySummaryResponse.ts
 models/OperatorScreenTimeItem.ts
@@ -970,6 +974,7 @@ models/SetRoleFieldPolicyRequest.ts
 models/SetRoleScopesRequest.ts
 models/SetTranslationOverrideRequest.ts
 models/SetUserAlarmCategoriesRequest.ts
+models/SetUserCustomersRequest.ts
 models/SetUserRolesRequest.ts
 models/SideAgreementItem.ts
 models/SideApprovalResponse.ts
@@ -1131,6 +1136,7 @@ models/UpdateSmsSettingRequest.ts
 models/UpdateTechnicalPersonRequest.ts
 models/UpdateWorkScheduleRequest.ts
 models/UpsertTimeTableRequest.ts
+models/UserCustomersResponse.ts
 models/UserInfo.ts
 models/UserInfoResponse.ts
 models/WaitingEventListItem.ts
