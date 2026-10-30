@@ -9,6 +9,7 @@ Name | Type
 `sideNo` | number
 `name` | string
 `include` | Array&lt;string&gt;
+`monitoringCenterId` | string
 
 ## Example
 
@@ -20,6 +21,7 @@ const example = {
   "sideNo": null,
   "name": null,
   "include": null,
+  "monitoringCenterId": null,
 } satisfies CloneSideRequest
 
 console.log(example)

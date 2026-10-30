@@ -8363,7 +8363,7 @@ example().catch(console.error);
 
 List active technical people, optionally filtered by dealer
 
-Operator and dealer principals only (D16 — finding F13). &#x60;TechnicalPerson&#x60; carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber holding &#x60;reference:read&#x60; must not reach it. A dealer principal is always scoped to its own dealer; the &#x60;dealerId&#x60; query parameter is ignored for dealers.
+Technicians are dealer business data, not reference data: needs &#x60;dealers:read&#x60;. Operator and dealer principals only (D16 — finding F13). &#x60;TechnicalPerson&#x60; carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber must not reach it. A dealer principal is always scoped to its own dealer; the &#x60;dealerId&#x60; query parameter is ignored for dealers.
 
 ### Example
 

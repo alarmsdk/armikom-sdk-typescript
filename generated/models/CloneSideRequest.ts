@@ -37,6 +37,14 @@ export interface CloneSideRequest {
      * @memberof CloneSideRequest
      */
     include?: Array<string> | null;
+    /**
+     * Target monitoring center for the copy. Omitted or equal to the source's centre: the copy
+     * stays where the source is. A different centre is only open to operators whose token carries
+     * no monitoring center (cross-centre operators); everyone else gets 403.
+     * @type {string}
+     * @memberof CloneSideRequest
+     */
+    monitoringCenterId?: string | null;
 }
 
 /**
@@ -59,6 +67,7 @@ export function CloneSideRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
         'sideNo': json['sideNo'] === undefined ? undefined : json['sideNo'] === null ? null : json['sideNo'],
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
         'include': json['include'] === undefined ? undefined : json['include'] === null ? null : json['include'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
     };
 }
 
@@ -76,6 +85,7 @@ export function CloneSideRequestToJSONTyped(value?: CloneSideRequest | null, ign
         'sideNo': value['sideNo'],
         'name': value['name'],
         'include': value['include'],
+        'monitoringCenterId': value['monitoringCenterId'],
     };
 }
 

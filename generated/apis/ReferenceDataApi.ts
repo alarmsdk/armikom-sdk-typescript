@@ -7629,7 +7629,7 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Operator and dealer principals only (D16 — finding F13). `TechnicalPerson` carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber holding `reference:read` must not reach it. A dealer principal is always scoped to its own dealer; the `dealerId` query parameter is ignored for dealers.
+     * Technicians are dealer business data, not reference data: needs `dealers:read`. Operator and dealer principals only (D16 — finding F13). `TechnicalPerson` carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber must not reach it. A dealer principal is always scoped to its own dealer; the `dealerId` query parameter is ignored for dealers.
      * List active technical people, optionally filtered by dealer
      */
     async getTechnicalPeopleRaw(requestParameters: ReferenceDataApiGetTechnicalPeopleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TechnicalPersonItem>>> {
@@ -7640,7 +7640,7 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Operator and dealer principals only (D16 — finding F13). `TechnicalPerson` carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber holding `reference:read` must not reach it. A dealer principal is always scoped to its own dealer; the `dealerId` query parameter is ignored for dealers.
+     * Technicians are dealer business data, not reference data: needs `dealers:read`. Operator and dealer principals only (D16 — finding F13). `TechnicalPerson` carries staff names and phone numbers and has no monitoring-center column, so a mobile subscriber must not reach it. A dealer principal is always scoped to its own dealer; the `dealerId` query parameter is ignored for dealers.
      * List active technical people, optionally filtered by dealer
      */
     async getTechnicalPeople(requestParameters: ReferenceDataApiGetTechnicalPeopleRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TechnicalPersonItem>> {

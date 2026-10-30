@@ -747,7 +747,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new subscriber pre-filled from an existing one under a new SideNo. If sideNo is omitted, the next available number is allocated. The include[] array controls which child collections are copied (contacts, users, timetables, sms-config). Omitting include copies the default set (all four).
+     * Creates a new subscriber pre-filled from an existing one under a new SideNo. If sideNo is omitted, the next available number is allocated. The include[] array controls which child collections are copied (contacts, users, timetables, sms-config). Omitting include copies the default set (all four). monitoringCenterId copies into another centre; only operators without a centre on their token may name a centre other than the source\'s (403 SIDE_CLONE.MONITORING_CENTER_FORBIDDEN). An account type that belongs to another centre is not carried over.
      * Clone a subscriber
      */
     async cloneSideRaw(requestParameters: SubscribersApiCloneSideOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SideWriteResponse>> {
@@ -758,7 +758,7 @@ export class SubscribersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new subscriber pre-filled from an existing one under a new SideNo. If sideNo is omitted, the next available number is allocated. The include[] array controls which child collections are copied (contacts, users, timetables, sms-config). Omitting include copies the default set (all four).
+     * Creates a new subscriber pre-filled from an existing one under a new SideNo. If sideNo is omitted, the next available number is allocated. The include[] array controls which child collections are copied (contacts, users, timetables, sms-config). Omitting include copies the default set (all four). monitoringCenterId copies into another centre; only operators without a centre on their token may name a centre other than the source\'s (403 SIDE_CLONE.MONITORING_CENTER_FORBIDDEN). An account type that belongs to another centre is not carried over.
      * Clone a subscriber
      */
     async cloneSide(requestParameters: SubscribersApiCloneSideOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SideWriteResponse> {
