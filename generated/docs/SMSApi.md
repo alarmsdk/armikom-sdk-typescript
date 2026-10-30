@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**bulkSendSms**](SMSApi.md#bulksendsmsoperation) | **POST** /v1/sides/batch-sms | Queue SMS messages for multiple subscribers at once |
+| [**getEffectiveMessageTemplate**](SMSApi.md#geteffectivemessagetemplate) | **GET** /v1/message-templates/effective | Get the template text that currently applies to a notification |
 | [**getSignalEventSmsTemplate**](SMSApi.md#getsignaleventsmstemplate) | **GET** /v1/signal-events/{id}/sms-template | Get SMS template for a signal event |
 | [**sendSideSms**](SMSApi.md#sendsidesms) | **POST** /v1/sides/{sideId}/sms | Queue SMS messages for a subscriber\&#39;s contacts |
 
@@ -84,6 +85,86 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getEffectiveMessageTemplate
+
+> EffectiveMessageTemplate getEffectiveMessageTemplate(channel, kind, xCorrelationId)
+
+Get the template text that currently applies to a notification
+
+For non-alarm kinds, e.g. channel&#x3D;sms&amp;kind&#x3D;mobilePasswordReset. Placeholders are not filled in.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SMSApi,
+} from '';
+import type { GetEffectiveMessageTemplateRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SMSApi(config);
+
+  const body = {
+    // string (optional)
+    channel: channel_example,
+    // string (optional)
+    kind: kind_example,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetEffectiveMessageTemplateRequest;
+
+  try {
+    const data = await api.getEffectiveMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **channel** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **kind** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**EffectiveMessageTemplate**](EffectiveMessageTemplate.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |

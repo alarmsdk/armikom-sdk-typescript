@@ -29,6 +29,11 @@ import {
     CreateMailSettingRequestToJSON,
 } from '../models/CreateMailSettingRequest';
 import {
+    type CreateMessageTemplateRequest,
+    CreateMessageTemplateRequestFromJSON,
+    CreateMessageTemplateRequestToJSON,
+} from '../models/CreateMessageTemplateRequest';
+import {
     type CreateMobileAgreementRequest,
     CreateMobileAgreementRequestFromJSON,
     CreateMobileAgreementRequestToJSON,
@@ -68,6 +73,21 @@ import {
     MailSettingDetailFromJSON,
     MailSettingDetailToJSON,
 } from '../models/MailSettingDetail';
+import {
+    type MessageTemplateDefinition,
+    MessageTemplateDefinitionFromJSON,
+    MessageTemplateDefinitionToJSON,
+} from '../models/MessageTemplateDefinition';
+import {
+    type MessageTemplateDetail,
+    MessageTemplateDetailFromJSON,
+    MessageTemplateDetailToJSON,
+} from '../models/MessageTemplateDetail';
+import {
+    type MessageTemplatePreview,
+    MessageTemplatePreviewFromJSON,
+    MessageTemplatePreviewToJSON,
+} from '../models/MessageTemplatePreview';
 import {
     type MobileAgreementConsentItem,
     MobileAgreementConsentItemFromJSON,
@@ -123,6 +143,11 @@ import {
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+import {
+    type PreviewMessageTemplateRequest,
+    PreviewMessageTemplateRequestFromJSON,
+    PreviewMessageTemplateRequestToJSON,
+} from '../models/PreviewMessageTemplateRequest';
 import {
     type PromptDetail,
     PromptDetailFromJSON,
@@ -219,6 +244,11 @@ import {
     UpdateMailSettingRequestToJSON,
 } from '../models/UpdateMailSettingRequest';
 import {
+    type UpdateMessageTemplateRequest,
+    UpdateMessageTemplateRequestFromJSON,
+    UpdateMessageTemplateRequestToJSON,
+} from '../models/UpdateMessageTemplateRequest';
+import {
     type UpdateMobileAgreementRequest,
     UpdateMobileAgreementRequestFromJSON,
     UpdateMobileAgreementRequestToJSON,
@@ -265,6 +295,12 @@ export interface AdministrationApiCreateEmergencyPhoneRequest {
 
 export interface AdministrationApiCreateMailSettingOperationRequest {
     createMailSettingRequest: CreateMailSettingRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AdministrationApiCreateMessageTemplateOperationRequest {
+    createMessageTemplateRequest: CreateMessageTemplateRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -343,6 +379,11 @@ export interface AdministrationApiDeleteEmergencyPhoneRequest {
 }
 
 export interface AdministrationApiDeleteMailSettingRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiDeleteMessageTemplateRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -430,6 +471,11 @@ export interface AdministrationApiGetMailSettingRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetMessageTemplateRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetMobileAgreementRequest {
     id: string;
     xCorrelationId?: string;
@@ -490,6 +536,16 @@ export interface AdministrationApiListMailSettingsRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiListMessageTemplateDefinitionsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiListMessageTemplatesRequest {
+    channel?: string;
+    kind?: string;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiListMobileAgreementConsentsRequest {
     id: string;
     xCorrelationId?: string;
@@ -544,6 +600,12 @@ export interface AdministrationApiNormalizePhonesRequest {
     idempotencyKey?: string;
 }
 
+export interface AdministrationApiPreviewMessageTemplateOperationRequest {
+    previewMessageTemplateRequest: PreviewMessageTemplateRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface AdministrationApiSaveReceiverMcFallbackOperationRequest {
     receiverId: string;
     saveReceiverMcFallbackRequest: SaveReceiverMcFallbackRequest;
@@ -565,6 +627,12 @@ export interface AdministrationApiUpdateEmergencyPhoneRequest {
 export interface AdministrationApiUpdateMailSettingOperationRequest {
     id: string;
     updateMailSettingRequest: UpdateMailSettingRequest;
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiUpdateMessageTemplateOperationRequest {
+    id: string;
+    updateMessageTemplateRequest: UpdateMessageTemplateRequest;
     xCorrelationId?: string;
 }
 
@@ -947,6 +1015,71 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async createMailSetting(requestParameters: AdministrationApiCreateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.createMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createMessageTemplate without sending the request
+     */
+    async createMessageTemplateRequestOpts(requestParameters: AdministrationApiCreateMessageTemplateOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createMessageTemplateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createMessageTemplateRequest',
+                'Required parameter "createMessageTemplateRequest" was null or undefined when calling createMessageTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateMessageTemplateRequestToJSON(requestParameters['createMessageTemplateRequest']),
+        };
+    }
+
+    /**
+     * Leave alarmCategoryId and signalTypeId empty for the global template; set one of them (alarm kind only) for an override. Unknown placeholders are rejected (422); a second template for the same scope is a 409. Needs a cross-centre operator.
+     * Create a message template
+     */
+    async createMessageTemplateRaw(requestParameters: AdministrationApiCreateMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.createMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Leave alarmCategoryId and signalTypeId empty for the global template; set one of them (alarm kind only) for an override. Unknown placeholders are rejected (422); a second template for the same scope is a 409. Needs a cross-centre operator.
+     * Create a message template
+     */
+    async createMessageTemplate(requestParameters: AdministrationApiCreateMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.createMessageTemplateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -1780,6 +1913,64 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async deleteMailSetting(requestParameters: AdministrationApiDeleteMailSettingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteMailSettingRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteMessageTemplate without sending the request
+     */
+    async deleteMessageTemplateRequestOpts(requestParameters: AdministrationApiDeleteMessageTemplateRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteMessageTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The next level (or the built-in default) applies again.
+     * Delete a message template
+     */
+    async deleteMessageTemplateRaw(requestParameters: AdministrationApiDeleteMessageTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * The next level (or the built-in default) applies again.
+     * Delete a message template
+     */
+    async deleteMessageTemplate(requestParameters: AdministrationApiDeleteMessageTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteMessageTemplateRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -2710,6 +2901,63 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getMessageTemplate without sending the request
+     */
+    async getMessageTemplateRequestOpts(requestParameters: AdministrationApiGetMessageTemplateRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getMessageTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a message template
+     */
+    async getMessageTemplateRaw(requestParameters: AdministrationApiGetMessageTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageTemplateDetail>> {
+        const requestOptions = await this.getMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MessageTemplateDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a message template
+     */
+    async getMessageTemplate(requestParameters: AdministrationApiGetMessageTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageTemplateDetail> {
+        const response = await this.getMessageTemplateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getMobileAgreement without sending the request
      */
     async getMobileAgreementRequestOpts(requestParameters: AdministrationApiGetMobileAgreementRequest): Promise<runtime.RequestOpts> {
@@ -3413,6 +3661,114 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for listMessageTemplateDefinitions without sending the request
+     */
+    async listMessageTemplateDefinitionsRequestOpts(requestParameters: AdministrationApiListMessageTemplateDefinitionsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates/definitions`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List the notifications that have a template, with placeholders and default text
+     */
+    async listMessageTemplateDefinitionsRaw(requestParameters: AdministrationApiListMessageTemplateDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MessageTemplateDefinition>>> {
+        const requestOptions = await this.listMessageTemplateDefinitionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MessageTemplateDefinitionFromJSON));
+    }
+
+    /**
+     * List the notifications that have a template, with placeholders and default text
+     */
+    async listMessageTemplateDefinitions(requestParameters: AdministrationApiListMessageTemplateDefinitionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MessageTemplateDefinition>> {
+        const response = await this.listMessageTemplateDefinitionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listMessageTemplates without sending the request
+     */
+    async listMessageTemplatesRequestOpts(requestParameters: AdministrationApiListMessageTemplatesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['channel'] != null) {
+            queryParameters['channel'] = requestParameters['channel'];
+        }
+
+        if (requestParameters['kind'] != null) {
+            queryParameters['kind'] = requestParameters['kind'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Optionally filtered by channel (sms, mail, ivr) and kind. A (channel, kind) without a stored global template uses the definition\'s default text.
+     * List stored message templates
+     */
+    async listMessageTemplatesRaw(requestParameters: AdministrationApiListMessageTemplatesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<MessageTemplateDetail>>> {
+        const requestOptions = await this.listMessageTemplatesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(MessageTemplateDetailFromJSON));
+    }
+
+    /**
+     * Optionally filtered by channel (sms, mail, ivr) and kind. A (channel, kind) without a stored global template uses the definition\'s default text.
+     * List stored message templates
+     */
+    async listMessageTemplates(requestParameters: AdministrationApiListMessageTemplatesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<MessageTemplateDetail>> {
+        const response = await this.listMessageTemplatesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listMobileAgreementConsents without sending the request
      */
     async listMobileAgreementConsentsRequestOpts(requestParameters: AdministrationApiListMobileAgreementConsentsRequest): Promise<runtime.RequestOpts> {
@@ -4024,6 +4380,71 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for previewMessageTemplate without sending the request
+     */
+    async previewMessageTemplateRequestOpts(requestParameters: AdministrationApiPreviewMessageTemplateOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['previewMessageTemplateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'previewMessageTemplateRequest',
+                'Required parameter "previewMessageTemplateRequest" was null or undefined when calling previewMessageTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates/preview`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PreviewMessageTemplateRequestToJSON(requestParameters['previewMessageTemplateRequest']),
+        };
+    }
+
+    /**
+     * Returns the rendered text, SMS length and parts, and the errors that would keep it from being saved. Nothing is stored.
+     * Render a draft template with example values
+     */
+    async previewMessageTemplateRaw(requestParameters: AdministrationApiPreviewMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MessageTemplatePreview>> {
+        const requestOptions = await this.previewMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MessageTemplatePreviewFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns the rendered text, SMS length and parts, and the errors that would keep it from being saved. Nothing is stored.
+     * Render a draft template with example values
+     */
+    async previewMessageTemplate(requestParameters: AdministrationApiPreviewMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageTemplatePreview> {
+        const response = await this.previewMessageTemplateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for saveReceiverMcFallback without sending the request
      */
     async saveReceiverMcFallbackRequestOpts(requestParameters: AdministrationApiSaveReceiverMcFallbackOperationRequest): Promise<runtime.RequestOpts> {
@@ -4290,6 +4711,75 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async updateMailSetting(requestParameters: AdministrationApiUpdateMailSettingOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
         const response = await this.updateMailSettingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateMessageTemplate without sending the request
+     */
+    async updateMessageTemplateRequestOpts(requestParameters: AdministrationApiUpdateMessageTemplateOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateMessageTemplate().'
+            );
+        }
+
+        if (requestParameters['updateMessageTemplateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateMessageTemplateRequest',
+                'Required parameter "updateMessageTemplateRequest" was null or undefined when calling updateMessageTemplate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/message-templates/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateMessageTemplateRequestToJSON(requestParameters['updateMessageTemplateRequest']),
+        };
+    }
+
+    /**
+     * Omitted fields keep their value; channel, kind and scope cannot change.
+     * Update a message template
+     */
+    async updateMessageTemplateRaw(requestParameters: AdministrationApiUpdateMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminWriteResponse>> {
+        const requestOptions = await this.updateMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Omitted fields keep their value; channel, kind and scope cannot change.
+     * Update a message template
+     */
+    async updateMessageTemplate(requestParameters: AdministrationApiUpdateMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminWriteResponse> {
+        const response = await this.updateMessageTemplateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

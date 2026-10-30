@@ -165,6 +165,7 @@ docs/CreateHolidayRequest.md
 docs/CreateHolidayTypeRequest.md
 docs/CreateIntegrationClientRequest.md
 docs/CreateMailSettingRequest.md
+docs/CreateMessageTemplateRequest.md
 docs/CreateMobileAgreementRequest.md
 docs/CreateMobileUserRequest.md
 docs/CreateModelProtocolRequest.md
@@ -232,6 +233,7 @@ docs/DeviceRegexDetail.md
 docs/DialRequest.md
 docs/DialResponse.md
 docs/DistrictDetail.md
+docs/EffectiveMessageTemplate.md
 docs/EffectiveSideHolidayItem.md
 docs/EffectiveSignalTypeItem.md
 docs/EmailMetrics.md
@@ -279,6 +281,10 @@ docs/LoginRequest.md
 docs/LoginResponse.md
 docs/LookupItem.md
 docs/MailSettingDetail.md
+docs/MessageTemplateDefinition.md
+docs/MessageTemplateDetail.md
+docs/MessageTemplatePlaceholder.md
+docs/MessageTemplatePreview.md
 docs/MobileAgreementConsentItem.md
 docs/MobileAgreementDetail.md
 docs/MobileMessageItem.md
@@ -340,6 +346,7 @@ docs/PhoneNormalizationRequest.md
 docs/PhoneNormalizationResult.md
 docs/PostActivity422Response.md
 docs/PostActivityRequest.md
+docs/PreviewMessageTemplateRequest.md
 docs/ProblemDetails.md
 docs/ProductDetail.md
 docs/PromptDetail.md
@@ -582,6 +589,7 @@ docs/UpdateDistrictRequest.md
 docs/UpdateHolidayRequest.md
 docs/UpdateHolidayTypeRequest.md
 docs/UpdateMailSettingRequest.md
+docs/UpdateMessageTemplateRequest.md
 docs/UpdateMobileAgreementRequest.md
 docs/UpdateMobileUserRequest.md
 docs/UpdateModelRequest.md
@@ -729,6 +737,7 @@ models/CreateHolidayRequest.ts
 models/CreateHolidayTypeRequest.ts
 models/CreateIntegrationClientRequest.ts
 models/CreateMailSettingRequest.ts
+models/CreateMessageTemplateRequest.ts
 models/CreateMobileAgreementRequest.ts
 models/CreateMobileUserRequest.ts
 models/CreateModelProtocolRequest.ts
@@ -794,6 +803,7 @@ models/DeviceRegexDetail.ts
 models/DialRequest.ts
 models/DialResponse.ts
 models/DistrictDetail.ts
+models/EffectiveMessageTemplate.ts
 models/EffectiveSideHolidayItem.ts
 models/EffectiveSignalTypeItem.ts
 models/EmailMetrics.ts
@@ -834,6 +844,10 @@ models/LoginRequest.ts
 models/LoginResponse.ts
 models/LookupItem.ts
 models/MailSettingDetail.ts
+models/MessageTemplateDefinition.ts
+models/MessageTemplateDetail.ts
+models/MessageTemplatePlaceholder.ts
+models/MessageTemplatePreview.ts
 models/MobileAgreementConsentItem.ts
 models/MobileAgreementDetail.ts
 models/MobileMessageItem.ts
@@ -891,6 +905,7 @@ models/PhoneNormalizationRequest.ts
 models/PhoneNormalizationResult.ts
 models/PostActivity422Response.ts
 models/PostActivityRequest.ts
+models/PreviewMessageTemplateRequest.ts
 models/ProblemDetails.ts
 models/ProductDetail.ts
 models/PromptDetail.ts
@@ -1098,6 +1113,7 @@ models/UpdateDistrictRequest.ts
 models/UpdateHolidayRequest.ts
 models/UpdateHolidayTypeRequest.ts
 models/UpdateMailSettingRequest.ts
+models/UpdateMessageTemplateRequest.ts
 models/UpdateMobileAgreementRequest.ts
 models/UpdateMobileUserRequest.ts
 models/UpdateModelRequest.ts

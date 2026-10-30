@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**createDeviceRegex**](AdministrationApi.md#createdeviceregex) | **POST** /v1/admin/device-regexes | Create a device parser |
 | [**createEmergencyPhone**](AdministrationApi.md#createemergencyphone) | **POST** /v1/admin/emergency-phones | Create an emergency contact |
 | [**createMailSetting**](AdministrationApi.md#createmailsettingoperation) | **POST** /v1/admin/mail-settings | Create an SMTP profile |
+| [**createMessageTemplate**](AdministrationApi.md#createmessagetemplateoperation) | **POST** /v1/admin/message-templates | Create a message template |
 | [**createMobileAgreement**](AdministrationApi.md#createmobileagreementoperation) | **POST** /v1/admin/mobile-agreements | Create a mobile agreement |
 | [**createMonitoringCenter**](AdministrationApi.md#createmonitoringcenteroperation) | **POST** /v1/admin/monitoring-centers | Create a monitoring center |
 | [**createPanelCommand**](AdministrationApi.md#createpanelcommand) | **POST** /v1/admin/panel-commands | Queue a panel command |
@@ -22,6 +23,7 @@ All URIs are relative to *http://localhost*
 | [**deleteDeviceRegex**](AdministrationApi.md#deletedeviceregex) | **DELETE** /v1/admin/device-regexes/{id} | Delete a device parser |
 | [**deleteEmergencyPhone**](AdministrationApi.md#deleteemergencyphone) | **DELETE** /v1/admin/emergency-phones/{id} | Delete an emergency contact |
 | [**deleteMailSetting**](AdministrationApi.md#deletemailsetting) | **DELETE** /v1/admin/mail-settings/{id} | Delete an SMTP profile |
+| [**deleteMessageTemplate**](AdministrationApi.md#deletemessagetemplate) | **DELETE** /v1/admin/message-templates/{id} | Delete a message template |
 | [**deleteMobileAgreement**](AdministrationApi.md#deletemobileagreement) | **DELETE** /v1/admin/mobile-agreements/{id} | Delete a mobile agreement |
 | [**deleteMonitoringCenter**](AdministrationApi.md#deletemonitoringcenter) | **DELETE** /v1/admin/monitoring-centers/{id} | Delete a monitoring center |
 | [**deleteMonitoringCenterAlarmSound**](AdministrationApi.md#deletemonitoringcenteralarmsound) | **DELETE** /v1/admin/monitoring-centers/{id}/alarm-sound | Remove the alarm sound from a monitoring center |
@@ -38,6 +40,7 @@ All URIs are relative to *http://localhost*
 | [**getDeviceRegex**](AdministrationApi.md#getdeviceregex) | **GET** /v1/admin/device-regexes/{id} | Get a device parser |
 | [**getEmergencyPhone**](AdministrationApi.md#getemergencyphone) | **GET** /v1/admin/emergency-phones/{id} | Get an emergency contact |
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
+| [**getMessageTemplate**](AdministrationApi.md#getmessagetemplate) | **GET** /v1/admin/message-templates/{id} | Get a message template |
 | [**getMobileAgreement**](AdministrationApi.md#getmobileagreement) | **GET** /v1/admin/mobile-agreements/{id} | Get a mobile agreement |
 | [**getPhoneAuditEntityDetail**](AdministrationApi.md#getphoneauditentitydetail) | **GET** /v1/admin/phone-audit/detail/{entity} | List phone numbers needing normalisation for one entity |
 | [**getPhoneAuditSummary**](AdministrationApi.md#getphoneauditsummary) | **GET** /v1/admin/phone-audit/summary | Summary of phone numbers across all entities |
@@ -51,6 +54,8 @@ All URIs are relative to *http://localhost*
 | [**listDeviceRegexes**](AdministrationApi.md#listdeviceregexes) | **GET** /v1/admin/device-regexes | List device parsers |
 | [**listEmergencyPhones**](AdministrationApi.md#listemergencyphones) | **GET** /v1/admin/emergency-phones | List emergency contacts |
 | [**listMailSettings**](AdministrationApi.md#listmailsettings) | **GET** /v1/admin/mail-settings | List SMTP profiles |
+| [**listMessageTemplateDefinitions**](AdministrationApi.md#listmessagetemplatedefinitions) | **GET** /v1/admin/message-templates/definitions | List the notifications that have a template, with placeholders and default text |
+| [**listMessageTemplates**](AdministrationApi.md#listmessagetemplates) | **GET** /v1/admin/message-templates | List stored message templates |
 | [**listMobileAgreementConsents**](AdministrationApi.md#listmobileagreementconsents) | **GET** /v1/admin/mobile-agreements/{id}/consents | List users\&#39; answers to a mobile agreement |
 | [**listMobileAgreements**](AdministrationApi.md#listmobileagreements) | **GET** /v1/admin/mobile-agreements | List the agreements customer-app users are asked to accept |
 | [**listMyAlarmSisSignalTypes**](AdministrationApi.md#listmyalarmsissignaltypes) | **GET** /v1/admin/myalarmsis/signal-types | Signal type codes known to MyAlarmSis and/or Armikom |
@@ -62,10 +67,12 @@ All URIs are relative to *http://localhost*
 | [**listReceiverTypes**](AdministrationApi.md#listreceivertypes) | **GET** /v1/admin/receiver-types | List receiver types |
 | [**listSmsSettings**](AdministrationApi.md#listsmssettings) | **GET** /v1/admin/sms-settings | List SMS gateway profiles |
 | [**normalizePhones**](AdministrationApi.md#normalizephones) | **POST** /v1/admin/phone-audit/normalize | Batch-normalise phone numbers |
+| [**previewMessageTemplate**](AdministrationApi.md#previewmessagetemplateoperation) | **POST** /v1/admin/message-templates/preview | Render a draft template with example values |
 | [**saveReceiverMcFallback**](AdministrationApi.md#savereceivermcfallbackoperation) | **PUT** /v1/admin/receivers/{receiverId}/mc-fallback | Replace a receiver\&#39;s monitoring centre fallback |
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
 | [**updateEmergencyPhone**](AdministrationApi.md#updateemergencyphone) | **PATCH** /v1/admin/emergency-phones/{id} | Update an emergency contact |
 | [**updateMailSetting**](AdministrationApi.md#updatemailsettingoperation) | **PATCH** /v1/admin/mail-settings/{id} | Update an SMTP profile |
+| [**updateMessageTemplate**](AdministrationApi.md#updatemessagetemplateoperation) | **PATCH** /v1/admin/message-templates/{id} | Update a message template |
 | [**updateMobileAgreement**](AdministrationApi.md#updatemobileagreementoperation) | **PATCH** /v1/admin/mobile-agreements/{id} | Update a mobile agreement |
 | [**updateMonitoringCenter**](AdministrationApi.md#updatemonitoringcenteroperation) | **PATCH** /v1/admin/monitoring-centers/{id} | Update a monitoring center |
 | [**updatePrompt**](AdministrationApi.md#updateprompt) | **PATCH** /v1/admin/prompts/{id} | Update an AI prompt template |
@@ -474,6 +481,87 @@ example().catch(console.error);
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createMessageTemplate
+
+> AdminWriteResponse createMessageTemplate(createMessageTemplateRequest, xCorrelationId, idempotencyKey)
+
+Create a message template
+
+Leave alarmCategoryId and signalTypeId empty for the global template; set one of them (alarm kind only) for an override. Unknown placeholders are rejected (422); a second template for the same scope is a 409. Needs a cross-centre operator.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { CreateMessageTemplateOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // CreateMessageTemplateRequest
+    createMessageTemplateRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateMessageTemplateOperationRequest;
+
+  try {
+    const data = await api.createMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createMessageTemplateRequest** | [CreateMessageTemplateRequest](CreateMessageTemplateRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -1508,6 +1596,83 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteMessageTemplate
+
+> deleteMessageTemplate(id, xCorrelationId)
+
+Delete a message template
+
+The next level (or the built-in default) applies again.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { DeleteMessageTemplateRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteMessageTemplateRequest;
+
+  try {
+    const data = await api.deleteMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -2728,6 +2893,81 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getMessageTemplate
+
+> MessageTemplateDetail getMessageTemplate(id, xCorrelationId)
+
+Get a message template
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetMessageTemplateRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetMessageTemplateRequest;
+
+  try {
+    const data = await api.getMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MessageTemplateDetail**](MessageTemplateDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getMobileAgreement
 
 > MobileAgreementDetail getMobileAgreement(id, xCorrelationId)
@@ -3690,6 +3930,157 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## listMessageTemplateDefinitions
+
+> Array&lt;MessageTemplateDefinition&gt; listMessageTemplateDefinitions(xCorrelationId)
+
+List the notifications that have a template, with placeholders and default text
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { ListMessageTemplateDefinitionsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListMessageTemplateDefinitionsRequest;
+
+  try {
+    const data = await api.listMessageTemplateDefinitions(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;MessageTemplateDefinition&gt;**](MessageTemplateDefinition.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listMessageTemplates
+
+> Array&lt;MessageTemplateDetail&gt; listMessageTemplates(channel, kind, xCorrelationId)
+
+List stored message templates
+
+Optionally filtered by channel (sms, mail, ivr) and kind. A (channel, kind) without a stored global template uses the definition\&#39;s default text.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { ListMessageTemplatesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string (optional)
+    channel: channel_example,
+    // string (optional)
+    kind: kind_example,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListMessageTemplatesRequest;
+
+  try {
+    const data = await api.listMessageTemplates(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **channel** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **kind** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;MessageTemplateDetail&gt;**](MessageTemplateDetail.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## listMobileAgreementConsents
 
 > Array&lt;MobileAgreementConsentItem&gt; listMobileAgreementConsents(id, xCorrelationId)
@@ -4516,6 +4907,86 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## previewMessageTemplate
+
+> MessageTemplatePreview previewMessageTemplate(previewMessageTemplateRequest, xCorrelationId, idempotencyKey)
+
+Render a draft template with example values
+
+Returns the rendered text, SMS length and parts, and the errors that would keep it from being saved. Nothing is stored.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { PreviewMessageTemplateOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // PreviewMessageTemplateRequest
+    previewMessageTemplateRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies PreviewMessageTemplateOperationRequest;
+
+  try {
+    const data = await api.previewMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **previewMessageTemplateRequest** | [PreviewMessageTemplateRequest](PreviewMessageTemplateRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**MessageTemplatePreview**](MessageTemplatePreview.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## saveReceiverMcFallback
 
 > AdminWriteResponse saveReceiverMcFallback(receiverId, saveReceiverMcFallbackRequest, xCorrelationId)
@@ -4833,6 +5304,87 @@ example().catch(console.error);
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateMessageTemplate
+
+> AdminWriteResponse updateMessageTemplate(id, updateMessageTemplateRequest, xCorrelationId)
+
+Update a message template
+
+Omitted fields keep their value; channel, kind and scope cannot change.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { UpdateMessageTemplateOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateMessageTemplateRequest
+    updateMessageTemplateRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateMessageTemplateOperationRequest;
+
+  try {
+    const data = await api.updateMessageTemplate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **updateMessageTemplateRequest** | [UpdateMessageTemplateRequest](UpdateMessageTemplateRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminWriteResponse**](AdminWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

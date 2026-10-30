@@ -24,6 +24,11 @@ import {
     BulkSendSmsResponseToJSON,
 } from '../models/BulkSendSmsResponse';
 import {
+    type EffectiveMessageTemplate,
+    EffectiveMessageTemplateFromJSON,
+    EffectiveMessageTemplateToJSON,
+} from '../models/EffectiveMessageTemplate';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -48,6 +53,12 @@ export interface SMSApiBulkSendSmsOperationRequest {
     bulkSendSmsRequest: BulkSendSmsRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface SMSApiGetEffectiveMessageTemplateRequest {
+    channel?: string;
+    kind?: string;
+    xCorrelationId?: string;
 }
 
 export interface SMSApiGetSignalEventSmsTemplateRequest {
@@ -129,6 +140,65 @@ export class SMSApi extends runtime.BaseAPI {
      */
     async bulkSendSms(requestParameters: SMSApiBulkSendSmsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BulkSendSmsResponse> {
         const response = await this.bulkSendSmsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getEffectiveMessageTemplate without sending the request
+     */
+    async getEffectiveMessageTemplateRequestOpts(requestParameters: SMSApiGetEffectiveMessageTemplateRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['channel'] != null) {
+            queryParameters['channel'] = requestParameters['channel'];
+        }
+
+        if (requestParameters['kind'] != null) {
+            queryParameters['kind'] = requestParameters['kind'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/message-templates/effective`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * For non-alarm kinds, e.g. channel=sms&kind=mobilePasswordReset. Placeholders are not filled in.
+     * Get the template text that currently applies to a notification
+     */
+    async getEffectiveMessageTemplateRaw(requestParameters: SMSApiGetEffectiveMessageTemplateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<EffectiveMessageTemplate>> {
+        const requestOptions = await this.getEffectiveMessageTemplateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EffectiveMessageTemplateFromJSON(jsonValue));
+    }
+
+    /**
+     * For non-alarm kinds, e.g. channel=sms&kind=mobilePasswordReset. Placeholders are not filled in.
+     * Get the template text that currently applies to a notification
+     */
+    async getEffectiveMessageTemplate(requestParameters: SMSApiGetEffectiveMessageTemplateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EffectiveMessageTemplate> {
+        const response = await this.getEffectiveMessageTemplateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
