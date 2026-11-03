@@ -71980,6 +71980,13 @@
             }
           },
           {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "sideIdNot",
             "in": "query",
             "schema": {
@@ -72023,6 +72030,13 @@
           },
           {
             "name": "businessSectorIdNot",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerIdNot",
             "in": "query",
             "schema": {
               "type": "string"
@@ -110309,6 +110323,10 @@
             "type": "boolean",
             "nullable": true
           },
+          "mobileNotification": {
+            "type": "boolean",
+            "nullable": true
+          },
           "customerId": {
             "type": "string",
             "format": "uuid",
@@ -118009,6 +118027,9 @@
           "enableRemoteManagement": {
             "type": "boolean"
           },
+          "mobileNotification": {
+            "type": "boolean"
+          },
           "lockUser": {
             "type": "string",
             "nullable": true
@@ -118819,6 +118840,9 @@
             "type": "boolean"
           },
           "enableRemoteManagement": {
+            "type": "boolean"
+          },
+          "mobileNotification": {
             "type": "boolean"
           },
           "lockUser": {
@@ -123560,6 +123584,10 @@
             "nullable": true
           },
           "enableRemoteManagement": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "mobileNotification": {
             "type": "boolean",
             "nullable": true
           },

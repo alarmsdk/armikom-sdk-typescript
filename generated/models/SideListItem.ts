@@ -75,6 +75,12 @@ export interface SideListItem {
     enableRemoteManagement?: boolean;
     /**
      * 
+     * @type {boolean}
+     * @memberof SideListItem
+     */
+    mobileNotification?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof SideListItem
      */
@@ -239,6 +245,7 @@ export function SideListItemFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'isOpen': json['isOpen'] === undefined ? undefined : json['isOpen'] === null ? null : json['isOpen'],
         'cloudAlarm': json['cloudAlarm'] == null ? undefined : json['cloudAlarm'],
         'enableRemoteManagement': json['enableRemoteManagement'] == null ? undefined : json['enableRemoteManagement'],
+        'mobileNotification': json['mobileNotification'] == null ? undefined : json['mobileNotification'],
         'lockUser': json['lockUser'] === undefined ? undefined : json['lockUser'] === null ? null : json['lockUser'],
         'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
         'districtName': json['districtName'] === undefined ? undefined : json['districtName'] === null ? null : json['districtName'],
@@ -285,6 +292,7 @@ export function SideListItemToJSONTyped(value?: SideListItem | null, ignoreDiscr
         'isOpen': value['isOpen'],
         'cloudAlarm': value['cloudAlarm'],
         'enableRemoteManagement': value['enableRemoteManagement'],
+        'mobileNotification': value['mobileNotification'],
         'lockUser': value['lockUser'],
         'cityName': value['cityName'],
         'districtName': value['districtName'],

@@ -15,6 +15,7 @@ Name | Type
 `isOpen` | boolean
 `cloudAlarm` | boolean
 `enableRemoteManagement` | boolean
+`mobileNotification` | boolean
 `lockUser` | string
 `cityName` | string
 `districtName` | string
@@ -55,6 +56,7 @@ const example = {
   "isOpen": null,
   "cloudAlarm": null,
   "enableRemoteManagement": null,
+  "mobileNotification": null,
   "lockUser": null,
   "cityName": null,
   "districtName": null,

@@ -171,6 +171,12 @@ export interface CreateSideRequest {
     enableRemoteManagement?: boolean | null;
     /**
      * 
+     * @type {boolean}
+     * @memberof CreateSideRequest
+     */
+    mobileNotification?: boolean | null;
+    /**
+     * 
      * @type {string}
      * @memberof CreateSideRequest
      */
@@ -315,6 +321,7 @@ export function CreateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'gprsModule': json['gprsModule'] === undefined ? undefined : json['gprsModule'] === null ? null : json['gprsModule'],
         'ebsModulePort': json['ebsModulePort'] === undefined ? undefined : json['ebsModulePort'] === null ? null : json['ebsModulePort'],
         'enableRemoteManagement': json['enableRemoteManagement'] === undefined ? undefined : json['enableRemoteManagement'] === null ? null : json['enableRemoteManagement'],
+        'mobileNotification': json['mobileNotification'] === undefined ? undefined : json['mobileNotification'] === null ? null : json['mobileNotification'],
         'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
         'customerName': json['customerName'] === undefined ? undefined : json['customerName'] === null ? null : json['customerName'],
         'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
@@ -371,6 +378,7 @@ export function CreateSideRequestToJSONTyped(value?: CreateSideRequest | null, i
         'gprsModule': value['gprsModule'],
         'ebsModulePort': value['ebsModulePort'],
         'enableRemoteManagement': value['enableRemoteManagement'],
+        'mobileNotification': value['mobileNotification'],
         'customerId': value['customerId'],
         'customerName': value['customerName'],
         'dealerId': value['dealerId'],

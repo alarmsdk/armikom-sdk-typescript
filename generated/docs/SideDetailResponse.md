@@ -17,6 +17,7 @@ Name | Type
 `isOnline` | boolean
 `gprs` | boolean
 `enableRemoteManagement` | boolean
+`mobileNotification` | boolean
 `lockUser` | string
 `address` | string
 `phone1` | string
@@ -92,6 +93,7 @@ const example = {
   "isOnline": null,
   "gprs": null,
   "enableRemoteManagement": null,
+  "mobileNotification": null,
   "lockUser": null,
   "address": null,
   "phone1": null,

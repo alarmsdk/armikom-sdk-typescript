@@ -31,6 +31,7 @@ Name | Type
 `gprsModule` | number
 `ebsModulePort` | number
 `enableRemoteManagement` | boolean
+`mobileNotification` | boolean
 `customerId` | string
 `customerName` | string
 `dealerId` | string
@@ -81,6 +82,7 @@ const example = {
   "gprsModule": null,
   "ebsModulePort": null,
   "enableRemoteManagement": null,
+  "mobileNotification": null,
   "customerId": null,
   "customerName": null,
   "dealerId": null,
