@@ -85,6 +85,12 @@ export interface WaitingEventListItem {
      * @memberof WaitingEventListItem
      */
     monitoringCenterName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WaitingEventListItem
+     */
+    dealerName?: string | null;
 }
 
 /**
@@ -115,6 +121,7 @@ export function WaitingEventListItemFromJSONTyped(json: any, ignoreDiscriminator
         'eventDateUtc': json['eventDateUtc'] === undefined ? undefined : json['eventDateUtc'] === null ? null : (new Date(json['eventDateUtc'])),
         'delayUntilUtc': json['delayUntilUtc'] === undefined ? undefined : json['delayUntilUtc'] === null ? null : (new Date(json['delayUntilUtc'])),
         'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
+        'dealerName': json['dealerName'] === undefined ? undefined : json['dealerName'] === null ? null : json['dealerName'],
     };
 }
 
@@ -140,6 +147,7 @@ export function WaitingEventListItemToJSONTyped(value?: WaitingEventListItem | n
         'eventDateUtc': value['eventDateUtc'] == null ? value['eventDateUtc'] : value['eventDateUtc'].toISOString(),
         'delayUntilUtc': value['delayUntilUtc'] == null ? value['delayUntilUtc'] : value['delayUntilUtc'].toISOString(),
         'monitoringCenterName': value['monitoringCenterName'],
+        'dealerName': value['dealerName'],
     };
 }
 

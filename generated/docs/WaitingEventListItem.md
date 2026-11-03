@@ -17,6 +17,7 @@ Name | Type
 `eventDateUtc` | Date
 `delayUntilUtc` | Date
 `monitoringCenterName` | string
+`dealerName` | string
 
 ## Example
 
@@ -36,6 +37,7 @@ const example = {
   "eventDateUtc": null,
   "delayUntilUtc": null,
   "monitoringCenterName": null,
+  "dealerName": null,
 } satisfies WaitingEventListItem
 
 console.log(example)

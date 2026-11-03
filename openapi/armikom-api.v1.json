@@ -124389,6 +124389,10 @@
           "monitoringCenterName": {
             "type": "string",
             "nullable": true
+          },
+          "dealerName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
