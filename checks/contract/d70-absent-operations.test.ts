@@ -72,7 +72,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 504 -> 507: Disable/Enable mobile user, LogoutMobileUserDevices (310 paths, api-v1.63).
   // 507 -> 509: Get/SetUserCustomers — customer-limited operators, D86 (311 paths, api-v1.65).
   // 509 -> 517: message templates — definitions, CRUD, preview, effective (316 paths, api-v1.68).
-  assert.equal(ids.size, 517, 'operation count moved off the pinned contract');
+  // 517 -> 519: recently closed alarms — list, restore (318 paths, api-v1.71).
+  assert.equal(ids.size, 519, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

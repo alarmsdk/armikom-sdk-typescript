@@ -367,6 +367,7 @@ docs/ReceiverLineTypeDetail.md
 docs/ReceiverMcFallbackDetail.md
 docs/ReceiverRuleDetail.md
 docs/ReceiverTypeDetail.md
+docs/RecentAlarmEventItem.md
 docs/ReferenceBundleResponse.md
 docs/ReferenceDataApi.md
 docs/ReferenceWriteResponse.md
@@ -397,6 +398,7 @@ docs/ReserveDealerSideNosRequest.md
 docs/ResetMobileUserPasswordRequest.md
 docs/ResetPasswordRequest.md
 docs/ResponseTimeAggregates.md
+docs/RestoreAlarmEventResponse.md
 docs/RoleFieldPolicyResponse.md
 docs/RoleInfo.md
 docs/RoleListItem.md
@@ -925,6 +927,7 @@ models/ReceiverLineTypeDetail.ts
 models/ReceiverMcFallbackDetail.ts
 models/ReceiverRuleDetail.ts
 models/ReceiverTypeDetail.ts
+models/RecentAlarmEventItem.ts
 models/ReferenceBundleResponse.ts
 models/ReferenceWriteResponse.ts
 models/RefreshRequest.ts
@@ -952,6 +955,7 @@ models/ReserveDealerSideNosRequest.ts
 models/ResetMobileUserPasswordRequest.ts
 models/ResetPasswordRequest.ts
 models/ResponseTimeAggregates.ts
+models/RestoreAlarmEventResponse.ts
 models/RoleFieldPolicyResponse.ts
 models/RoleInfo.ts
 models/RoleListItem.ts

@@ -98,6 +98,16 @@ import {
     QuickCompleteAlarmResponseFromJSON,
     QuickCompleteAlarmResponseToJSON,
 } from '../models/QuickCompleteAlarmResponse';
+import {
+    type RecentAlarmEventItem,
+    RecentAlarmEventItemFromJSON,
+    RecentAlarmEventItemToJSON,
+} from '../models/RecentAlarmEventItem';
+import {
+    type RestoreAlarmEventResponse,
+    RestoreAlarmEventResponseFromJSON,
+    RestoreAlarmEventResponseToJSON,
+} from '../models/RestoreAlarmEventResponse';
 
 export interface AlarmEventsApiBatchCompleteAlarmEventsRequest {
     batchCompleteRequest: BatchCompleteRequest;
@@ -146,6 +156,12 @@ export interface AlarmEventsApiGetBatchCandidatesRequest {
     xCorrelationId?: string;
 }
 
+export interface AlarmEventsApiGetRecentAlarmEventsRequest {
+    minutes?: number;
+    limit?: number;
+    xCorrelationId?: string;
+}
+
 export interface AlarmEventsApiHandleByAiOperationRequest {
     id: string;
     xCorrelationId?: string;
@@ -163,6 +179,12 @@ export interface AlarmEventsApiLockAlarmEventRequest {
 export interface AlarmEventsApiQuickCompleteAlarmEventRequest {
     id: string;
     quickCompleteAlarmRequest: QuickCompleteAlarmRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface AlarmEventsApiRestoreRecentAlarmEventRequest {
+    id: string;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -641,6 +663,65 @@ export class AlarmEventsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getRecentAlarmEvents without sending the request
+     */
+    async getRecentAlarmEventsRequestOpts(requestParameters: AlarmEventsApiGetRecentAlarmEventsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['minutes'] != null) {
+            queryParameters['minutes'] = requestParameters['minutes'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/alarm-events/recent`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deleted AlarmEvent rows are kept for one hour (ApiAlarmEventRecent, filled by a database trigger, purged lazily). Returns them newest first — completed, quick-completed, batch-cleared or closed by a relation — with the signal event\'s completion stamp and action history. Rows whose signal is back in the queue or on the waiting list are left out. `minutes` narrows the window (1–60, default 60); `limit` defaults to 100, maximum 500. A tenant without the table returns an empty list.
+     * Alarms that left the queue within the last hour
+     */
+    async getRecentAlarmEventsRaw(requestParameters: AlarmEventsApiGetRecentAlarmEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RecentAlarmEventItem>>> {
+        const requestOptions = await this.getRecentAlarmEventsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RecentAlarmEventItemFromJSON));
+    }
+
+    /**
+     * Deleted AlarmEvent rows are kept for one hour (ApiAlarmEventRecent, filled by a database trigger, purged lazily). Returns them newest first — completed, quick-completed, batch-cleared or closed by a relation — with the signal event\'s completion stamp and action history. Rows whose signal is back in the queue or on the waiting list are left out. `minutes` narrows the window (1–60, default 60); `limit` defaults to 100, maximum 500. A tenant without the table returns an empty list.
+     * Alarms that left the queue within the last hour
+     */
+    async getRecentAlarmEvents(requestParameters: AlarmEventsApiGetRecentAlarmEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RecentAlarmEventItem>> {
+        const response = await this.getRecentAlarmEventsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for handleByAi without sending the request
      */
     async handleByAiRequestOpts(requestParameters: AlarmEventsApiHandleByAiOperationRequest): Promise<runtime.RequestOpts> {
@@ -843,6 +924,69 @@ export class AlarmEventsApi extends runtime.BaseAPI {
      */
     async quickCompleteAlarmEvent(requestParameters: AlarmEventsApiQuickCompleteAlarmEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QuickCompleteAlarmResponse> {
         const response = await this.quickCompleteAlarmEventRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for restoreRecentAlarmEvent without sending the request
+     */
+    async restoreRecentAlarmEventRequestOpts(requestParameters: AlarmEventsApiRestoreRecentAlarmEventRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling restoreRecentAlarmEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/alarm-events/recent/{id}/restore`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Puts the kept AlarmEvent row back into the queue under its old id (lock cleared), clears the signal event\'s completion stamp, records a Reopen operation, and publishes alarm-list-updated. The action history is kept. 404 when the row is older than an hour or not visible; 409 when the signal already has an open or waiting alarm.
+     * Reopen a recently closed alarm
+     */
+    async restoreRecentAlarmEventRaw(requestParameters: AlarmEventsApiRestoreRecentAlarmEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RestoreAlarmEventResponse>> {
+        const requestOptions = await this.restoreRecentAlarmEventRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RestoreAlarmEventResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Puts the kept AlarmEvent row back into the queue under its old id (lock cleared), clears the signal event\'s completion stamp, records a Reopen operation, and publishes alarm-list-updated. The action history is kept. 404 when the row is older than an hour or not visible; 409 when the signal already has an open or waiting alarm.
+     * Reopen a recently closed alarm
+     */
+    async restoreRecentAlarmEvent(requestParameters: AlarmEventsApiRestoreRecentAlarmEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestoreAlarmEventResponse> {
+        const response = await this.restoreRecentAlarmEventRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

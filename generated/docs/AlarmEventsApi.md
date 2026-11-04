@@ -11,9 +11,11 @@ All URIs are relative to *http://localhost*
 | [**getAlarmEventById**](AlarmEventsApi.md#getalarmeventbyid) | **GET** /v1/alarm-events/{id} | Get alarm event detail by ID |
 | [**getAlarmEvents**](AlarmEventsApi.md#getalarmevents) | **GET** /v1/alarm-events | Get the active alarm event list |
 | [**getBatchCandidates**](AlarmEventsApi.md#getbatchcandidates) | **GET** /v1/alarm-events/batch-candidates | List alarm event signal codes grouped for batch operations |
+| [**getRecentAlarmEvents**](AlarmEventsApi.md#getrecentalarmevents) | **GET** /v1/alarm-events/recent | Alarms that left the queue within the last hour |
 | [**handleByAi**](AlarmEventsApi.md#handlebyaioperation) | **POST** /v1/alarm-events/{id}/handle-by-ai | Hand off an alarm event to the AI agent |
 | [**lockAlarmEvent**](AlarmEventsApi.md#lockalarmevent) | **POST** /v1/alarm-events/{id}/lock | Take or force-take the operator lock on an alarm event\&#39;s subscriber |
 | [**quickCompleteAlarmEvent**](AlarmEventsApi.md#quickcompletealarmevent) | **POST** /v1/alarm-events/{id}/quick-complete | Quick-complete an alarm event using a canned signal explanation |
+| [**restoreRecentAlarmEvent**](AlarmEventsApi.md#restorerecentalarmevent) | **POST** /v1/alarm-events/recent/{id}/restore | Reopen a recently closed alarm |
 | [**unlockAlarmEvent**](AlarmEventsApi.md#unlockalarmevent) | **DELETE** /v1/alarm-events/{id}/lock | Release the operator lock on an alarm event\&#39;s subscriber |
 
 
@@ -591,6 +593,85 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getRecentAlarmEvents
+
+> Array&lt;RecentAlarmEventItem&gt; getRecentAlarmEvents(minutes, limit, xCorrelationId)
+
+Alarms that left the queue within the last hour
+
+Deleted AlarmEvent rows are kept for one hour (ApiAlarmEventRecent, filled by a database trigger, purged lazily). Returns them newest first — completed, quick-completed, batch-cleared or closed by a relation — with the signal event\&#39;s completion stamp and action history. Rows whose signal is back in the queue or on the waiting list are left out. &#x60;minutes&#x60; narrows the window (1–60, default 60); &#x60;limit&#x60; defaults to 100, maximum 500. A tenant without the table returns an empty list.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AlarmEventsApi,
+} from '';
+import type { GetRecentAlarmEventsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AlarmEventsApi(config);
+
+  const body = {
+    // number (optional)
+    minutes: 56,
+    // number (optional)
+    limit: 56,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetRecentAlarmEventsRequest;
+
+  try {
+    const data = await api.getRecentAlarmEvents(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **minutes** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **limit** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;RecentAlarmEventItem&gt;**](RecentAlarmEventItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## handleByAi
 
 > HandleByAiResponse handleByAi(id, xCorrelationId, idempotencyKey, handleByAiRequest)
@@ -837,6 +918,87 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## restoreRecentAlarmEvent
+
+> RestoreAlarmEventResponse restoreRecentAlarmEvent(id, xCorrelationId, idempotencyKey)
+
+Reopen a recently closed alarm
+
+Puts the kept AlarmEvent row back into the queue under its old id (lock cleared), clears the signal event\&#39;s completion stamp, records a Reopen operation, and publishes alarm-list-updated. The action history is kept. 404 when the row is older than an hour or not visible; 409 when the signal already has an open or waiting alarm.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AlarmEventsApi,
+} from '';
+import type { RestoreRecentAlarmEventRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AlarmEventsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies RestoreRecentAlarmEventRequest;
+
+  try {
+    const data = await api.restoreRecentAlarmEvent(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**RestoreAlarmEventResponse**](RestoreAlarmEventResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
