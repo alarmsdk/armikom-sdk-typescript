@@ -160,6 +160,8 @@ export const AuthCodes = {
   ACCOUNT_LOCKED: 'AUTH.ACCOUNT_LOCKED',
   INSUFFICIENT_SCOPE: 'AUTH.INSUFFICIENT_SCOPE',
   PRINCIPAL_TYPE_NOT_ALLOWED: 'AUTH.PRINCIPAL_TYPE_NOT_ALLOWED',
+  /** API D83 — a 403 that, unlike any other, ends the session. */
+  REMOTE_ACCESS_DENIED: 'AUTH.REMOTE_ACCESS_DENIED',
 } as const;
 
 export const StreamCodes = {

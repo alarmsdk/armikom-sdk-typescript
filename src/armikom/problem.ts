@@ -11,6 +11,8 @@
  *   t('ERROR.' + code, params)  →  fallback to ProblemDetails.title  →  fallback to raw message
  */
 
+import { isApiError } from '../core/errors.js'
+
 export interface ProblemResult {
   code?: string
   title?: string
@@ -26,6 +28,12 @@ export async function extractProblem(
   translate?: (key: string, params?: Record<string, unknown>) => string
 ): Promise<ProblemResult> {
   let body: any = null
+
+  // A layer 2 `ApiError` (everything that went through `ArmikomClient`) already carries the
+  // parsed problem; the body on its response was consumed by the pipeline.
+  if (isApiError(err)) {
+    body = { ...err.problem, status: err.problem.status ?? err.status }
+  }
 
   if (err?.response && typeof err.response.clone === 'function') {
     try {

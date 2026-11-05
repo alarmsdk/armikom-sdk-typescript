@@ -11,6 +11,8 @@ Apache-2.0. Node ≥ 20. Dual ESM/CJS. **No runtime dependencies.**
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
+│ 5. src/console/   the consoles' facade — ArmikomClientInterface        │  hand-written
+├──────────────────────────────────────────────────────────────────────┤
 │ 4. src/domain/    console domain — advisories, rules, layouts, themes │  hand-written
 ├──────────────────────────────────────────────────────────────────────┤
 │ 3. src/armikom/   ergonomics — ArmikomClient, reference cache, SSE    │  hand-written
@@ -44,6 +46,27 @@ import { formatSideNo, notesFor, validateLayout, buildThemeCss } from '@armikom/
 ```
 
 See [`docs/domain-layer.md`](docs/domain-layer.md) for what is in it and the rules for adding to it.
+
+**Layer 5 is the consoles' client facade.** `ArmikomClientInterface` is what every screen of
+the Vue console is written against (sections per screen family, `Page<T>`, `BinaryContent`,
+the `UserInfo` / `ClientConfig` view models), and `createConsoleClient` implements it on
+`ArmikomClient` — so a React or Angular console gets the whole API surface, the session and
+the mock contract by constructing one:
+
+```ts
+import { createConsoleClient } from '@armikom/api-client/console';
+
+const client = createConsoleClient({
+  baseUrl: 'https://api.armikom.net',
+  tokenStore: new WebStorageTokenStore(localStorage), // §01 A-11: the host decides
+  onNetworkZone: (zone) => shell.setNetworkZone(zone), // D83
+});
+client.session.onEnded((reason) => router.push('/login'));
+await client.session.login('operator', 'secret');
+const alarms = await client.alarmEvents!.list();
+```
+
+See [`docs/console-layer.md`](docs/console-layer.md).
 
 ## Quick start
 
@@ -138,7 +161,8 @@ generated/   layer 1 — produced by `make generate`, NEVER hand-edited, committ
 src/core/    layer 2 — the core runtime; framework-free and API-agnostic
 src/armikom/ layer 3 — the composition root and the Armikom-specific bindings
 src/domain/  layer 4 — the consoles' shared domain logic and view-model types (`/domain` entry)
-checks/      contract checks (generated layer) + the conformance matrix (core) + domain checks
+src/console/ layer 5 — ArmikomClientInterface and createConsoleClient on ArmikomClient (`/console` entry)
+checks/      contract checks (generated layer) + the conformance matrix (core) + domain and console checks
 examples/    ready-to-copy Angular and React bindings
 docs/        design notes
 ```

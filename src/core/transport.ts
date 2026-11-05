@@ -26,6 +26,8 @@ export interface TransportRequest {
   /** Only honoured by transports that can report it; `fetch` cannot. */
   onUploadProgress?: (progress: Progress) => void;
   credentials?: RequestCredentials;
+  /** Browser HTTP-cache mode. `no-cache` makes the browser revalidate with the server instead of answering from a fresh-for-five-minutes copy. */
+  cache?: RequestCache;
 }
 
 export type Transport = (request: TransportRequest) => Promise<Response>;
@@ -37,6 +39,7 @@ export const fetchTransport: Transport = (request) => {
     ...(request.body !== undefined ? { body: request.body } : {}),
     ...(request.signal ? { signal: request.signal } : {}),
     ...(request.credentials ? { credentials: request.credentials } : {}),
+    ...(request.cache ? { cache: request.cache } : {}),
   };
   return fetch(request.url, init);
 };

@@ -26,6 +26,11 @@
       "import": "./dist/esm/src/domain/index.js",
       "require": "./dist/cjs/src/domain/index.js"
     },
+    "./console": {
+      "types": "./dist/esm/src/console/index.d.ts",
+      "import": "./dist/esm/src/console/index.js",
+      "require": "./dist/cjs/src/console/index.js"
+    },
     "./generated": {
       "types": "./dist/esm/generated/index.d.ts",
       "import": "./dist/esm/generated/index.js",

@@ -46,7 +46,9 @@ export type SessionEndReason =
   | 'no-refresh-token'
   | 'refresh-failed'
   | 'token-invalid'
-  | 'account-locked';
+  | 'account-locked'
+  /** API D83 — outside the centre's network without `access:remote`; every request is refused. */
+  | 'remote-access-denied';
 
 export interface SessionState {
   status: 'anonymous' | 'authenticated';
@@ -259,6 +261,15 @@ export class AuthSession<TCredentials = unknown> {
       // A failed profile read is not a failed session: the token may still be
       // good and the next request will say so. Scopes stay as they were.
     }
+  }
+
+  /**
+   * Ends the session for a reason the host discovered outside the 401 path — a 403
+   * `AUTH.REMOTE_ACCESS_DENIED` (D83), which unlike any other 403 (§01 A-6) means the
+   * session is over. Listeners get the reason; the store is cleared.
+   */
+  async terminate(reason: SessionEndReason): Promise<void> {
+    await this.end(reason);
   }
 
   /** For hosts that obtain tokens by another route (an SSO handoff, a test fixture). */

@@ -18,6 +18,7 @@ import {
   OfflineError,
   parseProblem,
   parseRetryAfter,
+  type ProblemDetails,
   RequestAbortedError,
   errorForStatus,
   transportError,
@@ -85,6 +86,24 @@ export interface RequestSpec {
   onUploadProgress?: (progress: Progress) => void;
   /** §01 OF-2 — refuse this request while offline instead of attempting it. */
   requiresOnline?: boolean;
+  /**
+   * Browser HTTP-cache mode. An ETag-revalidated resource must send `no-cache`: a response the
+   * API marks fresh for five minutes is otherwise answered by the browser without the server
+   * ever seeing the `If-None-Match`, and an admin's change stays invisible until the cache is
+   * cleared. Defaults to `no-cache` when `ifNoneMatch` or `allowNotModified` is set.
+   */
+  cache?: RequestCache;
+}
+
+/** What `onResponse` sees: the outcome of one attempt, never a body and never a header the client sent. */
+export interface ResponseObservation {
+  status: number;
+  headers: Headers;
+  url: string;
+  method: HttpMethod;
+  operationId?: string;
+  /** Parsed for a non-2xx response only. */
+  problem?: ProblemDetails;
 }
 
 export interface HttpResponse<T> {
@@ -122,6 +141,12 @@ export interface HttpClientOptions {
    * off only against a service that genuinely means local time.
    */
   repairTimestamps?: boolean;
+  /**
+   * Observes every response the pipeline receives, before retry or replay decides anything.
+   * For headers the host reads on *every* response — Armikom.Api's `X-Armikom-Network-Zone`
+   * (D83) — and for a status/code the host wants to react to. Must not throw.
+   */
+  onResponse?: (observation: ResponseObservation) => void;
 }
 
 const CORRELATION_HEADER = 'x-correlation-id';
@@ -261,11 +286,13 @@ export class HttpClient {
       const durationMs = this.clock.now() - attemptStartedAt;
 
       if (response.status === 304 && spec.allowNotModified) {
+        this.observe({ status: response.status, headers: response.headers, url, method: spec.method, ...(spec.operationId ? { operationId: spec.operationId } : {}) });
         this.logDone(spec, url, response.status, durationMs);
         return this.emptyResponse<T>(response, true);
       }
 
       if (response.ok) {
+        this.observe({ status: response.status, headers: response.headers, url, method: spec.method, ...(spec.operationId ? { operationId: spec.operationId } : {}) });
         this.logDone(spec, url, response.status, durationMs);
         return await this.readSuccess<T>(response, spec);
       }
@@ -278,6 +305,7 @@ export class HttpClient {
         const header = response.headers.get(CORRELATION_HEADER);
         if (header) problem.correlationId = header;
       }
+      this.observe({ status: response.status, headers: response.headers, url, method: spec.method, problem, ...(spec.operationId ? { operationId: spec.operationId } : {}) });
       const retryAfterMs = parseRetryAfter(response.headers.get('retry-after'), this.clock.now());
       const error = errorForStatus(response.status, problem, {
         method: spec.method,
@@ -341,6 +369,7 @@ export class HttpClient {
       ...(init.signal ? { signal: init.signal } : {}),
       responseType: 'raw',
       anonymous: isAnonymousPath(url),
+      ...(init.cache ? { cache: init.cache } : {}),
     });
     return this.repairTimestamps ? await repairResponseTimestamps(response.data) : response.data;
   };
@@ -369,7 +398,16 @@ export class HttpClient {
       signal: input.signal,
       ...(input.spec.onUploadProgress ? { onUploadProgress: input.spec.onUploadProgress } : {}),
       ...(this.options.credentials ? { credentials: this.options.credentials } : {}),
+      ...(cacheModeFor(input.spec) ? { cache: cacheModeFor(input.spec) } : {}),
     });
+  }
+
+  private observe(observation: ResponseObservation): void {
+    try {
+      this.options.onResponse?.(observation);
+    } catch {
+      // An observer's bug must not fail the request it was watching.
+    }
   }
 
   private async buildHeaders(
@@ -397,9 +435,13 @@ export class HttpClient {
     if (spec.ifNoneMatch) headers['If-None-Match'] = spec.ifNoneMatch;
     if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
 
+    // Header names are case-insensitive, and the `fetch`-shaped entry point hands them over
+    // lower-cased: an override must replace `Content-Type`, not sit beside it as
+    // `content-type` and reach the wire as "text/plain, application/json".
     for (const [key, value] of Object.entries(spec.headers ?? {})) {
-      if (value === undefined) delete headers[key];
-      else headers[key] = value;
+      const existing = Object.keys(headers).find((k) => k.toLowerCase() === key.toLowerCase());
+      if (existing !== undefined) delete headers[existing];
+      if (value !== undefined) headers[existing ?? key] = value;
     }
     return headers;
   }
@@ -570,6 +612,11 @@ function encodeBody(spec: RequestSpec): EncodedBody {
   }
   if (typeof body === 'string') return { body, contentType: spec.contentType ?? 'text/plain;charset=UTF-8' };
   return { body: JSON.stringify(body), contentType: spec.contentType ?? 'application/json' };
+}
+
+function cacheModeFor(spec: RequestSpec): RequestCache | undefined {
+  if (spec.cache) return spec.cache;
+  return spec.ifNoneMatch !== undefined || spec.allowNotModified ? 'no-cache' : undefined;
 }
 
 function defaultAccept(kind: ResponseKind | undefined): string {

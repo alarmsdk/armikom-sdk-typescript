@@ -14,12 +14,12 @@ import { ETagResource, MemoryCacheStore, type CacheStore } from '../core/cache.j
 import type { Clock } from '../core/clock.js';
 import { Connectivity } from '../core/connectivity.js';
 import { FileClient } from '../core/files.js';
-import { HttpClient, type HttpClientOptions } from '../core/http-client.js';
+import { HttpClient, type HttpClientOptions, type ResponseObservation } from '../core/http-client.js';
 import { I18n } from '../core/i18n.js';
 import { noopLogger, type Logger } from '../core/logger.js';
 import { EventStream, PollingFallback } from '../core/realtime.js';
 import type { RetryPolicy } from '../core/retry.js';
-import { AuthSession } from '../core/session.js';
+import { AuthSession, type AuthDriver } from '../core/session.js';
 import { MemoryTokenStore, type TokenStore } from '../core/tokens.js';
 import type { Transport } from '../core/transport.js';
 
@@ -52,6 +52,15 @@ export interface ArmikomClientOptions {
   random?: () => number;
   /** Path of the SSE endpoint. Overridable for a proxy that remounts it. */
   streamPath?: string;
+  /**
+   * The auth driver to run the session on, given the generated `AuthenticationApi` already
+   * routed through the pipeline. Defaults to `ArmikomAuthDriver`; a host that needs more of
+   * the login/refresh payloads than the core session keeps (the console's `shiftRestricted`,
+   * its full `UserInfo`) supplies a driver that remembers them.
+   */
+  authDriver?: (api: AuthenticationApi) => AuthDriver<ArmikomCredentials>;
+  /** Sees every response's status and headers (never a body). For `X-Armikom-Network-Zone` (D83). */
+  onResponse?: (observation: ResponseObservation) => void;
 }
 
 type ApiConstructor<T> = new (configuration: Configuration) => T;
@@ -93,6 +102,7 @@ export class ArmikomClient {
       ...(options.defaultHeaders ? { defaultHeaders: options.defaultHeaders } : {}),
       ...(options.credentials ? { credentials: options.credentials } : {}),
       ...(options.random ? { random: options.random } : {}),
+      ...(options.onResponse ? { onResponse: options.onResponse } : {}),
     };
     this.http = new HttpClient(httpOptions);
 
@@ -107,7 +117,7 @@ export class ArmikomClient {
     const authApi = wrapApi(new AuthenticationApi(this.configuration));
 
     this.session = new AuthSession<ArmikomCredentials>({
-      driver: new ArmikomAuthDriver(authApi),
+      driver: options.authDriver ? options.authDriver(authApi) : new ArmikomAuthDriver(authApi),
       tokenStore: options.tokenStore ?? new MemoryTokenStore(),
       ...(options.clock ? { clock: options.clock } : {}),
     });
