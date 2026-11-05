@@ -215,3 +215,27 @@ export class Paginator<T> {
 function num(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
+
+/**
+ * Walks a paginated list to its end, for the pickers and catalogues that need the complete set
+ * — a dropdown that stops at 200 rows silently hides every option beyond that page.
+ *
+ * Unlike `collect`, this takes the raw `{ items, hasMore }` shape a generated list operation
+ * returns, so a caller does not have to normalise first. The guard (`maxPages`, default 20)
+ * stops an infinite loop when the server always reports `hasMore`: at 200 rows per page that
+ * ceiling is 4 000 items, beyond any real catalogue and low enough to stop a runaway request.
+ */
+export async function drainPages<T>(
+  fetchPage: (page: number) => Promise<{ items?: T[] | null; hasMore?: boolean } | null | undefined>,
+  maxPages = 20,
+): Promise<T[]> {
+  const collected: T[] = [];
+  let current = 1;
+  for (let guard = 0; guard < maxPages; guard++) {
+    const result = await fetchPage(current);
+    collected.push(...((result?.items as T[] | null | undefined) ?? []));
+    if (!result?.hasMore) break;
+    current++;
+  }
+  return collected;
+}

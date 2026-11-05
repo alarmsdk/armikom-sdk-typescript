@@ -131,3 +131,16 @@ export function guidEquals(left: string | null | undefined, right: string | null
 export function normalizeGuid(value: string): string {
   return value.replace(/[{}\s-]/g, '').toLowerCase();
 }
+
+/** Culture-aware collation, for sorting names the way the operator reads them. */
+export function compareCulture(a: string, b: string, culture = 'tr'): number {
+  return a.localeCompare(b, culture, { sensitivity: 'base' });
+}
+
+/**
+ * `ClientConfigResponse.forceUppercase` applied to one value: upper-cased under the given
+ * culture when the flag is on, untouched when it is off.
+ */
+export function applyCasing(value: string, forceUppercase: boolean, culture = 'tr'): string {
+  return forceUppercase ? toUpperCulture(value, culture) : value;
+}

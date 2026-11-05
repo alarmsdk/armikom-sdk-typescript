@@ -139,20 +139,54 @@ export class FileClient {
   }
 }
 
-/** `attachment; filename="rapor.xlsx"; filename*=UTF-8''rapor.xlsx` → `rapor.xlsx`. */
+/**
+ * Pull a filename out of a `Content-Disposition` header.
+ *
+ * `filename*` (RFC 5987) wins over `filename` when both are present, which matters here:
+ * Turkish document names round-trip through it percent-encoded, and reading the plain
+ * `filename` instead yields the server's ASCII-folded fallback. A quoted plain filename may
+ * carry backslash escapes; a bare one runs to the next `;`.
+ */
 export function filenameFromContentDisposition(header: string | null | undefined): string | null {
   if (!header) return null;
-  // RFC 5987 first: it is the one that survives non-ASCII names.
-  const extended = /filename\*\s*=\s*([^']*)'[^']*'([^;]+)/i.exec(header);
-  if (extended?.[2]) {
+
+  // RFC 5987: filename*=UTF-8''Ar%C4%B1za%20Raporu.pdf
+  const extended = /filename\*\s*=\s*([^']*)'([^']*)'([^;]+)/i.exec(header);
+  if (extended?.[3]) {
+    const value = extended[3].trim();
     try {
-      return decodeURIComponent(extended[2].trim());
+      return decodeURIComponent(value) || null;
     } catch {
-      return extended[2].trim();
+      // A malformed percent-sequence is not worth failing a download over.
+      return value || null;
     }
   }
-  const plain = /filename\s*=\s*"?([^";]+)"?/i.exec(header);
-  return plain?.[1]?.trim() ?? null;
+
+  const quoted = /filename\s*=\s*"((?:[^"\\]|\\.)*)"/i.exec(header);
+  if (quoted?.[1] !== undefined) {
+    return quoted[1].replace(/\\(.)/g, '$1') || null;
+  }
+
+  const bare = /filename\s*=\s*([^;]+)/i.exec(header);
+  if (bare?.[1]) {
+    return bare[1].trim() || null;
+  }
+
+  return null;
+}
+
+/** Strip anything that would let a server-supplied name escape the download folder. */
+export function safeFilename(name: string, fallback: string): string {
+  const base = name.replace(/[\\/]/g, '_').replace(/^\.+/, '').trim();
+  return base || fallback;
+}
+
+/** Human-readable size for a file list. Sizes come from metadata, never guessed. */
+export function formatFileSize(bytes: number | null | undefined): string {
+  if (bytes == null || Number.isNaN(bytes)) return '';
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 /**
@@ -177,3 +211,6 @@ export function saveBlob(blob: Blob, filename: string): void {
     setTimeout(() => URL.revokeObjectURL(url), 0);
   }
 }
+
+/** The name the Vue console used for `saveBlob`; kept so both read the same. */
+export const triggerDownload = saveBlob;

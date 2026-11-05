@@ -7,5 +7,6 @@
 export * from './client.js';
 export * from './auth.js';
 export * from './errors.js';
+export * from './problem.js';
 export * from './reference.js';
 export * from './stream.js';

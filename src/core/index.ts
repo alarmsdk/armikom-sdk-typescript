@@ -20,6 +20,7 @@ export * from './cache.js';
 export * from './files.js';
 export * from './i18n.js';
 export * from './text.js';
+export * from './datetime.js';
 export * from './messages.js';
 export * from './logger.js';
 export * from './telemetry.js';
