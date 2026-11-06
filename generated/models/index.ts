@@ -377,6 +377,7 @@ export * from './SideListItem';
 export * from './SideListItemPagedResult';
 export * from './SideMailItem';
 export * from './SideMobileUserListItem';
+export * from './SideNoReservationDto';
 export * from './SideNoteItem';
 export * from './SideReasonItem';
 export * from './SideReasonItemPagedResult';

@@ -71104,7 +71104,7 @@
           "Sides"
         ],
         "summary": "List all available subscriber numbers in a range (max 2000)",
-        "description": "Returns all available numbers in [start, end] by subtracting Side.SideNo (MC-filtered) and DealerSideNo.SideNo (global). Maximum range size is 2000.",
+        "description": "Returns all available numbers in [start, end] by subtracting Side.SideNo (MC-filtered) and DealerSideNo.SideNo (global). Maximum range size is 2000. Reservations lists the dealer-reserved numbers in the range and the dealer that holds each.",
         "operationId": "GetAvailableSideNos",
         "parameters": [
           {
@@ -108593,6 +108593,14 @@
           "totalCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "reservations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SideNoReservationDto"
+            },
+            "description": "Numbers in the range reserved to a dealer, with the dealer. They are not in AvailableNumbers.\nFilled by GetAvailableSideNos only; null on GetDealerSideNoPool.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -120587,6 +120595,25 @@
           "deviceCount": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SideNoReservationDto": {
+        "type": "object",
+        "properties": {
+          "sideNo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dealerId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "dealerName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

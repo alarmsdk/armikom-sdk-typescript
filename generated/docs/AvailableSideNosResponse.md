@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `availableNumbers` | Array&lt;number&gt;
 `totalCount` | number
+`reservations` | [Array&lt;SideNoReservationDto&gt;](SideNoReservationDto.md)
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { AvailableSideNosResponse } from ''
 const example = {
   "availableNumbers": null,
   "totalCount": null,
+  "reservations": null,
 } satisfies AvailableSideNosResponse
 
 console.log(example)

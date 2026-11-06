@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { SideNoReservationDto } from './SideNoReservationDto';
+import {
+    SideNoReservationDtoFromJSON,
+    SideNoReservationDtoFromJSONTyped,
+    SideNoReservationDtoToJSON,
+    SideNoReservationDtoToJSONTyped,
+} from './SideNoReservationDto';
+
 /**
  * 
  * @export
@@ -31,6 +39,13 @@ export interface AvailableSideNosResponse {
      * @memberof AvailableSideNosResponse
      */
     totalCount?: number;
+    /**
+     * Numbers in the range reserved to a dealer, with the dealer. They are not in AvailableNumbers.
+     * Filled by GetAvailableSideNos only; null on GetDealerSideNoPool.
+     * @type {Array<SideNoReservationDto>}
+     * @memberof AvailableSideNosResponse
+     */
+    reservations?: Array<SideNoReservationDto> | null;
 }
 
 /**
@@ -52,6 +67,7 @@ export function AvailableSideNosResponseFromJSONTyped(json: any, ignoreDiscrimin
         
         'availableNumbers': json['availableNumbers'] === undefined ? undefined : json['availableNumbers'] === null ? null : json['availableNumbers'],
         'totalCount': json['totalCount'] == null ? undefined : json['totalCount'],
+        'reservations': json['reservations'] === undefined ? undefined : json['reservations'] === null ? null : ((json['reservations'] as Array<any>).map(SideNoReservationDtoFromJSON)),
     };
 }
 
@@ -68,6 +84,7 @@ export function AvailableSideNosResponseToJSONTyped(value?: AvailableSideNosResp
         
         'availableNumbers': value['availableNumbers'],
         'totalCount': value['totalCount'],
+        'reservations': value['reservations'] == null ? undefined : ((value['reservations'] as Array<any>).map(SideNoReservationDtoToJSON)),
     };
 }
 

@@ -469,6 +469,7 @@ docs/SideListItem.md
 docs/SideListItemPagedResult.md
 docs/SideMailItem.md
 docs/SideMobileUserListItem.md
+docs/SideNoReservationDto.md
 docs/SideNoteItem.md
 docs/SideReasonItem.md
 docs/SideReasonItemPagedResult.md
@@ -1022,6 +1023,7 @@ models/SideListItem.ts
 models/SideListItemPagedResult.ts
 models/SideMailItem.ts
 models/SideMobileUserListItem.ts
+models/SideNoReservationDto.ts
 models/SideNoteItem.ts
 models/SideReasonItem.ts
 models/SideReasonItemPagedResult.ts

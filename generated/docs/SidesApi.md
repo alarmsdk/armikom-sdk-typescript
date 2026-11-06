@@ -177,7 +177,7 @@ example().catch(console.error);
 
 List all available subscriber numbers in a range (max 2000)
 
-Returns all available numbers in [start, end] by subtracting Side.SideNo (MC-filtered) and DealerSideNo.SideNo (global). Maximum range size is 2000.
+Returns all available numbers in [start, end] by subtracting Side.SideNo (MC-filtered) and DealerSideNo.SideNo (global). Maximum range size is 2000. Reservations lists the dealer-reserved numbers in the range and the dealer that holds each.
 
 ### Example
 
