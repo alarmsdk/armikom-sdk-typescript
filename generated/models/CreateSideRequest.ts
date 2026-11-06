@@ -252,6 +252,12 @@ export interface CreateSideRequest {
      * @type {string}
      * @memberof CreateSideRequest
      */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSideRequest
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -334,6 +340,7 @@ export function CreateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
         'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'installDate': json['installDate'] === undefined ? undefined : json['installDate'] === null ? null : (new Date(json['installDate'])),
@@ -391,6 +398,7 @@ export function CreateSideRequestToJSONTyped(value?: CreateSideRequest | null, i
         'regionId': value['regionId'],
         'accountTypeId': value['accountTypeId'],
         'businessSectorId': value['businessSectorId'],
+        'communicationTypeId': value['communicationTypeId'],
         'sideTypeId': value['sideTypeId'],
         'monitoringCenterId': value['monitoringCenterId'],
         'installDate': value['installDate'] == null ? value['installDate'] : value['installDate'].toISOString(),

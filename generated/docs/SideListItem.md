@@ -24,6 +24,7 @@ Name | Type
 `protocolName` | string
 `accountTypeName` | string
 `businessSectorName` | string
+`communicationTypeName` | string
 `monitoringCenterName` | string
 `dealerName` | string
 `sideTypeName` | string
@@ -65,6 +66,7 @@ const example = {
   "protocolName": null,
   "accountTypeName": null,
   "businessSectorName": null,
+  "communicationTypeName": null,
   "monitoringCenterName": null,
   "dealerName": null,
   "sideTypeName": null,

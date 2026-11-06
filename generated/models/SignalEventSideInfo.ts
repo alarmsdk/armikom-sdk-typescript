@@ -146,6 +146,12 @@ export interface SignalEventSideInfo {
      * @type {string}
      * @memberof SignalEventSideInfo
      */
+    communicationTypeName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalEventSideInfo
+     */
     taxOffice?: string | null;
     /**
      * 
@@ -366,6 +372,7 @@ export function SignalEventSideInfoFromJSONTyped(json: any, ignoreDiscriminator:
         'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
         'accountTypeName': json['accountTypeName'] === undefined ? undefined : json['accountTypeName'] === null ? null : json['accountTypeName'],
         'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
+        'communicationTypeName': json['communicationTypeName'] === undefined ? undefined : json['communicationTypeName'] === null ? null : json['communicationTypeName'],
         'taxOffice': json['taxOffice'] === undefined ? undefined : json['taxOffice'] === null ? null : json['taxOffice'],
         'taxNo': json['taxNo'] === undefined ? undefined : json['taxNo'] === null ? null : json['taxNo'],
         'phone2': json['phone2'] === undefined ? undefined : json['phone2'] === null ? null : json['phone2'],
@@ -431,6 +438,7 @@ export function SignalEventSideInfoToJSONTyped(value?: SignalEventSideInfo | nul
         'cityName': value['cityName'],
         'accountTypeName': value['accountTypeName'],
         'businessSectorName': value['businessSectorName'],
+        'communicationTypeName': value['communicationTypeName'],
         'taxOffice': value['taxOffice'],
         'taxNo': value['taxNo'],
         'phone2': value['phone2'],

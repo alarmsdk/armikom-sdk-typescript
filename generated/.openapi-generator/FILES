@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/ActivityApi.ts
 apis/AdministrationApi.ts
 apis/AlarmEventsApi.ts
@@ -156,6 +155,7 @@ docs/CreateAgreementRequest.md
 docs/CreateAlarmCategoryRequest.md
 docs/CreateBrandRequest.md
 docs/CreateCityRequest.md
+docs/CreateCommunicationTypeRequest.md
 docs/CreateCountryRequest.md
 docs/CreateCustomerRequest.md
 docs/CreateDealerAccountTypeRequest.md
@@ -583,6 +583,7 @@ docs/UpdateAgreementRequest.md
 docs/UpdateAlarmCategoryRequest.md
 docs/UpdateBrandRequest.md
 docs/UpdateCityRequest.md
+docs/UpdateCommunicationTypeRequest.md
 docs/UpdateCountryRequest.md
 docs/UpdateCustomerRequest.md
 docs/UpdateDealerAccountTypeRequest.md
@@ -730,6 +731,7 @@ models/CreateAgreementRequest.ts
 models/CreateAlarmCategoryRequest.ts
 models/CreateBrandRequest.ts
 models/CreateCityRequest.ts
+models/CreateCommunicationTypeRequest.ts
 models/CreateCountryRequest.ts
 models/CreateCustomerRequest.ts
 models/CreateDealerAccountTypeRequest.ts
@@ -1109,6 +1111,7 @@ models/UpdateAgreementRequest.ts
 models/UpdateAlarmCategoryRequest.ts
 models/UpdateBrandRequest.ts
 models/UpdateCityRequest.ts
+models/UpdateCommunicationTypeRequest.ts
 models/UpdateCountryRequest.ts
 models/UpdateCustomerRequest.ts
 models/UpdateDealerAccountTypeRequest.ts

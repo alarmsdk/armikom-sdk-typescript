@@ -64,6 +64,8 @@ Name | Type
 `accountTypeName` | string
 `businessSectorId` | string
 `businessSectorName` | string
+`communicationTypeId` | string
+`communicationTypeName` | string
 `sideTypeId` | string
 `sideTypeName` | string
 `monitoringCenterId` | string
@@ -140,6 +142,8 @@ const example = {
   "accountTypeName": null,
   "businessSectorId": null,
   "businessSectorName": null,
+  "communicationTypeId": null,
+  "communicationTypeName": null,
   "sideTypeId": null,
   "sideTypeName": null,
   "monitoringCenterId": null,

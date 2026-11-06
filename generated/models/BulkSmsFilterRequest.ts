@@ -72,6 +72,12 @@ export interface BulkSmsFilterRequest {
      * @type {string}
      * @memberof BulkSmsFilterRequest
      */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BulkSmsFilterRequest
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -146,6 +152,12 @@ export interface BulkSmsFilterRequest {
      * @memberof BulkSmsFilterRequest
      */
     businessSectorIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof BulkSmsFilterRequest
+     */
+    communicationTypeIdNot?: string | null;
     /**
      * 
      * @type {string}
@@ -365,6 +377,7 @@ export function BulkSmsFilterRequestFromJSONTyped(json: any, ignoreDiscriminator
         'protocolId': json['protocolId'] === undefined ? undefined : json['protocolId'] === null ? null : json['protocolId'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
         'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'installerId': json['installerId'] === undefined ? undefined : json['installerId'] === null ? null : json['installerId'],
@@ -378,6 +391,7 @@ export function BulkSmsFilterRequestFromJSONTyped(json: any, ignoreDiscriminator
         'protocolIdNot': json['protocolIdNot'] === undefined ? undefined : json['protocolIdNot'] === null ? null : json['protocolIdNot'],
         'accountTypeIdNot': json['accountTypeIdNot'] === undefined ? undefined : json['accountTypeIdNot'] === null ? null : json['accountTypeIdNot'],
         'businessSectorIdNot': json['businessSectorIdNot'] === undefined ? undefined : json['businessSectorIdNot'] === null ? null : json['businessSectorIdNot'],
+        'communicationTypeIdNot': json['communicationTypeIdNot'] === undefined ? undefined : json['communicationTypeIdNot'] === null ? null : json['communicationTypeIdNot'],
         'sideTypeIdNot': json['sideTypeIdNot'] === undefined ? undefined : json['sideTypeIdNot'] === null ? null : json['sideTypeIdNot'],
         'monitoringCenterIdNot': json['monitoringCenterIdNot'] === undefined ? undefined : json['monitoringCenterIdNot'] === null ? null : json['monitoringCenterIdNot'],
         'installerIdNot': json['installerIdNot'] === undefined ? undefined : json['installerIdNot'] === null ? null : json['installerIdNot'],
@@ -432,6 +446,7 @@ export function BulkSmsFilterRequestToJSONTyped(value?: BulkSmsFilterRequest | n
         'protocolId': value['protocolId'],
         'accountTypeId': value['accountTypeId'],
         'businessSectorId': value['businessSectorId'],
+        'communicationTypeId': value['communicationTypeId'],
         'sideTypeId': value['sideTypeId'],
         'monitoringCenterId': value['monitoringCenterId'],
         'installerId': value['installerId'],
@@ -445,6 +460,7 @@ export function BulkSmsFilterRequestToJSONTyped(value?: BulkSmsFilterRequest | n
         'protocolIdNot': value['protocolIdNot'],
         'accountTypeIdNot': value['accountTypeIdNot'],
         'businessSectorIdNot': value['businessSectorIdNot'],
+        'communicationTypeIdNot': value['communicationTypeIdNot'],
         'sideTypeIdNot': value['sideTypeIdNot'],
         'monitoringCenterIdNot': value['monitoringCenterIdNot'],
         'installerIdNot': value['installerIdNot'],

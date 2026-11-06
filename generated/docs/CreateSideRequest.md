@@ -44,6 +44,7 @@ Name | Type
 `regionId` | string
 `accountTypeId` | string
 `businessSectorId` | string
+`communicationTypeId` | string
 `sideTypeId` | string
 `monitoringCenterId` | string
 `installDate` | Date
@@ -95,6 +96,7 @@ const example = {
   "regionId": null,
   "accountTypeId": null,
   "businessSectorId": null,
+  "communicationTypeId": null,
   "sideTypeId": null,
   "monitoringCenterId": null,
   "installDate": null,

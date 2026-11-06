@@ -11,6 +11,7 @@ All URIs are relative to *http://localhost*
 | [**createBrand**](ReferenceDataApi.md#createbrandoperation) | **POST** /v1/reference/brands | Create a brand |
 | [**createCity**](ReferenceDataApi.md#createcityoperation) | **POST** /v1/reference/cities | Create a city |
 | [**createCityEmergencyContact**](ReferenceDataApi.md#createcityemergencycontact) | **POST** /v1/reference/cities/{cityId}/emergency-contacts | Create an emergency contact for a city |
+| [**createCommunicationType**](ReferenceDataApi.md#createcommunicationtypeoperation) | **POST** /v1/reference/communication-types | Create a communication type |
 | [**createCountry**](ReferenceDataApi.md#createcountryoperation) | **POST** /v1/reference/countries | Create a country |
 | [**createDealerAccountType**](ReferenceDataApi.md#createdealeraccounttypeoperation) | **POST** /v1/reference/dealer-account-types | Create a dealer account type |
 | [**createDistrict**](ReferenceDataApi.md#createdistrictoperation) | **POST** /v1/reference/districts | Create a district |
@@ -40,6 +41,7 @@ All URIs are relative to *http://localhost*
 | [**deleteBrand**](ReferenceDataApi.md#deletebrand) | **DELETE** /v1/reference/brands/{id} | Delete a brand |
 | [**deleteCity**](ReferenceDataApi.md#deletecity) | **DELETE** /v1/reference/cities/{id} | Delete a city |
 | [**deleteCityEmergencyContact**](ReferenceDataApi.md#deletecityemergencycontact) | **DELETE** /v1/reference/cities/{cityId}/emergency-contacts/{id} | Delete an emergency contact from a city |
+| [**deleteCommunicationType**](ReferenceDataApi.md#deletecommunicationtype) | **DELETE** /v1/reference/communication-types/{id} | Delete a communication type |
 | [**deleteCountry**](ReferenceDataApi.md#deletecountry) | **DELETE** /v1/reference/countries/{id} | Delete a country |
 | [**deleteDealerAccountType**](ReferenceDataApi.md#deletedealeraccounttype) | **DELETE** /v1/reference/dealer-account-types/{id} | Delete a dealer account type |
 | [**deleteDistrict**](ReferenceDataApi.md#deletedistrict) | **DELETE** /v1/reference/districts/{id} | Delete a district |
@@ -74,6 +76,8 @@ All URIs are relative to *http://localhost*
 | [**getBrands**](ReferenceDataApi.md#getbrands) | **GET** /v1/reference/brands | List panel brands |
 | [**getCities**](ReferenceDataApi.md#getcities) | **GET** /v1/reference/cities | List cities, optionally filtered by country |
 | [**getCityById**](ReferenceDataApi.md#getcitybyid) | **GET** /v1/reference/cities/{id} | Get city by id |
+| [**getCommunicationTypeById**](ReferenceDataApi.md#getcommunicationtypebyid) | **GET** /v1/reference/communication-types/{id} | Get communication type by id |
+| [**getCommunicationTypes**](ReferenceDataApi.md#getcommunicationtypes) | **GET** /v1/reference/communication-types | List communication types |
 | [**getCountries**](ReferenceDataApi.md#getcountries) | **GET** /v1/reference/countries | List countries |
 | [**getCountryById**](ReferenceDataApi.md#getcountrybyid) | **GET** /v1/reference/countries/{id} | Get country by id |
 | [**getDealerAccountTypeById**](ReferenceDataApi.md#getdealeraccounttypebyid) | **GET** /v1/reference/dealer-account-types/{id} | Get dealer account type by id |
@@ -137,6 +141,7 @@ All URIs are relative to *http://localhost*
 | [**updateBrand**](ReferenceDataApi.md#updatebrandoperation) | **PATCH** /v1/reference/brands/{id} | Update a brand |
 | [**updateCity**](ReferenceDataApi.md#updatecityoperation) | **PATCH** /v1/reference/cities/{id} | Update a city |
 | [**updateCityEmergencyContact**](ReferenceDataApi.md#updatecityemergencycontact) | **PATCH** /v1/reference/cities/{cityId}/emergency-contacts/{id} | Update an emergency contact for a city |
+| [**updateCommunicationType**](ReferenceDataApi.md#updatecommunicationtypeoperation) | **PATCH** /v1/reference/communication-types/{id} | Update a communication type |
 | [**updateCountry**](ReferenceDataApi.md#updatecountryoperation) | **PATCH** /v1/reference/countries/{id} | Update a country |
 | [**updateDealerAccountType**](ReferenceDataApi.md#updatedealeraccounttypeoperation) | **PATCH** /v1/reference/dealer-account-types/{id} | Update a dealer account type |
 | [**updateDistrict**](ReferenceDataApi.md#updatedistrictoperation) | **PATCH** /v1/reference/districts/{id} | Update a district |
@@ -712,6 +717,85 @@ example().catch(console.error);
 | **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createCommunicationType
+
+> ReferenceWriteResponse createCommunicationType(createCommunicationTypeRequest, xCorrelationId, idempotencyKey)
+
+Create a communication type
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { CreateCommunicationTypeOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // CreateCommunicationTypeRequest
+    createCommunicationTypeRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateCommunicationTypeOperationRequest;
+
+  try {
+    const data = await api.createCommunicationType(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createCommunicationTypeRequest** | [CreateCommunicationTypeRequest](CreateCommunicationTypeRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -2991,6 +3075,82 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteCommunicationType
+
+> deleteCommunicationType(id, xCorrelationId)
+
+Delete a communication type
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { DeleteCommunicationTypeRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteCommunicationTypeRequest;
+
+  try {
+    const data = await api.deleteCommunicationType(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -5553,6 +5713,152 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getCommunicationTypeById
+
+> LookupItem getCommunicationTypeById(id, xCorrelationId)
+
+Get communication type by id
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetCommunicationTypeByIdRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetCommunicationTypeByIdRequest;
+
+  try {
+    const data = await api.getCommunicationTypeById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LookupItem**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getCommunicationTypes
+
+> Array&lt;LookupItem&gt; getCommunicationTypes(xCorrelationId)
+
+List communication types
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetCommunicationTypesRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetCommunicationTypesRequest;
+
+  try {
+    const data = await api.getCommunicationTypes(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;LookupItem&gt;**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
@@ -10372,6 +10678,86 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateCommunicationType
+
+> ReferenceWriteResponse updateCommunicationType(id, updateCommunicationTypeRequest, xCorrelationId)
+
+Update a communication type
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { UpdateCommunicationTypeOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateCommunicationTypeRequest
+    updateCommunicationTypeRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateCommunicationTypeOperationRequest;
+
+  try {
+    const data = await api.updateCommunicationType(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **updateCommunicationTypeRequest** | [UpdateCommunicationTypeRequest](UpdateCommunicationTypeRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 

@@ -234,6 +234,12 @@ export interface UpdateSideRequest {
      * @type {string}
      * @memberof UpdateSideRequest
      */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSideRequest
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -307,6 +313,7 @@ export function UpdateSideRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
         'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'installDate': json['installDate'] === undefined ? undefined : json['installDate'] === null ? null : (new Date(json['installDate'])),
         'startDate': json['startDate'] === undefined ? undefined : json['startDate'] === null ? null : (new Date(json['startDate'])),
@@ -360,6 +367,7 @@ export function UpdateSideRequestToJSONTyped(value?: UpdateSideRequest | null, i
         'regionId': value['regionId'],
         'accountTypeId': value['accountTypeId'],
         'businessSectorId': value['businessSectorId'],
+        'communicationTypeId': value['communicationTypeId'],
         'sideTypeId': value['sideTypeId'],
         'installDate': value['installDate'] == null ? value['installDate'] : value['installDate'].toISOString(),
         'startDate': value['startDate'] == null ? value['startDate'] : value['startDate'].toISOString(),

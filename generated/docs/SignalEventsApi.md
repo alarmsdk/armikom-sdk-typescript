@@ -582,7 +582,7 @@ example().catch(console.error);
 
 ## getSignalEvents
 
-> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, businessSectorId, customerId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, businessSectorIdNot, customerIdNot, actionNot, signalNameNot, completedById, completedByName, completedByIdNot, completedByNameNot, xCorrelationId)
+> SignalEventListItemPagedResult getSignalEvents(q, from, to, cursor, limit, page, pageSize, offset, sort, sideNo, sideName, receiverName, monitoringCenterName, action, signalName, sideId, receiverId, monitoringCenterId, eventCode, dealerId, alarmCategoryId, businessSectorId, customerId, communicationTypeId, sideIdNot, receiverIdNot, monitoringCenterIdNot, eventCodeNot, dealerIdNot, alarmCategoryIdNot, businessSectorIdNot, customerIdNot, communicationTypeIdNot, actionNot, signalNameNot, completedById, completedByName, completedByIdNot, completedByNameNot, xCorrelationId)
 
 List signal events with filtering, sorting and pagination
 
@@ -653,6 +653,8 @@ async function example() {
     // string (optional)
     customerId: customerId_example,
     // string (optional)
+    communicationTypeId: communicationTypeId_example,
+    // string (optional)
     sideIdNot: sideIdNot_example,
     // string (optional)
     receiverIdNot: receiverIdNot_example,
@@ -668,6 +670,8 @@ async function example() {
     businessSectorIdNot: businessSectorIdNot_example,
     // string (optional)
     customerIdNot: customerIdNot_example,
+    // string (optional)
+    communicationTypeIdNot: communicationTypeIdNot_example,
     // string (optional)
     actionNot: actionNot_example,
     // string (optional)
@@ -724,6 +728,7 @@ example().catch(console.error);
 | **alarmCategoryId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **businessSectorId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **customerId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **communicationTypeId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **sideIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **receiverIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
@@ -732,6 +737,7 @@ example().catch(console.error);
 | **alarmCategoryIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **businessSectorIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **customerIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **communicationTypeIdNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **actionNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **signalNameNot** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **completedById** | `string` |  | [Optional] [Defaults to `undefined`] |

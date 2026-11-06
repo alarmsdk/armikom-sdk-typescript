@@ -73,6 +73,12 @@ export interface ApplyHolidayFilterTarget {
      * @type {string}
      * @memberof ApplyHolidayFilterTarget
      */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyHolidayFilterTarget
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -147,6 +153,12 @@ export interface ApplyHolidayFilterTarget {
      * @memberof ApplyHolidayFilterTarget
      */
     businessSectorIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplyHolidayFilterTarget
+     */
+    communicationTypeIdNot?: string | null;
     /**
      * 
      * @type {string}
@@ -366,6 +378,7 @@ export function ApplyHolidayFilterTargetFromJSONTyped(json: any, ignoreDiscrimin
         'protocolId': json['protocolId'] === undefined ? undefined : json['protocolId'] === null ? null : json['protocolId'],
         'accountTypeId': json['accountTypeId'] === undefined ? undefined : json['accountTypeId'] === null ? null : json['accountTypeId'],
         'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'installerId': json['installerId'] === undefined ? undefined : json['installerId'] === null ? null : json['installerId'],
@@ -379,6 +392,7 @@ export function ApplyHolidayFilterTargetFromJSONTyped(json: any, ignoreDiscrimin
         'protocolIdNot': json['protocolIdNot'] === undefined ? undefined : json['protocolIdNot'] === null ? null : json['protocolIdNot'],
         'accountTypeIdNot': json['accountTypeIdNot'] === undefined ? undefined : json['accountTypeIdNot'] === null ? null : json['accountTypeIdNot'],
         'businessSectorIdNot': json['businessSectorIdNot'] === undefined ? undefined : json['businessSectorIdNot'] === null ? null : json['businessSectorIdNot'],
+        'communicationTypeIdNot': json['communicationTypeIdNot'] === undefined ? undefined : json['communicationTypeIdNot'] === null ? null : json['communicationTypeIdNot'],
         'sideTypeIdNot': json['sideTypeIdNot'] === undefined ? undefined : json['sideTypeIdNot'] === null ? null : json['sideTypeIdNot'],
         'monitoringCenterIdNot': json['monitoringCenterIdNot'] === undefined ? undefined : json['monitoringCenterIdNot'] === null ? null : json['monitoringCenterIdNot'],
         'installerIdNot': json['installerIdNot'] === undefined ? undefined : json['installerIdNot'] === null ? null : json['installerIdNot'],
@@ -433,6 +447,7 @@ export function ApplyHolidayFilterTargetToJSONTyped(value?: ApplyHolidayFilterTa
         'protocolId': value['protocolId'],
         'accountTypeId': value['accountTypeId'],
         'businessSectorId': value['businessSectorId'],
+        'communicationTypeId': value['communicationTypeId'],
         'sideTypeId': value['sideTypeId'],
         'monitoringCenterId': value['monitoringCenterId'],
         'installerId': value['installerId'],
@@ -446,6 +461,7 @@ export function ApplyHolidayFilterTargetToJSONTyped(value?: ApplyHolidayFilterTa
         'protocolIdNot': value['protocolIdNot'],
         'accountTypeIdNot': value['accountTypeIdNot'],
         'businessSectorIdNot': value['businessSectorIdNot'],
+        'communicationTypeIdNot': value['communicationTypeIdNot'],
         'sideTypeIdNot': value['sideTypeIdNot'],
         'monitoringCenterIdNot': value['monitoringCenterIdNot'],
         'installerIdNot': value['installerIdNot'],

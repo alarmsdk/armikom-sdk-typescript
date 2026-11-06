@@ -26,6 +26,7 @@ Name | Type
 `cityName` | string
 `accountTypeName` | string
 `businessSectorName` | string
+`communicationTypeName` | string
 `taxOffice` | string
 `taxNo` | string
 `phone2` | string
@@ -85,6 +86,7 @@ const example = {
   "cityName": null,
   "accountTypeName": null,
   "businessSectorName": null,
+  "communicationTypeName": null,
   "taxOffice": null,
   "taxNo": null,
   "phone2": null,

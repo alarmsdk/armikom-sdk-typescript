@@ -345,6 +345,7 @@ export interface SubscribersApiGetSidesRequest {
     protocolId?: string;
     accountTypeId?: string;
     businessSectorId?: string;
+    communicationTypeId?: string;
     sideTypeId?: string;
     monitoringCenterId?: string;
     installerId?: string;
@@ -358,6 +359,7 @@ export interface SubscribersApiGetSidesRequest {
     protocolIdNot?: string;
     accountTypeIdNot?: string;
     businessSectorIdNot?: string;
+    communicationTypeIdNot?: string;
     sideTypeIdNot?: string;
     monitoringCenterIdNot?: string;
     installerIdNot?: string;
@@ -2116,6 +2118,10 @@ export class SubscribersApi extends runtime.BaseAPI {
             queryParameters['businessSectorId'] = requestParameters['businessSectorId'];
         }
 
+        if (requestParameters['communicationTypeId'] != null) {
+            queryParameters['communicationTypeId'] = requestParameters['communicationTypeId'];
+        }
+
         if (requestParameters['sideTypeId'] != null) {
             queryParameters['sideTypeId'] = requestParameters['sideTypeId'];
         }
@@ -2166,6 +2172,10 @@ export class SubscribersApi extends runtime.BaseAPI {
 
         if (requestParameters['businessSectorIdNot'] != null) {
             queryParameters['businessSectorIdNot'] = requestParameters['businessSectorIdNot'];
+        }
+
+        if (requestParameters['communicationTypeIdNot'] != null) {
+            queryParameters['communicationTypeIdNot'] = requestParameters['communicationTypeIdNot'];
         }
 
         if (requestParameters['sideTypeIdNot'] != null) {

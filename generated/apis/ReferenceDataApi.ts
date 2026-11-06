@@ -89,6 +89,11 @@ import {
     CreateCityRequestToJSON,
 } from '../models/CreateCityRequest';
 import {
+    type CreateCommunicationTypeRequest,
+    CreateCommunicationTypeRequestFromJSON,
+    CreateCommunicationTypeRequestToJSON,
+} from '../models/CreateCommunicationTypeRequest';
+import {
     type CreateCountryRequest,
     CreateCountryRequestFromJSON,
     CreateCountryRequestToJSON,
@@ -419,6 +424,11 @@ import {
     UpdateCityRequestToJSON,
 } from '../models/UpdateCityRequest';
 import {
+    type UpdateCommunicationTypeRequest,
+    UpdateCommunicationTypeRequestFromJSON,
+    UpdateCommunicationTypeRequestToJSON,
+} from '../models/UpdateCommunicationTypeRequest';
+import {
     type UpdateCountryRequest,
     UpdateCountryRequestFromJSON,
     UpdateCountryRequestToJSON,
@@ -548,6 +558,12 @@ export interface ReferenceDataApiCreateCityOperationRequest {
 export interface ReferenceDataApiCreateCityEmergencyContactRequest {
     cityId: string;
     saveCityEmergencyContactRequest: SaveCityEmergencyContactRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface ReferenceDataApiCreateCommunicationTypeOperationRequest {
+    createCommunicationTypeRequest: CreateCommunicationTypeRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -721,6 +737,11 @@ export interface ReferenceDataApiDeleteCityEmergencyContactRequest {
     xCorrelationId?: string;
 }
 
+export interface ReferenceDataApiDeleteCommunicationTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
 export interface ReferenceDataApiDeleteCountryRequest {
     id: string;
     xCorrelationId?: string;
@@ -885,6 +906,15 @@ export interface ReferenceDataApiGetCitiesRequest {
 
 export interface ReferenceDataApiGetCityByIdRequest {
     id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetCommunicationTypeByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetCommunicationTypesRequest {
     xCorrelationId?: string;
 }
 
@@ -1225,6 +1255,12 @@ export interface ReferenceDataApiUpdateCityEmergencyContactRequest {
     cityId: string;
     id: string;
     saveCityEmergencyContactRequest: SaveCityEmergencyContactRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateCommunicationTypeOperationRequest {
+    id: string;
+    updateCommunicationTypeRequest: UpdateCommunicationTypeRequest;
     xCorrelationId?: string;
 }
 
@@ -1813,6 +1849,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createCityEmergencyContact(requestParameters: ReferenceDataApiCreateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createCityEmergencyContactRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createCommunicationType without sending the request
+     */
+    async createCommunicationTypeRequestOpts(requestParameters: ReferenceDataApiCreateCommunicationTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createCommunicationTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createCommunicationTypeRequest',
+                'Required parameter "createCommunicationTypeRequest" was null or undefined when calling createCommunicationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/communication-types`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateCommunicationTypeRequestToJSON(requestParameters['createCommunicationTypeRequest']),
+        };
+    }
+
+    /**
+     * Create a communication type
+     */
+    async createCommunicationTypeRaw(requestParameters: ReferenceDataApiCreateCommunicationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.createCommunicationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a communication type
+     */
+    async createCommunicationType(requestParameters: ReferenceDataApiCreateCommunicationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.createCommunicationTypeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -3608,6 +3707,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteCityEmergencyContact(requestParameters: ReferenceDataApiDeleteCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteCityEmergencyContactRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteCommunicationType without sending the request
+     */
+    async deleteCommunicationTypeRequestOpts(requestParameters: ReferenceDataApiDeleteCommunicationTypeRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteCommunicationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/communication-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a communication type
+     */
+    async deleteCommunicationTypeRaw(requestParameters: ReferenceDataApiDeleteCommunicationTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteCommunicationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a communication type
+     */
+    async deleteCommunicationType(requestParameters: ReferenceDataApiDeleteCommunicationTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteCommunicationTypeRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -5493,6 +5648,112 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getCityById(requestParameters: ReferenceDataApiGetCityByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CityDetail> {
         const response = await this.getCityByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getCommunicationTypeById without sending the request
+     */
+    async getCommunicationTypeByIdRequestOpts(requestParameters: ReferenceDataApiGetCommunicationTypeByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getCommunicationTypeById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/communication-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get communication type by id
+     */
+    async getCommunicationTypeByIdRaw(requestParameters: ReferenceDataApiGetCommunicationTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupItem>> {
+        const requestOptions = await this.getCommunicationTypeByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LookupItemFromJSON(jsonValue));
+    }
+
+    /**
+     * Get communication type by id
+     */
+    async getCommunicationTypeById(requestParameters: ReferenceDataApiGetCommunicationTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupItem> {
+        const response = await this.getCommunicationTypeByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getCommunicationTypes without sending the request
+     */
+    async getCommunicationTypesRequestOpts(requestParameters: ReferenceDataApiGetCommunicationTypesRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/communication-types`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List communication types
+     */
+    async getCommunicationTypesRaw(requestParameters: ReferenceDataApiGetCommunicationTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+        const requestOptions = await this.getCommunicationTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+    }
+
+    /**
+     * List communication types
+     */
+    async getCommunicationTypes(requestParameters: ReferenceDataApiGetCommunicationTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+        const response = await this.getCommunicationTypesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -9156,6 +9417,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateCityEmergencyContact(requestParameters: ReferenceDataApiUpdateCityEmergencyContactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateCityEmergencyContactRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateCommunicationType without sending the request
+     */
+    async updateCommunicationTypeRequestOpts(requestParameters: ReferenceDataApiUpdateCommunicationTypeOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateCommunicationType().'
+            );
+        }
+
+        if (requestParameters['updateCommunicationTypeRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateCommunicationTypeRequest',
+                'Required parameter "updateCommunicationTypeRequest" was null or undefined when calling updateCommunicationType().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/communication-types/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateCommunicationTypeRequestToJSON(requestParameters['updateCommunicationTypeRequest']),
+        };
+    }
+
+    /**
+     * Update a communication type
+     */
+    async updateCommunicationTypeRaw(requestParameters: ReferenceDataApiUpdateCommunicationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.updateCommunicationTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a communication type
+     */
+    async updateCommunicationType(requestParameters: ReferenceDataApiUpdateCommunicationTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.updateCommunicationTypeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

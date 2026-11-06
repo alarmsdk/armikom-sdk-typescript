@@ -374,6 +374,18 @@ export interface SideDetailResponse {
      * @type {string}
      * @memberof SideDetailResponse
      */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideDetailResponse
+     */
+    communicationTypeName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SideDetailResponse
+     */
     sideTypeId?: string | null;
     /**
      * 
@@ -506,6 +518,8 @@ export function SideDetailResponseFromJSONTyped(json: any, ignoreDiscriminator: 
         'accountTypeName': json['accountTypeName'] === undefined ? undefined : json['accountTypeName'] === null ? null : json['accountTypeName'],
         'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
         'businessSectorName': json['businessSectorName'] === undefined ? undefined : json['businessSectorName'] === null ? null : json['businessSectorName'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
+        'communicationTypeName': json['communicationTypeName'] === undefined ? undefined : json['communicationTypeName'] === null ? null : json['communicationTypeName'],
         'sideTypeId': json['sideTypeId'] === undefined ? undefined : json['sideTypeId'] === null ? null : json['sideTypeId'],
         'sideTypeName': json['sideTypeName'] === undefined ? undefined : json['sideTypeName'] === null ? null : json['sideTypeName'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
@@ -588,6 +602,8 @@ export function SideDetailResponseToJSONTyped(value?: SideDetailResponse | null,
         'accountTypeName': value['accountTypeName'],
         'businessSectorId': value['businessSectorId'],
         'businessSectorName': value['businessSectorName'],
+        'communicationTypeId': value['communicationTypeId'],
+        'communicationTypeName': value['communicationTypeName'],
         'sideTypeId': value['sideTypeId'],
         'sideTypeName': value['sideTypeName'],
         'monitoringCenterId': value['monitoringCenterId'],
