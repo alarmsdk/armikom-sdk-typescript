@@ -21442,6 +21442,106 @@
         ]
       }
     },
+    "/v1/dealers/export": {
+      "post": {
+        "tags": [
+          "Dealers"
+        ],
+        "summary": "Export dealers to CSV or XLSX",
+        "description": "Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `sort`) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.",
+        "operationId": "ExportDealers",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DealerExportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/dealers/{id}": {
       "get": {
         "tags": [
@@ -112719,6 +112819,40 @@
           }
         },
         "additionalProperties": false
+      },
+      "DealerExportRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "sort": {
+            "type": "string",
+            "nullable": true
+          },
+          "format": {
+            "type": "string",
+            "description": "Export format: \"csv\" or \"xlsx\".",
+            "nullable": true
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "IANA timezone id for rendering timestamps in local time.\nFalls back to UTC when null.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Exports what the dealer list shows: the same free-text, status and centre criteria."
       },
       "DealerListItem": {
         "type": "object",

@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**createDealer**](DealersApi.md#createdealeroperation) | **POST** /v1/dealers | Create a dealer — MC assigned from the caller\&#39;s token |
 | [**deleteDealer**](DealersApi.md#deletedealer) | **DELETE** /v1/dealers/{id} | Delete a dealer — guarded by dependent rows |
 | [**deleteDealerLogo**](DealersApi.md#deletedealerlogo) | **DELETE** /v1/dealers/{id}/logo | Remove the dealer logo |
+| [**exportDealers**](DealersApi.md#exportdealers) | **POST** /v1/dealers/export | Export dealers to CSV or XLSX |
 | [**getDealerById**](DealersApi.md#getdealerbyid) | **GET** /v1/dealers/{id} | Get a dealer by ID |
 | [**getDealerLogo**](DealersApi.md#getdealerlogo) | **GET** /v1/dealers/{id}/logo | Get the dealer logo image |
 | [**getDealerSideNoPool**](DealersApi.md#getdealersidenopool) | **GET** /v1/dealers/{dealerId}/side-nos/pool | Get unused reserved subscriber numbers for a dealer |
@@ -245,6 +246,86 @@ example().catch(console.error);
 | **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## exportDealers
+
+> exportDealers(dealerExportRequest, xCorrelationId, idempotencyKey)
+
+Export dealers to CSV or XLSX
+
+Exports the dealers matching the list filters (&#x60;query&#x60;, &#x60;active&#x60;, &#x60;monitoringCenterId&#x60;, &#x60;sort&#x60;) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  DealersApi,
+} from '';
+import type { ExportDealersRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new DealersApi(config);
+
+  const body = {
+    // DealerExportRequest
+    dealerExportRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ExportDealersRequest;
+
+  try {
+    const data = await api.exportDealers(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **dealerExportRequest** | [DealerExportRequest](DealerExportRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

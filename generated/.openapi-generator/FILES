@@ -216,6 +216,7 @@ docs/DashboardCountersResponse.md
 docs/DeactivateSideRequest.md
 docs/DealerAccountTypeDetail.md
 docs/DealerDetailResponse.md
+docs/DealerExportRequest.md
 docs/DealerListItem.md
 docs/DealerListItemPagedResult.md
 docs/DealerSideItem.md
@@ -792,6 +793,7 @@ models/DashboardCountersResponse.ts
 models/DeactivateSideRequest.ts
 models/DealerAccountTypeDetail.ts
 models/DealerDetailResponse.ts
+models/DealerExportRequest.ts
 models/DealerListItem.ts
 models/DealerListItemPagedResult.ts
 models/DealerSideItem.ts

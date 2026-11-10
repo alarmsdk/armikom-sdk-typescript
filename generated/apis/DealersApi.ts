@@ -29,6 +29,11 @@ import {
     DealerDetailResponseToJSON,
 } from '../models/DealerDetailResponse';
 import {
+    type DealerExportRequest,
+    DealerExportRequestFromJSON,
+    DealerExportRequestToJSON,
+} from '../models/DealerExportRequest';
+import {
     type DealerListItemPagedResult,
     DealerListItemPagedResultFromJSON,
     DealerListItemPagedResultToJSON,
@@ -73,6 +78,12 @@ export interface DealersApiDeleteDealerRequest {
 export interface DealersApiDeleteDealerLogoRequest {
     id: string;
     xCorrelationId?: string;
+}
+
+export interface DealersApiExportDealersRequest {
+    dealerExportRequest: DealerExportRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface DealersApiGetDealerByIdRequest {
@@ -319,6 +330,70 @@ export class DealersApi extends runtime.BaseAPI {
      */
     async deleteDealerLogo(requestParameters: DealersApiDeleteDealerLogoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteDealerLogoRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for exportDealers without sending the request
+     */
+    async exportDealersRequestOpts(requestParameters: DealersApiExportDealersRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['dealerExportRequest'] == null) {
+            throw new runtime.RequiredError(
+                'dealerExportRequest',
+                'Required parameter "dealerExportRequest" was null or undefined when calling exportDealers().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/dealers/export`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: DealerExportRequestToJSON(requestParameters['dealerExportRequest']),
+        };
+    }
+
+    /**
+     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `sort`) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+     * Export dealers to CSV or XLSX
+     */
+    async exportDealersRaw(requestParameters: DealersApiExportDealersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.exportDealersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `sort`) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+     * Export dealers to CSV or XLSX
+     */
+    async exportDealers(requestParameters: DealersApiExportDealersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.exportDealersRaw(requestParameters, initOverrides);
     }
 
     /**

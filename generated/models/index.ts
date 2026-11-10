@@ -146,6 +146,7 @@ export * from './DashboardCountersResponse';
 export * from './DeactivateSideRequest';
 export * from './DealerAccountTypeDetail';
 export * from './DealerDetailResponse';
+export * from './DealerExportRequest';
 export * from './DealerListItem';
 export * from './DealerListItemPagedResult';
 export * from './DealerSideItem';
