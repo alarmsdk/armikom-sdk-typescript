@@ -14,7 +14,10 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * Body of `POST /v1/signal-events/export`. The filter fields mirror the query
+ * parameters of `GET /v1/signal-events` one for one (same names, same
+ * comma-separated id and name lists, same `...Not` counterparts), so the file
+ * holds exactly the rows the explorer showed.
  * @export
  * @interface SignalExportRequest
  */
@@ -56,6 +59,186 @@ export interface SignalExportRequest {
      * @memberof SignalExportRequest
      */
     timeZone?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SignalExportRequest
+     */
+    sideNo?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    sideName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    receiverName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    monitoringCenterName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    action?: string | null;
+    /**
+     * Comma-separated signal type names; `*` is a wildcard.
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    signalName?: string | null;
+    /**
+     * Comma-separated GUIDs, as are the other `...Id` fields.
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    sideId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    receiverId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    monitoringCenterId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    eventCode?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    dealerId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    alarmCategoryId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    businessSectorId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    customerId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    communicationTypeId?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    completedById?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    completedByName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    sideIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    receiverIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    monitoringCenterIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    eventCodeNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    dealerIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    alarmCategoryIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    businessSectorIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    customerIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    communicationTypeIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    actionNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    signalNameNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    completedByIdNot?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignalExportRequest
+     */
+    completedByNameNot?: string | null;
 }
 
 /**
@@ -81,6 +264,36 @@ export function SignalExportRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'sort': json['sort'] === undefined ? undefined : json['sort'] === null ? null : json['sort'],
         'format': json['format'] === undefined ? undefined : json['format'] === null ? null : json['format'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
+        'sideNo': json['sideNo'] === undefined ? undefined : json['sideNo'] === null ? null : json['sideNo'],
+        'sideName': json['sideName'] === undefined ? undefined : json['sideName'] === null ? null : json['sideName'],
+        'receiverName': json['receiverName'] === undefined ? undefined : json['receiverName'] === null ? null : json['receiverName'],
+        'monitoringCenterName': json['monitoringCenterName'] === undefined ? undefined : json['monitoringCenterName'] === null ? null : json['monitoringCenterName'],
+        'action': json['action'] === undefined ? undefined : json['action'] === null ? null : json['action'],
+        'signalName': json['signalName'] === undefined ? undefined : json['signalName'] === null ? null : json['signalName'],
+        'sideId': json['sideId'] === undefined ? undefined : json['sideId'] === null ? null : json['sideId'],
+        'receiverId': json['receiverId'] === undefined ? undefined : json['receiverId'] === null ? null : json['receiverId'],
+        'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'eventCode': json['eventCode'] === undefined ? undefined : json['eventCode'] === null ? null : json['eventCode'],
+        'dealerId': json['dealerId'] === undefined ? undefined : json['dealerId'] === null ? null : json['dealerId'],
+        'alarmCategoryId': json['alarmCategoryId'] === undefined ? undefined : json['alarmCategoryId'] === null ? null : json['alarmCategoryId'],
+        'businessSectorId': json['businessSectorId'] === undefined ? undefined : json['businessSectorId'] === null ? null : json['businessSectorId'],
+        'customerId': json['customerId'] === undefined ? undefined : json['customerId'] === null ? null : json['customerId'],
+        'communicationTypeId': json['communicationTypeId'] === undefined ? undefined : json['communicationTypeId'] === null ? null : json['communicationTypeId'],
+        'completedById': json['completedById'] === undefined ? undefined : json['completedById'] === null ? null : json['completedById'],
+        'completedByName': json['completedByName'] === undefined ? undefined : json['completedByName'] === null ? null : json['completedByName'],
+        'sideIdNot': json['sideIdNot'] === undefined ? undefined : json['sideIdNot'] === null ? null : json['sideIdNot'],
+        'receiverIdNot': json['receiverIdNot'] === undefined ? undefined : json['receiverIdNot'] === null ? null : json['receiverIdNot'],
+        'monitoringCenterIdNot': json['monitoringCenterIdNot'] === undefined ? undefined : json['monitoringCenterIdNot'] === null ? null : json['monitoringCenterIdNot'],
+        'eventCodeNot': json['eventCodeNot'] === undefined ? undefined : json['eventCodeNot'] === null ? null : json['eventCodeNot'],
+        'dealerIdNot': json['dealerIdNot'] === undefined ? undefined : json['dealerIdNot'] === null ? null : json['dealerIdNot'],
+        'alarmCategoryIdNot': json['alarmCategoryIdNot'] === undefined ? undefined : json['alarmCategoryIdNot'] === null ? null : json['alarmCategoryIdNot'],
+        'businessSectorIdNot': json['businessSectorIdNot'] === undefined ? undefined : json['businessSectorIdNot'] === null ? null : json['businessSectorIdNot'],
+        'customerIdNot': json['customerIdNot'] === undefined ? undefined : json['customerIdNot'] === null ? null : json['customerIdNot'],
+        'communicationTypeIdNot': json['communicationTypeIdNot'] === undefined ? undefined : json['communicationTypeIdNot'] === null ? null : json['communicationTypeIdNot'],
+        'actionNot': json['actionNot'] === undefined ? undefined : json['actionNot'] === null ? null : json['actionNot'],
+        'signalNameNot': json['signalNameNot'] === undefined ? undefined : json['signalNameNot'] === null ? null : json['signalNameNot'],
+        'completedByIdNot': json['completedByIdNot'] === undefined ? undefined : json['completedByIdNot'] === null ? null : json['completedByIdNot'],
+        'completedByNameNot': json['completedByNameNot'] === undefined ? undefined : json['completedByNameNot'] === null ? null : json['completedByNameNot'],
     };
 }
 
@@ -101,6 +314,36 @@ export function SignalExportRequestToJSONTyped(value?: SignalExportRequest | nul
         'sort': value['sort'],
         'format': value['format'],
         'timeZone': value['timeZone'],
+        'sideNo': value['sideNo'],
+        'sideName': value['sideName'],
+        'receiverName': value['receiverName'],
+        'monitoringCenterName': value['monitoringCenterName'],
+        'action': value['action'],
+        'signalName': value['signalName'],
+        'sideId': value['sideId'],
+        'receiverId': value['receiverId'],
+        'monitoringCenterId': value['monitoringCenterId'],
+        'eventCode': value['eventCode'],
+        'dealerId': value['dealerId'],
+        'alarmCategoryId': value['alarmCategoryId'],
+        'businessSectorId': value['businessSectorId'],
+        'customerId': value['customerId'],
+        'communicationTypeId': value['communicationTypeId'],
+        'completedById': value['completedById'],
+        'completedByName': value['completedByName'],
+        'sideIdNot': value['sideIdNot'],
+        'receiverIdNot': value['receiverIdNot'],
+        'monitoringCenterIdNot': value['monitoringCenterIdNot'],
+        'eventCodeNot': value['eventCodeNot'],
+        'dealerIdNot': value['dealerIdNot'],
+        'alarmCategoryIdNot': value['alarmCategoryIdNot'],
+        'businessSectorIdNot': value['businessSectorIdNot'],
+        'customerIdNot': value['customerIdNot'],
+        'communicationTypeIdNot': value['communicationTypeIdNot'],
+        'actionNot': value['actionNot'],
+        'signalNameNot': value['signalNameNot'],
+        'completedByIdNot': value['completedByIdNot'],
+        'completedByNameNot': value['completedByNameNot'],
     };
 }
 

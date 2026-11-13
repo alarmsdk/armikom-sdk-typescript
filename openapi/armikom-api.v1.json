@@ -122225,9 +122225,133 @@
             "type": "string",
             "description": "IANA timezone id for rendering timestamps in local time.\nFalls back to UTC when null.",
             "nullable": true
+          },
+          "sideNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sideName": {
+            "type": "string",
+            "nullable": true
+          },
+          "receiverName": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
+          "signalName": {
+            "type": "string",
+            "description": "Comma-separated signal type names; `*` is a wildcard.",
+            "nullable": true
+          },
+          "sideId": {
+            "type": "string",
+            "description": "Comma-separated GUIDs, as are the other `...Id` fields.",
+            "nullable": true
+          },
+          "receiverId": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterId": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "alarmCategoryId": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicationTypeId": {
+            "type": "string",
+            "nullable": true
+          },
+          "completedById": {
+            "type": "string",
+            "nullable": true
+          },
+          "completedByName": {
+            "type": "string",
+            "nullable": true
+          },
+          "sideIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "receiverIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "monitoringCenterIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventCodeNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "dealerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "alarmCategoryIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessSectorIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicationTypeIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "signalNameNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "completedByIdNot": {
+            "type": "string",
+            "nullable": true
+          },
+          "completedByNameNot": {
+            "type": "string",
+            "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Body of `POST /v1/signal-events/export`. The filter fields mirror the query\nparameters of `GET /v1/signal-events` one for one (same names, same\ncomma-separated id and name lists, same `...Not` counterparts), so the file\nholds exactly the rows the explorer showed."
       },
       "SignalRelationAlarmCategoryRef": {
         "type": "object",
