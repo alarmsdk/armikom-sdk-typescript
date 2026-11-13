@@ -277,6 +277,13 @@ docs/InvoicesApi.md
 docs/LinkMobileUserRequest.md
 docs/LinkMobileUserResponse.md
 docs/LiveSignalItem.md
+docs/LlmCreditResponse.md
+docs/LlmModelDto.md
+docs/LlmSettingsResponse.md
+docs/LlmTaskModelDto.md
+docs/LlmTaskSettingDto.md
+docs/LlmUsageEntryDto.md
+docs/LlmUsageResponse.md
 docs/LocalisationApi.md
 docs/LocalizationBundleResponse.md
 docs/LockAlarmResponse.md
@@ -412,6 +419,7 @@ docs/SMSLogApi.md
 docs/SaveCityEmergencyContactRequest.md
 docs/SaveDeviceRegexRequest.md
 docs/SaveEmergencyPhoneRequest.md
+docs/SaveLlmSettingsRequest.md
 docs/SaveMobileOperatorRequest.md
 docs/SaveProductRequest.md
 docs/SavePromptRequest.md
@@ -857,6 +865,13 @@ models/InvoicePreviewResponse.ts
 models/LinkMobileUserRequest.ts
 models/LinkMobileUserResponse.ts
 models/LiveSignalItem.ts
+models/LlmCreditResponse.ts
+models/LlmModelDto.ts
+models/LlmSettingsResponse.ts
+models/LlmTaskModelDto.ts
+models/LlmTaskSettingDto.ts
+models/LlmUsageEntryDto.ts
+models/LlmUsageResponse.ts
 models/LocalizationBundleResponse.ts
 models/LockAlarmResponse.ts
 models/LoginRequest.ts
@@ -980,6 +995,7 @@ models/RunReportRequest.ts
 models/SaveCityEmergencyContactRequest.ts
 models/SaveDeviceRegexRequest.ts
 models/SaveEmergencyPhoneRequest.ts
+models/SaveLlmSettingsRequest.ts
 models/SaveMobileOperatorRequest.ts
 models/SaveProductRequest.ts
 models/SavePromptRequest.ts

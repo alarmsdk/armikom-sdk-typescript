@@ -69,6 +69,21 @@ import {
     EmergencyPhoneDetailToJSON,
 } from '../models/EmergencyPhoneDetail';
 import {
+    type LlmCreditResponse,
+    LlmCreditResponseFromJSON,
+    LlmCreditResponseToJSON,
+} from '../models/LlmCreditResponse';
+import {
+    type LlmSettingsResponse,
+    LlmSettingsResponseFromJSON,
+    LlmSettingsResponseToJSON,
+} from '../models/LlmSettingsResponse';
+import {
+    type LlmUsageResponse,
+    LlmUsageResponseFromJSON,
+    LlmUsageResponseToJSON,
+} from '../models/LlmUsageResponse';
+import {
     type MailSettingDetail,
     MailSettingDetailFromJSON,
     MailSettingDetailToJSON,
@@ -198,6 +213,11 @@ import {
     SaveEmergencyPhoneRequestFromJSON,
     SaveEmergencyPhoneRequestToJSON,
 } from '../models/SaveEmergencyPhoneRequest';
+import {
+    type SaveLlmSettingsRequest,
+    SaveLlmSettingsRequestFromJSON,
+    SaveLlmSettingsRequestToJSON,
+} from '../models/SaveLlmSettingsRequest';
 import {
     type SavePromptRequest,
     SavePromptRequestFromJSON,
@@ -466,6 +486,19 @@ export interface AdministrationApiGetEmergencyPhoneRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetLlmCreditRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetLlmSettingsRequest {
+    xCorrelationId?: string;
+}
+
+export interface AdministrationApiGetLlmUsageRequest {
+    days?: number;
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetMailSettingRequest {
     id: string;
     xCorrelationId?: string;
@@ -604,6 +637,11 @@ export interface AdministrationApiPreviewMessageTemplateOperationRequest {
     previewMessageTemplateRequest: PreviewMessageTemplateRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface AdministrationApiSaveLlmSettingsOperationRequest {
+    saveLlmSettingsRequest: SaveLlmSettingsRequest;
+    xCorrelationId?: string;
 }
 
 export interface AdministrationApiSaveReceiverMcFallbackOperationRequest {
@@ -2844,6 +2882,163 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getLlmCredit without sending the request
+     */
+    async getLlmCreditRequestOpts(requestParameters: AdministrationApiGetLlmCreditRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/credit`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Up to a minute old. available=false when the balance cannot be read. Requires admin:config.
+     * Remaining AI credit and spend today, this week and this month
+     */
+    async getLlmCreditRaw(requestParameters: AdministrationApiGetLlmCreditRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmCreditResponse>> {
+        const requestOptions = await this.getLlmCreditRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmCreditResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Up to a minute old. available=false when the balance cannot be read. Requires admin:config.
+     * Remaining AI credit and spend today, this week and this month
+     */
+    async getLlmCredit(requestParameters: AdministrationApiGetLlmCreditRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmCreditResponse> {
+        const response = await this.getLlmCreditRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getLlmSettings without sending the request
+     */
+    async getLlmSettingsRequestOpts(requestParameters: AdministrationApiGetLlmSettingsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/settings`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * A task with no model runs on the installation default. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
+     * Get the model each AI task uses and the models on offer
+     */
+    async getLlmSettingsRaw(requestParameters: AdministrationApiGetLlmSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmSettingsResponse>> {
+        const requestOptions = await this.getLlmSettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmSettingsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * A task with no model runs on the installation default. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
+     * Get the model each AI task uses and the models on offer
+     */
+    async getLlmSettings(requestParameters: AdministrationApiGetLlmSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmSettingsResponse> {
+        const response = await this.getLlmSettingsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getLlmUsage without sending the request
+     */
+    async getLlmUsageRequestOpts(requestParameters: AdministrationApiGetLlmUsageRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['days'] != null) {
+            queryParameters['days'] = requestParameters['days'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/usage`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The last `days` days including today (default 7, at most 92). Requires admin:config.
+     * AI usage per day, task and model
+     */
+    async getLlmUsageRaw(requestParameters: AdministrationApiGetLlmUsageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmUsageResponse>> {
+        const requestOptions = await this.getLlmUsageRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmUsageResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The last `days` days including today (default 7, at most 92). Requires admin:config.
+     * AI usage per day, task and model
+     */
+    async getLlmUsage(requestParameters: AdministrationApiGetLlmUsageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmUsageResponse> {
+        const response = await this.getLlmUsageRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getMailSetting without sending the request
      */
     async getMailSettingRequestOpts(requestParameters: AdministrationApiGetMailSettingRequest): Promise<runtime.RequestOpts> {
@@ -4441,6 +4636,67 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async previewMessageTemplate(requestParameters: AdministrationApiPreviewMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageTemplatePreview> {
         const response = await this.previewMessageTemplateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for saveLlmSettings without sending the request
+     */
+    async saveLlmSettingsRequestOpts(requestParameters: AdministrationApiSaveLlmSettingsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveLlmSettingsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveLlmSettingsRequest',
+                'Required parameter "saveLlmSettingsRequest" was null or undefined when calling saveLlmSettings().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/settings`;
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveLlmSettingsRequestToJSON(requestParameters['saveLlmSettingsRequest']),
+        };
+    }
+
+    /**
+     * Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+     * Choose the model of one or more AI tasks
+     */
+    async saveLlmSettingsRaw(requestParameters: AdministrationApiSaveLlmSettingsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmSettingsResponse>> {
+        const requestOptions = await this.saveLlmSettingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmSettingsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+     * Choose the model of one or more AI tasks
+     */
+    async saveLlmSettings(requestParameters: AdministrationApiSaveLlmSettingsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmSettingsResponse> {
+        const response = await this.saveLlmSettingsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

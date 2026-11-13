@@ -74,8 +74,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 509 -> 517: message templates — definitions, CRUD, preview, effective (316 paths, api-v1.68).
   // 517 -> 519: recently closed alarms — list, restore (318 paths, api-v1.71).
   // 519 -> 524: communication types — list, get, create, update, delete (320 paths, api-v1.72).
-  // 525 -> 533: operator scorecard shifts and settings, D89 (325 paths, api-v1.76).
-  assert.equal(ids.size, 533, 'operation count moved off the pinned contract');
+  // 533 -> 537: per-task model selection, AI usage and credit, D90 (328 paths, api-v1.77).
+  assert.equal(ids.size, 537, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

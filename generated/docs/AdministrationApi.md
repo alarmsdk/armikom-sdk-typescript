@@ -39,6 +39,9 @@ All URIs are relative to *http://localhost*
 | [**getAdminReceiver**](AdministrationApi.md#getadminreceiver) | **GET** /v1/admin/receivers/{id} | Get a receiver |
 | [**getDeviceRegex**](AdministrationApi.md#getdeviceregex) | **GET** /v1/admin/device-regexes/{id} | Get a device parser |
 | [**getEmergencyPhone**](AdministrationApi.md#getemergencyphone) | **GET** /v1/admin/emergency-phones/{id} | Get an emergency contact |
+| [**getLlmCredit**](AdministrationApi.md#getllmcredit) | **GET** /v1/admin/llm/credit | Remaining AI credit and spend today, this week and this month |
+| [**getLlmSettings**](AdministrationApi.md#getllmsettings) | **GET** /v1/admin/llm/settings | Get the model each AI task uses and the models on offer |
+| [**getLlmUsage**](AdministrationApi.md#getllmusage) | **GET** /v1/admin/llm/usage | AI usage per day, task and model |
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
 | [**getMessageTemplate**](AdministrationApi.md#getmessagetemplate) | **GET** /v1/admin/message-templates/{id} | Get a message template |
 | [**getMobileAgreement**](AdministrationApi.md#getmobileagreement) | **GET** /v1/admin/mobile-agreements/{id} | Get a mobile agreement |
@@ -68,6 +71,7 @@ All URIs are relative to *http://localhost*
 | [**listSmsSettings**](AdministrationApi.md#listsmssettings) | **GET** /v1/admin/sms-settings | List SMS gateway profiles |
 | [**normalizePhones**](AdministrationApi.md#normalizephones) | **POST** /v1/admin/phone-audit/normalize | Batch-normalise phone numbers |
 | [**previewMessageTemplate**](AdministrationApi.md#previewmessagetemplateoperation) | **POST** /v1/admin/message-templates/preview | Render a draft template with example values |
+| [**saveLlmSettings**](AdministrationApi.md#savellmsettingsoperation) | **PUT** /v1/admin/llm/settings | Choose the model of one or more AI tasks |
 | [**saveReceiverMcFallback**](AdministrationApi.md#savereceivermcfallbackoperation) | **PUT** /v1/admin/receivers/{receiverId}/mc-fallback | Replace a receiver\&#39;s monitoring centre fallback |
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
 | [**updateEmergencyPhone**](AdministrationApi.md#updateemergencyphone) | **PATCH** /v1/admin/emergency-phones/{id} | Update an emergency contact |
@@ -2818,6 +2822,228 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getLlmCredit
+
+> LlmCreditResponse getLlmCredit(xCorrelationId)
+
+Remaining AI credit and spend today, this week and this month
+
+Up to a minute old. available&#x3D;false when the balance cannot be read. Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetLlmCreditRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetLlmCreditRequest;
+
+  try {
+    const data = await api.getLlmCredit(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmCreditResponse**](LlmCreditResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getLlmSettings
+
+> LlmSettingsResponse getLlmSettings(xCorrelationId)
+
+Get the model each AI task uses and the models on offer
+
+A task with no model runs on the installation default. Prices are per million tokens. enabled&#x3D;false: models cannot be chosen on this installation. Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetLlmSettingsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetLlmSettingsRequest;
+
+  try {
+    const data = await api.getLlmSettings(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmSettingsResponse**](LlmSettingsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getLlmUsage
+
+> LlmUsageResponse getLlmUsage(days, xCorrelationId)
+
+AI usage per day, task and model
+
+The last &#x60;days&#x60; days including today (default 7, at most 92). Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetLlmUsageRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // number (optional)
+    days: 56,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetLlmUsageRequest;
+
+  try {
+    const data = await api.getLlmUsage(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **days** | `number` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmUsageResponse**](LlmUsageResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getMailSetting
 
 > MailSettingDetail getMailSetting(id, xCorrelationId)
@@ -4983,6 +5209,84 @@ example().catch(console.error);
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## saveLlmSettings
+
+> LlmSettingsResponse saveLlmSettings(saveLlmSettingsRequest, xCorrelationId)
+
+Choose the model of one or more AI tasks
+
+Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { SaveLlmSettingsOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // SaveLlmSettingsRequest
+    saveLlmSettingsRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SaveLlmSettingsOperationRequest;
+
+  try {
+    const data = await api.saveLlmSettings(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **saveLlmSettingsRequest** | [SaveLlmSettingsRequest](SaveLlmSettingsRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmSettingsResponse**](LlmSettingsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
