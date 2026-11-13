@@ -120,6 +120,13 @@ export interface UserInfoResponse {
      * @memberof UserInfoResponse
      */
     customerScope?: Array<OperatorCustomerAssignment> | null;
+    /**
+     * The deployment allows operators to arm / disarm panels from the console
+     * (`armikom__remoteArm__enabled`). The user still needs `sides:remote-arm`.
+     * @type {boolean}
+     * @memberof UserInfoResponse
+     */
+    remoteArmEnabled?: boolean;
 }
 
 /**
@@ -153,6 +160,7 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'hiddenFields': json['hiddenFields'] === undefined ? undefined : json['hiddenFields'] === null ? null : json['hiddenFields'],
         'readOnlyFields': json['readOnlyFields'] === undefined ? undefined : json['readOnlyFields'] === null ? null : json['readOnlyFields'],
         'customerScope': json['customerScope'] === undefined ? undefined : json['customerScope'] === null ? null : ((json['customerScope'] as Array<any>).map(OperatorCustomerAssignmentFromJSON)),
+        'remoteArmEnabled': json['remoteArmEnabled'] == null ? undefined : json['remoteArmEnabled'],
     };
 }
 
@@ -181,6 +189,7 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'hiddenFields': value['hiddenFields'],
         'readOnlyFields': value['readOnlyFields'],
         'customerScope': value['customerScope'] == null ? undefined : ((value['customerScope'] as Array<any>).map(OperatorCustomerAssignmentToJSON)),
+        'remoteArmEnabled': value['remoteArmEnabled'],
     };
 }
 

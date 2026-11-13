@@ -129,6 +129,16 @@ import {
     SideNoteItemToJSON,
 } from '../models/SideNoteItem';
 import {
+    type SidePanelCommandRequest,
+    SidePanelCommandRequestFromJSON,
+    SidePanelCommandRequestToJSON,
+} from '../models/SidePanelCommandRequest';
+import {
+    type SidePanelCommandResponse,
+    SidePanelCommandResponseFromJSON,
+    SidePanelCommandResponseToJSON,
+} from '../models/SidePanelCommandResponse';
+import {
     type SideSignalHistoryItemPagedResult,
     SideSignalHistoryItemPagedResultFromJSON,
     SideSignalHistoryItemPagedResultToJSON,
@@ -410,6 +420,13 @@ export interface SubscribersApiListDeletedSidesRequest {
 
 export interface SubscribersApiRestoreSideRequest {
     sideId: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
+export interface SubscribersApiSendSidePanelCommandRequest {
+    sideId: string;
+    sidePanelCommandRequest: SidePanelCommandRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
 }
@@ -2533,6 +2550,79 @@ export class SubscribersApi extends runtime.BaseAPI {
      */
     async restoreSide(requestParameters: SubscribersApiRestoreSideRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.restoreSideRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for sendSidePanelCommand without sending the request
+     */
+    async sendSidePanelCommandRequestOpts(requestParameters: SubscribersApiSendSidePanelCommandRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['sideId'] == null) {
+            throw new runtime.RequiredError(
+                'sideId',
+                'Required parameter "sideId" was null or undefined when calling sendSidePanelCommand().'
+            );
+        }
+
+        if (requestParameters['sidePanelCommandRequest'] == null) {
+            throw new runtime.RequiredError(
+                'sidePanelCommandRequest',
+                'Required parameter "sidePanelCommandRequest" was null or undefined when calling sendSidePanelCommand().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/sides/{sideId}/panel-command`;
+        urlPath = urlPath.replace('{sideId}', encodeURIComponent(String(requestParameters['sideId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SidePanelCommandRequestToJSON(requestParameters['sidePanelCommandRequest']),
+        };
+    }
+
+    /**
+     * Sends an arm (away), stayArm (home) or disarm command to the subscriber\'s panel right away, through the same senders the mobile app uses (EBS, Prosec, Meian). Only available when the deployment sets armikom__remoteArm__enabled=true (404 PANEL_COMMAND.FEATURE_DISABLED otherwise; GET /v1/auth/me reports remoteArmEnabled). The subscriber must allow remote management. Prosec panels need the panel password; when omitted the default is used.
+     * Arm, home-arm or disarm the subscriber\'s panel
+     */
+    async sendSidePanelCommandRaw(requestParameters: SubscribersApiSendSidePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SidePanelCommandResponse>> {
+        const requestOptions = await this.sendSidePanelCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SidePanelCommandResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Sends an arm (away), stayArm (home) or disarm command to the subscriber\'s panel right away, through the same senders the mobile app uses (EBS, Prosec, Meian). Only available when the deployment sets armikom__remoteArm__enabled=true (404 PANEL_COMMAND.FEATURE_DISABLED otherwise; GET /v1/auth/me reports remoteArmEnabled). The subscriber must allow remote management. Prosec panels need the panel password; when omitted the default is used.
+     * Arm, home-arm or disarm the subscriber\'s panel
+     */
+    async sendSidePanelCommand(requestParameters: SubscribersApiSendSidePanelCommandRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SidePanelCommandResponse> {
+        const response = await this.sendSidePanelCommandRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

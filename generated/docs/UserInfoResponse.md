@@ -20,6 +20,7 @@ Name | Type
 `hiddenFields` | Array&lt;string&gt;
 `readOnlyFields` | Array&lt;string&gt;
 `customerScope` | [Array&lt;OperatorCustomerAssignment&gt;](OperatorCustomerAssignment.md)
+`remoteArmEnabled` | boolean
 
 ## Example
 
@@ -42,6 +43,7 @@ const example = {
   "hiddenFields": null,
   "readOnlyFields": null,
   "customerScope": null,
+  "remoteArmEnabled": null,
 } satisfies UserInfoResponse
 
 console.log(example)

@@ -10,6 +10,9 @@ Name | Type
 `operatorName` | string
 `totalDwellSeconds` | number
 `totalIdleSeconds` | number
+`breakCount` | number
+`totalBreakSeconds` | number
+`longestBreakSeconds` | number
 `activeSeconds` | number
 `sessionCount` | number
 
@@ -24,6 +27,9 @@ const example = {
   "operatorName": null,
   "totalDwellSeconds": null,
   "totalIdleSeconds": null,
+  "breakCount": null,
+  "totalBreakSeconds": null,
+  "longestBreakSeconds": null,
   "activeSeconds": null,
   "sessionCount": null,
 } satisfies OperatorScreenTimeItem

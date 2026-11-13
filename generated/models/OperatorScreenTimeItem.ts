@@ -38,13 +38,34 @@ export interface OperatorScreenTimeItem {
      */
     totalDwellSeconds?: number;
     /**
-     * Total seconds spent idle-locked.
+     * Total seconds the console sat behind the idle lock (from `idle.resumed`'s
+     * `lockedMs`: lock closed → re-auth or sign-out).
      * @type {number}
      * @memberof OperatorScreenTimeItem
      */
     totalIdleSeconds?: number;
     /**
-     * Net active time = dwell − idle.
+     * Breaks the operator declared by locking the console (`break.started`).
+     * @type {number}
+     * @memberof OperatorScreenTimeItem
+     */
+    breakCount?: number;
+    /**
+     * Total seconds on declared breaks (from `break.ended`'s `breakMs`). A break whose
+     * end was never recorded — the browser closed behind the lock — counts in
+     * Armikom.Api.Contracts.Statistics.OperatorScreenTimeItem.BreakCount but adds nothing here.
+     * @type {number}
+     * @memberof OperatorScreenTimeItem
+     */
+    totalBreakSeconds?: number;
+    /**
+     * Longest single declared break, in seconds.
+     * @type {number}
+     * @memberof OperatorScreenTimeItem
+     */
+    longestBreakSeconds?: number;
+    /**
+     * Net active time = dwell − idle − break, never below zero.
      * @type {number}
      * @memberof OperatorScreenTimeItem
      */
@@ -78,6 +99,9 @@ export function OperatorScreenTimeItemFromJSONTyped(json: any, ignoreDiscriminat
         'operatorName': json['operatorName'] === undefined ? undefined : json['operatorName'] === null ? null : json['operatorName'],
         'totalDwellSeconds': json['totalDwellSeconds'] == null ? undefined : json['totalDwellSeconds'],
         'totalIdleSeconds': json['totalIdleSeconds'] == null ? undefined : json['totalIdleSeconds'],
+        'breakCount': json['breakCount'] == null ? undefined : json['breakCount'],
+        'totalBreakSeconds': json['totalBreakSeconds'] == null ? undefined : json['totalBreakSeconds'],
+        'longestBreakSeconds': json['longestBreakSeconds'] == null ? undefined : json['longestBreakSeconds'],
         'activeSeconds': json['activeSeconds'] == null ? undefined : json['activeSeconds'],
         'sessionCount': json['sessionCount'] == null ? undefined : json['sessionCount'],
     };
@@ -98,6 +122,9 @@ export function OperatorScreenTimeItemToJSONTyped(value?: Omit<OperatorScreenTim
         'operatorName': value['operatorName'],
         'totalDwellSeconds': value['totalDwellSeconds'],
         'totalIdleSeconds': value['totalIdleSeconds'],
+        'breakCount': value['breakCount'],
+        'totalBreakSeconds': value['totalBreakSeconds'],
+        'longestBreakSeconds': value['longestBreakSeconds'],
         'sessionCount': value['sessionCount'],
     };
 }

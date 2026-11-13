@@ -268,7 +268,7 @@ example().catch(console.error);
 
 Per-operator screen time and presence
 
-Returns total screen dwell time, idle time, and session count. Idle periods are subtracted from dwell to compute active time. Covers (d) of the operator report requirements.
+Returns total screen dwell time, idle-lock time, declared breaks (count, total, longest) and session count. Idle and break periods are subtracted from dwell to compute active time. Covers (d) of the operator report requirements.
 
 ### Example
 

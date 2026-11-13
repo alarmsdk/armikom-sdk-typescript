@@ -20,6 +20,7 @@ apis/LocalisationApi.ts
 apis/MobileUsersApi.ts
 apis/NoteExplanationsApi.ts
 apis/OperatorReportsApi.ts
+apis/OperatorScorecardApi.ts
 apis/PassiveSignalsApi.ts
 apis/PushNotificationsApi.ts
 apis/ReferenceDataApi.ts
@@ -329,6 +330,7 @@ docs/OperatorCustomerAssignment.md
 docs/OperatorDataEntryItem.md
 docs/OperatorDataEntrySummaryResponse.md
 docs/OperatorReportsApi.md
+docs/OperatorScorecardApi.md
 docs/OperatorScreenTimeItem.md
 docs/OperatorScreenTimeSummaryResponse.md
 docs/OperatorSignalSummaryItem.md
@@ -420,6 +422,12 @@ docs/SaveReceiverRuleRequest.md
 docs/SaveReceiverTypeRequest.md
 docs/SaveReportProposalRequest.md
 docs/SaveUiLayoutRequest.md
+docs/ScorecardProfileResponse.md
+docs/ScorecardSettingsDto.md
+docs/ScorecardShiftDto.md
+docs/ScorecardShiftRequest.md
+docs/ScorecardWaitThresholdDto.md
+docs/ScorecardWeightsDto.md
 docs/SearchApi.md
 docs/SearchCountsResponse.md
 docs/SearchResponse.md
@@ -472,6 +480,9 @@ docs/SideMailItem.md
 docs/SideMobileUserListItem.md
 docs/SideNoReservationDto.md
 docs/SideNoteItem.md
+docs/SidePanelCommandRequest.md
+docs/SidePanelCommandResponse.md
+docs/SidePanelCommandType.md
 docs/SideReasonItem.md
 docs/SideReasonItemPagedResult.md
 docs/SideRef.md
@@ -979,6 +990,12 @@ models/SaveReceiverRuleRequest.ts
 models/SaveReceiverTypeRequest.ts
 models/SaveReportProposalRequest.ts
 models/SaveUiLayoutRequest.ts
+models/ScorecardProfileResponse.ts
+models/ScorecardSettingsDto.ts
+models/ScorecardShiftDto.ts
+models/ScorecardShiftRequest.ts
+models/ScorecardWaitThresholdDto.ts
+models/ScorecardWeightsDto.ts
 models/SearchCountsResponse.ts
 models/SearchResponse.ts
 models/SearchResultItem.ts
@@ -1027,6 +1044,9 @@ models/SideMailItem.ts
 models/SideMobileUserListItem.ts
 models/SideNoReservationDto.ts
 models/SideNoteItem.ts
+models/SidePanelCommandRequest.ts
+models/SidePanelCommandResponse.ts
+models/SidePanelCommandType.ts
 models/SideReasonItem.ts
 models/SideReasonItemPagedResult.ts
 models/SideRef.ts

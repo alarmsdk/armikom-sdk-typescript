@@ -108,6 +108,18 @@ export interface OperatorComparisonItem {
      * @type {number}
      * @memberof OperatorComparisonItem
      */
+    breakCount?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OperatorComparisonItem
+     */
+    totalBreakSeconds?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OperatorComparisonItem
+     */
     readonly activeSeconds?: number;
     /**
      * 
@@ -148,6 +160,8 @@ export function OperatorComparisonItemFromJSONTyped(json: any, ignoreDiscriminat
         'sidesCreated': json['sidesCreated'] == null ? undefined : json['sidesCreated'],
         'totalDwellSeconds': json['totalDwellSeconds'] == null ? undefined : json['totalDwellSeconds'],
         'totalIdleSeconds': json['totalIdleSeconds'] == null ? undefined : json['totalIdleSeconds'],
+        'breakCount': json['breakCount'] == null ? undefined : json['breakCount'],
+        'totalBreakSeconds': json['totalBreakSeconds'] == null ? undefined : json['totalBreakSeconds'],
         'activeSeconds': json['activeSeconds'] == null ? undefined : json['activeSeconds'],
         'sessionCount': json['sessionCount'] == null ? undefined : json['sessionCount'],
     };
@@ -177,6 +191,8 @@ export function OperatorComparisonItemToJSONTyped(value?: Omit<OperatorCompariso
         'sidesCreated': value['sidesCreated'],
         'totalDwellSeconds': value['totalDwellSeconds'],
         'totalIdleSeconds': value['totalIdleSeconds'],
+        'breakCount': value['breakCount'],
+        'totalBreakSeconds': value['totalBreakSeconds'],
         'sessionCount': value['sessionCount'],
     };
 }

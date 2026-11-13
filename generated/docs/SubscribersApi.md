@@ -34,6 +34,7 @@ All URIs are relative to *http://localhost*
 | [**getUnapprovedSides**](SubscribersApi.md#getunapprovedsides) | **GET** /v1/sides/unapproved | List unapproved active subscribers |
 | [**listDeletedSides**](SubscribersApi.md#listdeletedsides) | **GET** /v1/sides/deleted | List deleted subscribers |
 | [**restoreSide**](SubscribersApi.md#restoreside) | **POST** /v1/sides/{sideId}/restore | Restore a deleted subscriber |
+| [**sendSidePanelCommand**](SubscribersApi.md#sendsidepanelcommand) | **POST** /v1/sides/{sideId}/panel-command | Arm, home-arm or disarm the subscriber\&#39;s panel |
 | [**updateSide**](SubscribersApi.md#updatesideoperation) | **PUT** /v1/sides/{sideId} | Update an existing subscriber |
 
 
@@ -2584,6 +2585,92 @@ example().catch(console.error);
 | **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## sendSidePanelCommand
+
+> SidePanelCommandResponse sendSidePanelCommand(sideId, sidePanelCommandRequest, xCorrelationId, idempotencyKey)
+
+Arm, home-arm or disarm the subscriber\&#39;s panel
+
+Sends an arm (away), stayArm (home) or disarm command to the subscriber\&#39;s panel right away, through the same senders the mobile app uses (EBS, Prosec, Meian). Only available when the deployment sets armikom__remoteArm__enabled&#x3D;true (404 PANEL_COMMAND.FEATURE_DISABLED otherwise; GET /v1/auth/me reports remoteArmEnabled). The subscriber must allow remote management. Prosec panels need the panel password; when omitted the default is used.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  SubscribersApi,
+} from '';
+import type { SendSidePanelCommandRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new SubscribersApi(config);
+
+  const body = {
+    // string
+    sideId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // SidePanelCommandRequest
+    sidePanelCommandRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies SendSidePanelCommandRequest;
+
+  try {
+    const data = await api.sendSidePanelCommand(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sideId** | `string` |  | [Defaults to `undefined`] |
+| **sidePanelCommandRequest** | [SidePanelCommandRequest](SidePanelCommandRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**SidePanelCommandResponse**](SidePanelCommandResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

@@ -21,6 +21,7 @@ export * from './LocalisationApi';
 export * from './MobileUsersApi';
 export * from './NoteExplanationsApi';
 export * from './OperatorReportsApi';
+export * from './OperatorScorecardApi';
 export * from './PassiveSignalsApi';
 export * from './PushNotificationsApi';
 export * from './ReferenceDataApi';

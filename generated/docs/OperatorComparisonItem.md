@@ -20,6 +20,8 @@ Name | Type
 `sidesCreated` | number
 `totalDwellSeconds` | number
 `totalIdleSeconds` | number
+`breakCount` | number
+`totalBreakSeconds` | number
 `activeSeconds` | number
 `sessionCount` | number
 
@@ -44,6 +46,8 @@ const example = {
   "sidesCreated": null,
   "totalDwellSeconds": null,
   "totalIdleSeconds": null,
+  "breakCount": null,
+  "totalBreakSeconds": null,
   "activeSeconds": null,
   "sessionCount": null,
 } satisfies OperatorComparisonItem
