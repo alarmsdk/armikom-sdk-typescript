@@ -7647,7 +7647,7 @@ example().catch(console.error);
 
 ## getServiceTypeById
 
-> LookupItem getServiceTypeById(id, xCorrelationId)
+> ServiceTypeItem getServiceTypeById(id, xCorrelationId)
 
 Get service type by id
 
@@ -7697,7 +7697,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**LookupItem**](LookupItem.md)
+[**ServiceTypeItem**](ServiceTypeItem.md)
 
 ### Authorization
 
@@ -7722,7 +7722,7 @@ example().catch(console.error);
 
 ## getServiceTypes
 
-> Array&lt;LookupItem&gt; getServiceTypes(xCorrelationId)
+> Array&lt;ServiceTypeItem&gt; getServiceTypes(xCorrelationId)
 
 List field service types
 
@@ -7769,7 +7769,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**Array&lt;LookupItem&gt;**](LookupItem.md)
+[**Array&lt;ServiceTypeItem&gt;**](ServiceTypeItem.md)
 
 ### Authorization
 

@@ -26,7 +26,7 @@ export interface LlmTaskModelDto {
      */
     task?: string | null;
     /**
-     * A model key from the settings response; null or empty: back to the installation default.
+     * A model key from the settings response; `off` turns the task off; null or empty: back to the installation default.
      * @type {string}
      * @memberof LlmTaskModelDto
      */

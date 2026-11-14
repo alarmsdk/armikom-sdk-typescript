@@ -25,6 +25,12 @@ export interface UpdateServiceTypeRequest {
      * @memberof UpdateServiceTypeRequest
      */
     name?: string | null;
+    /**
+     * Default description for new services of this type. Send an empty string to clear it.
+     * @type {string}
+     * @memberof UpdateServiceTypeRequest
+     */
+    defaultStatement?: string | null;
 }
 
 /**
@@ -45,6 +51,7 @@ export function UpdateServiceTypeRequestFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
+        'defaultStatement': json['defaultStatement'] === undefined ? undefined : json['defaultStatement'] === null ? null : json['defaultStatement'],
     };
 }
 
@@ -60,6 +67,7 @@ export function UpdateServiceTypeRequestToJSONTyped(value?: UpdateServiceTypeReq
     return {
         
         'name': value['name'],
+        'defaultStatement': value['defaultStatement'],
     };
 }
 

@@ -12,6 +12,7 @@ import type { HttpClient } from '../core/http-client.js';
 import type { ReferenceBundleResponse } from '../../generated/models/ReferenceBundleResponse.js';
 import type { LookupItem } from '../../generated/models/LookupItem.js';
 import type { SignalTypeItem } from '../../generated/models/SignalTypeItem.js';
+import type { ServiceTypeItem } from '../../generated/models/ServiceTypeItem.js';
 
 export interface ReferenceCatalogueOptions {
   http: HttpClient;
@@ -30,7 +31,7 @@ export class ReferenceIndex {
   readonly citiesById: Map<string, LookupItem>;
   readonly accountTypesById: Map<string, LookupItem>;
   readonly sideTypesById: Map<string, LookupItem>;
-  readonly serviceTypesById: Map<string, LookupItem>;
+  readonly serviceTypesById: Map<string, ServiceTypeItem>;
   readonly accountItemsById: Map<string, LookupItem>;
   readonly alarmCategoriesById: Map<string, LookupItem>;
 

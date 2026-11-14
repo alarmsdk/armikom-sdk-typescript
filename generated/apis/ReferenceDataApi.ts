@@ -309,6 +309,11 @@ import {
     SaveProductRequestToJSON,
 } from '../models/SaveProductRequest';
 import {
+    type ServiceTypeItem,
+    ServiceTypeItemFromJSON,
+    ServiceTypeItemToJSON,
+} from '../models/ServiceTypeItem';
+import {
     type SetHolidayTypeSideTypesRequest,
     SetHolidayTypeSideTypesRequestFromJSON,
     SetHolidayTypeSideTypesRequestToJSON,
@@ -7113,17 +7118,17 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     /**
      * Get service type by id
      */
-    async getServiceTypeByIdRaw(requestParameters: ReferenceDataApiGetServiceTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupItem>> {
+    async getServiceTypeByIdRaw(requestParameters: ReferenceDataApiGetServiceTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ServiceTypeItem>> {
         const requestOptions = await this.getServiceTypeByIdRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => LookupItemFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ServiceTypeItemFromJSON(jsonValue));
     }
 
     /**
      * Get service type by id
      */
-    async getServiceTypeById(requestParameters: ReferenceDataApiGetServiceTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupItem> {
+    async getServiceTypeById(requestParameters: ReferenceDataApiGetServiceTypeByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ServiceTypeItem> {
         const response = await this.getServiceTypeByIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -7162,17 +7167,17 @@ export class ReferenceDataApi extends runtime.BaseAPI {
     /**
      * List field service types
      */
-    async getServiceTypesRaw(requestParameters: ReferenceDataApiGetServiceTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+    async getServiceTypesRaw(requestParameters: ReferenceDataApiGetServiceTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ServiceTypeItem>>> {
         const requestOptions = await this.getServiceTypesRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ServiceTypeItemFromJSON));
     }
 
     /**
      * List field service types
      */
-    async getServiceTypes(requestParameters: ReferenceDataApiGetServiceTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+    async getServiceTypes(requestParameters: ReferenceDataApiGetServiceTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceTypeItem>> {
         const response = await this.getServiceTypesRaw(requestParameters, initOverrides);
         return await response.value();
     }

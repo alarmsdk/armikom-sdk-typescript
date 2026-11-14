@@ -14569,7 +14569,7 @@
           "Administration"
         ],
         "summary": "Get the model each AI task uses and the models on offer",
-        "description": "A task with no model runs on the installation default. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.",
+        "description": "A task with no model runs on the installation default; model \"off\" means the task is turned off. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.",
         "operationId": "GetLlmSettings",
         "parameters": [
           {
@@ -14700,7 +14700,7 @@
           "Administration"
         ],
         "summary": "Choose the model of one or more AI tasks",
-        "description": "Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.",
+        "description": "Applies to the whole installation, within a minute. Tasks left out keep their model; \"off\" turns a task off; a null model returns the task to the installation default. Requires admin:config.",
         "operationId": "SaveLlmSettings",
         "parameters": [
           {
@@ -20509,6 +20509,242 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CopilotConversationIngestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/v1/copilot/llm/completions": {
+      "post": {
+        "tags": [
+          "Copilot"
+        ],
+        "summary": "Run one call-copilot model call on the installation's AI settings",
+        "description": "Internal endpoint for CopilotX (AI task `copilot`, D90). `mode=off`: the task is turned off in the console, call no model. `mode=default`: no model is chosen, use CopilotX's own model. `mode=model`: the call ran on the chosen model with the installation's gateway key; `text` is the answer, or null when the call failed. Usage is recorded for the AI tab. Requires the X-Service-Api-Key header.",
+        "operationId": "CompleteCopilotLlm",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CopilotLlmCompletionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Idempotency-Replayed": {
+                "description": "Set to \"true\" when the response is a replay of a previously completed request.",
+                "schema": {
+                  "enum": [
+                    "true"
+                  ],
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopilotLlmCompletionResponse"
                 }
               }
             }
@@ -38727,7 +38963,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LookupItem"
+                    "$ref": "#/components/schemas/ServiceTypeItem"
                   }
                 }
               }
@@ -52462,7 +52698,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LookupItem"
+                  "$ref": "#/components/schemas/ServiceTypeItem"
                 }
               }
             }
@@ -113209,6 +113445,43 @@
         "additionalProperties": false,
         "description": "What the relay accepted. 202 means published, not read by an operator."
       },
+      "CopilotLlmCompletionRequest": {
+        "type": "object",
+        "properties": {
+          "purpose": {
+            "type": "string",
+            "description": "`suggestion` (during the call) or `summary` (after it). Logged only.",
+            "nullable": true
+          },
+          "prompt": {
+            "type": "string",
+            "description": "The whole prompt, transcript included.",
+            "nullable": true
+          },
+          "schema": {
+            "description": "JSON Schema the answer must follow; optional.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "One model call for the call copilot (CopilotX), run on this installation's AI settings (D90)."
+      },
+      "CopilotLlmCompletionResponse": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "`off`: turned off, do not call any model; `default`: no model chosen, use your own; `model`: answered here.",
+            "nullable": true
+          },
+          "text": {
+            "type": "string",
+            "description": "The model's answer when Armikom.Api.Contracts.Copilot.CopilotLlmCompletionResponse.Mode is `model`; null if the call failed.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CopilotProposedOperationDto": {
         "type": "object",
         "properties": {
@@ -114542,6 +114815,11 @@
         "properties": {
           "name": {
             "type": "string",
+            "nullable": true
+          },
+          "defaultStatement": {
+            "type": "string",
+            "description": "Default description copied into a new service's statement when this type is picked.",
             "nullable": true
           }
         },
@@ -117461,7 +117739,7 @@
           },
           "model": {
             "type": "string",
-            "description": "A model key from the settings response; null or empty: back to the installation default.",
+            "description": "A model key from the settings response; `off` turns the task off; null or empty: back to the installation default.",
             "nullable": true
           }
         },
@@ -117472,12 +117750,12 @@
         "properties": {
           "task": {
             "type": "string",
-            "description": "`alarm_review` (alarm pre-analysis) or `report` (report assistant).",
+            "description": "`alarm_review` (alarm pre-analysis), `report` (report assistant), `copilot` (call copilot) or `knowledge` (knowledge-base questions).",
             "nullable": true
           },
           "model": {
             "type": "string",
-            "description": "The chosen model's key; null: the installation default.",
+            "description": "The chosen model's key; null: the installation default; `off`: the task is turned off.",
             "nullable": true
           },
           "updatedAt": {
@@ -120684,7 +120962,7 @@
           "serviceTypes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/LookupItem"
+              "$ref": "#/components/schemas/ServiceTypeItem"
             },
             "nullable": true
           },
@@ -122321,6 +122599,25 @@
           }
         },
         "additionalProperties": false
+      },
+      "ServiceTypeItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "defaultStatement": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A field service type. DefaultStatement is the description the operator UI\ncopies into a new service's statement when this type is picked (the operator can still edit it)."
       },
       "SetActiveTemplateRequest": {
         "type": "object",
@@ -128663,6 +128960,11 @@
         "properties": {
           "name": {
             "type": "string",
+            "nullable": true
+          },
+          "defaultStatement": {
+            "type": "string",
+            "description": "Default description for new services of this type. Send an empty string to clear it.",
             "nullable": true
           }
         },

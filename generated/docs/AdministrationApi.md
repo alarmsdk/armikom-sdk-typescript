@@ -2901,7 +2901,7 @@ example().catch(console.error);
 
 Get the model each AI task uses and the models on offer
 
-A task with no model runs on the installation default. Prices are per million tokens. enabled&#x3D;false: models cannot be chosen on this installation. Requires admin:config.
+A task with no model runs on the installation default; model \&quot;off\&quot; means the task is turned off. Prices are per million tokens. enabled&#x3D;false: models cannot be chosen on this installation. Requires admin:config.
 
 ### Example
 
@@ -5219,7 +5219,7 @@ example().catch(console.error);
 
 Choose the model of one or more AI tasks
 
-Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+Applies to the whole installation, within a minute. Tasks left out keep their model; \&quot;off\&quot; turns a task off; a null model returns the task to the installation default. Requires admin:config.
 
 ### Example
 

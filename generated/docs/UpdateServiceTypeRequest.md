@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `name` | string
+`defaultStatement` | string
 
 ## Example
 
@@ -16,6 +17,7 @@ import type { UpdateServiceTypeRequest } from ''
 // TODO: Update the object below with actual values
 const example = {
   "name": null,
+  "defaultStatement": null,
 } satisfies UpdateServiceTypeRequest
 
 console.log(example)

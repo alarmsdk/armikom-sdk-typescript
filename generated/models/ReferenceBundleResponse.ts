@@ -41,6 +41,13 @@ import {
     ActiveCategoryItemToJSON,
     ActiveCategoryItemToJSONTyped,
 } from './ActiveCategoryItem';
+import type { ServiceTypeItem } from './ServiceTypeItem';
+import {
+    ServiceTypeItemFromJSON,
+    ServiceTypeItemFromJSONTyped,
+    ServiceTypeItemToJSON,
+    ServiceTypeItemToJSONTyped,
+} from './ServiceTypeItem';
 import type { TechnicalPersonItem } from './TechnicalPersonItem';
 import {
     TechnicalPersonItemFromJSON,
@@ -112,10 +119,10 @@ export interface ReferenceBundleResponse {
     sideTypes?: Array<LookupItem> | null;
     /**
      * 
-     * @type {Array<LookupItem>}
+     * @type {Array<ServiceTypeItem>}
      * @memberof ReferenceBundleResponse
      */
-    serviceTypes?: Array<LookupItem> | null;
+    serviceTypes?: Array<ServiceTypeItem> | null;
     /**
      * 
      * @type {Array<LookupItem>}
@@ -185,7 +192,7 @@ export function ReferenceBundleResponseFromJSONTyped(json: any, ignoreDiscrimina
         'businessSectors': json['businessSectors'] === undefined ? undefined : json['businessSectors'] === null ? null : ((json['businessSectors'] as Array<any>).map(LookupItemFromJSON)),
         'communicationTypes': json['communicationTypes'] === undefined ? undefined : json['communicationTypes'] === null ? null : ((json['communicationTypes'] as Array<any>).map(LookupItemFromJSON)),
         'sideTypes': json['sideTypes'] === undefined ? undefined : json['sideTypes'] === null ? null : ((json['sideTypes'] as Array<any>).map(LookupItemFromJSON)),
-        'serviceTypes': json['serviceTypes'] === undefined ? undefined : json['serviceTypes'] === null ? null : ((json['serviceTypes'] as Array<any>).map(LookupItemFromJSON)),
+        'serviceTypes': json['serviceTypes'] === undefined ? undefined : json['serviceTypes'] === null ? null : ((json['serviceTypes'] as Array<any>).map(ServiceTypeItemFromJSON)),
         'accountItems': json['accountItems'] === undefined ? undefined : json['accountItems'] === null ? null : ((json['accountItems'] as Array<any>).map(LookupItemFromJSON)),
         'signalTypes': json['signalTypes'] === undefined ? undefined : json['signalTypes'] === null ? null : ((json['signalTypes'] as Array<any>).map(SignalTypeItemFromJSON)),
         'alarmCategories': json['alarmCategories'] === undefined ? undefined : json['alarmCategories'] === null ? null : ((json['alarmCategories'] as Array<any>).map(LookupItemFromJSON)),
@@ -215,7 +222,7 @@ export function ReferenceBundleResponseToJSONTyped(value?: ReferenceBundleRespon
         'businessSectors': value['businessSectors'] == null ? undefined : ((value['businessSectors'] as Array<any>).map(LookupItemToJSON)),
         'communicationTypes': value['communicationTypes'] == null ? undefined : ((value['communicationTypes'] as Array<any>).map(LookupItemToJSON)),
         'sideTypes': value['sideTypes'] == null ? undefined : ((value['sideTypes'] as Array<any>).map(LookupItemToJSON)),
-        'serviceTypes': value['serviceTypes'] == null ? undefined : ((value['serviceTypes'] as Array<any>).map(LookupItemToJSON)),
+        'serviceTypes': value['serviceTypes'] == null ? undefined : ((value['serviceTypes'] as Array<any>).map(ServiceTypeItemToJSON)),
         'accountItems': value['accountItems'] == null ? undefined : ((value['accountItems'] as Array<any>).map(LookupItemToJSON)),
         'signalTypes': value['signalTypes'] == null ? undefined : ((value['signalTypes'] as Array<any>).map(SignalTypeItemToJSON)),
         'alarmCategories': value['alarmCategories'] == null ? undefined : ((value['alarmCategories'] as Array<any>).map(LookupItemToJSON)),

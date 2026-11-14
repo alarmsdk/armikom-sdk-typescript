@@ -14,7 +14,7 @@ Name | Type
 `businessSectors` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `communicationTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `sideTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
-`serviceTypes` | [Array&lt;LookupItem&gt;](LookupItem.md)
+`serviceTypes` | [Array&lt;ServiceTypeItem&gt;](ServiceTypeItem.md)
 `accountItems` | [Array&lt;LookupItem&gt;](LookupItem.md)
 `signalTypes` | [Array&lt;SignalTypeItem&gt;](SignalTypeItem.md)
 `alarmCategories` | [Array&lt;LookupItem&gt;](LookupItem.md)

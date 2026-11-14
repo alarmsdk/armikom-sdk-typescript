@@ -2964,7 +2964,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * A task with no model runs on the installation default. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
+     * A task with no model runs on the installation default; model \"off\" means the task is turned off. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
      * Get the model each AI task uses and the models on offer
      */
     async getLlmSettingsRaw(requestParameters: AdministrationApiGetLlmSettingsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmSettingsResponse>> {
@@ -2975,7 +2975,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * A task with no model runs on the installation default. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
+     * A task with no model runs on the installation default; model \"off\" means the task is turned off. Prices are per million tokens. enabled=false: models cannot be chosen on this installation. Requires admin:config.
      * Get the model each AI task uses and the models on offer
      */
     async getLlmSettings(requestParameters: AdministrationApiGetLlmSettingsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmSettingsResponse> {
@@ -4681,7 +4681,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+     * Applies to the whole installation, within a minute. Tasks left out keep their model; \"off\" turns a task off; a null model returns the task to the installation default. Requires admin:config.
      * Choose the model of one or more AI tasks
      */
     async saveLlmSettingsRaw(requestParameters: AdministrationApiSaveLlmSettingsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmSettingsResponse>> {
@@ -4692,7 +4692,7 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Applies to the whole installation, within a minute. Tasks left out keep their model; a null model returns the task to the installation default. Requires admin:config.
+     * Applies to the whole installation, within a minute. Tasks left out keep their model; \"off\" turns a task off; a null model returns the task to the installation default. Requires admin:config.
      * Choose the model of one or more AI tasks
      */
     async saveLlmSettings(requestParameters: AdministrationApiSaveLlmSettingsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmSettingsResponse> {

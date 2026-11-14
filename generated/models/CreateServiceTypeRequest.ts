@@ -25,6 +25,12 @@ export interface CreateServiceTypeRequest {
      * @memberof CreateServiceTypeRequest
      */
     name?: string | null;
+    /**
+     * Default description copied into a new service's statement when this type is picked.
+     * @type {string}
+     * @memberof CreateServiceTypeRequest
+     */
+    defaultStatement?: string | null;
 }
 
 /**
@@ -45,6 +51,7 @@ export function CreateServiceTypeRequestFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'name': json['name'] === undefined ? undefined : json['name'] === null ? null : json['name'],
+        'defaultStatement': json['defaultStatement'] === undefined ? undefined : json['defaultStatement'] === null ? null : json['defaultStatement'],
     };
 }
 
@@ -60,6 +67,7 @@ export function CreateServiceTypeRequestToJSONTyped(value?: CreateServiceTypeReq
     return {
         
         'name': value['name'],
+        'defaultStatement': value['defaultStatement'],
     };
 }
 

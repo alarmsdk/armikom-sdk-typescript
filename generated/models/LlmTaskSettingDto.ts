@@ -20,13 +20,13 @@ import { mapValues } from '../runtime';
  */
 export interface LlmTaskSettingDto {
     /**
-     * `alarm_review` (alarm pre-analysis) or `report` (report assistant).
+     * `alarm_review` (alarm pre-analysis), `report` (report assistant), `copilot` (call copilot) or `knowledge` (knowledge-base questions).
      * @type {string}
      * @memberof LlmTaskSettingDto
      */
     task?: string | null;
     /**
-     * The chosen model's key; null: the installation default.
+     * The chosen model's key; null: the installation default; `off`: the task is turned off.
      * @type {string}
      * @memberof LlmTaskSettingDto
      */

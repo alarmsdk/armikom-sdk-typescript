@@ -24,10 +24,26 @@ import {
     CopilotConversationIngestResponseToJSON,
 } from '../models/CopilotConversationIngestResponse';
 import {
+    type CopilotLlmCompletionRequest,
+    CopilotLlmCompletionRequestFromJSON,
+    CopilotLlmCompletionRequestToJSON,
+} from '../models/CopilotLlmCompletionRequest';
+import {
+    type CopilotLlmCompletionResponse,
+    CopilotLlmCompletionResponseFromJSON,
+    CopilotLlmCompletionResponseToJSON,
+} from '../models/CopilotLlmCompletionResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
 } from '../models/PostActivity422Response';
+
+export interface CopilotApiCompleteCopilotLlmRequest {
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+    copilotLlmCompletionRequest?: CopilotLlmCompletionRequest;
+}
 
 export interface CopilotApiIngestCopilotConversationEventsRequest {
     xCorrelationId?: string;
@@ -39,6 +55,64 @@ export interface CopilotApiIngestCopilotConversationEventsRequest {
  * 
  */
 export class CopilotApi extends runtime.BaseAPI {
+
+    /**
+     * Creates request options for completeCopilotLlm without sending the request
+     */
+    async completeCopilotLlmRequestOpts(requestParameters: CopilotApiCompleteCopilotLlmRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/copilot/llm/completions`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CopilotLlmCompletionRequestToJSON(requestParameters['copilotLlmCompletionRequest']),
+        };
+    }
+
+    /**
+     * Internal endpoint for CopilotX (AI task `copilot`, D90). `mode=off`: the task is turned off in the console, call no model. `mode=default`: no model is chosen, use CopilotX\'s own model. `mode=model`: the call ran on the chosen model with the installation\'s gateway key; `text` is the answer, or null when the call failed. Usage is recorded for the AI tab. Requires the X-Service-Api-Key header.
+     * Run one call-copilot model call on the installation\'s AI settings
+     */
+    async completeCopilotLlmRaw(requestParameters: CopilotApiCompleteCopilotLlmRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CopilotLlmCompletionResponse>> {
+        const requestOptions = await this.completeCopilotLlmRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CopilotLlmCompletionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Internal endpoint for CopilotX (AI task `copilot`, D90). `mode=off`: the task is turned off in the console, call no model. `mode=default`: no model is chosen, use CopilotX\'s own model. `mode=model`: the call ran on the chosen model with the installation\'s gateway key; `text` is the answer, or null when the call failed. Usage is recorded for the AI tab. Requires the X-Service-Api-Key header.
+     * Run one call-copilot model call on the installation\'s AI settings
+     */
+    async completeCopilotLlm(requestParameters: CopilotApiCompleteCopilotLlmRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotLlmCompletionResponse> {
+        const response = await this.completeCopilotLlmRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for ingestCopilotConversationEvents without sending the request

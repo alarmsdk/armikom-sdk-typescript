@@ -143,6 +143,8 @@ docs/CopilotApi.md
 docs/CopilotConversationEventDto.md
 docs/CopilotConversationIngestRequest.md
 docs/CopilotConversationIngestResponse.md
+docs/CopilotLlmCompletionRequest.md
+docs/CopilotLlmCompletionResponse.md
 docs/CopilotProposedOperationDto.md
 docs/CopilotSegmentDto.md
 docs/CopilotSuggestedActionDto.md
@@ -451,6 +453,7 @@ docs/ServiceDetailItem.md
 docs/ServiceDetailsApi.md
 docs/ServicePhotoItem.md
 docs/ServicePhotosApi.md
+docs/ServiceTypeItem.md
 docs/ServicesApi.md
 docs/SetActiveTemplateRequest.md
 docs/SetHolidayTypeSideTypesRequest.md
@@ -739,6 +742,8 @@ models/CompleteAlarmResponse.ts
 models/CopilotConversationEventDto.ts
 models/CopilotConversationIngestRequest.ts
 models/CopilotConversationIngestResponse.ts
+models/CopilotLlmCompletionRequest.ts
+models/CopilotLlmCompletionResponse.ts
 models/CopilotProposedOperationDto.ts
 models/CopilotSegmentDto.ts
 models/CopilotSuggestedActionDto.ts
@@ -1024,6 +1029,7 @@ models/SendSmsRequest.ts
 models/SendSmsResponse.ts
 models/ServiceDetailItem.ts
 models/ServicePhotoItem.ts
+models/ServiceTypeItem.ts
 models/SetActiveTemplateRequest.ts
 models/SetHolidayTypeSideTypesRequest.ts
 models/SetLocationRequest.ts
