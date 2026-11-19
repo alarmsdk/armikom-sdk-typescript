@@ -57,6 +57,13 @@ export interface CreateAlarmCategoryRequest {
      * @memberof CreateAlarmCategoryRequest
      */
     escalateToPartner?: boolean | null;
+    /**
+     * Alarms in this category get the AI pre-analysis when the AI advisory feature is on for the
+     * tenant. Default false.
+     * @type {boolean}
+     * @memberof CreateAlarmCategoryRequest
+     */
+    aiAdvisory?: boolean | null;
 }
 
 /**
@@ -82,6 +89,7 @@ export function CreateAlarmCategoryRequestFromJSONTyped(json: any, ignoreDiscrim
         'callType': json['callType'] === undefined ? undefined : json['callType'] === null ? null : json['callType'],
         'note': json['note'] === undefined ? undefined : json['note'] === null ? null : json['note'],
         'escalateToPartner': json['escalateToPartner'] === undefined ? undefined : json['escalateToPartner'] === null ? null : json['escalateToPartner'],
+        'aiAdvisory': json['aiAdvisory'] === undefined ? undefined : json['aiAdvisory'] === null ? null : json['aiAdvisory'],
     };
 }
 
@@ -102,6 +110,7 @@ export function CreateAlarmCategoryRequestToJSONTyped(value?: CreateAlarmCategor
         'callType': value['callType'],
         'note': value['note'],
         'escalateToPartner': value['escalateToPartner'],
+        'aiAdvisory': value['aiAdvisory'],
     };
 }
 

@@ -12,6 +12,7 @@ Name | Type
 `callType` | number
 `note` | string
 `escalateToPartner` | boolean
+`aiAdvisory` | boolean
 
 ## Example
 
@@ -26,6 +27,7 @@ const example = {
   "callType": null,
   "note": null,
   "escalateToPartner": null,
+  "aiAdvisory": null,
 } satisfies UpdateAlarmCategoryRequest
 
 console.log(example)

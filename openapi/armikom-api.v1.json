@@ -100102,8 +100102,35 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Authenticated but missing the required scope",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/v1/technical-works": {
@@ -111152,6 +111179,9 @@
           },
           "escalateToPartner": {
             "type": "boolean"
+          },
+          "aiAdvisory": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -113797,6 +113827,11 @@
           "escalateToPartner": {
             "type": "boolean",
             "description": "Alarms in this category require law-enforcement dispatch: on an AI-managed tenant they\nare escalated to a partner monitoring centre instead of being closed by the AI.\nIndependent of Armikom.Api.Contracts.Reference.CreateAlarmCategoryRequest.CallType, which only selects how the IVR autodialer calls.",
+            "nullable": true
+          },
+          "aiAdvisory": {
+            "type": "boolean",
+            "description": "Alarms in this category get the AI pre-analysis when the AI advisory feature is on for the\ntenant. Default false.",
             "nullable": true
           }
         },
@@ -128110,6 +128145,10 @@
             "nullable": true
           },
           "escalateToPartner": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "aiAdvisory": {
             "type": "boolean",
             "nullable": true
           }
