@@ -23,6 +23,7 @@ Name | Type
 `releatedDealerId` | string
 `onCallServiceNumber` | string
 `geolocation` | string
+`description` | string
 `enableSms` | boolean
 `enableEmail` | boolean
 `recordDateTime` | Date
@@ -51,6 +52,7 @@ const example = {
   "releatedDealerId": null,
   "onCallServiceNumber": null,
   "geolocation": null,
+  "description": null,
   "enableSms": null,
   "enableEmail": null,
   "recordDateTime": null,

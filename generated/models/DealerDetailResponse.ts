@@ -134,6 +134,12 @@ export interface DealerDetailResponse {
      */
     geolocation?: string | null;
     /**
+     * Free-text note about the dealer.
+     * @type {string}
+     * @memberof DealerDetailResponse
+     */
+    description?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof DealerDetailResponse
@@ -195,6 +201,7 @@ export function DealerDetailResponseFromJSONTyped(json: any, ignoreDiscriminator
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
         'onCallServiceNumber': json['onCallServiceNumber'] === undefined ? undefined : json['onCallServiceNumber'] === null ? null : json['onCallServiceNumber'],
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
         'hasLogo': json['hasLogo'] == null ? undefined : json['hasLogo'],
         'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
@@ -232,6 +239,7 @@ export function DealerDetailResponseToJSONTyped(value?: DealerDetailResponse | n
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
         'onCallServiceNumber': value['onCallServiceNumber'],
         'geolocation': value['geolocation'],
+        'description': value['description'],
         'monitoringCenterId': value['monitoringCenterId'],
         'hasLogo': value['hasLogo'],
         'enableSms': value['enableSms'],

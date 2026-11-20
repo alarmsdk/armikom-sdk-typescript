@@ -145,6 +145,7 @@ docs/CopilotConversationIngestRequest.md
 docs/CopilotConversationIngestResponse.md
 docs/CopilotLlmCompletionRequest.md
 docs/CopilotLlmCompletionResponse.md
+docs/CopilotOperatorExtensionsResponse.md
 docs/CopilotProposedOperationDto.md
 docs/CopilotSegmentDto.md
 docs/CopilotSuggestedActionDto.md
@@ -744,6 +745,7 @@ models/CopilotConversationIngestRequest.ts
 models/CopilotConversationIngestResponse.ts
 models/CopilotLlmCompletionRequest.ts
 models/CopilotLlmCompletionResponse.ts
+models/CopilotOperatorExtensionsResponse.ts
 models/CopilotProposedOperationDto.ts
 models/CopilotSegmentDto.ts
 models/CopilotSuggestedActionDto.ts

@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost*
 |------------- | ------------- | -------------|
 | [**completeCopilotLlm**](CopilotApi.md#completecopilotllm) | **POST** /v1/copilot/llm/completions | Run one call-copilot model call on the installation\&#39;s AI settings |
 | [**ingestCopilotConversationEvents**](CopilotApi.md#ingestcopilotconversationevents) | **POST** /v1/copilot/conversation-events | Relay live call transcript events to the operator\&#39;s console |
+| [**listCopilotOperatorExtensions**](CopilotApi.md#listcopilotoperatorextensions) | **GET** /v1/copilot/operator-extensions | Mirrors who would actually receive a transcript frame. &#x60;StreamHub.PassesFilter&#x60; delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody. |
 
 
 
@@ -164,6 +165,79 @@ example().catch(console.error);
 | **202** | Accepted |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listCopilotOperatorExtensions
+
+> CopilotOperatorExtensionsResponse listCopilotOperatorExtensions(xCorrelationId)
+
+Mirrors who would actually receive a transcript frame. &#x60;StreamHub.PassesFilter&#x60; delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody.
+
+Internal endpoint for CopilotX (D95). Returns the distinct extensions of active operator users, as strings in ordinal order, so CopilotX transcribes only operator calls. When the request names a monitoring centre (X-MonitoringCenter-Id), users of that centre and users without a centre are listed — the same users whose consoles would receive a transcript frame; without a centre, all of them. CopilotX polls this and keeps its last list if the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  CopilotApi,
+} from '';
+import type { ListCopilotOperatorExtensionsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CopilotApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListCopilotOperatorExtensionsRequest;
+
+  try {
+    const data = await api.listCopilotOperatorExtensions(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**CopilotOperatorExtensionsResponse**](CopilotOperatorExtensionsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

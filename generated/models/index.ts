@@ -75,6 +75,7 @@ export * from './CopilotConversationIngestRequest';
 export * from './CopilotConversationIngestResponse';
 export * from './CopilotLlmCompletionRequest';
 export * from './CopilotLlmCompletionResponse';
+export * from './CopilotOperatorExtensionsResponse';
 export * from './CopilotProposedOperationDto';
 export * from './CopilotSegmentDto';
 export * from './CopilotSuggestedActionDto';

@@ -25,6 +25,7 @@ Name | Type
 `recordDateTime` | Date
 `onCallServiceNumber` | string
 `geolocation` | string
+`description` | string
 `monitoringCenterId` | string
 `hasLogo` | boolean
 `enableSms` | boolean
@@ -56,6 +57,7 @@ const example = {
   "recordDateTime": null,
   "onCallServiceNumber": null,
   "geolocation": null,
+  "description": null,
   "monitoringCenterId": null,
   "hasLogo": null,
   "enableSms": null,

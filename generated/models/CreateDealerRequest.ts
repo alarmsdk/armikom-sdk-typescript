@@ -122,6 +122,12 @@ export interface CreateDealerRequest {
      */
     geolocation?: string | null;
     /**
+     * Free-text note about the dealer.
+     * @type {string}
+     * @memberof CreateDealerRequest
+     */
+    description?: string | null;
+    /**
      * 
      * @type {boolean}
      * @memberof CreateDealerRequest
@@ -182,6 +188,7 @@ export function CreateDealerRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'releatedDealerId': json['releatedDealerId'] === undefined ? undefined : json['releatedDealerId'] === null ? null : json['releatedDealerId'],
         'onCallServiceNumber': json['onCallServiceNumber'] === undefined ? undefined : json['onCallServiceNumber'] === null ? null : json['onCallServiceNumber'],
         'geolocation': json['geolocation'] === undefined ? undefined : json['geolocation'] === null ? null : json['geolocation'],
+        'description': json['description'] === undefined ? undefined : json['description'] === null ? null : json['description'],
         'enableSms': json['enableSms'] == null ? undefined : json['enableSms'],
         'enableEmail': json['enableEmail'] == null ? undefined : json['enableEmail'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
@@ -217,6 +224,7 @@ export function CreateDealerRequestToJSONTyped(value?: CreateDealerRequest | nul
         'releatedDealerId': value['releatedDealerId'],
         'onCallServiceNumber': value['onCallServiceNumber'],
         'geolocation': value['geolocation'],
+        'description': value['description'],
         'enableSms': value['enableSms'],
         'enableEmail': value['enableEmail'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),

@@ -34,6 +34,11 @@ import {
     CopilotLlmCompletionResponseToJSON,
 } from '../models/CopilotLlmCompletionResponse';
 import {
+    type CopilotOperatorExtensionsResponse,
+    CopilotOperatorExtensionsResponseFromJSON,
+    CopilotOperatorExtensionsResponseToJSON,
+} from '../models/CopilotOperatorExtensionsResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -49,6 +54,10 @@ export interface CopilotApiIngestCopilotConversationEventsRequest {
     xCorrelationId?: string;
     idempotencyKey?: string;
     copilotConversationIngestRequest?: CopilotConversationIngestRequest;
+}
+
+export interface CopilotApiListCopilotOperatorExtensionsRequest {
+    xCorrelationId?: string;
 }
 
 /**
@@ -169,6 +178,57 @@ export class CopilotApi extends runtime.BaseAPI {
      */
     async ingestCopilotConversationEvents(requestParameters: CopilotApiIngestCopilotConversationEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotConversationIngestResponse> {
         const response = await this.ingestCopilotConversationEventsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listCopilotOperatorExtensions without sending the request
+     */
+    async listCopilotOperatorExtensionsRequestOpts(requestParameters: CopilotApiListCopilotOperatorExtensionsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/copilot/operator-extensions`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D95). Returns the distinct extensions of active operator users, as strings in ordinal order, so CopilotX transcribes only operator calls. When the request names a monitoring centre (X-MonitoringCenter-Id), users of that centre and users without a centre are listed — the same users whose consoles would receive a transcript frame; without a centre, all of them. CopilotX polls this and keeps its last list if the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * Mirrors who would actually receive a transcript frame. `StreamHub.PassesFilter` delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody.
+     */
+    async listCopilotOperatorExtensionsRaw(requestParameters: CopilotApiListCopilotOperatorExtensionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CopilotOperatorExtensionsResponse>> {
+        const requestOptions = await this.listCopilotOperatorExtensionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CopilotOperatorExtensionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D95). Returns the distinct extensions of active operator users, as strings in ordinal order, so CopilotX transcribes only operator calls. When the request names a monitoring centre (X-MonitoringCenter-Id), users of that centre and users without a centre are listed — the same users whose consoles would receive a transcript frame; without a centre, all of them. CopilotX polls this and keeps its last list if the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * Mirrors who would actually receive a transcript frame. `StreamHub.PassesFilter` delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody.
+     */
+    async listCopilotOperatorExtensions(requestParameters: CopilotApiListCopilotOperatorExtensionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotOperatorExtensionsResponse> {
+        const response = await this.listCopilotOperatorExtensionsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

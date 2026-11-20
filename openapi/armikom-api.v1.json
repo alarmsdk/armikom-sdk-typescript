@@ -20920,6 +20920,139 @@
         ]
       }
     },
+    "/v1/copilot/operator-extensions": {
+      "get": {
+        "tags": [
+          "Copilot"
+        ],
+        "summary": "Mirrors who would actually receive a transcript frame. `StreamHub.PassesFilter` delivers\nwhen the event names a monitoring centre and the connection names one only if they match; a\nnull on either side passes. So with a centre on the request this lists users of that centre\nplus users of no centre, and without one it lists everybody.",
+        "description": "Internal endpoint for CopilotX (D95). Returns the distinct extensions of active operator users, as strings in ordinal order, so CopilotX transcribes only operator calls. When the request names a monitoring centre (X-MonitoringCenter-Id), users of that centre and users without a centre are listed — the same users whose consoles would receive a transcript frame; without a centre, all of them. CopilotX polls this and keeps its last list if the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.",
+        "operationId": "ListCopilotOperatorExtensions",
+        "parameters": [
+          {
+            "name": "X-Correlation-Id",
+            "in": "header",
+            "description": "Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response.",
+            "schema": {
+              "maxLength": 128,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopilotOperatorExtensionsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "code",
+                    "correlationId"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "URI reference identifying the problem type",
+                      "example": "https://docs.armikom.net/errors/side/not_found"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Short human-readable summary"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "format": "int32"
+                    },
+                    "detail": {
+                      "type": "string",
+                      "description": "Human-readable explanation",
+                      "nullable": true
+                    },
+                    "instance": {
+                      "type": "string",
+                      "description": "URI of the request that caused the problem",
+                      "nullable": true
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "Machine-readable error code (stable)",
+                      "example": "SIDE.NOT_FOUND"
+                    },
+                    "correlationId": {
+                      "type": "string",
+                      "description": "Request correlation identifier"
+                    },
+                    "params": {
+                      "type": "object",
+                      "description": "Context parameters for localisation templates",
+                      "nullable": true
+                    },
+                    "errors": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "description": "Per-field validation errors (field name → error codes)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid access token",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "The correlation identifier for this request (echoed or generated).",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/v1/customers": {
       "get": {
         "tags": [
@@ -113512,6 +113645,21 @@
         },
         "additionalProperties": false
       },
+      "CopilotOperatorExtensionsResponse": {
+        "type": "object",
+        "properties": {
+          "extensions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Distinct extensions as strings, sorted ordinally (e.g. `\"101\"`, `\"102\"`).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The PBX extensions CopilotX should transcribe: those of operators (D95)."
+      },
       "CopilotProposedOperationDto": {
         "type": "object",
         "properties": {
@@ -114051,6 +114199,11 @@
           },
           "geolocation": {
             "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Free-text note about the dealer.",
             "nullable": true
           },
           "enableSms": {
@@ -116064,6 +116217,11 @@
           },
           "geolocation": {
             "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Free-text note about the dealer.",
             "nullable": true
           },
           "monitoringCenterId": {
@@ -128355,6 +128513,9 @@
           "geolocation": {
             "type": "string",
             "nullable": true
+          },
+          "description": {
+            "$ref": "#/components/schemas/StringOptional"
           },
           "enableSms": {
             "type": "boolean",
