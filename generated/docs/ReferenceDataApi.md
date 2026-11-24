@@ -26,6 +26,7 @@ All URIs are relative to *http://localhost*
 | [**createProtocol**](ReferenceDataApi.md#createprotocoloperation) | **POST** /v1/reference/protocols | Create a protocol |
 | [**createRegion**](ReferenceDataApi.md#createregionoperation) | **POST** /v1/reference/regions | Create a region |
 | [**createServiceType**](ReferenceDataApi.md#createservicetypeoperation) | **POST** /v1/reference/service-types | Create a service type |
+| [**createSideBusinessSector**](ReferenceDataApi.md#createsidebusinesssectoroperation) | **POST** /v1/reference/business-sectors | Create a business sector |
 | [**createSideType**](ReferenceDataApi.md#createsidetypeoperation) | **POST** /v1/reference/side-types | Create a side type |
 | [**createSignal**](ReferenceDataApi.md#createsignaloperation) | **POST** /v1/reference/signals | Create a signal definition |
 | [**createSignalExplanation**](ReferenceDataApi.md#createsignalexplanationoperation) | **POST** /v1/reference/signal-explanations | Create a signal explanation |
@@ -56,6 +57,7 @@ All URIs are relative to *http://localhost*
 | [**deleteProtocol**](ReferenceDataApi.md#deleteprotocol) | **DELETE** /v1/reference/protocols/{id} | Delete a protocol |
 | [**deleteRegion**](ReferenceDataApi.md#deleteregion) | **DELETE** /v1/reference/regions/{id} | Delete a region |
 | [**deleteServiceType**](ReferenceDataApi.md#deleteservicetype) | **DELETE** /v1/reference/service-types/{id} | Delete a service type |
+| [**deleteSideBusinessSector**](ReferenceDataApi.md#deletesidebusinesssector) | **DELETE** /v1/reference/business-sectors/{id} | Delete a business sector |
 | [**deleteSideType**](ReferenceDataApi.md#deletesidetype) | **DELETE** /v1/reference/side-types/{id} | Delete a side type |
 | [**deleteSignal**](ReferenceDataApi.md#deletesignal) | **DELETE** /v1/reference/signals/{id} | Delete a signal definition |
 | [**deleteSignalExplanation**](ReferenceDataApi.md#deletesignalexplanation) | **DELETE** /v1/reference/signal-explanations/{id} | Delete a signal explanation |
@@ -104,6 +106,8 @@ All URIs are relative to *http://localhost*
 | [**getRegions**](ReferenceDataApi.md#getregions) | **GET** /v1/reference/regions | List regions |
 | [**getServiceTypeById**](ReferenceDataApi.md#getservicetypebyid) | **GET** /v1/reference/service-types/{id} | Get service type by id |
 | [**getServiceTypes**](ReferenceDataApi.md#getservicetypes) | **GET** /v1/reference/service-types | List field service types |
+| [**getSideBusinessSectorById**](ReferenceDataApi.md#getsidebusinesssectorbyid) | **GET** /v1/reference/business-sectors/{id} | Get business sector by id |
+| [**getSideBusinessSectors**](ReferenceDataApi.md#getsidebusinesssectors) | **GET** /v1/reference/business-sectors | List subscriber business sectors |
 | [**getSideTypeById**](ReferenceDataApi.md#getsidetypebyid) | **GET** /v1/reference/side-types/{id} | Get side type by id |
 | [**getSideTypes**](ReferenceDataApi.md#getsidetypes) | **GET** /v1/reference/side-types | List subscriber types |
 | [**getSignalById**](ReferenceDataApi.md#getsignalbyid) | **GET** /v1/reference/signals/{id} | Get a signal definition by id |
@@ -155,6 +159,7 @@ All URIs are relative to *http://localhost*
 | [**updateProtocol**](ReferenceDataApi.md#updateprotocoloperation) | **PATCH** /v1/reference/protocols/{id} | Update a protocol |
 | [**updateRegion**](ReferenceDataApi.md#updateregionoperation) | **PATCH** /v1/reference/regions/{id} | Update a region |
 | [**updateServiceType**](ReferenceDataApi.md#updateservicetypeoperation) | **PATCH** /v1/reference/service-types/{id} | Update a service type |
+| [**updateSideBusinessSector**](ReferenceDataApi.md#updatesidebusinesssectoroperation) | **PATCH** /v1/reference/business-sectors/{id} | Update a business sector |
 | [**updateSideType**](ReferenceDataApi.md#updatesidetypeoperation) | **PATCH** /v1/reference/side-types/{id} | Update a side type |
 | [**updateSignal**](ReferenceDataApi.md#updatesignaloperation) | **PATCH** /v1/reference/signals/{id} | Update a signal definition |
 | [**updateSignalExplanation**](ReferenceDataApi.md#updatesignalexplanationoperation) | **PATCH** /v1/reference/signal-explanations/{id} | Update a signal explanation |
@@ -1879,6 +1884,85 @@ example().catch(console.error);
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **createServiceTypeRequest** | [CreateServiceTypeRequest](CreateServiceTypeRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createSideBusinessSector
+
+> ReferenceWriteResponse createSideBusinessSector(createSideBusinessSectorRequest, xCorrelationId, idempotencyKey)
+
+Create a business sector
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { CreateSideBusinessSectorOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // CreateSideBusinessSectorRequest
+    createSideBusinessSectorRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies CreateSideBusinessSectorOperationRequest;
+
+  try {
+    const data = await api.createSideBusinessSector(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createSideBusinessSectorRequest** | [CreateSideBusinessSectorRequest](CreateSideBusinessSectorRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 | **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
 
@@ -4177,6 +4261,82 @@ async function example() {
 
   try {
     const data = await api.deleteServiceType(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | No Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteSideBusinessSector
+
+> deleteSideBusinessSector(id, xCorrelationId)
+
+Delete a business sector
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { DeleteSideBusinessSectorRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies DeleteSideBusinessSectorRequest;
+
+  try {
+    const data = await api.deleteSideBusinessSector(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -7770,6 +7930,152 @@ example().catch(console.error);
 ### Return type
 
 [**Array&lt;ServiceTypeItem&gt;**](ServiceTypeItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSideBusinessSectorById
+
+> LookupItem getSideBusinessSectorById(id, xCorrelationId)
+
+Get business sector by id
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetSideBusinessSectorByIdRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSideBusinessSectorByIdRequest;
+
+  try {
+    const data = await api.getSideBusinessSectorById(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LookupItem**](LookupItem.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getSideBusinessSectors
+
+> Array&lt;LookupItem&gt; getSideBusinessSectors(xCorrelationId)
+
+List subscriber business sectors
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { GetSideBusinessSectorsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetSideBusinessSectorsRequest;
+
+  try {
+    const data = await api.getSideBusinessSectors(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;LookupItem&gt;**](LookupItem.md)
 
 ### Authorization
 
@@ -11775,6 +12081,86 @@ example().catch(console.error);
 |------------- | ------------- | ------------- | -------------|
 | **id** | `string` |  | [Defaults to `undefined`] |
 | **updateServiceTypeRequest** | [UpdateServiceTypeRequest](UpdateServiceTypeRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ReferenceWriteResponse**](ReferenceWriteResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **409** | Conflict |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateSideBusinessSector
+
+> ReferenceWriteResponse updateSideBusinessSector(id, updateSideBusinessSectorRequest, xCorrelationId)
+
+Update a business sector
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ReferenceDataApi,
+} from '';
+import type { UpdateSideBusinessSectorOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ReferenceDataApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateSideBusinessSectorRequest
+    updateSideBusinessSectorRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies UpdateSideBusinessSectorOperationRequest;
+
+  try {
+    const data = await api.updateSideBusinessSector(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **updateSideBusinessSectorRequest** | [UpdateSideBusinessSectorRequest](UpdateSideBusinessSectorRequest.md) |  | |
 | **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
 
 ### Return type

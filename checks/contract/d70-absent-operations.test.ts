@@ -77,7 +77,8 @@ test('D70: the four unbuilt operations are absent from the pinned contract', () 
   // 533 -> 537: per-task model selection, AI usage and credit, D90 (328 paths, api-v1.77).
   // 537 -> 538: copilot LLM completion (D90) and ServiceType.defaultStatement (329 paths, api-v1.78).
   // 538 -> 539: GET /v1/copilot/operator-extensions (D95) and Dealer.description (330 paths, api-v1.80).
-  assert.equal(ids.size, 539, 'operation count moved off the pinned contract');
+  // 539 -> 544: business sectors — list, get, create, update, delete (332 paths, api-v1.81).
+  assert.equal(ids.size, 544, 'operation count moved off the pinned contract');
   for (const opId of ABSENT) {
     assert.ok(!ids.has(opId), `${opId} is present in the spec — D70 says it must not be`);
   }

@@ -189,6 +189,7 @@ docs/CreateReportAgentSessionRequest.md
 docs/CreateRoleRequest.md
 docs/CreateServiceDetailRequest.md
 docs/CreateServiceTypeRequest.md
+docs/CreateSideBusinessSectorRequest.md
 docs/CreateSideContactRequest.md
 docs/CreateSideControlRequest.md
 docs/CreateSideMailRequest.md
@@ -634,6 +635,7 @@ docs/UpdateReportDefinitionRequest.md
 docs/UpdateSelfRequest.md
 docs/UpdateServiceDetailRequest.md
 docs/UpdateServiceTypeRequest.md
+docs/UpdateSideBusinessSectorRequest.md
 docs/UpdateSideContactRequest.md
 docs/UpdateSideControlRequest.md
 docs/UpdateSideInvoiceRequest.md
@@ -789,6 +791,7 @@ models/CreateReportAgentSessionRequest.ts
 models/CreateRoleRequest.ts
 models/CreateServiceDetailRequest.ts
 models/CreateServiceTypeRequest.ts
+models/CreateSideBusinessSectorRequest.ts
 models/CreateSideContactRequest.ts
 models/CreateSideControlRequest.ts
 models/CreateSideMailRequest.ts
@@ -1185,6 +1188,7 @@ models/UpdateReportDefinitionRequest.ts
 models/UpdateSelfRequest.ts
 models/UpdateServiceDetailRequest.ts
 models/UpdateServiceTypeRequest.ts
+models/UpdateSideBusinessSectorRequest.ts
 models/UpdateSideContactRequest.ts
 models/UpdateSideControlRequest.ts
 models/UpdateSideInvoiceRequest.ts

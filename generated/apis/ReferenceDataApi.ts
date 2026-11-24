@@ -154,6 +154,11 @@ import {
     CreateServiceTypeRequestToJSON,
 } from '../models/CreateServiceTypeRequest';
 import {
+    type CreateSideBusinessSectorRequest,
+    CreateSideBusinessSectorRequestFromJSON,
+    CreateSideBusinessSectorRequestToJSON,
+} from '../models/CreateSideBusinessSectorRequest';
+import {
     type CreateSideTypeRequest,
     CreateSideTypeRequestFromJSON,
     CreateSideTypeRequestToJSON,
@@ -489,6 +494,11 @@ import {
     UpdateServiceTypeRequestToJSON,
 } from '../models/UpdateServiceTypeRequest';
 import {
+    type UpdateSideBusinessSectorRequest,
+    UpdateSideBusinessSectorRequestFromJSON,
+    UpdateSideBusinessSectorRequestToJSON,
+} from '../models/UpdateSideBusinessSectorRequest';
+import {
     type UpdateSideTypeRequest,
     UpdateSideTypeRequestFromJSON,
     UpdateSideTypeRequestToJSON,
@@ -657,6 +667,12 @@ export interface ReferenceDataApiCreateServiceTypeOperationRequest {
     idempotencyKey?: string;
 }
 
+export interface ReferenceDataApiCreateSideBusinessSectorOperationRequest {
+    createSideBusinessSectorRequest: CreateSideBusinessSectorRequest;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
+}
+
 export interface ReferenceDataApiCreateSideTypeOperationRequest {
     createSideTypeRequest: CreateSideTypeRequest;
     xCorrelationId?: string;
@@ -813,6 +829,11 @@ export interface ReferenceDataApiDeleteRegionRequest {
 }
 
 export interface ReferenceDataApiDeleteServiceTypeRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiDeleteSideBusinessSectorRequest {
     id: string;
     xCorrelationId?: string;
 }
@@ -1043,6 +1064,15 @@ export interface ReferenceDataApiGetServiceTypeByIdRequest {
 }
 
 export interface ReferenceDataApiGetServiceTypesRequest {
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetSideBusinessSectorByIdRequest {
+    id: string;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiGetSideBusinessSectorsRequest {
     xCorrelationId?: string;
 }
 
@@ -1344,6 +1374,12 @@ export interface ReferenceDataApiUpdateRegionOperationRequest {
 export interface ReferenceDataApiUpdateServiceTypeOperationRequest {
     id: string;
     updateServiceTypeRequest: UpdateServiceTypeRequest;
+    xCorrelationId?: string;
+}
+
+export interface ReferenceDataApiUpdateSideBusinessSectorOperationRequest {
+    id: string;
+    updateSideBusinessSectorRequest: UpdateSideBusinessSectorRequest;
     xCorrelationId?: string;
 }
 
@@ -2799,6 +2835,69 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async createServiceType(requestParameters: ReferenceDataApiCreateServiceTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.createServiceTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createSideBusinessSector without sending the request
+     */
+    async createSideBusinessSectorRequestOpts(requestParameters: ReferenceDataApiCreateSideBusinessSectorOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createSideBusinessSectorRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createSideBusinessSectorRequest',
+                'Required parameter "createSideBusinessSectorRequest" was null or undefined when calling createSideBusinessSector().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/business-sectors`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateSideBusinessSectorRequestToJSON(requestParameters['createSideBusinessSectorRequest']),
+        };
+    }
+
+    /**
+     * Create a business sector
+     */
+    async createSideBusinessSectorRaw(requestParameters: ReferenceDataApiCreateSideBusinessSectorOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.createSideBusinessSectorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a business sector
+     */
+    async createSideBusinessSector(requestParameters: ReferenceDataApiCreateSideBusinessSectorOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.createSideBusinessSectorRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -4552,6 +4651,62 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async deleteServiceType(requestParameters: ReferenceDataApiDeleteServiceTypeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deleteServiceTypeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteSideBusinessSector without sending the request
+     */
+    async deleteSideBusinessSectorRequestOpts(requestParameters: ReferenceDataApiDeleteSideBusinessSectorRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSideBusinessSector().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/business-sectors/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a business sector
+     */
+    async deleteSideBusinessSectorRaw(requestParameters: ReferenceDataApiDeleteSideBusinessSectorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteSideBusinessSectorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a business sector
+     */
+    async deleteSideBusinessSector(requestParameters: ReferenceDataApiDeleteSideBusinessSectorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSideBusinessSectorRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -7179,6 +7334,112 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async getServiceTypes(requestParameters: ReferenceDataApiGetServiceTypesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ServiceTypeItem>> {
         const response = await this.getServiceTypesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSideBusinessSectorById without sending the request
+     */
+    async getSideBusinessSectorByIdRequestOpts(requestParameters: ReferenceDataApiGetSideBusinessSectorByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSideBusinessSectorById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/business-sectors/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get business sector by id
+     */
+    async getSideBusinessSectorByIdRaw(requestParameters: ReferenceDataApiGetSideBusinessSectorByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LookupItem>> {
+        const requestOptions = await this.getSideBusinessSectorByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LookupItemFromJSON(jsonValue));
+    }
+
+    /**
+     * Get business sector by id
+     */
+    async getSideBusinessSectorById(requestParameters: ReferenceDataApiGetSideBusinessSectorByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LookupItem> {
+        const response = await this.getSideBusinessSectorByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getSideBusinessSectors without sending the request
+     */
+    async getSideBusinessSectorsRequestOpts(requestParameters: ReferenceDataApiGetSideBusinessSectorsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/business-sectors`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List subscriber business sectors
+     */
+    async getSideBusinessSectorsRaw(requestParameters: ReferenceDataApiGetSideBusinessSectorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LookupItem>>> {
+        const requestOptions = await this.getSideBusinessSectorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LookupItemFromJSON));
+    }
+
+    /**
+     * List subscriber business sectors
+     */
+    async getSideBusinessSectors(requestParameters: ReferenceDataApiGetSideBusinessSectorsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LookupItem>> {
+        const response = await this.getSideBusinessSectorsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -10360,6 +10621,73 @@ export class ReferenceDataApi extends runtime.BaseAPI {
      */
     async updateServiceType(requestParameters: ReferenceDataApiUpdateServiceTypeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
         const response = await this.updateServiceTypeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateSideBusinessSector without sending the request
+     */
+    async updateSideBusinessSectorRequestOpts(requestParameters: ReferenceDataApiUpdateSideBusinessSectorOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateSideBusinessSector().'
+            );
+        }
+
+        if (requestParameters['updateSideBusinessSectorRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateSideBusinessSectorRequest',
+                'Required parameter "updateSideBusinessSectorRequest" was null or undefined when calling updateSideBusinessSector().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reference/business-sectors/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSideBusinessSectorRequestToJSON(requestParameters['updateSideBusinessSectorRequest']),
+        };
+    }
+
+    /**
+     * Update a business sector
+     */
+    async updateSideBusinessSectorRaw(requestParameters: ReferenceDataApiUpdateSideBusinessSectorOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceWriteResponse>> {
+        const requestOptions = await this.updateSideBusinessSectorRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceWriteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Update a business sector
+     */
+    async updateSideBusinessSector(requestParameters: ReferenceDataApiUpdateSideBusinessSectorOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceWriteResponse> {
+        const response = await this.updateSideBusinessSectorRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
