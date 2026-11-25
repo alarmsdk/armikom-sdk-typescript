@@ -14,6 +14,11 @@
 
 import * as runtime from '../runtime';
 import {
+    type ImpersonateResponse,
+    ImpersonateResponseFromJSON,
+    ImpersonateResponseToJSON,
+} from '../models/ImpersonateResponse';
+import {
     type LoginRequest,
     LoginRequestFromJSON,
     LoginRequestToJSON,
@@ -46,6 +51,12 @@ import {
 
 export interface AuthenticationApiGetCurrentUserRequest {
     xCorrelationId?: string;
+}
+
+export interface AuthenticationApiImpersonateUserRequest {
+    userId: string;
+    xCorrelationId?: string;
+    idempotencyKey?: string;
 }
 
 export interface AuthenticationApiLoginOperationRequest {
@@ -119,6 +130,69 @@ export class AuthenticationApi extends runtime.BaseAPI {
      */
     async getCurrentUser(requestParameters: AuthenticationApiGetCurrentUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserInfoResponse> {
         const response = await this.getCurrentUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for impersonateUser without sending the request
+     */
+    async impersonateUserRequestOpts(requestParameters: AuthenticationApiImpersonateUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling impersonateUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (requestParameters['idempotencyKey'] != null) {
+            headerParameters['Idempotency-Key'] = String(requestParameters['idempotencyKey']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/auth/impersonate/{userId}`;
+        urlPath = urlPath.replace('{userId}', encodeURIComponent(String(requestParameters['userId'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Issues a short-lived access token for the given operator. Requires system:admin and the database-only ApiCanImpersonate flag on the caller. No refresh token is returned.
+     * Sign in as another operator (platform administrators)
+     */
+    async impersonateUserRaw(requestParameters: AuthenticationApiImpersonateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ImpersonateResponse>> {
+        const requestOptions = await this.impersonateUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ImpersonateResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Issues a short-lived access token for the given operator. Requires system:admin and the database-only ApiCanImpersonate flag on the caller. No refresh token is returned.
+     * Sign in as another operator (platform administrators)
+     */
+    async impersonateUser(requestParameters: AuthenticationApiImpersonateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImpersonateResponse> {
+        const response = await this.impersonateUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

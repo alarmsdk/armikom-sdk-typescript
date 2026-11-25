@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getCurrentUser**](AuthenticationApi.md#getcurrentuser) | **GET** /v1/auth/me | Get current user info |
+| [**impersonateUser**](AuthenticationApi.md#impersonateuser) | **POST** /v1/auth/impersonate/{userId} | Sign in as another operator (platform administrators) |
 | [**login**](AuthenticationApi.md#loginoperation) | **POST** /v1/auth/login | Authenticate with credentials |
 | [**logout**](AuthenticationApi.md#logout) | **POST** /v1/auth/logout | Revoke refresh token |
 | [**refreshToken**](AuthenticationApi.md#refreshtoken) | **POST** /v1/auth/refresh | Refresh an access token |
@@ -80,6 +81,86 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## impersonateUser
+
+> ImpersonateResponse impersonateUser(userId, xCorrelationId, idempotencyKey)
+
+Sign in as another operator (platform administrators)
+
+Issues a short-lived access token for the given operator. Requires system:admin and the database-only ApiCanImpersonate flag on the caller. No refresh token is returned.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AuthenticationApi,
+} from '';
+import type { ImpersonateUserRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AuthenticationApi(config);
+
+  const body = {
+    // string
+    userId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+    // string | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. (optional)
+    idempotencyKey: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ImpersonateUserRequest;
+
+  try {
+    const data = await api.impersonateUser(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userId** | `string` |  | [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+| **idempotencyKey** | `string` | UUID idempotency key. When present, the server guarantees at-most-once execution for the same key+endpoint within 24 hours. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**ImpersonateResponse**](ImpersonateResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **404** | Not Found |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

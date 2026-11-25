@@ -185,6 +185,8 @@ export * from './HandleByAiRequest';
 export * from './HandleByAiResponse';
 export * from './HolidayDetail';
 export * from './HolidayListItem';
+export * from './ImpersonateResponse';
+export * from './ImpersonatorInfo';
 export * from './IntegrationAlarmDto';
 export * from './IntegrationClientDto';
 export * from './IntegrationClientKeyDto';

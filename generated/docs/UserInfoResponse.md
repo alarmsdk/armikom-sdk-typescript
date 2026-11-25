@@ -21,6 +21,8 @@ Name | Type
 `readOnlyFields` | Array&lt;string&gt;
 `customerScope` | [Array&lt;OperatorCustomerAssignment&gt;](OperatorCustomerAssignment.md)
 `remoteArmEnabled` | boolean
+`canImpersonate` | boolean
+`impersonatedBy` | [ImpersonatorInfo](ImpersonatorInfo.md)
 
 ## Example
 
@@ -44,6 +46,8 @@ const example = {
   "readOnlyFields": null,
   "customerScope": null,
   "remoteArmEnabled": null,
+  "canImpersonate": null,
+  "impersonatedBy": null,
 } satisfies UserInfoResponse
 
 console.log(example)

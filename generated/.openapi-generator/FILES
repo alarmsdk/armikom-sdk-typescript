@@ -260,6 +260,8 @@ docs/HandleByAiRequest.md
 docs/HandleByAiResponse.md
 docs/HolidayDetail.md
 docs/HolidayListItem.md
+docs/ImpersonateResponse.md
+docs/ImpersonatorInfo.md
 docs/IntegrationAlarmDto.md
 docs/IntegrationClientDto.md
 docs/IntegrationClientKeyDto.md
@@ -857,6 +859,8 @@ models/HandleByAiRequest.ts
 models/HandleByAiResponse.ts
 models/HolidayDetail.ts
 models/HolidayListItem.ts
+models/ImpersonateResponse.ts
+models/ImpersonatorInfo.ts
 models/IntegrationAlarmDto.ts
 models/IntegrationClientDto.ts
 models/IntegrationClientKeyDto.ts

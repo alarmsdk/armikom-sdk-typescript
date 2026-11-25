@@ -20,6 +20,13 @@ import {
     OperatorCustomerAssignmentToJSON,
     OperatorCustomerAssignmentToJSONTyped,
 } from './OperatorCustomerAssignment';
+import type { ImpersonatorInfo } from './ImpersonatorInfo';
+import {
+    ImpersonatorInfoFromJSON,
+    ImpersonatorInfoFromJSONTyped,
+    ImpersonatorInfoToJSON,
+    ImpersonatorInfoToJSONTyped,
+} from './ImpersonatorInfo';
 import type { AlarmCategoryAssignment } from './AlarmCategoryAssignment';
 import {
     AlarmCategoryAssignmentFromJSON,
@@ -127,6 +134,20 @@ export interface UserInfoResponse {
      * @memberof UserInfoResponse
      */
     remoteArmEnabled?: boolean;
+    /**
+     * D96: this platform administrator may sign in as another operator
+     * (`POST /v1/auth/impersonate/{userId}`). False for everyone else, and always false on an
+     * impersonation token.
+     * @type {boolean}
+     * @memberof UserInfoResponse
+     */
+    canImpersonate?: boolean;
+    /**
+     * 
+     * @type {ImpersonatorInfo}
+     * @memberof UserInfoResponse
+     */
+    impersonatedBy?: ImpersonatorInfo;
 }
 
 /**
@@ -161,6 +182,8 @@ export function UserInfoResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'readOnlyFields': json['readOnlyFields'] === undefined ? undefined : json['readOnlyFields'] === null ? null : json['readOnlyFields'],
         'customerScope': json['customerScope'] === undefined ? undefined : json['customerScope'] === null ? null : ((json['customerScope'] as Array<any>).map(OperatorCustomerAssignmentFromJSON)),
         'remoteArmEnabled': json['remoteArmEnabled'] == null ? undefined : json['remoteArmEnabled'],
+        'canImpersonate': json['canImpersonate'] == null ? undefined : json['canImpersonate'],
+        'impersonatedBy': json['impersonatedBy'] == null ? undefined : ImpersonatorInfoFromJSON(json['impersonatedBy']),
     };
 }
 
@@ -190,6 +213,8 @@ export function UserInfoResponseToJSONTyped(value?: UserInfoResponse | null, ign
         'readOnlyFields': value['readOnlyFields'],
         'customerScope': value['customerScope'] == null ? undefined : ((value['customerScope'] as Array<any>).map(OperatorCustomerAssignmentToJSON)),
         'remoteArmEnabled': value['remoteArmEnabled'],
+        'canImpersonate': value['canImpersonate'],
+        'impersonatedBy': ImpersonatorInfoToJSON(value['impersonatedBy']),
     };
 }
 
