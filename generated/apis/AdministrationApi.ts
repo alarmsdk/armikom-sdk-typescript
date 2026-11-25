@@ -74,6 +74,11 @@ import {
     LlmCreditResponseToJSON,
 } from '../models/LlmCreditResponse';
 import {
+    type LlmPromptsResponse,
+    LlmPromptsResponseFromJSON,
+    LlmPromptsResponseToJSON,
+} from '../models/LlmPromptsResponse';
+import {
     type LlmSettingsResponse,
     LlmSettingsResponseFromJSON,
     LlmSettingsResponseToJSON,
@@ -213,6 +218,11 @@ import {
     SaveEmergencyPhoneRequestFromJSON,
     SaveEmergencyPhoneRequestToJSON,
 } from '../models/SaveEmergencyPhoneRequest';
+import {
+    type SaveLlmPromptsRequest,
+    SaveLlmPromptsRequestFromJSON,
+    SaveLlmPromptsRequestToJSON,
+} from '../models/SaveLlmPromptsRequest';
 import {
     type SaveLlmSettingsRequest,
     SaveLlmSettingsRequestFromJSON,
@@ -490,6 +500,10 @@ export interface AdministrationApiGetLlmCreditRequest {
     xCorrelationId?: string;
 }
 
+export interface AdministrationApiGetLlmPromptsRequest {
+    xCorrelationId?: string;
+}
+
 export interface AdministrationApiGetLlmSettingsRequest {
     xCorrelationId?: string;
 }
@@ -637,6 +651,11 @@ export interface AdministrationApiPreviewMessageTemplateOperationRequest {
     previewMessageTemplateRequest: PreviewMessageTemplateRequest;
     xCorrelationId?: string;
     idempotencyKey?: string;
+}
+
+export interface AdministrationApiSaveLlmPromptsOperationRequest {
+    saveLlmPromptsRequest: SaveLlmPromptsRequest;
+    xCorrelationId?: string;
 }
 
 export interface AdministrationApiSaveLlmSettingsOperationRequest {
@@ -2933,6 +2952,57 @@ export class AdministrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for getLlmPrompts without sending the request
+     */
+    async getLlmPromptsRequestOpts(requestParameters: AdministrationApiGetLlmPromptsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/prompts`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Only the instructions are editable (tone, length, rules); the role, the answer\'s JSON shape and the transcript stay in the service. text=null: the default is in use. available=false: the installation cannot store customised texts yet. Requires admin:config.
+     * Get the AI instruction texts and their defaults
+     */
+    async getLlmPromptsRaw(requestParameters: AdministrationApiGetLlmPromptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmPromptsResponse>> {
+        const requestOptions = await this.getLlmPromptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmPromptsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Only the instructions are editable (tone, length, rules); the role, the answer\'s JSON shape and the transcript stay in the service. text=null: the default is in use. available=false: the installation cannot store customised texts yet. Requires admin:config.
+     * Get the AI instruction texts and their defaults
+     */
+    async getLlmPrompts(requestParameters: AdministrationApiGetLlmPromptsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmPromptsResponse> {
+        const response = await this.getLlmPromptsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getLlmSettings without sending the request
      */
     async getLlmSettingsRequestOpts(requestParameters: AdministrationApiGetLlmSettingsRequest): Promise<runtime.RequestOpts> {
@@ -4636,6 +4706,67 @@ export class AdministrationApi extends runtime.BaseAPI {
      */
     async previewMessageTemplate(requestParameters: AdministrationApiPreviewMessageTemplateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MessageTemplatePreview> {
         const response = await this.previewMessageTemplateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for saveLlmPrompts without sending the request
+     */
+    async saveLlmPromptsRequestOpts(requestParameters: AdministrationApiSaveLlmPromptsOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['saveLlmPromptsRequest'] == null) {
+            throw new runtime.RequiredError(
+                'saveLlmPromptsRequest',
+                'Required parameter "saveLlmPromptsRequest" was null or undefined when calling saveLlmPrompts().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/llm/prompts`;
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveLlmPromptsRequestToJSON(requestParameters['saveLlmPromptsRequest']),
+        };
+    }
+
+    /**
+     * Applies to the whole installation, within a minute. Prompts left out keep their text; a null or empty text (or the default text itself) returns the prompt to its default. Requires admin:config.
+     * Customise one or more AI instruction texts
+     */
+    async saveLlmPromptsRaw(requestParameters: AdministrationApiSaveLlmPromptsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LlmPromptsResponse>> {
+        const requestOptions = await this.saveLlmPromptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LlmPromptsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Applies to the whole installation, within a minute. Prompts left out keep their text; a null or empty text (or the default text itself) returns the prompt to its default. Requires admin:config.
+     * Customise one or more AI instruction texts
+     */
+    async saveLlmPrompts(requestParameters: AdministrationApiSaveLlmPromptsOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LlmPromptsResponse> {
+        const response = await this.saveLlmPromptsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

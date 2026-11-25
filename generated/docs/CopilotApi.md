@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost*
 | [**completeCopilotLlm**](CopilotApi.md#completecopilotllm) | **POST** /v1/copilot/llm/completions | Run one call-copilot model call on the installation\&#39;s AI settings |
 | [**ingestCopilotConversationEvents**](CopilotApi.md#ingestcopilotconversationevents) | **POST** /v1/copilot/conversation-events | Relay live call transcript events to the operator\&#39;s console |
 | [**listCopilotOperatorExtensions**](CopilotApi.md#listcopilotoperatorextensions) | **GET** /v1/copilot/operator-extensions | Mirrors who would actually receive a transcript frame. &#x60;StreamHub.PassesFilter&#x60; delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody. |
+| [**listCopilotPrompts**](CopilotApi.md#listcopilotprompts) | **GET** /v1/copilot/prompts | List the instruction texts CopilotX runs with |
 
 
 
@@ -222,6 +223,79 @@ example().catch(console.error);
 ### Return type
 
 [**CopilotOperatorExtensionsResponse**](CopilotOperatorExtensionsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listCopilotPrompts
+
+> CopilotPromptsResponse listCopilotPrompts(xCorrelationId)
+
+List the instruction texts CopilotX runs with
+
+Internal endpoint for CopilotX (D97). One entry per prompt key (&#x60;copilot.summary&#x60;, &#x60;copilot.suggestion&#x60;) with the text in effect: the one customised in the console\&#39;s AI settings, else the default. Only the instructions: CopilotX adds the role, the JSON shape and the transcript around it. CopilotX caches the answer for a minute and keeps its built-in texts when the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  CopilotApi,
+} from '';
+import type { ListCopilotPromptsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CopilotApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies ListCopilotPromptsRequest;
+
+  try {
+    const data = await api.listCopilotPrompts(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**CopilotPromptsResponse**](CopilotPromptsResponse.md)
 
 ### Authorization
 

@@ -146,6 +146,8 @@ docs/CopilotConversationIngestResponse.md
 docs/CopilotLlmCompletionRequest.md
 docs/CopilotLlmCompletionResponse.md
 docs/CopilotOperatorExtensionsResponse.md
+docs/CopilotPromptDto.md
+docs/CopilotPromptsResponse.md
 docs/CopilotProposedOperationDto.md
 docs/CopilotSegmentDto.md
 docs/CopilotSuggestedActionDto.md
@@ -285,6 +287,9 @@ docs/LinkMobileUserResponse.md
 docs/LiveSignalItem.md
 docs/LlmCreditResponse.md
 docs/LlmModelDto.md
+docs/LlmPromptDto.md
+docs/LlmPromptTextDto.md
+docs/LlmPromptsResponse.md
 docs/LlmSettingsResponse.md
 docs/LlmTaskModelDto.md
 docs/LlmTaskSettingDto.md
@@ -425,6 +430,7 @@ docs/SMSLogApi.md
 docs/SaveCityEmergencyContactRequest.md
 docs/SaveDeviceRegexRequest.md
 docs/SaveEmergencyPhoneRequest.md
+docs/SaveLlmPromptsRequest.md
 docs/SaveLlmSettingsRequest.md
 docs/SaveMobileOperatorRequest.md
 docs/SaveProductRequest.md
@@ -750,6 +756,8 @@ models/CopilotConversationIngestResponse.ts
 models/CopilotLlmCompletionRequest.ts
 models/CopilotLlmCompletionResponse.ts
 models/CopilotOperatorExtensionsResponse.ts
+models/CopilotPromptDto.ts
+models/CopilotPromptsResponse.ts
 models/CopilotProposedOperationDto.ts
 models/CopilotSegmentDto.ts
 models/CopilotSuggestedActionDto.ts
@@ -881,6 +889,9 @@ models/LinkMobileUserResponse.ts
 models/LiveSignalItem.ts
 models/LlmCreditResponse.ts
 models/LlmModelDto.ts
+models/LlmPromptDto.ts
+models/LlmPromptTextDto.ts
+models/LlmPromptsResponse.ts
 models/LlmSettingsResponse.ts
 models/LlmTaskModelDto.ts
 models/LlmTaskSettingDto.ts
@@ -1009,6 +1020,7 @@ models/RunReportRequest.ts
 models/SaveCityEmergencyContactRequest.ts
 models/SaveDeviceRegexRequest.ts
 models/SaveEmergencyPhoneRequest.ts
+models/SaveLlmPromptsRequest.ts
 models/SaveLlmSettingsRequest.ts
 models/SaveMobileOperatorRequest.ts
 models/SaveProductRequest.ts

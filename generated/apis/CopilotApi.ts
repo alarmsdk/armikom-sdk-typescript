@@ -39,6 +39,11 @@ import {
     CopilotOperatorExtensionsResponseToJSON,
 } from '../models/CopilotOperatorExtensionsResponse';
 import {
+    type CopilotPromptsResponse,
+    CopilotPromptsResponseFromJSON,
+    CopilotPromptsResponseToJSON,
+} from '../models/CopilotPromptsResponse';
+import {
     type PostActivity422Response,
     PostActivity422ResponseFromJSON,
     PostActivity422ResponseToJSON,
@@ -57,6 +62,10 @@ export interface CopilotApiIngestCopilotConversationEventsRequest {
 }
 
 export interface CopilotApiListCopilotOperatorExtensionsRequest {
+    xCorrelationId?: string;
+}
+
+export interface CopilotApiListCopilotPromptsRequest {
     xCorrelationId?: string;
 }
 
@@ -229,6 +238,57 @@ export class CopilotApi extends runtime.BaseAPI {
      */
     async listCopilotOperatorExtensions(requestParameters: CopilotApiListCopilotOperatorExtensionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotOperatorExtensionsResponse> {
         const response = await this.listCopilotOperatorExtensionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listCopilotPrompts without sending the request
+     */
+    async listCopilotPromptsRequestOpts(requestParameters: CopilotApiListCopilotPromptsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/copilot/prompts`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D97). One entry per prompt key (`copilot.summary`, `copilot.suggestion`) with the text in effect: the one customised in the console\'s AI settings, else the default. Only the instructions: CopilotX adds the role, the JSON shape and the transcript around it. CopilotX caches the answer for a minute and keeps its built-in texts when the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * List the instruction texts CopilotX runs with
+     */
+    async listCopilotPromptsRaw(requestParameters: CopilotApiListCopilotPromptsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CopilotPromptsResponse>> {
+        const requestOptions = await this.listCopilotPromptsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CopilotPromptsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D97). One entry per prompt key (`copilot.summary`, `copilot.suggestion`) with the text in effect: the one customised in the console\'s AI settings, else the default. Only the instructions: CopilotX adds the role, the JSON shape and the transcript around it. CopilotX caches the answer for a minute and keeps its built-in texts when the call fails. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * List the instruction texts CopilotX runs with
+     */
+    async listCopilotPrompts(requestParameters: CopilotApiListCopilotPromptsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotPromptsResponse> {
+        const response = await this.listCopilotPromptsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

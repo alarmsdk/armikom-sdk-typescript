@@ -40,6 +40,7 @@ All URIs are relative to *http://localhost*
 | [**getDeviceRegex**](AdministrationApi.md#getdeviceregex) | **GET** /v1/admin/device-regexes/{id} | Get a device parser |
 | [**getEmergencyPhone**](AdministrationApi.md#getemergencyphone) | **GET** /v1/admin/emergency-phones/{id} | Get an emergency contact |
 | [**getLlmCredit**](AdministrationApi.md#getllmcredit) | **GET** /v1/admin/llm/credit | Remaining AI credit and spend today, this week and this month |
+| [**getLlmPrompts**](AdministrationApi.md#getllmprompts) | **GET** /v1/admin/llm/prompts | Get the AI instruction texts and their defaults |
 | [**getLlmSettings**](AdministrationApi.md#getllmsettings) | **GET** /v1/admin/llm/settings | Get the model each AI task uses and the models on offer |
 | [**getLlmUsage**](AdministrationApi.md#getllmusage) | **GET** /v1/admin/llm/usage | AI usage per day, task and model |
 | [**getMailSetting**](AdministrationApi.md#getmailsetting) | **GET** /v1/admin/mail-settings/{id} | Get an SMTP profile |
@@ -71,6 +72,7 @@ All URIs are relative to *http://localhost*
 | [**listSmsSettings**](AdministrationApi.md#listsmssettings) | **GET** /v1/admin/sms-settings | List SMS gateway profiles |
 | [**normalizePhones**](AdministrationApi.md#normalizephones) | **POST** /v1/admin/phone-audit/normalize | Batch-normalise phone numbers |
 | [**previewMessageTemplate**](AdministrationApi.md#previewmessagetemplateoperation) | **POST** /v1/admin/message-templates/preview | Render a draft template with example values |
+| [**saveLlmPrompts**](AdministrationApi.md#savellmpromptsoperation) | **PUT** /v1/admin/llm/prompts | Customise one or more AI instruction texts |
 | [**saveLlmSettings**](AdministrationApi.md#savellmsettingsoperation) | **PUT** /v1/admin/llm/settings | Choose the model of one or more AI tasks |
 | [**saveReceiverMcFallback**](AdministrationApi.md#savereceivermcfallbackoperation) | **PUT** /v1/admin/receivers/{receiverId}/mc-fallback | Replace a receiver\&#39;s monitoring centre fallback |
 | [**updateDeviceRegex**](AdministrationApi.md#updatedeviceregex) | **PATCH** /v1/admin/device-regexes/{id} | Update a device parser |
@@ -2895,6 +2897,79 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## getLlmPrompts
+
+> LlmPromptsResponse getLlmPrompts(xCorrelationId)
+
+Get the AI instruction texts and their defaults
+
+Only the instructions are editable (tone, length, rules); the role, the answer\&#39;s JSON shape and the transcript stay in the service. text&#x3D;null: the default is in use. available&#x3D;false: the installation cannot store customised texts yet. Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { GetLlmPromptsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetLlmPromptsRequest;
+
+  try {
+    const data = await api.getLlmPrompts(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmPromptsResponse**](LlmPromptsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## getLlmSettings
 
 > LlmSettingsResponse getLlmSettings(xCorrelationId)
@@ -5209,6 +5284,84 @@ example().catch(console.error);
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **403** | Authenticated but missing the required scope |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## saveLlmPrompts
+
+> LlmPromptsResponse saveLlmPrompts(saveLlmPromptsRequest, xCorrelationId)
+
+Customise one or more AI instruction texts
+
+Applies to the whole installation, within a minute. Prompts left out keep their text; a null or empty text (or the default text itself) returns the prompt to its default. Requires admin:config.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdministrationApi,
+} from '';
+import type { SaveLlmPromptsOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdministrationApi(config);
+
+  const body = {
+    // SaveLlmPromptsRequest
+    saveLlmPromptsRequest: ...,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies SaveLlmPromptsOperationRequest;
+
+  try {
+    const data = await api.saveLlmPrompts(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **saveLlmPromptsRequest** | [SaveLlmPromptsRequest](SaveLlmPromptsRequest.md) |  | |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**LlmPromptsResponse**](LlmPromptsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **503** | Service Unavailable |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
