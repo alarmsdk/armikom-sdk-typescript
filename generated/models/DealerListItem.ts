@@ -72,6 +72,24 @@ export interface DealerListItem {
      * @type {string}
      * @memberof DealerListItem
      */
+    districtId?: string | null;
+    /**
+     * City display name (il).
+     * @type {string}
+     * @memberof DealerListItem
+     */
+    cityName?: string | null;
+    /**
+     * District display name (ilçe).
+     * @type {string}
+     * @memberof DealerListItem
+     */
+    districtName?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof DealerListItem
+     */
     regionId?: string | null;
     /**
      * 
@@ -136,6 +154,9 @@ export function DealerListItemFromJSONTyped(json: any, ignoreDiscriminator: bool
         'mail1': json['mail1'] === undefined ? undefined : json['mail1'] === null ? null : json['mail1'],
         'active': json['active'] === undefined ? undefined : json['active'] === null ? null : json['active'],
         'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
+        'districtId': json['districtId'] === undefined ? undefined : json['districtId'] === null ? null : json['districtId'],
+        'cityName': json['cityName'] === undefined ? undefined : json['cityName'] === null ? null : json['cityName'],
+        'districtName': json['districtName'] === undefined ? undefined : json['districtName'] === null ? null : json['districtName'],
         'regionId': json['regionId'] === undefined ? undefined : json['regionId'] === null ? null : json['regionId'],
         'recordDateTime': json['recordDateTime'] === undefined ? undefined : json['recordDateTime'] === null ? null : (new Date(json['recordDateTime'])),
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
@@ -165,6 +186,9 @@ export function DealerListItemToJSONTyped(value?: DealerListItem | null, ignoreD
         'mail1': value['mail1'],
         'active': value['active'],
         'cityId': value['cityId'],
+        'districtId': value['districtId'],
+        'cityName': value['cityName'],
+        'districtName': value['districtName'],
         'regionId': value['regionId'],
         'recordDateTime': value['recordDateTime'] == null ? value['recordDateTime'] : value['recordDateTime'].toISOString(),
         'monitoringCenterId': value['monitoringCenterId'],

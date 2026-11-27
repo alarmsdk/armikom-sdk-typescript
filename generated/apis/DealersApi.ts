@@ -110,6 +110,7 @@ export interface DealersApiListDealersRequest {
     q?: string;
     active?: boolean;
     cityId?: string;
+    districtId?: string;
     regionId?: string;
     monitoringCenterId?: string;
     cursor?: string;
@@ -643,6 +644,10 @@ export class DealersApi extends runtime.BaseAPI {
 
         if (requestParameters['cityId'] != null) {
             queryParameters['cityId'] = requestParameters['cityId'];
+        }
+
+        if (requestParameters['districtId'] != null) {
+            queryParameters['districtId'] = requestParameters['districtId'];
         }
 
         if (requestParameters['regionId'] != null) {

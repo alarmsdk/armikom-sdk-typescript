@@ -635,7 +635,7 @@ example().catch(console.error);
 
 ## listDealers
 
-> DealerListItemPagedResult listDealers(q, active, cityId, regionId, monitoringCenterId, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
+> DealerListItemPagedResult listDealers(q, active, cityId, districtId, regionId, monitoringCenterId, cursor, limit, offset, page, pageSize, sort, xCorrelationId)
 
 List dealers with filtering, sorting and pagination
 
@@ -665,6 +665,8 @@ async function example() {
     active: true,
     // string (optional)
     cityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    districtId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string (optional)
     regionId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string (optional)
@@ -705,6 +707,7 @@ example().catch(console.error);
 | **q** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **active** | `boolean` |  | [Optional] [Defaults to `undefined`] |
 | **cityId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **districtId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **regionId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **monitoringCenterId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **cursor** | `string` |  | [Optional] [Defaults to `undefined`] |

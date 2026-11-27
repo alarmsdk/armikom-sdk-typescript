@@ -14,6 +14,11 @@
 
 import * as runtime from '../runtime';
 import {
+    type CopilotCallContextResponse,
+    CopilotCallContextResponseFromJSON,
+    CopilotCallContextResponseToJSON,
+} from '../models/CopilotCallContextResponse';
+import {
     type CopilotConversationIngestRequest,
     CopilotConversationIngestRequestFromJSON,
     CopilotConversationIngestRequestToJSON,
@@ -53,6 +58,12 @@ export interface CopilotApiCompleteCopilotLlmRequest {
     xCorrelationId?: string;
     idempotencyKey?: string;
     copilotLlmCompletionRequest?: CopilotLlmCompletionRequest;
+}
+
+export interface CopilotApiGetCopilotCallContextRequest {
+    phone?: string;
+    signalEventId?: string;
+    xCorrelationId?: string;
 }
 
 export interface CopilotApiIngestCopilotConversationEventsRequest {
@@ -129,6 +140,65 @@ export class CopilotApi extends runtime.BaseAPI {
      */
     async completeCopilotLlm(requestParameters: CopilotApiCompleteCopilotLlmRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotLlmCompletionResponse> {
         const response = await this.completeCopilotLlmRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getCopilotCallContext without sending the request
+     */
+    async getCopilotCallContextRequestOpts(requestParameters: CopilotApiGetCopilotCallContextRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['phone'] != null) {
+            queryParameters['phone'] = requestParameters['phone'];
+        }
+
+        if (requestParameters['signalEventId'] != null) {
+            queryParameters['signalEventId'] = requestParameters['signalEventId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['xCorrelationId'] != null) {
+            headerParameters['X-Correlation-Id'] = String(requestParameters['xCorrelationId']);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/copilot/call-context`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D98). With `signalEventId` the hints come from that signal\'s subscriber; otherwise the caller\'s `phone` is matched against subscriber and contact numbers (digits only, last 10, like Engine). More than 3 matching subscribers give no phrases. Phrases: subscriber, contact (whole and per word), zone and address names, at most 100 of at most 100 characters. Subscribers outside the request\'s monitoring centre are never matched. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * Speech-recognition hints for one call
+     */
+    async getCopilotCallContextRaw(requestParameters: CopilotApiGetCopilotCallContextRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CopilotCallContextResponse>> {
+        const requestOptions = await this.getCopilotCallContextRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CopilotCallContextResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Internal endpoint for CopilotX (D98). With `signalEventId` the hints come from that signal\'s subscriber; otherwise the caller\'s `phone` is matched against subscriber and contact numbers (digits only, last 10, like Engine). More than 3 matching subscribers give no phrases. Phrases: subscriber, contact (whole and per word), zone and address names, at most 100 of at most 100 characters. Subscribers outside the request\'s monitoring centre are never matched. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+     * Speech-recognition hints for one call
+     */
+    async getCopilotCallContext(requestParameters: CopilotApiGetCopilotCallContextRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CopilotCallContextResponse> {
+        const response = await this.getCopilotCallContextRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

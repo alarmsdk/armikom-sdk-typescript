@@ -14,6 +14,9 @@ Name | Type
 `mail1` | string
 `active` | boolean
 `cityId` | string
+`districtId` | string
+`cityName` | string
+`districtName` | string
 `regionId` | string
 `recordDateTime` | Date
 `monitoringCenterId` | string
@@ -37,6 +40,9 @@ const example = {
   "mail1": null,
   "active": null,
   "cityId": null,
+  "districtId": null,
+  "cityName": null,
+  "districtName": null,
   "regionId": null,
   "recordDateTime": null,
   "monitoringCenterId": null,

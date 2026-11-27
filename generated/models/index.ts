@@ -70,6 +70,7 @@ export * from './ClosingDelayResponse';
 export * from './ClosingScheduleEntry';
 export * from './CompleteAlarmRequest';
 export * from './CompleteAlarmResponse';
+export * from './CopilotCallContextResponse';
 export * from './CopilotConversationEventDto';
 export * from './CopilotConversationIngestRequest';
 export * from './CopilotConversationIngestResponse';

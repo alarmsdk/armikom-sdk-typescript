@@ -140,6 +140,7 @@ docs/CompleteAlarmRequest.md
 docs/CompleteAlarmResponse.md
 docs/ConfigurationApi.md
 docs/CopilotApi.md
+docs/CopilotCallContextResponse.md
 docs/CopilotConversationEventDto.md
 docs/CopilotConversationIngestRequest.md
 docs/CopilotConversationIngestResponse.md
@@ -750,6 +751,7 @@ models/ClosingDelayResponse.ts
 models/ClosingScheduleEntry.ts
 models/CompleteAlarmRequest.ts
 models/CompleteAlarmResponse.ts
+models/CopilotCallContextResponse.ts
 models/CopilotConversationEventDto.ts
 models/CopilotConversationIngestRequest.ts
 models/CopilotConversationIngestResponse.ts

@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**completeCopilotLlm**](CopilotApi.md#completecopilotllm) | **POST** /v1/copilot/llm/completions | Run one call-copilot model call on the installation\&#39;s AI settings |
+| [**getCopilotCallContext**](CopilotApi.md#getcopilotcallcontext) | **GET** /v1/copilot/call-context | Speech-recognition hints for one call |
 | [**ingestCopilotConversationEvents**](CopilotApi.md#ingestcopilotconversationevents) | **POST** /v1/copilot/conversation-events | Relay live call transcript events to the operator\&#39;s console |
 | [**listCopilotOperatorExtensions**](CopilotApi.md#listcopilotoperatorextensions) | **GET** /v1/copilot/operator-extensions | Mirrors who would actually receive a transcript frame. &#x60;StreamHub.PassesFilter&#x60; delivers when the event names a monitoring centre and the connection names one only if they match; a null on either side passes. So with a centre on the request this lists users of that centre plus users of no centre, and without one it lists everybody. |
 | [**listCopilotPrompts**](CopilotApi.md#listcopilotprompts) | **GET** /v1/copilot/prompts | List the instruction texts CopilotX runs with |
@@ -86,6 +87,85 @@ example().catch(console.error);
 | **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  * Idempotency-Replayed - Set to \&quot;true\&quot; when the response is a replay of a previously completed request. <br>  |
 | **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **422** | Unprocessable Content |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getCopilotCallContext
+
+> CopilotCallContextResponse getCopilotCallContext(phone, signalEventId, xCorrelationId)
+
+Speech-recognition hints for one call
+
+Internal endpoint for CopilotX (D98). With &#x60;signalEventId&#x60; the hints come from that signal\&#39;s subscriber; otherwise the caller\&#39;s &#x60;phone&#x60; is matched against subscriber and contact numbers (digits only, last 10, like Engine). More than 3 matching subscribers give no phrases. Phrases: subscriber, contact (whole and per word), zone and address names, at most 100 of at most 100 characters. Subscribers outside the request\&#39;s monitoring centre are never matched. Requires the X-Service-Api-Key header — a bearer token is refused with COPILOT.SERVICE_ONLY.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  CopilotApi,
+} from '';
+import type { GetCopilotCallContextRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: Bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new CopilotApi(config);
+
+  const body = {
+    // string (optional)
+    phone: phone_example,
+    // string (optional)
+    signalEventId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. (optional)
+    xCorrelationId: xCorrelationId_example,
+  } satisfies GetCopilotCallContextRequest;
+
+  try {
+    const data = await api.getCopilotCallContext(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **phone** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **signalEventId** | `string` |  | [Optional] [Defaults to `undefined`] |
+| **xCorrelationId** | `string` | Optional correlation identifier for distributed tracing. If omitted, the server generates one. Echoed back in the response. | [Optional] [Defaults to `undefined`] |
+
+### Return type
+
+[**CopilotCallContextResponse**](CopilotCallContextResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`, `application/problem+json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
+| **403** | Forbidden |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 | **401** | Missing or invalid access token |  * X-Correlation-Id - The correlation identifier for this request (echoed or generated). <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
