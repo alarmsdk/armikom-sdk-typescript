@@ -38,6 +38,18 @@ export interface DealerExportRequest {
      */
     monitoringCenterId?: string | null;
     /**
+     * City (il) filter, as on the list.
+     * @type {string}
+     * @memberof DealerExportRequest
+     */
+    cityId?: string | null;
+    /**
+     * District (ilçe) filter, as on the list.
+     * @type {string}
+     * @memberof DealerExportRequest
+     */
+    districtId?: string | null;
+    /**
      * 
      * @type {string}
      * @memberof DealerExportRequest
@@ -78,6 +90,8 @@ export function DealerExportRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'query': json['query'] === undefined ? undefined : json['query'] === null ? null : json['query'],
         'active': json['active'] === undefined ? undefined : json['active'] === null ? null : json['active'],
         'monitoringCenterId': json['monitoringCenterId'] === undefined ? undefined : json['monitoringCenterId'] === null ? null : json['monitoringCenterId'],
+        'cityId': json['cityId'] === undefined ? undefined : json['cityId'] === null ? null : json['cityId'],
+        'districtId': json['districtId'] === undefined ? undefined : json['districtId'] === null ? null : json['districtId'],
         'sort': json['sort'] === undefined ? undefined : json['sort'] === null ? null : json['sort'],
         'format': json['format'] === undefined ? undefined : json['format'] === null ? null : json['format'],
         'timeZone': json['timeZone'] === undefined ? undefined : json['timeZone'] === null ? null : json['timeZone'],
@@ -98,6 +112,8 @@ export function DealerExportRequestToJSONTyped(value?: DealerExportRequest | nul
         'query': value['query'],
         'active': value['active'],
         'monitoringCenterId': value['monitoringCenterId'],
+        'cityId': value['cityId'],
+        'districtId': value['districtId'],
         'sort': value['sort'],
         'format': value['format'],
         'timeZone': value['timeZone'],

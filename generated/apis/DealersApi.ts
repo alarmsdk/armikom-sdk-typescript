@@ -379,7 +379,7 @@ export class DealersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `sort`) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `cityId`, `districtId`, `sort`) with their city, district, phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
      * Export dealers to CSV or XLSX
      */
     async exportDealersRaw(requestParameters: DealersApiExportDealersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -390,7 +390,7 @@ export class DealersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `sort`) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+     * Exports the dealers matching the list filters (`query`, `active`, `monitoringCenterId`, `cityId`, `districtId`, `sort`) with their city, district, phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
      * Export dealers to CSV or XLSX
      */
     async exportDealers(requestParameters: DealersApiExportDealersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {

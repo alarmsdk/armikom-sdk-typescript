@@ -10,6 +10,8 @@ Name | Type
 `query` | string
 `active` | boolean
 `monitoringCenterId` | string
+`cityId` | string
+`districtId` | string
 `sort` | string
 `format` | string
 `timeZone` | string
@@ -24,6 +26,8 @@ const example = {
   "query": null,
   "active": null,
   "monitoringCenterId": null,
+  "cityId": null,
+  "districtId": null,
   "sort": null,
   "format": null,
   "timeZone": null,

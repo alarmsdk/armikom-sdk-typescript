@@ -256,7 +256,7 @@ example().catch(console.error);
 
 Export dealers to CSV or XLSX
 
-Exports the dealers matching the list filters (&#x60;query&#x60;, &#x60;active&#x60;, &#x60;monitoringCenterId&#x60;, &#x60;sort&#x60;) with their phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
+Exports the dealers matching the list filters (&#x60;query&#x60;, &#x60;active&#x60;, &#x60;monitoringCenterId&#x60;, &#x60;cityId&#x60;, &#x60;districtId&#x60;, &#x60;sort&#x60;) with their city, district, phones (contact 1/2), e-mail and subscriber counts. Returns the file directly as a download. Maximum 50,000 rows.
 
 ### Example
 
